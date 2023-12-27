@@ -29,3 +29,12 @@ TextStyle commonTitle() {
     fontFamily: FontRes.black,
   );
 }
+
+TextStyle commonSubtitle() {
+  return TextStyle(
+    // color: ColorRes.grey2,
+    fontWeight: FontWeight.w400,
+    fontSize: 11.1,
+    fontFamily: FontRes.black,
+  );
+}

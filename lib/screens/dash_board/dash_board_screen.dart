@@ -131,7 +131,7 @@ class DashBoardScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 5),
                         child: GestureDetector(
                           onTap: () {
-                            dashBoardController.nextPage(4);
+                            dashBoardController.nextPage(3);
                             dashBoardController.update(['dash']);
                           },
                           child: Column(
@@ -139,13 +139,13 @@ class DashBoardScreen extends StatelessWidget {
                               Image.asset(
                                 AssetRes.profile,
                                 scale: 3,
-                                color: dashBoardController.currentIndex == 4 ? ColorRes.mainColor : Colors.grey,
+                                color: dashBoardController.currentIndex == 3 ? ColorRes.mainColor : Colors.grey,
                               ),
                               SizedBox(height: 10),
                               Text(
                                 StringRes.profile,
                                 style: TextStyle(
-                                    color: dashBoardController.currentIndex == 4 ? ColorRes.mainColor : Colors.grey),
+                                    color: dashBoardController.currentIndex == 3 ? ColorRes.mainColor : Colors.grey),
                               ),
                             ],
                           ),

@@ -8,6 +8,11 @@ class ColorRes {
   static const yellow = Color(0xFFFFC327);
   static const lightYellow = Color(0xFFFFD66B);
   static const grey2 = Color(0xFF4F4E69);
+  static const grey3 = Color(0xFFB3B3BF);
+  static const green = Color(0xFF3A974C);
+  static const lightGreen = Color(0xFFB8FAC6);
+  static const pink = Color(0xFFD11A2A);
+  static const lightPink = Color(0xFFF8D1D4);
 
   static const black = Color(0xFF000000);
   static const black2 = Color(0xFF090909);

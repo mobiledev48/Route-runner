@@ -14,6 +14,12 @@ class AssetRes {
   static const profile = '${icon}profile.png';
   static const locator = '${icon}locator.png';
   static const drawer = '${icon}drawer.png';
+  static const menu = '${icon}menu.png';
+  static const arrowDown = '${icon}ArrowDown.png';
+  static const calendar = '${icon}calendar.png';
+  static const pin = '${icon}pin.png';
+  static const list = '${icon}list.png';
+  static const search = '${icon}search.png';
 }
 
 // class AssetRes {

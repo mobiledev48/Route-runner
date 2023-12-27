@@ -22,6 +22,21 @@ class StringRes {
   static const machines = 'Machines';
   static const newCollection = 'New Collection';
   static const auditNumber = 'Enter current audit number';
+  static const go = 'Go';
+  static const recentCollection = 'Recent Collection';
+  static const serialNo = 'Serial no';
+  static const current = 'Current';
+  static const previous = 'Previous';
+  static const total = 'Total';
+  static const num3 = '#1-876364';
+  static const moonlightBar = 'Moonlight Bar';
+  static const num4 = '\$2500';
+  static const num5 = '\$2000';
+  static const num6 = '\$500';
+  static const pendingRepairs = 'Pending Repairs';
+
+  //----------------------------location screen------------------
+  static const search = 'Search';
 
   ///---------------------------------------- Utils ----------------------------------------
 
