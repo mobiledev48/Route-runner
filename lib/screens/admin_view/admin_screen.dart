@@ -1,7 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/screens/admin_view/admin_controller.dart';
+import 'package:route_runner/screens/admin_view/widget/customFeildView.dart';
+import 'package:route_runner/utils/text_style.dart';
+
+import '../../utils/asset_res.dart';
+import '../../utils/color_res.dart';
+import '../../utils/font_res.dart';
+import '../../utils/strings.dart';
+import '../dash_board/dash_board_screen.dart';
+import '../edit_location_view/edit_location_screen.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({super.key});
@@ -10,63 +20,186 @@ class AdminScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AdminController adminController = Get.put(AdminController());
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text(
-          'Admin Login',
-          style: GoogleFonts.glory(fontSize: 25),
+      resizeToAvoidBottomInset: false,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: GetBuilder<AdminController>(
+            id: 'admin',
+            builder: (controller) {
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 60,
+                  ),
+                  Center(
+                    child: Image.asset(
+                      AssetRes.splashLogo,
+                      color: ColorRes.mainColor,
+                      scale: 4,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Center(
+                    child: Text(
+                      StringRes.RRlogin,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        fontFamily: FontRes.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 80),
+                  // textFiledView(adminController, context),
+                  // SizedBox(width: 104),
+                  textFiledView(adminController, context),
+                  // CustomFeildView(
+                  //   controller: adminController.emailController,
+                  //   hint: StringRes.exampleEmail,
+                  //   label: StringRes.emailAddress,
+                  //   isSufix: false,
+                  // ),
+                  // SizedBox(height: 20),
+                  // CustomFeildView(
+                  //   controller: adminController.passwordController,
+                  //   hint: StringRes.password,
+                  //   label: StringRes.password,
+                  //   isSufix: true,
+                  //   sufix: Icon(Icons.remove_red_eye),
+                  // ),
+
+                  adminController.customContainer(),
+                  Align(
+                    heightFactor: 2,
+                    child: Container(
+                        height: Get.height * 0.08,
+                        width: Get.width * 0.9,
+                        decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
+                        child: CupertinoButton(
+                            child: Text(
+                              StringRes.login,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: () {
+                              adminController.loginOnTap(context);
+                              Get.to(() => DashBoardScreen());
+                            })),
+                  )
+                ],
+              );
+            },
+          ),
         ),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Obx(() => Stack(
-                children: [
-                  textFiledView(adminController, context),
-                  adminController.loader.isTrue
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : const SizedBox()
-                ],
-              ))),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.black,
+      //   title: Text(
+      //     'Admin Login',
+      //     style: GoogleFonts.glory(fontSize: 25),
+      //   ),
+      // ),
+      // body: Padding(
+      //     padding: const EdgeInsets.all(16.0),
+      //     child: Obx(() => Stack(
+      //           children: [
+      //             textFiledView(adminController, context),
+      //             // adminController.loader.isTrue
+      //             //     ? const Center(
+      //             //         child: CircularProgressIndicator(),
+      //             //       )
+      //             //     : const SizedBox()
+      //           ],
+      //         ))),
     );
   }
 
   Widget textFiledView(AdminController adminController, BuildContext context) {
+    bool _obscurePassword = true;
+
     return Form(
       key: adminController.formKey,
       child: Column(
         children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(StringRes.emailAddress, style: hintTextStyle()),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
           TextFormField(
-            controller: adminController.email.value,
+            controller: adminController.emailController,
             style: GoogleFonts.glory(fontSize: 15),
             decoration: InputDecoration(
-                labelText: 'Username',
-                labelStyle: GoogleFonts.glory(fontSize: 15)),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
+              hintText: StringRes.exampleEmail,
+              hintStyle: TextStyle(
+                color: ColorRes.darkBlue,
+                fontWeight: FontWeight.w300,
+                fontSize: 14,
+                fontFamily: FontRes.black,
+              ),
+              filled: true,
+              fillColor: Colors.grey.shade100,
+              focusColor: Colors.black12,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff6f6f6)),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff6f6f6)),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your username';
+                return 'Please enter your email';
               }
               return null;
             },
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 30.0),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              StringRes.password,
+              style: hintTextStyle(),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
           TextFormField(
-            controller: adminController.passwordC.value,
+            controller: adminController.passwordController,
             style: GoogleFonts.glory(fontSize: 15),
             decoration: InputDecoration(
-                labelText: 'Password',
-                labelStyle: GoogleFonts.glory(fontSize: 15),
-                suffixIcon: GestureDetector(
-                    onTap: () {
-                      adminController.onTapOb();
-                    },
-                    child: Icon(
-                      adminController.obText.isTrue
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: Colors.black,
-                    ))),
+                // suffixIcon: IconButton(
+                //   icon: Icon(
+                //     adminController._obscurePassword ? Icons.visibility : Icons.visibility_off,
+                //   ),
+                //   onPressed: () {
+                //     // setState(() {
+                //     adminController._obscurePassword = !adminController._obscurePassword;
+                //     // });
+                //   },
+                // ),
+                filled: true,
+                fillColor: Colors.grey.shade100,
+                focusColor: Colors.black12,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xfff6f6f6)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xfff6f6f6)),
+                  borderRadius: BorderRadius.circular(10),
+                )),
             obscureText: adminController.obText.isTrue ? true : false,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -75,21 +208,23 @@ class AdminScreen extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 24.0),
-          SizedBox(
-            height: 40,
-            width: 100,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black
-                    .withOpacity(0.5), // Set the background color here
-              ),
-              onPressed: () {
-                adminController.loginOnTap(context);
-              },
-              child:  Text('Login',style: GoogleFonts.glory(fontSize: 15),),
-            ),
-          ),
+          // const SizedBox(height: 24.0),
+          // SizedBox(
+          //   height: 40,
+          //   width: 100,
+          //   child: ElevatedButton(
+          //     style: ElevatedButton.styleFrom(
+          //       backgroundColor: Colors.black.withOpacity(0.5), // Set the background color here
+          //     ),
+          //     onPressed: () {
+          //       adminController.loginOnTap(context);
+          //     },
+          //     child: Text(
+          //       'Login',
+          //       style: GoogleFonts.glory(fontSize: 15),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

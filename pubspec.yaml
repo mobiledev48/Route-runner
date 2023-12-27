@@ -72,8 +72,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - asset/image/
+    - asset/font/
+    - asset/icon/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -87,10 +89,25 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: Nunito
+       fonts:
+         - asset: asset/font/Nunito-Black.ttf
+         - asset: asset/font/Nunito-BlackItalic.ttf
+         - asset: asset/font/Nunito-Bold.ttf
+         - asset: asset/font/Nunito-BoldItalic.ttf
+         - asset: asset/font/Nunito-ExtraBold.ttf
+         - asset: asset/font/Nunito-ExtraBoldItalic.ttf
+         - asset: asset/font/Nunito-ExtraLight.ttf
+         - asset: asset/font/Nunito-ExtraLightItalic.ttf
+         - asset: asset/font/Nunito-Italic.ttf
+         - asset: asset/font/Nunito-Light.ttf
+         - asset: asset/font/Nunito-LightItalic.ttf
+         - asset: asset/font/Nunito-Medium.ttf
+         - asset: asset/font/Nunito-MediumItalic.ttf
+         - asset: asset/font/Nunito-Regular.ttf
+         - asset: asset/font/Nunito-SemiBold.ttf
+         - asset: asset/font/Nunito-SemiBoldItalic.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

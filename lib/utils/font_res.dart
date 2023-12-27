@@ -1,6 +1,14 @@
 import 'package:flutter/cupertino.dart';
 
 class FontRes {
+  static const black = "Nunito-Black";
+  static const blackItalic = "Nunito-BlackItalic.ttf";
+  static const bold = "Nunito-Bold.ttf";
+  static const boldItalic = "Nunito-BoldItalic.ttf";
+  static const extraBold = "Nunito-ExtraBold.ttf";
+  static const extraBoldItalic = "Nunito-ExtraBoldItalic.ttf";
+
+  //---------------old----------------
   static const gilroyBold = "Gilroy-Bold";
   static const gilroySemiBold = "Gilroy-SemiBold";
   static const gilroyMedium = "Gilroy-Medium";
@@ -23,9 +31,9 @@ Widget sizeH({double? h}) {
     height: h ?? 15,
   );
 }
-
-Widget sizeW({double? w}) {
-  return SizedBox(
-    height: w ?? 15,
-  );
-}
+//
+// Widget sizeW({double? w}) {
+//   return SizedBox(
+//     height: w ?? 15,
+//   );
+// }

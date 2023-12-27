@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/screens/splash_screen/splash_controller.dart';
 
+import '../../utils/asset_res.dart';
+import '../../utils/color_res.dart';
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -11,10 +14,24 @@ class SplashScreen extends StatelessWidget {
     SplashController controller = Get.put(SplashController());
     return Scaffold(
       backgroundColor: Colors.black26,
-      body: Center(
-        child: Text(
-          "Splash View",
-          style: GoogleFonts.glory(color: Colors.white),
+      body: Container(
+        height: Get.height,
+        width: Get.width,
+        color: ColorRes.mainColor,
+        alignment: Alignment.center,
+        // decoration:
+        //     const BoxDecoration(image: DecorationImage(image: AssetImage(AssetRes.splashLogo), fit: BoxFit.cover)),
+        child: Container(
+          height: 100,
+          width: 100,
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  AssetRes.splashLogo,
+                ),
+                fit: BoxFit.contain),
+          ),
         ),
       ),
     );
