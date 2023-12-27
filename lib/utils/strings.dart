@@ -30,4 +30,24 @@ class StringRes {
   ///-----------------------------------------auth------------------------------------------------
   static const locationList = "Location List";
   static const dashBoard = "DashBoard";
+
+
+  ///-----------------------------------------Profile------------------------------------------------
+  static const employeeName = "Employee Name";
+  static const enterEmail = "Enter Email";
+  static const enterMobile = "Enter Mobile";
+  static const close = "Close";
+  static const save = "Save";
+
+  ///-----------------------------------------new collection------------------------------------------------
+  static const machineNumber = "Machine Number";
+  static const captureMachineReading = "Capture Machine Reading";
+  static const serialNumber = "Serial Number";
+  static const entersSerialNumber = "Enter Serial Number";
+  static const auditsNumber = "Audit Number";
+  static const previousNumber = "Previous Number";
+  static const currentNumber = "Current Number";
+  static const enterCurrentNumber = "Enter Current Number Here";
+  static const collect = "Collect";
+
 }
