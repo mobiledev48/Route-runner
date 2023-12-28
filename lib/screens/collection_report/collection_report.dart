@@ -13,13 +13,14 @@ import 'collection_report_controller.dart';
 
 class CollectionReportScreen extends StatelessWidget {
   CollectionReportScreen({super.key});
+
   LocationController locationController = Get.put(LocationController());
   CollectionReportController controller = Get.put(CollectionReportController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
+      appBar: AppBar(
         leading: IconButton(
             onPressed: () {
               //  Get.to(HomeScreen());
@@ -29,10 +30,8 @@ class CollectionReportScreen extends StatelessWidget {
         backgroundColor: ColorRes.mainColor,
         title: Text(
           StringRes.collectionReport,
-          style:  GoogleFonts.nunito(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color:  ColorRes.white),
+          style: GoogleFonts.nunito(
+              fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
         ),
 
         // automaticallyImplyLeading: false,
@@ -44,93 +43,128 @@ class CollectionReportScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: Column(
               children: [
-                Container(width: Get.width * 0.9, height: Get.height * 0.06, child: CommomTextFormFeild()),
+                Container(
+                    width: Get.width * 0.9,
+                    height: Get.height * 0.06,
+                    child: CommomTextFormFeild()),
                 Expanded(
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: controller.allCollectionData.length,
-                      itemBuilder: (context, index) => Padding(
+                      itemBuilder: (context, index) =>
+                          Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Container(
                               width: Get.width,
-                              decoration:
-                                  BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                              decoration: BoxDecoration(
+                                  color: ColorRes.white,
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
                                     child: Row(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(bottom: 20, left: 5,right: 10),
-                                          child: locationController.customCheckbox(),
+                                          padding: const EdgeInsets.only(
+                                              bottom: 20, left: 5, right: 10),
+                                          child: controller
+                                              .customCheckbox(index),
                                         ),
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                             children: [
                                               SizedBox(height: 20),
                                               Text(
-                                                "${controller.allCollectionData[index].title}",
+                                                "${controller
+                                                    .allCollectionData[index]
+                                                    .title}",
                                                 // 'Moonlight Bar',
                                                 style: GoogleFonts.nunito(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w600,
-                                                    color:  ColorRes.black),
+                                                    color: ColorRes.black),
                                               ),
                                               SizedBox(height: 2),
                                               Text(
-                                                "Employee: ${controller.allCollectionData[index].employeeName}",
+                                                "Employee: ${controller
+                                                    .allCollectionData[index]
+                                                    .employeeName}",
                                                 // 'Admin: Arrora gaur',
                                                 style: GoogleFonts.nunito(
                                                     fontSize: 9,
                                                     fontWeight: FontWeight.w400,
-                                                    color:  ColorRes.color030229),
+                                                    color:
+                                                    ColorRes.color030229),
                                               ),
                                               SizedBox(height: 2),
                                               Row(
                                                 children: [
                                                   Text(
-                                                    'Machine: ${controller.allCollectionData[index].machine}',
+                                                    'Machine: ${controller
+                                                        .allCollectionData[index]
+                                                        .machine}',
                                                     style: GoogleFonts.nunito(
                                                         fontSize: 9,
-                                                        fontWeight: FontWeight.w400,
-                                                        color:  ColorRes.color030229),
+                                                        fontWeight:
+                                                        FontWeight.w400,
+                                                        color: ColorRes
+                                                            .color030229),
                                                   ),
-                                                  SizedBox(width: 3,),
-                                                  Text(
-                                                    'Beginning: ${controller.allCollectionData[index].machine}',
-                                                    style: GoogleFonts.nunito(
-                                                        fontSize: 9,
-                                                        fontWeight: FontWeight.w400,
-                                                        color:  ColorRes.color030229),
+                                                  SizedBox(
+                                                    width: 3,
                                                   ),
-                                                  SizedBox(width: 3,),
                                                   Text(
-                                                    'Closed: ${controller.allCollectionData[index].machine}',
+                                                    'Beginning: ${controller
+                                                        .allCollectionData[index]
+                                                        .machine}',
                                                     style: GoogleFonts.nunito(
                                                         fontSize: 9,
-                                                        fontWeight: FontWeight.w400,
-                                                        color:  ColorRes.color030229),
+                                                        fontWeight:
+                                                        FontWeight.w400,
+                                                        color: ColorRes
+                                                            .color030229),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 3,
+                                                  ),
+                                                  Text(
+                                                    'Closed: ${controller
+                                                        .allCollectionData[index]
+                                                        .machine}',
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 9,
+                                                        fontWeight:
+                                                        FontWeight.w400,
+                                                        color: ColorRes
+                                                            .color030229),
                                                   ),
                                                 ],
                                               ),
                                               SizedBox(height: 2),
                                               Text(
-                                                "Address: ${ controller.allCollectionData[index].address}",
+                                                "Address: ${controller
+                                                    .allCollectionData[index]
+                                                    .address}",
                                                 // 'Admin: Arrora gaur',
                                                 style: GoogleFonts.nunito(
                                                     fontSize: 9,
                                                     fontWeight: FontWeight.w400,
-                                                    color:  ColorRes.color030229),
+                                                    color:
+                                                    ColorRes.color030229),
                                               ),
                                               SizedBox(height: 10),
                                             ],
                                           ),
                                         ),
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             SizedBox(height: Get.height * 0.02),
                                             Row(
@@ -163,22 +197,29 @@ class CollectionReportScreen extends StatelessWidget {
                                                 //     },
                                                 //   );
                                                 // }
-                                                if(controller.isViewData[index] == false)
-                                                  {
-                                                    controller.isViewData[index] = true;
-                                                  }
-                                                else
-                                                  {
-                                                    controller.isViewData[index] = false;
-                                                  }
-                                                controller.update(['collection']);
+                                                if (controller
+                                                    .isViewData[index] ==
+                                                    false) {
+                                                  controller.isViewData[index] =
+                                                  true;
+                                                } else {
+                                                  controller.isViewData[index] =
+                                                  false;
+                                                }
+                                                controller
+                                                    .update(['collection']);
                                               },
-                                              child: controller.isViewData[index]? const Icon(
-                                                Icons.keyboard_arrow_down_sharp,
+                                              child:
+                                              controller.isViewData[index]
+                                                  ? const Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_sharp,
                                                 color: ColorRes.grey,
                                                 size: 22,
-                                              ) :const Icon(
-                                                Icons.keyboard_arrow_right,
+                                              )
+                                                  : const Icon(
+                                                Icons
+                                                    .keyboard_arrow_right,
                                                 color: ColorRes.grey,
                                                 size: 22,
                                               ),
@@ -188,108 +229,397 @@ class CollectionReportScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  controller.isViewData[index]? SizedBox(height: 230,
+                                  controller.isViewData[index]
+                                      ? SizedBox(
                                     child: ListView.separated(
-                                      itemCount:  controller.allCollectionData[index].machineDetails?.length ?? 0,
-                                      itemBuilder: (context, index) {
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: controller
+                                          .allCollectionData[index]
+                                          .machineDetails
+                                          ?.length ??
+                                          0,
+                                      itemBuilder: (context, i) {
                                         return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  height: 35,
-                                                  width: Get.width * 0.9,
-                                                  decoration: const BoxDecoration(
-                                                      borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(10),
-                                                        topRight: Radius.circular(10),
-                                                      ),
-                                                      color: ColorRes.grey2),
-                                                  child: const Row(
-                                                    children: [
-                                                      Text('Machine- #1-876364'),
-                                                      SizedBox(
-                                                        width: 15,
-                                                      ),
-                                                      Text('Current'),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text('Previous'),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text('Total'),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                    ],
-                                                  ),
+                                          padding: const EdgeInsets
+                                              .symmetric(
+                                              horizontal: 15),
+                                          child: Column(
+                                            children: [
+                                            Container(
+                                            height: 35,
+                                            width: Get.width * 0.9,
+                                            decoration:
+                                            BoxDecoration(
+                                                border: Border.all(width: 1,
+                                                    color: ColorRes
+                                                        .colorF2F2F2),
+                                                borderRadius:
+                                                const BorderRadius
+                                                    .only(
+                                                  topLeft: Radius
+                                                      .circular(
+                                                      10),
+                                                  topRight: Radius
+                                                      .circular(
+                                                      10),
                                                 ),
-                                                Container(
-                                                  height: Get.height * 0.12,
-                                                  width: Get.width * 0.9,
-                                                  decoration: const BoxDecoration(
-                                                      borderRadius: BorderRadius.only(
-                                                        bottomLeft: Radius.circular(10),
-                                                        bottomRight: Radius.circular(10),
-                                                      ),
-                                                      color: ColorRes.grey),
+                                                color: ColorRes
+                                                    .colorF2F2F2),
+                                            child: Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(horizontal: 10),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    'Machine- #${controller
+                                                        .allCollectionData[index]
+                                                        .machineDetails?[i]
+                                                        .machineId}-876364',
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        color: ColorRes
+                                                            .color030229),
+                                                  ),
+                                                  SizedBox(
+                                                    width: Get.width * 0.14,
+                                                  ),
+                                                  Text('Current',
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        color: ColorRes
+                                                            .color030229),),
+                                                  const SizedBox(
+                                                    width: 15,
+                                                  ),
+                                                  Text('Previous',
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        color: ColorRes
+                                                            .color030229),),
+                                                  const SizedBox(
+                                                    width: 15,
+                                                  ),
+                                                  Text('Total',
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        color: ColorRes
+                                                            .color030229),),
+
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height:
+                                            Get.height * 0.12,
+                                            width: Get.width * 0.9,
+                                            decoration:
+                                            BoxDecoration(
+                                                border: Border.all(width: 1,
+                                                    color: ColorRes
+                                                        .colorF2F2F2),
+                                                borderRadius:
+                                                const BorderRadius
+                                                    .only(
+                                                  bottomLeft: Radius
+                                                      .circular(
+                                                      10),
+                                                  bottomRight: Radius
+                                                      .circular(
+                                                      10),
+                                                ),
+                                                color: ColorRes
+                                                    .white),
+                                            child: Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  horizontal: 10, vertical: 10),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .spaceBetween, children: [
+                                              Row(children: [
+                                              Expanded(flex: 7,
+                                                child: Text(
+                                                  'In',
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+
+                                              Expanded(
+                                                child: Text(
+                                                  "\$ ${ controller
+                                                      .allCollectionData[index]
+                                                      .machineDetails?[i]
+                                                      .current?[0].In}",
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: Get.width * 0.07,),
+                                              Expanded(
+                                                child: Text(
+                                                  "\$ ${ controller
+                                                      .allCollectionData[index]
+                                                      .machineDetails?[i]
+                                                      .previous?[0].In}",
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: Get.width * 0.07,),
+                                              Expanded(
+                                                child: Text(
+                                                  "\$ ${controller
+                                                      .calculateTotalValue(
+                                                      controller
+                                                          .allCollectionData[index]
+                                                          .machineDetails?[i]
+                                                          .current![0].In,
+                                                      controller
+                                                          .allCollectionData[index]
+                                                          .machineDetails?[i]
+                                                          .previous?[0].In)}",
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+                                              ],),
+                                            Row(children: [
+                                              Expanded(flex: 7,
+                                                child: Text(
+                                                  'Out',
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+
+                                              Expanded(
+                                                child: Text(
+                                                  "\$ ${ controller
+                                                      .allCollectionData[index]
+                                                      .machineDetails?[i]
+                                                      .current?[0].out}",
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: Get.width * 0.07,),
+                                              Expanded(
+                                                child: Text(
+                                                  "\$ ${ controller
+                                                      .allCollectionData[index]
+                                                      .machineDetails?[i]
+                                                      .previous?[0].out}",
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: Get.width * 0.07,),
+                                              Expanded(
+                                                child: Text(
+                                                  // "\$ ${ controller.allCollectionData[index].machineDetails?[i].previous?[0].out}",
+                                                  "\$ ${controller
+                                                      .calculateTotalValue(
+                                                      controller
+                                                          .allCollectionData[index]
+                                                          .machineDetails?[i]
+                                                          .current![0].out,
+                                                      controller
+                                                          .allCollectionData[index]
+                                                          .machineDetails?[i]
+                                                          .previous?[0].out)}",
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+                                            ],),
+                                            Row(children: [
+                                              Expanded(flex: 7,
+                                                child: Text(
+                                                  'Total',
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: ColorRes
+                                                          .color030229),
+                                                ),
+                                              ),
+
+                                              Text(
+                                                "\$ ${controller
+                                                    .calculateTotalValue(
+                                                    controller
+                                                        .calculateTotalValue(
+                                                        controller
+                                                            .allCollectionData[index]
+                                                            .machineDetails?[i]
+                                                            .current![0].In,
+                                                        controller
+                                                            .allCollectionData[index]
+                                                            .machineDetails?[i]
+                                                            .previous?[0].In),controller
+                                                    .calculateTotalValue(
+                                                    controller
+                                                        .allCollectionData[index]
+                                                        .machineDetails?[i]
+                                                        .current![0].out,
+                                                    controller
+                                                        .allCollectionData[index]
+                                                        .machineDetails?[i]
+                                                        .previous?[0].out)
                                                 )
-                                              ],
-                                            )
-                                            // Stack(
-                                            //   children: [
-                                            //     Container(
-                                            //       height: Get.height * 0.8,
-                                            //       width: Get.width * 0.85,
-                                            //       decoration: BoxDecoration(
-                                            //           borderRadius: BorderRadius.circular(10),
-                                            //           color: ColorRes.grey),
-                                            //       child: Column(
-                                            //         children: [
-                                            //
-                                            //           Text('data')],
-                                            //       ),
-                                            //     ),
-                                            //     Container(
-                                            //       height: Get.height * 0.05,
-                                            //       width: Get.width * 0.85,
-                                            //       decoration: const BoxDecoration(
-                                            //           borderRadius: BorderRadius.only(
-                                            //             topLeft: Radius.circular(10),
-                                            //             topRight: Radius.circular(10),
-                                            //           ),
-                                            //           color: ColorRes.grey2),
-                                            //       child: const Row(
-                                            //         children: [
-                                            //           Text('Machine- #1-876364'),
-                                            //           SizedBox(
-                                            //             width: 15,
-                                            //           ),
-                                            //           Text('Current'),
-                                            //           SizedBox(
-                                            //             width: 5,
-                                            //           ),
-                                            //           Text('Previous'),
-                                            //           SizedBox(
-                                            //             width: 5,
-                                            //           ),
-                                            //           Text('Total'),
-                                            //           SizedBox(
-                                            //             width: 5,
-                                            //           ),
-                                            //         ],
-                                            //       ),
-                                            //     )
-                                            //   ],
-                                            // ),
-                                            );
-                                      }, separatorBuilder: (BuildContext context, int index) {
-                                        return SizedBox(height: 10,);
-                                    },
+                                                  }",
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      color: (controller
+                                                          .calculateTotalValue(
+                                                          controller
+                                                              .allCollectionData[index]
+                                                              .machineDetails?[i]
+                                                              .previous?[0].In,
+                                                          controller
+                                                              .allCollectionData[index]
+                                                              .machineDetails?[i]
+                                                              .previous?[0]
+                                                              .out) >= 0)
+                                                          ?
+                                                      ColorRes.color3A974C
+                                                          : Colors.red),
+                                                ),
+                                                SizedBox(
+                                                  width: Get.width * 0.004,),
+                                                ],),
+                                            ]),
+                                          ),
+                                        ),
+
+                                            ],
+                                        )
+                                        );
+                                      },
+                                      separatorBuilder:
+                                          (BuildContext context,
+                                          int index) {
+                                        return const SizedBox(
+                                          height: 10,
+                                        );
+                                      },
                                     ),
-                                  ):SizedBox()
+                                  )
+                                      : SizedBox(),
+
+                                  controller.isViewData[index]
+                                      ? Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,vertical: 10),
+                                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Total profit- 600',
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 10,
+                                              fontWeight:
+                                              FontWeight.w600,
+                                              color: ColorRes
+                                                  .black),
+                                        ),
+
+                                        Text(
+                                          '50%- 300',
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 10,
+                                              fontWeight:
+                                              FontWeight.w600,
+                                              color: ColorRes
+                                                  .black),
+                                        ),
+
+                                        Text(
+                                          'Paid- 300',
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 10,
+                                              fontWeight:
+                                              FontWeight.w600,
+                                              color: ColorRes
+                                                  .black),
+                                        ),
+
+                                        Text(
+                                          'Due- 0',
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 10,
+                                              fontWeight:
+                                              FontWeight.w600,
+                                              color: ColorRes
+                                                  .black),
+                                        ),
+                                      ],
+                                    ),
+                                  ):SizedBox(),
+
                                 ],
                               ),
                             ),
@@ -303,7 +633,3 @@ class CollectionReportScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-

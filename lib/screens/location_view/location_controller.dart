@@ -14,6 +14,7 @@ import '../../utils/text_style.dart';
 class LocationController extends GetxController {
   //--------------checkbox----------
   bool isClick = false;
+
   //---------------drop down-------------
   bool onClick = false;
 
@@ -40,7 +41,7 @@ class LocationController extends GetxController {
       height: Get.height * 0.13,
       width: Get.width * 0.4,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightBlue),
-      child: Column(
+      child: const Column(
         children: [
           SizedBox(height: 10),
           SizedBox(height: 10),
