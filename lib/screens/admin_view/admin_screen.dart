@@ -20,13 +20,13 @@ class AdminScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AdminController adminController = Get.put(AdminController());
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
 
-      body: SingleChildScrollView(
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30),
             child: GetBuilder<AdminController>(
@@ -67,22 +67,28 @@ class AdminScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      TextFormFields(
-                          vadidation: (value) {
-                            bool emailvalid =
-                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`  {|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    .hasMatch(value!);
-                            if (value!.isEmpty) {
-                              return 'Enter the Email';
-                            } else if (!emailvalid) {
-                              return "Enter Valid email";
-                            }
-                            return null;
-                          },
-                          texts: StringRes.exampleEmail,
-                          con: adminController.emailController,
-                          isprefix: false,
-                          issufix: false),
+                      Container(
+                        height: Get.height * 0.09,
+                        child: TextFormFields(
+                            vadidation: (value) {
+                              bool emailvalid =
+                                  RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`  {|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      .hasMatch(value!);
+                              if (value!.isEmpty) {
+                                return 'Enter the Email';
+                              } else if (!emailvalid) {
+                                return "Enter Valid email";
+                              }
+                              return null;
+                            },
+                            texts: StringRes.exampleEmail,
+                            con: adminController.emailController,
+                            isprefix: false,
+                            issufix: false),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -93,18 +99,24 @@ class AdminScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      PasswordField(
-                        vadidation: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter the Password';
-                          } else {
-                            return null;
-                          }
-                        },
-                        texts: StringRes.password,
-                        con: adminController.passwordController,
-                        isprefix: false,
-                        issufix: true,
+                      Container(
+                        height: Get.height * 0.09,
+                        child: PasswordField(
+                          vadidation: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter the Password';
+                            } else {
+                              return null;
+                            }
+                          },
+                          texts: StringRes.password,
+                          con: adminController.passwordController,
+                          isprefix: false,
+                          issufix: true,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                       adminController.customContainer(),
                       Align(
@@ -131,7 +143,6 @@ class AdminScreen extends StatelessWidget {
                 );
               },
             ),
-
           ),
         ),
       ),

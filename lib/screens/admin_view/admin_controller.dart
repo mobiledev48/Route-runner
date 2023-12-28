@@ -103,7 +103,7 @@ class AdminController extends GetxController {
           "Remember me",
           style: hintTextStyle(),
         ),
-        SizedBox(width: 30),
+        SizedBox(width: Get.width * 0.1),
         TextButton(
             onPressed: () {},
             child: Text(

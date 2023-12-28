@@ -56,8 +56,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          homeController.scaffoldKey.currentState
-                              ?.openEndDrawer();
+                          homeController.scaffoldKey.currentState?.openEndDrawer();
                         },
                         child: Image.asset(
                           AssetRes.drawer,
@@ -93,9 +92,7 @@ class HomeScreen extends StatelessWidget {
             Container(
               height: Get.height * 0.16,
               width: Get.width * 0.9,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: ColorRes.white),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: ColorRes.white),
               child: Column(
                 children: [
                   SizedBox(
@@ -103,28 +100,23 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 180),
-                    child: Text(StringRes.newCollection, style: commonTitle()),
+                    child: Text(StringRes.newCollection, style: commonTitle().copyWith(fontWeight: FontWeight.w700)),
                   ),
                   SizedBox(height: 17),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                          width: Get.width * 0.6,
-                          height: Get.height * 0.06,
-                          child: const TextFeildView()),
+                      Container(width: Get.width * 0.6, height: Get.height * 0.06, child: const TextFeildView()),
                       Container(
                           height: Get.height * 0.055,
-                          width: Get.width * 0.14,
-
-                          decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(20)),
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text(
-                                StringRes.go,
-                                style: commonTitle().copyWith(fontSize: 13),
-                              )))
-
+                          width: Get.width * 0.125,
+                          decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(7)),
+                          child: Center(
+                            child: Text(
+                              StringRes.go,
+                              style: commonTitle().copyWith(fontSize: 15, color: ColorRes.white),
+                            ),
+                          ))
                     ],
                   )
                 ],
@@ -137,9 +129,7 @@ class HomeScreen extends StatelessWidget {
               padding: EdgeInsets.all(10),
               height: Get.height * 0.33,
               width: Get.width * 0.9,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: ColorRes.white),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ColorRes.white),
               child: Column(
                 children: [
                   Row(
@@ -291,9 +281,7 @@ class HomeScreen extends StatelessWidget {
             Container(
               height: Get.height * 0.3,
               width: Get.width * 0.9,
-              decoration: BoxDecoration(
-                  color: ColorRes.white,
-                  borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
               child: Column(
                 children: [
                   Row(
@@ -303,7 +291,7 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20, top: 20),
                         child: Text(
                           StringRes.pendingRepairs,
-                          style: commonTitle(),
+                          style: commonTitle().copyWith(fontWeight: FontWeight.w700),
                         ),
                       ),
                       Padding(
@@ -394,28 +382,33 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding:  EdgeInsets.only(left: 30,right: 30,top: Get.height * 0.1,bottom: 30),
+                padding: EdgeInsets.only(left: 30, right: 30, top: Get.height * 0.1, bottom: 30),
                 child: Row(
                   children: [
                     Container(
                       height: 43,
                       width: 45,
-                      decoration:  const BoxDecoration(
-                        image: DecorationImage(fit: BoxFit.fill,image: AssetImage(AssetRes.profilePhotoDrawer)),
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(fit: BoxFit.fill, image: AssetImage(AssetRes.profilePhotoDrawer)),
                           borderRadius: BorderRadius.all(Radius.circular(12))),
                     ),
-                    SizedBox(width: 10,),
-                      Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                        Text("Jim Gallagher",style: GoogleFonts.nunito(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color:  ColorRes.black)),
-                        SizedBox(height: 2,),
-                        Text("Employee",style: GoogleFonts.nunito(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
-                            color:  ColorRes.black)),
-                      ],)
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Jim Gallagher",
+                            style:
+                                GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w600, color: ColorRes.black)),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Text("Employee",
+                            style:
+                                GoogleFonts.nunito(fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black)),
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -423,13 +416,21 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: homeController.dividers(),
               ),
-
-              Expanded(child: ListView.builder(itemCount: homeController.imageList.length,itemBuilder: (context, index) {
-                return ListTile(leading: Image.asset(homeController.imageList[index],scale: 4,),title: Text(homeController.drawerTitle[index].toString(),style: GoogleFonts.nunito(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color:  ColorRes.color9A9AA9)),);
-              },))
+              Expanded(
+                  child: ListView.builder(
+                itemCount: homeController.imageList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Image.asset(
+                      homeController.imageList[index],
+                      scale: 4,
+                    ),
+                    title: Text(homeController.drawerTitle[index].toString(),
+                        style:
+                            GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w600, color: ColorRes.color9A9AA9)),
+                  );
+                },
+              ))
             ],
           )),
     );

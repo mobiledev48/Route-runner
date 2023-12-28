@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:route_runner/screens/admin_view/admin_screen.dart';
+import 'package:route_runner/screens/collection_detail/collection_detail_screen.dart';
 import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
 
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Nunito',
         primarySwatch: Colors.blue,
       ),
-      home: NewCollectionScreen(),
+      home: SplashScreen(),
     );
   }
 }

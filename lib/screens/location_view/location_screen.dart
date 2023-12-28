@@ -5,6 +5,7 @@ import 'package:route_runner/screens/location_view/location_controller.dart';
 import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/text_style.dart';
 
+import '../../common/appbar.dart';
 import '../../common/common_text_fild.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/strings.dart';
@@ -17,29 +18,23 @@ class LocationScreen extends StatelessWidget {
     LocationController locationController = Get.put(LocationController());
 
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.to(DashBoardScreen());
-              },
-              icon: Icon(Icons.arrow_back_ios_sharp)),
-          centerTitle: true,
-          backgroundColor: ColorRes.mainColor,
-          title: Text(
-            'Location',
-            style: appbarStyle().copyWith(fontSize: 24),
-          ),
-          // automaticallyImplyLeading: false,
-        ),
         body: SingleChildScrollView(
-          child: GetBuilder<LocationController>(
-            id: 'location',
-            builder: (controller) {
-              return Padding(
+      child: GetBuilder<LocationController>(
+        id: 'location',
+        builder: (controller) {
+          return Column(
+            children: [
+              AppBars(
+                title: StringRes.location,
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: Column(
                   children: [
                     Container(width: Get.width * 0.9, height: Get.height * 0.06, child: CommomTextFormFeild()),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: [
                         GestureDetector(
@@ -52,7 +47,7 @@ class LocationScreen extends StatelessWidget {
                             width: Get.width * 0.455,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                                    BorderRadius.only(topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)),
                                 color: controller.currentIndex == 0 ? ColorRes.mainColor : ColorRes.white),
                             child: Center(
                                 child: Text(
@@ -71,7 +66,7 @@ class LocationScreen extends StatelessWidget {
                             width: Get.width * 0.455,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+                                    BorderRadius.only(topRight: Radius.circular(7), bottomRight: Radius.circular(7)),
                                 color: controller.currentIndex == 1 ? ColorRes.mainColor : ColorRes.white),
                             child: Center(
                                 child: Text(StringRes.unPaid,
@@ -145,7 +140,9 @@ class LocationScreen extends StatelessWidget {
                                                 offset: const Offset(0, 10),
                                                 // padding: EdgeInsets.zero,
                                                 constraints: BoxConstraints.expand(width: 120, height: 115),
-                                                position: PopupMenuPosition.under,
+                                                padding: EdgeInsets.all(12),
+
+                                                // position: PopupMenuPosition.under,
                                                 child: const Text(
                                                   "View more",
                                                   style: TextStyle(
@@ -159,7 +156,7 @@ class LocationScreen extends StatelessWidget {
                                                     PopupMenuItem(
                                                       child: Container(
                                                         height: Get.height * 0.06,
-                                                        width: Get.width * 0.6,
+                                                        width: Get.width * 0.9,
                                                         decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(6),
                                                             color: ColorRes.lightYellow),
@@ -324,10 +321,12 @@ class LocationScreen extends StatelessWidget {
                     //     : const SizedBox(),
                   ],
                 ),
-              );
-            },
-          ),
-        ));
+              ),
+            ],
+          );
+        },
+      ),
+    ));
   }
 }
 
