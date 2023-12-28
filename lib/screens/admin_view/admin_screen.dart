@@ -87,7 +87,7 @@ class AdminScreen extends StatelessWidget {
                             issufix: false),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Align(
                         alignment: Alignment.topLeft,
@@ -109,7 +109,7 @@ class AdminScreen extends StatelessWidget {
                               return null;
                             }
                           },
-                          texts: StringRes.password,
+                          texts: StringRes.pass,
                           con: adminController.passwordController,
                           isprefix: false,
                           issufix: true,

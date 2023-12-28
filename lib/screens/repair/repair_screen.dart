@@ -48,7 +48,7 @@ class RepairScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {},
                       child: Container(
-                          height: Get.height * 0.037,
+                          height: Get.height * 0.039,
                           width: Get.width * 0.078,
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.trans),
                           child: Icon(
@@ -66,7 +66,7 @@ class RepairScreen extends StatelessWidget {
                   children: [
                     Container(width: Get.width * 0.9, height: Get.height * 0.06, child: CommomTextFormFeild()),
                     SizedBox(
-                      height: Get.height * 0.73,
+                      height: Get.height * 0.8,
                       child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: _allData.length,

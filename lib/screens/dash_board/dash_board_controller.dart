@@ -16,5 +16,5 @@ class DashBoardController extends GetxController {
     update(['dash']);
   }
 
-  List screen = [HomeScreen(), LocationScreen(), CollectionReportScreen(), ProfileScreen()];
+  List screen = [HomeScreen(), LocationScreen(), MachineScreen(), ProfileScreen()];
 }

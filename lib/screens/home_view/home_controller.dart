@@ -13,6 +13,12 @@ class HomeController extends GetxController {
   TextEditingController auditController = TextEditingController();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  void Currentindex(index) {
+    currentIndex = index;
+    update(['home']);
+  }
+
+  int currentIndex = 0;
   Widget dividers() {
     return Divider(
       height: 1,
@@ -30,12 +36,7 @@ class HomeController extends GetxController {
     StringRes.total,
   ];
 
-  List imageList = [
-    AssetRes.ticketVoucher,
-    AssetRes.settingsFuture,
-    AssetRes.fileDocument,
-    AssetRes.logOut
-  ];
+  List imageList = [AssetRes.ticketVoucher, AssetRes.settingsFuture, AssetRes.fileDocument, AssetRes.logOut];
 
   List drawerTitle = [
     StringRes.collectionReport,
@@ -43,8 +44,6 @@ class HomeController extends GetxController {
     StringRes.serviceReport,
     StringRes.logout,
   ];
-
-
 
   List pendingRepair1 = ['Serial No: #1-876364', 'Location: Moonlight Bar', 'Issue: Joy stick not working'];
 

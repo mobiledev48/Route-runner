@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/home_view/home_controller.dart';
 import 'package:route_runner/screens/home_view/widget/appbar_container.dart';
 import 'package:route_runner/screens/home_view/widget/text_feild_view.dart';
+import 'package:route_runner/screens/repair/repair_screen.dart';
+import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
@@ -114,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                           child: Center(
                             child: Text(
                               StringRes.go,
-                              style: commonTitle().copyWith(fontSize: 15, color: ColorRes.white),
+                              style: commonTitle().copyWith(fontSize: 17, color: ColorRes.white),
                             ),
                           ))
                     ],
@@ -338,7 +341,7 @@ class HomeScreen extends StatelessWidget {
                             style: commonSubtitle().copyWith(fontSize: 12),
                           ),
                           SizedBox(
-                            width: 55,
+                            width: 58,
                           ),
                           Text(
                             'Date: 15 Dec, 2023',
@@ -359,7 +362,7 @@ class HomeScreen extends StatelessWidget {
                         style: commonSubtitle().copyWith(fontSize: 12),
                       ),
                       SizedBox(
-                        width: 35,
+                        width: 40,
                       ),
                       Text(
                         'Time: 11:06 AM',
@@ -377,62 +380,81 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      endDrawer: Drawer(
-          width: Get.width * 0.68,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 30, right: 30, top: Get.height * 0.1, bottom: 30),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 43,
-                      width: 45,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(fit: BoxFit.fill, image: AssetImage(AssetRes.profilePhotoDrawer)),
-                          borderRadius: BorderRadius.all(Radius.circular(12))),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+      endDrawer: GetBuilder<HomeController>(
+        id: 'home',
+        builder: (controller) {
+          return Drawer(
+              width: Get.width * 0.68,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 30, right: 30, top: Get.height * 0.1, bottom: 30),
+                    child: Row(
                       children: [
-                        Text("Jim Gallagher",
-                            style:
-                                GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w600, color: ColorRes.black)),
-                        SizedBox(
-                          height: 2,
+                        Container(
+                          height: 43,
+                          width: 45,
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(fit: BoxFit.fill, image: AssetImage(AssetRes.profilePhotoDrawer)),
+                              borderRadius: BorderRadius.all(Radius.circular(12))),
                         ),
-                        Text("Employee",
-                            style:
-                                GoogleFonts.nunito(fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black)),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Jim Gallagher",
+                                style: GoogleFonts.nunito(
+                                    fontSize: 14, fontWeight: FontWeight.w600, color: ColorRes.black)),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Text("Employee",
+                                style: GoogleFonts.nunito(
+                                    fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black)),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: homeController.dividers(),
-              ),
-              Expanded(
-                  child: ListView.builder(
-                itemCount: homeController.imageList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Image.asset(
-                      homeController.imageList[index],
-                      scale: 4,
                     ),
-                    title: Text(homeController.drawerTitle[index].toString(),
-                        style:
-                            GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w600, color: ColorRes.color9A9AA9)),
-                  );
-                },
-              ))
-            ],
-          )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: homeController.dividers(),
+                  ),
+                  Expanded(
+                      child: ListView.builder(
+                    itemCount: homeController.imageList.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.back();
+                          homeController.Currentindex(index);
+                          homeController.update(['home']);
+                          if (homeController.currentIndex == 0) {
+                            Get.to(() => CollectionReportScreen());
+                          } else if (homeController.currentIndex == 1) {
+                            Get.to(() => RepairScreen());
+                          } else if (homeController.currentIndex == 2) {
+                            Get.to(() => ServiceReportScreen());
+                          }
+                        },
+                        child: ListTile(
+                          leading: Image.asset(
+                            homeController.imageList[index],
+                            scale: 4,
+                          ),
+                          title: Text(homeController.drawerTitle[index].toString(),
+                              style: GoogleFonts.nunito(
+                                  fontSize: 16, fontWeight: FontWeight.w600, color: ColorRes.color9A9AA9)),
+                        ),
+                      );
+                    },
+                  ))
+                ],
+              ));
+        },
+      ),
     );
   }
 }

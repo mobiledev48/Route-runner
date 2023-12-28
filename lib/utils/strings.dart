@@ -4,7 +4,7 @@ class StringRes {
   static const emailAddress = 'Email Address';
   static const exampleEmail = 'example@gmail.com';
   static const password = 'Password';
-  static const pass = 'password';
+  static const pass = 'Enter the password';
   static const resetPassword = 'Reset Password?';
   static const login = 'Log in';
 

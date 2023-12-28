@@ -6,6 +6,7 @@ import 'package:route_runner/screens/location_view/location_controller.dart';
 import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/text_style.dart';
 
+import '../../common/appbar.dart';
 import '../../common/common_text_fild.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/strings.dart';
@@ -16,25 +17,34 @@ class MachineScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.to(HomeScreen());
-              },
-              icon: Icon(Icons.arrow_back_ios_sharp)),
-          centerTitle: true,
-          backgroundColor: ColorRes.mainColor,
-          title: Text(
-            StringRes.machine,
-            style: GoogleFonts.glory(fontSize: 25),
-          ),
-          // automaticallyImplyLeading: false,
-        ),
+        // appBar: AppBar(
+        //   leading: IconButton(
+        //       onPressed: () {
+        //         // Get.to(HomeScreen());
+        //       },
+        //       icon: Icon(
+        //         Icons.arrow_back_ios_sharp,
+        //         size: 20,
+        //       )),
+        //   centerTitle: true,
+        //   backgroundColor: ColorRes.mainColor,
+        //   title: Text(
+        //     StringRes.machine,
+        //     style: appbarStyle(),
+        //   ),
+        //   // automaticallyImplyLeading: false,
+        // ),
         body: SingleChildScrollView(
-          child: GetBuilder<LocationController>(
-            id: 'location',
-            builder: (controller) {
-              return Padding(
+      child: GetBuilder<LocationController>(
+        id: 'location',
+        builder: (controller) {
+          return Column(
+            children: [
+              AppBars(
+                width: Get.width * 0.27,
+                title: StringRes.machine,
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: Column(
                   children: [
@@ -96,12 +106,17 @@ class MachineScreen extends StatelessWidget {
                                             )),
                                           ),
                                           Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
+                                              SizedBox(
+                                                height: Get.height * 0.02,
+                                              ),
                                               PopupMenuButton(
                                                 offset: const Offset(0, 10),
                                                 // padding: EdgeInsets.zero,
                                                 constraints: BoxConstraints.expand(width: 120, height: 115),
                                                 position: PopupMenuPosition.under,
+
                                                 child: const Text(
                                                   "View more",
                                                   style: TextStyle(
@@ -157,26 +172,22 @@ class MachineScreen extends StatelessWidget {
                                                   ];
                                                 },
                                               ),
-                                              // TextButton(
-                                              //     onPressed: () {},
-                                              //     child: const Text(
-                                              //       'View more',
-                                              //       style: TextStyle(
-                                              //         fontWeight: FontWeight.w500,
-                                              //         fontSize: 13,
-                                              //         color: ColorRes.grey3,
-                                              //         decoration: TextDecoration.underline,
-                                              //       ),
-                                              //     )),
-                                              SizedBox(height: 25),
+                                              SizedBox(height: Get.height * 0.02),
                                               Row(
                                                 children: [
-                                                  Image.asset(
-                                                    AssetRes.calendar,
-                                                    scale: 2.5,
+                                                  Text(
+                                                    'Initial: \$ 2000',
+                                                    style: TextStyle(
+                                                      fontSize: 9,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorRes.black,
+                                                    ),
                                                   ),
-                                                  const Text(
-                                                    '12 Dec, 2020',
+                                                  SizedBox(
+                                                    width: 6,
+                                                  ),
+                                                  Text(
+                                                    'Current: \$ 2648',
                                                     style: TextStyle(
                                                       fontSize: 9,
                                                       fontWeight: FontWeight.w400,
@@ -280,10 +291,12 @@ class MachineScreen extends StatelessWidget {
                     //     : const SizedBox(),
                   ],
                 ),
-              );
-            },
-          ),
-        ));
+              ),
+            ],
+          );
+        },
+      ),
+    ));
   }
 }
 
