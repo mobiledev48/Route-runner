@@ -21,6 +21,7 @@ class AdminScreen extends StatelessWidget {
     AdminController adminController = Get.put(AdminController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
+
       body: SingleChildScrollView(
         child: GestureDetector(
           onTap: () {
@@ -130,6 +131,7 @@ class AdminScreen extends StatelessWidget {
                 );
               },
             ),
+
           ),
         ),
       ),

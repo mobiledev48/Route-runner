@@ -35,6 +35,10 @@ class StringRes {
   static const num5 = '\$2000';
   static const num6 = '\$500';
   static const pendingRepairs = 'Pending Repairs';
+  static const collectionReport = 'Collection Report';
+  static const repair = 'Repair';
+  static const serviceReport = 'Service Report';
+  static const logout = 'Logout';
 
   //----------------------------location screen------------------
   static const search = 'Search';
@@ -70,6 +74,18 @@ class StringRes {
   static const auditsNumber = "Audit Number";
   static const previousNumber = "Previous Number";
   static const currentNumber = "Current Number";
-  static const enterCurrentNumber = "Enter Current Number Here";
+  static const enterCurrentNumber = "0";
   static const collect = "Collect";
+
+  ///---------------------------------------- New Service Report ----------------------------------------
+
+  static const newServiceRepair = "New Service Report";
+  static const create = "Create";
+  static const steven = "Steven";
+  static const date = "Date";
+  static const time = "Time";
+  static const serviceRequested = "Service Requested";
+  static const jobStickNot = "Joy stick not working..";
+
+
 }

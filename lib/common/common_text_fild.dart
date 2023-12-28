@@ -10,10 +10,30 @@ class CommonTextField extends StatelessWidget {
   final TextEditingController? controller;
   bool? readOnly;
   bool? isRequired;
+  bool? isSuffixIcon;
   String? titleText;
   String? hintText;
+  String? suffixIcon;
+  double? suffixIconSize;
+   int? maxLines;
+  double? containerHeight;
+  final GestureTapCallback? suffixIconOnTap;
 
-  CommonTextField({this.hintText, this.isRequired, this.titleText, this.controller, this.readOnly});
+// <<<<<<< HEAD
+//   CommonTextField({this.hintText, this.isRequired, this.titleText, this.controller, this.readOnly});
+// =======
+  CommonTextField({this.maxLines,
+    this.containerHeight,
+    this.hintText,
+    this.isRequired,
+    this.suffixIconOnTap,
+    this.suffixIconSize,
+    this.isSuffixIcon,
+    this.suffixIcon,
+    this.titleText,
+    this.controller,
+    this.readOnly});
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +65,7 @@ class CommonTextField extends StatelessWidget {
           height: 9,
         ),
         Container(
-          height: 58,
+          height:containerHeight ?? 58,
           width: Get.width,
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -53,6 +73,7 @@ class CommonTextField extends StatelessWidget {
               ),
               color: ColorRes.colorF7F7F8),
           child: TextField(
+            maxLines: maxLines ?? 1,
             controller: controller,
             readOnly: readOnly ?? false,
             decoration: InputDecoration(
@@ -63,6 +84,7 @@ class CommonTextField extends StatelessWidget {
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
               ),
+              suffixIcon: isSuffixIcon==true?GestureDetector(onTap: suffixIconOnTap,child: Image.asset(suffixIcon ?? "",scale: suffixIconSize ?? 0.0,)):SizedBox()
             ),
           ),
         ),

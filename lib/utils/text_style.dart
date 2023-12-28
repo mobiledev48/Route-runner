@@ -27,6 +27,8 @@ TextStyle commonTitle() {
   );
 }
 
+
+
 TextStyle commonSubtitle() {
   return TextStyle(
     // color: ColorRes.grey2,

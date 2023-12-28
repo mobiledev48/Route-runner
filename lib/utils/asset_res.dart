@@ -6,6 +6,7 @@ class AssetRes {
 
   static const splashLogo = '${image}logo2.png';
   static const profilePhoto = '${image}Profile photo.png';
+  static const profilePhotoDrawer = '${image}profilePhotoDrawer.png';
 
   //---------------------icon-------------------------------
   static const home = '${icon}home.png';
@@ -18,10 +19,16 @@ class AssetRes {
   static const menu = '${icon}menu.png';
   static const arrowDown = '${icon}ArrowDown.png';
   static const calendar = '${icon}calendar.png';
+  static const timeCircle = '${icon}TimeCircle.png';
   static const pin = '${icon}pin.png';
   static const list = '${icon}list.png';
   static const search = '${icon}search.png';
   static const camera = '${icon}Camera.png';
+
+  static const fileDocument = '${icon}File_Document.png';
+  static const logOut = '${icon}logOut.png';
+  static const settingsFuture = '${icon}Settings_Future.png';
+  static const ticketVoucher = '${icon}Ticket_Voucher.png';
 }
 
 // class AssetRes {
