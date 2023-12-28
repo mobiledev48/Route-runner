@@ -14,8 +14,12 @@ class NewCollectionController extends GetxController {
 
  TextEditingController machineNumberController = TextEditingController();
  TextEditingController auditNumberController = TextEditingController();
+ TextEditingController previousNumberInController = TextEditingController();
+ TextEditingController previousNumberOutController = TextEditingController();
+ TextEditingController currentNumberInController = TextEditingController();
+ TextEditingController currentNumberOutController = TextEditingController();
  TextEditingController enterSerialNumberController = TextEditingController();
- TextEditingController enterCurrentNumberController = TextEditingController();
+ TextEditingController totalController = TextEditingController();
 
 
   File? image;

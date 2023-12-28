@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
+import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
+import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
 import 'package:route_runner/screens/splash_screen/splash_screen.dart';
 import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/asset_res.dart';
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      home: NewCollectionScreen(),
     );
   }
 }

@@ -60,11 +60,11 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-                bottom: 20,
+                bottom: 5,
                 left: 20,
                 right: 20,
                 child: Container(
-                  height: Get.height * 0.7,
+                  height: Get.height * 0.6,
                   width: Get.width,
                   decoration: const BoxDecoration(
                       color: Colors.white,

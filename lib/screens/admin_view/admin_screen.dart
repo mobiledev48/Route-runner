@@ -30,68 +30,70 @@ class AdminScreen extends StatelessWidget {
           child: GetBuilder<AdminController>(
             id: 'admin',
             builder: (controller) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  Center(
-                    child: Image.asset(
-                      AssetRes.splashLogo,
-                      color: ColorRes.mainColor,
-                      scale: 4,
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 60,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Center(
-                    child: Text(
-                      StringRes.RRlogin,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        fontFamily: FontRes.black,
+                    Center(
+                      child: Image.asset(
+                        AssetRes.splashLogo,
+                        color: ColorRes.mainColor,
+                        scale: 4,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 80),
-                  // textFiledView(adminController, context),
-                  // SizedBox(width: 104),
-                  textFiledView(adminController, context),
-                  // CustomFeildView(
-                  //   controller: adminController.emailController,
-                  //   hint: StringRes.exampleEmail,
-                  //   label: StringRes.emailAddress,
-                  //   isSufix: false,
-                  // ),
-                  // SizedBox(height: 20),
-                  // CustomFeildView(
-                  //   controller: adminController.passwordController,
-                  //   hint: StringRes.password,
-                  //   label: StringRes.password,
-                  //   isSufix: true,
-                  //   sufix: Icon(Icons.remove_red_eye),
-                  // ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Center(
+                      child: Text(
+                        StringRes.RRlogin,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          fontFamily: FontRes.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 80),
+                    // textFiledView(adminController, context),
+                    // SizedBox(width: 104),
+                    textFiledView(adminController, context),
+                    // CustomFeildView(
+                    //   controller: adminController.emailController,
+                    //   hint: StringRes.exampleEmail,
+                    //   label: StringRes.emailAddress,
+                    //   isSufix: false,
+                    // ),
+                    // SizedBox(height: 20),
+                    // CustomFeildView(
+                    //   controller: adminController.passwordController,
+                    //   hint: StringRes.password,
+                    //   label: StringRes.password,
+                    //   isSufix: true,
+                    //   sufix: Icon(Icons.remove_red_eye),
+                    // ),
 
-                  adminController.customContainer(),
-                  Align(
-                    heightFactor: 2,
-                    child: Container(
-                        height: Get.height * 0.08,
-                        width: Get.width * 0.9,
-                        decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
-                        child: CupertinoButton(
-                            child: Text(
-                              StringRes.login,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onPressed: () {
-                              adminController.loginOnTap(context);
-                              Get.to(() => DashBoardScreen());
-                            })),
-                  )
-                ],
+                    adminController.customContainer(),
+                    Align(
+                      heightFactor: 2,
+                      child: Container(
+                          height: Get.height * 0.08,
+                          width: Get.width * 0.9,
+                          decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
+                          child: CupertinoButton(
+                              child: Text(
+                                StringRes.login,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                adminController.loginOnTap(context);
+                                Get.to(() => DashBoardScreen());
+                              })),
+                    )
+                  ],
+                ),
               );
             },
           ),

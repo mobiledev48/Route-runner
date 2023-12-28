@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/screens/home_view/home_controller.dart';
 import 'package:route_runner/screens/home_view/widget/appbar_container.dart';
 import 'package:route_runner/screens/home_view/widget/text_feild_view.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: homeController.scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -52,9 +54,15 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         width: Get.width * 0.05,
                       ),
-                      Image.asset(
-                        AssetRes.drawer,
-                        scale: 3,
+                      InkWell(
+                        onTap: () {
+                          homeController.scaffoldKey.currentState
+                              ?.openEndDrawer();
+                        },
+                        child: Image.asset(
+                          AssetRes.drawer,
+                          scale: 3,
+                        ),
                       ),
                     ],
                   ),
@@ -85,7 +93,9 @@ class HomeScreen extends StatelessWidget {
             Container(
               height: Get.height * 0.16,
               width: Get.width * 0.9,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: ColorRes.white),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: ColorRes.white),
               child: Column(
                 children: [
                   SizedBox(
@@ -99,12 +109,19 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(width: Get.width * 0.6, height: Get.height * 0.06, child: const TextFeildView()),
+                      Container(
+                          width: Get.width * 0.6,
+                          height: Get.height * 0.06,
+                          child: const TextFeildView()),
                       Container(
                           height: Get.height * 0.06,
                           width: Get.width * 0.14,
-                          decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(20)),
-                          child: ElevatedButton(onPressed: () {}, child: const Text(StringRes.go)))
+                          decoration: BoxDecoration(
+                              color: ColorRes.mainColor,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              child: const Text(StringRes.go)))
                     ],
                   )
                 ],
@@ -117,7 +134,9 @@ class HomeScreen extends StatelessWidget {
               padding: EdgeInsets.all(10),
               height: Get.height * 0.33,
               width: Get.width * 0.9,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ColorRes.white),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: ColorRes.white),
               child: Column(
                 children: [
                   Row(
@@ -269,7 +288,9 @@ class HomeScreen extends StatelessWidget {
             Container(
               height: Get.height * 0.3,
               width: Get.width * 0.9,
-              decoration: BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(
+                  color: ColorRes.white,
+                  borderRadius: BorderRadius.circular(10)),
               child: Column(
                 children: [
                   Row(
@@ -365,6 +386,49 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      endDrawer: Drawer(
+          width: Get.width * 0.68,
+          child: Column(
+            children: [
+              Padding(
+                padding:  EdgeInsets.only(left: 30,right: 30,top: Get.height * 0.1,bottom: 30),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 43,
+                      width: 45,
+                      decoration:  const BoxDecoration(
+                        image: DecorationImage(fit: BoxFit.fill,image: AssetImage(AssetRes.profilePhotoDrawer)),
+                          borderRadius: BorderRadius.all(Radius.circular(12))),
+                    ),
+                    SizedBox(width: 10,),
+                      Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                        Text("Jim Gallagher",style: GoogleFonts.nunito(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color:  ColorRes.black)),
+                        SizedBox(height: 2,),
+                        Text("Employee",style: GoogleFonts.nunito(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color:  ColorRes.black)),
+                      ],)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: homeController.dividers(),
+              ),
+
+              Expanded(child: ListView.builder(itemCount: homeController.imageList.length,itemBuilder: (context, index) {
+                return ListTile(leading: Image.asset(homeController.imageList[index],scale: 4,),title: Text(homeController.drawerTitle[index].toString(),style: GoogleFonts.nunito(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color:  ColorRes.color9A9AA9)),);
+              },))
+            ],
+          )),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,47 +21,27 @@ class NewCollectionScreen extends StatelessWidget {
     NewCollectionController newCollectionController = Get.put(NewCollectionController());
     return SafeArea(
         child: Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                  onPressed: () {
+                  //  Get.to(HomeScreen());
+                  },
+                  icon: Icon(Icons.arrow_back_ios_sharp)),
+              centerTitle: true,
+              backgroundColor: ColorRes.mainColor,
+              title: Text(
+                'New Collection',
+                style:  GoogleFonts.nunito(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color:  ColorRes.white),
+              ),
+
+              // automaticallyImplyLeading: false,
+            ),
             body: GetBuilder<NewCollectionController>(id: 'collection',builder: (controller) {
               return  Column(
                 children: [
-                  Container(
-                    height: Get.height * 0.13,
-                    width: Get.width,
-                    decoration: BoxDecoration(color: ColorRes.mainColor),
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom:  Get.height * 0.02),
-                      child: Column(mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: const Icon(
-                                      Icons.arrow_back_ios_new,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    'New Collection',
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                        color: ColorRes.white),
-                                  ),
-                                  Text(
-                                    '',
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 20, fontWeight: FontWeight.w600),
-                                  )
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                Expanded(
                  child: SingleChildScrollView(
                    child: Padding(
@@ -92,17 +74,91 @@ class NewCollectionScreen extends StatelessWidget {
                            titleText: StringRes.auditsNumber,
                            controller: controller.auditNumberController),
                        SizedBox(height: 20,),
-                       CommonTextField(
-                           isRequired: true,
-                           hintText: "\$2500",
-                           titleText: StringRes.previousNumber,
-                           controller: controller.auditNumberController),
+                       /// in
+                       Row(
+                         children: [
+                           Text("In",
+                               style: GoogleFonts.nunito(
+                                 fontSize: 14,
+                                 fontWeight: FontWeight.w400,
+                                 color: ColorRes.color030229,
+                               )),
+
+                           const Text(
+                             ' *',
+                             style: TextStyle(
+                               fontSize: 16.0,
+                               color: Colors.red,
+                               fontWeight: FontWeight.bold,
+                             ),
+                           )
+                         ],
+                       ),
+                       const SizedBox(
+                         height: 9,
+                       ),
+                        Row(children: [
+                          Expanded(
+                            child: CommonTextField(
+                                isRequired: true,
+                                hintText: "0",
+                                titleText: StringRes.previousNumber,
+                                controller: controller.previousNumberInController),
+                          ),
+                          Expanded(
+                            child: CommonTextField(
+                                isRequired: true,
+                                hintText: "0",
+                                titleText: StringRes.currentNumber,
+                                controller: controller.currentNumberInController),
+                          ),
+                        ],),
+                       SizedBox(height: 20,),
+                       /// out
+                       Row(
+                         children: [
+                           Text("Out",
+                               style: GoogleFonts.nunito(
+                                 fontSize: 14,
+                                 fontWeight: FontWeight.w400,
+                                 color: ColorRes.color030229,
+                               )),
+
+                           const Text(
+                             ' *',
+                             style: TextStyle(
+                               fontSize: 16.0,
+                               color: Colors.red,
+                               fontWeight: FontWeight.bold,
+                             ),
+                           )
+                         ],
+                       ),
+                       const SizedBox(
+                         height: 9,
+                       ),
+                       Row(children: [
+                         Expanded(
+                           child: CommonTextField(
+                               isRequired: true,
+                               hintText: "0",
+                               titleText: StringRes.previousNumber,
+                               controller: controller.previousNumberOutController),
+                         ),
+                         Expanded(
+                           child: CommonTextField(
+                               isRequired: true,
+                               hintText: "0",
+                               titleText: StringRes.currentNumber,
+                               controller: controller.currentNumberOutController),
+                         ),
+                       ],),
                        SizedBox(height: 20,),
                        CommonTextField(
                            isRequired: true,
                            hintText: StringRes.enterCurrentNumber,
-                           titleText: StringRes.currentNumber,
-                           controller: controller.enterCurrentNumberController),
+                           titleText: StringRes.total,
+                           controller: controller.totalController),
                        SizedBox(height: 20,),
                        Row(
                          children: [
@@ -135,6 +191,24 @@ class NewCollectionScreen extends StatelessWidget {
                            ),
                            Spacer()
                          ],
+                       ),
+                       const SizedBox(
+                         height: 20,
+                       ),
+                       Align(
+                         alignment: Alignment.center,
+                         child: controller.image != null
+                             ? Container(
+                           height: 150,
+                           width: 200,
+                           decoration: BoxDecoration(
+                             image: DecorationImage(
+                               image: FileImage(File(controller.image!.path)),
+                               fit: BoxFit.cover, // Choose the BoxFit that suits your needs
+                             ),
+                           ),
+                         )
+                             : SizedBox(),
                        ),
                        SizedBox(height: 20,),
                        Padding(
