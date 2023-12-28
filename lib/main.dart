@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Nunito',
         primarySwatch: Colors.blue,
       ),
-      home: NewCollectionScreen(),
+      home: SplashScreen(),
     );
   }
 }

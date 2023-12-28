@@ -46,10 +46,10 @@ class StringRes {
   static const unPaid = 'Unpaid';
 
   //---------------------------repair screen------------------
-  static const repair = 'Repair';
-
-  //-----------------collection report screen----------------
-  static const collectionReport = 'Collection Report';
+  // static const repair = 'Repair';
+  //
+  // //-----------------collection report screen----------------
+  // static const collectionReport = 'Collection Report';
 
   ///---------------------------------------- Utils ----------------------------------------
 
