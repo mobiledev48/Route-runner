@@ -188,8 +188,8 @@ class CollectionReportScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  controller.isViewData[index]? Expanded(
-                                    child: ListView.builder(
+                                  controller.isViewData[index]? SizedBox(height: 230,
+                                    child: ListView.separated(
                                       itemCount:  controller.allCollectionData[index].machineDetails?.length ?? 0,
                                       itemBuilder: (context, index) {
                                         return Padding(
@@ -285,7 +285,9 @@ class CollectionReportScreen extends StatelessWidget {
                                             //   ],
                                             // ),
                                             );
-                                      },
+                                      }, separatorBuilder: (BuildContext context, int index) {
+                                        return SizedBox(height: 10,);
+                                    },
                                     ),
                                   ):SizedBox()
                                 ],
