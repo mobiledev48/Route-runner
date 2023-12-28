@@ -21,79 +21,115 @@ class AdminScreen extends StatelessWidget {
     AdminController adminController = Get.put(AdminController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: GetBuilder<AdminController>(
-            id: 'admin',
-            builder: (controller) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  Center(
-                    child: Image.asset(
-                      AssetRes.splashLogo,
-                      color: ColorRes.mainColor,
-                      scale: 4,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Center(
-                    child: Text(
-                      StringRes.RRlogin,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        fontFamily: FontRes.black,
+      body: SingleChildScrollView(
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: GetBuilder<AdminController>(
+              id: 'admin',
+              builder: (controller) {
+                return Form(
+                  key: adminController.formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 60,
                       ),
-                    ),
+                      Center(
+                        child: Image.asset(
+                          AssetRes.splashLogo,
+                          color: ColorRes.mainColor,
+                          scale: 4,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Center(
+                        child: Text(
+                          StringRes.RRlogin,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            fontFamily: FontRes.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 80),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(StringRes.emailAddress, style: hintTextStyle()),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormFields(
+                          vadidation: (value) {
+                            bool emailvalid =
+                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`  {|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(value!);
+                            if (value!.isEmpty) {
+                              return 'Enter the Email';
+                            } else if (!emailvalid) {
+                              return "Enter Valid email";
+                            }
+                            return null;
+                          },
+                          texts: StringRes.exampleEmail,
+                          con: adminController.emailController,
+                          isprefix: false,
+                          issufix: false),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          StringRes.password,
+                          style: hintTextStyle(),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      PasswordField(
+                        vadidation: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter the Password';
+                          } else {
+                            return null;
+                          }
+                        },
+                        texts: StringRes.password,
+                        con: adminController.passwordController,
+                        isprefix: false,
+                        issufix: true,
+                      ),
+                      adminController.customContainer(),
+                      Align(
+                        heightFactor: 2,
+                        child: Container(
+                            height: Get.height * 0.08,
+                            width: Get.width * 0.9,
+                            decoration:
+                                BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
+                            child: CupertinoButton(
+                                child: Text(
+                                  StringRes.login,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  if (adminController.formKey.currentState!.validate()) {
+                                    Get.to(() => DashBoardScreen());
+                                  }
+                                  // adminController.loginOnTap(context);
+                                })),
+                      )
+                    ],
                   ),
-                  const SizedBox(height: 80),
-                  // textFiledView(adminController, context),
-                  // SizedBox(width: 104),
-                  textFiledView(adminController, context),
-                  // CustomFeildView(
-                  //   controller: adminController.emailController,
-                  //   hint: StringRes.exampleEmail,
-                  //   label: StringRes.emailAddress,
-                  //   isSufix: false,
-                  // ),
-                  // SizedBox(height: 20),
-                  // CustomFeildView(
-                  //   controller: adminController.passwordController,
-                  //   hint: StringRes.password,
-                  //   label: StringRes.password,
-                  //   isSufix: true,
-                  //   sufix: Icon(Icons.remove_red_eye),
-                  // ),
-
-                  adminController.customContainer(),
-                  Align(
-                    heightFactor: 2,
-                    child: Container(
-                        height: Get.height * 0.08,
-                        width: Get.width * 0.9,
-                        decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
-                        child: CupertinoButton(
-                            child: Text(
-                              StringRes.login,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onPressed: () {
-                              adminController.loginOnTap(context);
-                              Get.to(() => DashBoardScreen());
-                            })),
-                  )
-                ],
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -140,7 +176,7 @@ class AdminScreen extends StatelessWidget {
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
               hintText: StringRes.exampleEmail,
               hintStyle: TextStyle(
-                color: ColorRes.darkBlue,
+                color: ColorRes.red,
                 fontWeight: FontWeight.w300,
                 fontSize: 14,
                 fontFamily: FontRes.black,
@@ -179,17 +215,9 @@ class AdminScreen extends StatelessWidget {
             controller: adminController.passwordController,
             style: GoogleFonts.glory(fontSize: 15),
             decoration: InputDecoration(
-                // suffixIcon: IconButton(
-                //   icon: Icon(
-                //     adminController._obscurePassword ? Icons.visibility : Icons.visibility_off,
-                //   ),
-                //   onPressed: () {
-                //     // setState(() {
-                //     adminController._obscurePassword = !adminController._obscurePassword;
-                //     // });
-                //   },
-                // ),
+                hintText: '',
                 filled: true,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
                 fillColor: Colors.grey.shade100,
                 focusColor: Colors.black12,
                 focusedBorder: OutlineInputBorder(

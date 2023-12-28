@@ -43,46 +43,17 @@ class LocationController extends GetxController {
       child: Column(
         children: [
           SizedBox(height: 10),
-          Container(
-            height: 30,
-            width: 120,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightYellow),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  AssetRes.pin,
-                  scale: 3,
-                ),
-                Text(
-                  'Change Status',
-                  style: commonSubtitle(),
-                )
-              ],
-            ),
-          ),
           SizedBox(height: 10),
-          Container(
-            height: 30,
-            width: 120,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.grey),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  AssetRes.list,
-                  scale: 3,
-                ),
-                Text(
-                  'List of machine',
-                  style: commonSubtitle(),
-                )
-              ],
-            ),
-          )
         ],
       ),
     );
+  }
+
+  int currentIndex = 0;
+
+  void nextPage(index) {
+    currentIndex = index;
+    update(['location']);
   }
 
   Widget customCheckbox() {

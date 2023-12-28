@@ -4,6 +4,7 @@ class StringRes {
   static const emailAddress = 'Email Address';
   static const exampleEmail = 'example@gmail.com';
   static const password = 'Password';
+  static const pass = 'password';
   static const resetPassword = 'Reset Password?';
   static const login = 'Log in';
 
@@ -37,6 +38,14 @@ class StringRes {
 
   //----------------------------location screen------------------
   static const search = 'Search';
+  static const paid = 'Paid';
+  static const unPaid = 'Unpaid';
+
+  //---------------------------repair screen------------------
+  static const repair = 'Repair';
+
+  //-----------------collection report screen----------------
+  static const collectionReport = 'Collection Report';
 
   ///---------------------------------------- Utils ----------------------------------------
 
@@ -45,7 +54,6 @@ class StringRes {
   ///-----------------------------------------auth------------------------------------------------
   static const locationList = "Location List";
   static const dashBoard = "DashBoard";
-
 
   ///-----------------------------------------Profile------------------------------------------------
   static const employeeName = "Employee Name";
@@ -64,5 +72,4 @@ class StringRes {
   static const currentNumber = "Current Number";
   static const enterCurrentNumber = "Enter Current Number Here";
   static const collect = "Collect";
-
 }

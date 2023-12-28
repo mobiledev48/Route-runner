@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/utils/color_res.dart';
 
+import '../utils/asset_res.dart';
+import '../utils/strings.dart';
+
 class CommonTextField extends StatelessWidget {
   final TextEditingController? controller;
   bool? readOnly;
@@ -10,7 +13,7 @@ class CommonTextField extends StatelessWidget {
   String? titleText;
   String? hintText;
 
-  CommonTextField({this.hintText,this.isRequired,this.titleText,this.controller, this.readOnly});
+  CommonTextField({this.hintText, this.isRequired, this.titleText, this.controller, this.readOnly});
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +29,16 @@ class CommonTextField extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   color: ColorRes.color030229,
                 )),
-            isRequired==true?
-            const Text(
-              ' *',
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
-            ):SizedBox(),
+            isRequired == true
+                ? const Text(
+                    ' *',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : SizedBox(),
           ],
         ),
         const SizedBox(
@@ -51,18 +55,46 @@ class CommonTextField extends StatelessWidget {
           child: TextField(
             controller: controller,
             readOnly: readOnly ?? false,
-            decoration:  InputDecoration(
+            decoration: InputDecoration(
               hintText: hintText ?? "",
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
               ),
-              enabledBorder:  const OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class CommomTextFormFeild extends StatelessWidget {
+  const CommomTextFormFeild({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        suffixIcon: Image.asset(
+          AssetRes.search,
+          scale: 2,
+        ),
+        hintText: StringRes.search,
+        filled: true,
+        fillColor: Colors.grey.shade100,
+        focusColor: Colors.black12,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xfff6f6f6)),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xfff6f6f6)),
+          borderRadius: BorderRadius.circular(5),
+        ),
+      ),
     );
   }
 }

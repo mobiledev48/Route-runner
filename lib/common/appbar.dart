@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../screens/home_view/home_screen.dart';
 import '../utils/color_res.dart';
+import '../utils/strings.dart';
+import '../utils/text_style.dart';
 
 class AppBars extends StatelessWidget {
   final String title;
@@ -13,19 +15,27 @@ class AppBars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-          onPressed: () {
-            Get.to(HomeScreen());
-          },
-          icon: Icon(Icons.arrow_back_ios_sharp)),
-      centerTitle: true,
-      backgroundColor: ColorRes.mainColor,
-      title: Text(
-        title,
-        style: GoogleFonts.glory(fontSize: 25),
+    return Container(
+      height: Get.height * 0.13,
+      width: Get.width,
+      color: ColorRes.mainColor,
+      padding: EdgeInsets.only(top: 30),
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: ColorRes.white,
+              )),
+          SizedBox(width: 40),
+          Text(
+            title,
+            style: appbarStyle().copyWith(fontSize: 24),
+          ),
+        ],
       ),
-      // automaticallyImplyLeading: false,
     );
   }
 }

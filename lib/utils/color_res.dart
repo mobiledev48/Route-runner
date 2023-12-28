@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 
 class ColorRes {
   static const mainColor = Color(0xFF5B93FF);
-  static const lightBlue = Color(0xFFE2E5E8);
+  static const lightBlue = Color(0xFFD2EAFF);
   static const darkBlue = Color(0xFF030229);
   static const grey = Color(0xFF9A9AA9);
   static const yellow = Color(0xFFFFC327);
-  static const lightYellow = Color(0xFFFFD66B);
+  static const lightYellow = Color(0xFFFFF1BD);
   static const grey2 = Color(0xFF4F4E69);
   static const grey3 = Color(0xFFB3B3BF);
   static const green = Color(0xFF3A974C);
   static const lightGreen = Color(0xFFB8FAC6);
   static const pink = Color(0xFFD11A2A);
   static const lightPink = Color(0xFFF8D1D4);
+  static const white = Color(0xFFFFFFFF);
+  static const trans = Color(0xFF988F8F);
 
   static const black = Color(0xFF000000);
   static const black2 = Color(0xFF090909);
   static const appBlack = Color(0xff303030);
-  static const white = Color(0xFFFFFFFF);
+
   static const themeColor = Color(0xFF1B86E6);
   static const bgColor1 = Color(0xFF0A0A3E);
   static const bgColor2 = Color(0xFF060620);

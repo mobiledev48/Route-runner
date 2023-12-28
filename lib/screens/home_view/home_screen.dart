@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                         style: appbarStyle(),
                       ),
                       SizedBox(
-                        width: Get.width * 0.32,
+                        width: Get.width * 0.29,
                       ),
                       Image.asset(
                         AssetRes.locator,
@@ -101,10 +101,15 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Container(width: Get.width * 0.6, height: Get.height * 0.06, child: const TextFeildView()),
                       Container(
-                          height: Get.height * 0.06,
+                          height: Get.height * 0.055,
                           width: Get.width * 0.14,
                           decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(20)),
-                          child: ElevatedButton(onPressed: () {}, child: const Text(StringRes.go)))
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text(
+                                StringRes.go,
+                                style: commonTitle().copyWith(fontSize: 13),
+                              )))
                     ],
                   )
                 ],
@@ -126,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 10, top: 15),
                         child: Text(
                           StringRes.recentCollection,
-                          style: commonTitle(),
+                          style: commonTitle().copyWith(fontWeight: FontWeight.w700),
                         ),
                       ),
                       SizedBox(
@@ -147,7 +152,7 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     children: [
                       SizedBox(
-                        width: 3,
+                        width: 1,
                       ),
                       Text(
                         StringRes.serialNo,
@@ -221,7 +226,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 8),
                   homeController.dividers(),
                   SizedBox(
-                    height: 125,
+                    height: Get.height * 0.19,
                     child: ListView.separated(
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: 4,
@@ -229,7 +234,7 @@ class HomeScreen extends StatelessWidget {
                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(
-                            width: 2,
+                            width: 1,
                           ),
                           Text(
                             StringRes.num3,
@@ -240,15 +245,15 @@ class HomeScreen extends StatelessWidget {
                           ),
                           Text(StringRes.moonlightBar, style: commonSubtitle()),
                           SizedBox(
-                            width: 17,
+                            width: 15,
                           ),
                           Text(StringRes.num4, style: commonSubtitle()),
                           SizedBox(
-                            width: 25,
+                            width: 20,
                           ),
                           Text(StringRes.num5, style: commonSubtitle()),
                           SizedBox(
-                            width: 28,
+                            width: 25,
                           ),
                           Text(StringRes.num6, style: commonSubtitle()),
                         ],

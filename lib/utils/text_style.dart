@@ -8,7 +8,6 @@ TextStyle hintTextStyle() {
     color: ColorRes.darkBlue,
     fontWeight: FontWeight.w400,
     fontSize: 16,
-    fontFamily: FontRes.black,
   );
 }
 
@@ -17,7 +16,6 @@ TextStyle appbarStyle() {
     color: ColorRes.white,
     fontWeight: FontWeight.w400,
     fontSize: 20,
-    fontFamily: FontRes.black,
   );
 }
 
@@ -26,7 +24,6 @@ TextStyle commonTitle() {
     color: ColorRes.grey2,
     fontWeight: FontWeight.w600,
     fontSize: 15,
-    fontFamily: FontRes.black,
   );
 }
 
@@ -34,7 +31,7 @@ TextStyle commonSubtitle() {
   return TextStyle(
     // color: ColorRes.grey2,
     fontWeight: FontWeight.w400,
-    fontSize: 11.1,
-    fontFamily: FontRes.black,
+    fontSize: 11,
+    // fontFamily: FontRes.black,
   );
 }

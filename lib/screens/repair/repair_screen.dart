@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,38 +12,63 @@ import '../../common/common_text_fild.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/strings.dart';
 
-class MachineScreen extends StatelessWidget {
-  MachineScreen({super.key});
+class RepairScreen extends StatelessWidget {
+  RepairScreen({super.key});
   LocationController locationController = Get.put(LocationController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.to(HomeScreen());
-              },
-              icon: Icon(Icons.arrow_back_ios_sharp)),
-          centerTitle: true,
-          backgroundColor: ColorRes.mainColor,
-          title: Text(
-            StringRes.machine,
-            style: GoogleFonts.glory(fontSize: 25),
-          ),
-          // automaticallyImplyLeading: false,
-        ),
         body: SingleChildScrollView(
-          child: GetBuilder<LocationController>(
-            id: 'location',
-            builder: (controller) {
-              return Padding(
+      child: GetBuilder<LocationController>(
+        id: 'location',
+        builder: (controller) {
+          return Column(
+            children: [
+              Container(
+                height: Get.height * 0.13,
+                width: Get.width,
+                color: ColorRes.mainColor,
+                padding: EdgeInsets.only(top: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: ColorRes.white,
+                        )),
+                    SizedBox(width: 20),
+                    Text(
+                      StringRes.repair,
+                      style: appbarStyle().copyWith(fontSize: 24),
+                    ),
+                    SizedBox(width: 20),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                          height: Get.height * 0.037,
+                          width: Get.width * 0.078,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.trans),
+                          child: Icon(
+                            Icons.add,
+                            color: ColorRes.white,
+                            size: 20,
+                          )),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: Column(
                   children: [
                     Container(width: Get.width * 0.9, height: Get.height * 0.06, child: CommomTextFormFeild()),
                     SizedBox(
-                      height: Get.height,
+                      height: Get.height * 0.73,
                       child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
                           itemCount: _allData.length,
                           itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.only(top: 10),
@@ -55,10 +82,6 @@ class MachineScreen extends StatelessWidget {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(bottom: 20, left: 5),
-                                            child: locationController.customCheckbox(),
-                                          ),
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -82,103 +105,45 @@ class MachineScreen extends StatelessWidget {
                                               )
                                             ],
                                           ),
-                                          Container(
-                                            height: Get.height * 0.04,
-                                            width: Get.width * 0.2,
-                                            decoration: BoxDecoration(
-                                              color: _allData[index].color,
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              'Active',
-                                              style: TextStyle(color: _allData[index].iconColor, fontSize: 12),
-                                            )),
+                                          Text(
+                                            'SN: #1-654125',
+                                            style: commonSubtitle().copyWith(fontSize: 9),
                                           ),
                                           Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
-                                              PopupMenuButton(
-                                                offset: const Offset(0, 10),
-                                                // padding: EdgeInsets.zero,
-                                                constraints: BoxConstraints.expand(width: 120, height: 115),
-                                                position: PopupMenuPosition.under,
-                                                child: const Text(
-                                                  "View more",
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
-                                                    decoration: TextDecoration.underline,
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 5),
+                                                child: Container(
+                                                  height: Get.height * 0.04,
+                                                  width: Get.width * 0.2,
+                                                  decoration: BoxDecoration(
+                                                    color: _allData[index].color,
+                                                    borderRadius: BorderRadius.circular(30),
                                                   ),
+                                                  child: Center(
+                                                      child: Text(
+                                                    'Active',
+                                                    style: TextStyle(color: _allData[index].iconColor, fontSize: 12),
+                                                  )),
                                                 ),
-                                                itemBuilder: (context) {
-                                                  return [
-                                                    PopupMenuItem(
-                                                      child: Container(
-                                                        height: Get.height * 0.06,
-                                                        width: Get.width * 0.6,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(6),
-                                                            color: ColorRes.lightYellow),
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                          children: [
-                                                            Image.asset(
-                                                              AssetRes.pin,
-                                                              scale: 3,
-                                                            ),
-                                                            Text(
-                                                              'Change Status',
-                                                              style: commonSubtitle(),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    PopupMenuItem(
-                                                        child: Container(
-                                                      height: Get.height * 0.06,
-                                                      width: Get.width * 0.4,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(6), color: ColorRes.grey),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                        children: [
-                                                          Image.asset(
-                                                            AssetRes.list,
-                                                            scale: 3,
-                                                          ),
-                                                          Text(
-                                                            'List of machine',
-                                                            style: commonSubtitle(),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ))
-                                                  ];
-                                                },
                                               ),
-                                              // TextButton(
-                                              //     onPressed: () {},
-                                              //     child: const Text(
-                                              //       'View more',
-                                              //       style: TextStyle(
-                                              //         fontWeight: FontWeight.w500,
-                                              //         fontSize: 13,
-                                              //         color: ColorRes.grey3,
-                                              //         decoration: TextDecoration.underline,
-                                              //       ),
-                                              //     )),
-                                              SizedBox(height: 25),
+                                              SizedBox(height: Get.height * 0.017),
                                               Row(
                                                 children: [
-                                                  Image.asset(
-                                                    AssetRes.calendar,
-                                                    scale: 2.5,
-                                                  ),
-                                                  const Text(
-                                                    '12 Dec, 2020',
+                                                  Text(
+                                                    'Date: 12 Dec,2023',
                                                     style: TextStyle(
-                                                      fontSize: 9,
+                                                      fontSize: 8,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorRes.black,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: Get.width * 0.02),
+                                                  Text(
+                                                    'Time: 11:45 PM',
+                                                    style: TextStyle(
+                                                      fontSize: 8,
                                                       fontWeight: FontWeight.w400,
                                                       color: ColorRes.black,
                                                     ),
@@ -280,10 +245,12 @@ class MachineScreen extends StatelessWidget {
                     //     : const SizedBox(),
                   ],
                 ),
-              );
-            },
-          ),
-        ));
+              ),
+            ],
+          );
+        },
+      ),
+    ));
   }
 }
 
@@ -302,9 +269,9 @@ List<allData> _allData = [
     ColorRes.lightGreen,
     ColorRes.green,
   ),
-  allData('Black Sleep Bar', 'Admin: Edward Evan', ColorRes.lightBlue, ColorRes.green),
-  allData('Haven Martini', 'Admin: Bethany Jackson', ColorRes.lightYellow, ColorRes.yellow),
-  allData('Refined Mixers', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink),
-  allData('Haven Martini', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green),
-  allData('Black Sleep Bar', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink),
+  allData('Black Sleep Bar', 'Reporter: Steven', ColorRes.lightBlue, ColorRes.green),
+  allData('Haven Martini', 'Reporter: Trevor Yowell', ColorRes.lightYellow, ColorRes.yellow),
+  allData('Refined Mixers', 'Reporter: Grace Hughey', ColorRes.lightPink, ColorRes.pink),
+  allData('Haven Martini', 'Reporter: Steven', ColorRes.lightGreen, ColorRes.green),
+  allData('Black Sleep Bar', 'Reporter: Alice Vincent', ColorRes.lightPink, ColorRes.pink),
 ];
