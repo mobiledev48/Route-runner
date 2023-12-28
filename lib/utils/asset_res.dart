@@ -7,6 +7,7 @@ class AssetRes {
   static const splashLogo = '${image}logo2.png';
   static const profilePhoto = '${image}Profile photo.png';
   static const profilePhotoDrawer = '${image}profilePhotoDrawer.png';
+  static const photo = '${image}photo.png';
 
   //---------------------icon-------------------------------
   static const home = '${icon}home.png';
@@ -24,6 +25,7 @@ class AssetRes {
   static const list = '${icon}list.png';
   static const search = '${icon}search.png';
   static const camera = '${icon}Camera.png';
+  static const print = '${icon}print.png';
 
   static const fileDocument = '${icon}File_Document.png';
   static const logOut = '${icon}logOut.png';

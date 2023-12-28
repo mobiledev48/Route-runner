@@ -28,11 +28,12 @@ class AppBars extends StatelessWidget {
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
                 color: ColorRes.white,
+                size: 20,
               )),
-          SizedBox(width: 40),
+          SizedBox(width: Get.width * 0.26),
           Text(
             title,
-            style: appbarStyle().copyWith(fontSize: 24),
+            style: appbarStyle().copyWith(fontSize: 20),
           ),
         ],
       ),

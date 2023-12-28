@@ -38,7 +38,7 @@ class AppbarContainer extends StatelessWidget {
               ),
               CircleAvatar(
                 backgroundColor: bgColor,
-                radius: 26,
+                radius: 24,
                 child: Image.asset(
                   image,
                   color: iconColor,
@@ -54,7 +54,7 @@ class AppbarContainer extends StatelessWidget {
                     height: Get.height * 0.02,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 45),
+                    padding: const EdgeInsets.only(right: 35),
                     child: Text(
                       number,
                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),

@@ -45,10 +45,13 @@ class StringRes {
   static const paid = 'Paid';
   static const unPaid = 'Unpaid';
 
+  //----------------------collection detail----------------
+  static const collectionDetail = 'Collection Details';
+
   //---------------------------repair screen------------------
   // static const repair = 'Repair';
-  //
-  // //-----------------collection report screen----------------
+
+  //-----------------collection report screen----------------
   // static const collectionReport = 'Collection Report';
 
   ///---------------------------------------- Utils ----------------------------------------
@@ -86,6 +89,4 @@ class StringRes {
   static const time = "Time";
   static const serviceRequested = "Service Requested";
   static const jobStickNot = "Joy stick not working..";
-
-
 }

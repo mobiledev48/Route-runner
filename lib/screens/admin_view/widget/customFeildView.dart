@@ -72,7 +72,7 @@ class TextFormFields extends StatelessWidget {
           hintText: texts,
           // hintStyle: textStyle().textform,
           filled: true,
-          fillColor: Colors.grey.shade100,
+          fillColor: Colors.grey.shade200,
           focusColor: Colors.black12,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xfff6f6f6)),
@@ -147,7 +147,7 @@ class PasswordField extends StatelessWidget {
           hintText: texts,
           // hintStyle: textStyle().textform,
           filled: true,
-          fillColor: Colors.grey.shade100,
+          fillColor: Colors.grey.shade200,
           focusColor: Colors.black12,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xfff6f6f6)),

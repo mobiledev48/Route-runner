@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,15 +18,14 @@ class NewCollectionController extends GetxController {
 //   TextEditingController enterSerialNumberController = TextEditingController();
 //   TextEditingController enterCurrentNumberController = TextEditingController();
 // =======
- TextEditingController machineNumberController = TextEditingController();
- TextEditingController auditNumberController = TextEditingController();
- TextEditingController previousNumberInController = TextEditingController();
- TextEditingController previousNumberOutController = TextEditingController();
- TextEditingController currentNumberInController = TextEditingController();
- TextEditingController currentNumberOutController = TextEditingController();
- TextEditingController enterSerialNumberController = TextEditingController();
- TextEditingController totalController = TextEditingController();
-
+  TextEditingController machineNumberController = TextEditingController();
+  TextEditingController auditNumberController = TextEditingController();
+  TextEditingController previousNumberInController = TextEditingController();
+  TextEditingController previousNumberOutController = TextEditingController();
+  TextEditingController currentNumberInController = TextEditingController();
+  TextEditingController currentNumberOutController = TextEditingController();
+  TextEditingController enterSerialNumberController = TextEditingController();
+  TextEditingController totalController = TextEditingController();
 
   File? image;
   final ImagePicker picker = ImagePicker();
@@ -34,12 +33,10 @@ class NewCollectionController extends GetxController {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
 
     if (photo != null) {
-
-        image = File(photo.path);
+      image = File(photo.path);
     }
     update(['collection']);
   }
-
 
   //
   // File? image;
