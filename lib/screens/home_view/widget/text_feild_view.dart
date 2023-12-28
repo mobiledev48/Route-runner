@@ -17,11 +17,11 @@ class TextFeildView extends StatelessWidget {
         focusColor: Colors.black12,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xfff6f6f6)),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(7),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xfff6f6f6)),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(7),
         ),
       ),
     );

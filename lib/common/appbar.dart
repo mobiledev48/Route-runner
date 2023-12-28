@@ -11,7 +11,8 @@ import '../utils/text_style.dart';
 
 class AppBars extends StatelessWidget {
   final String title;
-  const AppBars({super.key, required this.title});
+  final double? width;
+  const AppBars({super.key, required this.title, this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,15 @@ class AppBars extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                // Get.back();
+              },
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
                 color: ColorRes.white,
                 size: 20,
               )),
-          SizedBox(width: Get.width * 0.26),
+          SizedBox(width: width),
           Text(
             title,
             style: appbarStyle().copyWith(fontSize: 20),

@@ -53,7 +53,7 @@ class TextFormFields extends StatelessWidget {
         controller: con,
         style: TextStyle(fontSize: 15, fontFamily: 'FontsFree', color: Colors.black),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(20),
+          contentPadding: EdgeInsets.all(13),
           prefixIcon: isprefix
               ? IconButton(
                   iconSize: 18,
@@ -68,7 +68,7 @@ class TextFormFields extends StatelessWidget {
                   onPressed: () => _visiblePassword.value = !_visiblePassword.value,
                   icon: value ? Icon(Icons.visibility_off_outlined) : Icon(Icons.visibility_outlined))
               : null,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
+          // border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
           hintText: texts,
           // hintStyle: textStyle().textform,
           filled: true,
@@ -142,8 +142,8 @@ class PasswordField extends StatelessWidget {
                   onPressed: () => _visiblePassword.value = !_visiblePassword.value,
                   icon: value ? Icon(Icons.visibility_off_outlined) : Icon(Icons.visibility_outlined))
               : null,
-          contentPadding: EdgeInsets.all(20),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
+          contentPadding: EdgeInsets.only(top: 17, left: 12),
+          // border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
           hintText: texts,
           // hintStyle: textStyle().textform,
           filled: true,

@@ -25,6 +25,7 @@ class CollectionReportScreen extends StatelessWidget {
             return Column(
               children: [
                 AppBars(
+                  width: Get.width * 0.17,
                   title: StringRes.collectionReport,
                 ),
                 Padding(

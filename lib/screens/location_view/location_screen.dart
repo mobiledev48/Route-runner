@@ -25,6 +25,7 @@ class LocationScreen extends StatelessWidget {
           return Column(
             children: [
               AppBars(
+                width: Get.width * 0.28,
                 title: StringRes.location,
               ),
               Padding(
@@ -136,6 +137,9 @@ class LocationScreen extends StatelessWidget {
                                           ),
                                           Column(
                                             children: [
+                                              SizedBox(
+                                                height: Get.height * 0.02,
+                                              ),
                                               PopupMenuButton(
                                                 offset: const Offset(0, 10),
                                                 // padding: EdgeInsets.zero,
@@ -209,7 +213,7 @@ class LocationScreen extends StatelessWidget {
                                               //         decoration: TextDecoration.underline,
                                               //       ),
                                               //     )),
-                                              SizedBox(height: 25),
+                                              SizedBox(height: Get.height * 0.02),
                                               Row(
                                                 children: [
                                                   Image.asset(

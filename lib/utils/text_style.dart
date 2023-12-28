@@ -14,7 +14,7 @@ TextStyle hintTextStyle() {
 TextStyle appbarStyle() {
   return TextStyle(
     color: ColorRes.white,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w600,
     fontSize: 20,
   );
 }
@@ -26,8 +26,6 @@ TextStyle commonTitle() {
     fontSize: 15,
   );
 }
-
-
 
 TextStyle commonSubtitle() {
   return TextStyle(
