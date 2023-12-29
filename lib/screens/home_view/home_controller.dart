@@ -19,6 +19,7 @@ class HomeController extends GetxController {
   }
 
   int currentIndex = 0;
+
   Widget dividers() {
     return Divider(
       height: 1,
@@ -48,4 +49,51 @@ class HomeController extends GetxController {
   List pendingRepair1 = ['Serial No: #1-876364', 'Location: Moonlight Bar', 'Issue: Joy stick not working'];
 
   List pendingRepair2 = ['Reporter: Steven', 'Date: 15 Dec, 2023', 'Time: 11:06 AM'];
+
+  List<bool> isViewData = [];
+  List<bool> isClick = [];
+
+  List<collectionDetail> recentCollectionList = [
+    collectionDetail(serialNo: '#1-876364', location: 'Moonlight Bar', total: '\$500', listData: [
+      ListData(machine: 'Machine: 7', current: [Current(cur: 2000, pre: 2500)])
+    ]),
+    collectionDetail(serialNo: '#3-876368', location: 'Black Sleep Bar', total: '\$400', listData: [
+      ListData(machine: 'Machine: 4', current: [Current(cur: 2000, pre: 2500)])
+    ]),
+    collectionDetail(serialNo: '#4-876621', location: 'GameClub', total: '\$600', listData: [
+      ListData(machine: 'Machine: 9', current: [Current(cur: 2000, pre: 2500)])
+    ])
+  ];
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    isViewData = List.generate(recentCollectionList.length, (index) => false);
+    isClick = List.generate(recentCollectionList.length, (index) => false);
+  }
+}
+
+class collectionDetail {
+  String? serialNo;
+  String? location;
+  String? total;
+  List<ListData>? listData;
+
+  collectionDetail({this.serialNo, this.location, this.total, this.listData});
+}
+
+class ListData {
+  String? machine;
+  List<Current>? current;
+  List<Current>? previos;
+
+  ListData({this.machine, this.current, this.previos});
+}
+
+class Current {
+  num? pre;
+  num? cur;
+
+  Current({this.pre, this.cur});
 }

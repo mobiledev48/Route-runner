@@ -5,14 +5,14 @@ import '../../utils/color_res.dart';
 
 class CollectionReportController extends GetxController {
   // bool onClick = false;
-  List<bool> onClick  = [];
-  List<bool> isClick  = [];
+  List<bool> onClick = [];
+  List<bool> isClick = [];
   void nextPage(index) {
     onClick = index;
     update(['collection']);
   }
 
-  List<bool> isViewData  = [];
+  List<bool> isViewData = [];
 
   @override
   void onInit() {
@@ -22,7 +22,6 @@ class CollectionReportController extends GetxController {
     isClick = List.generate(allCollectionData.length, (index) => false);
   }
 
-
   Widget customCheckbox(int index) {
     return GestureDetector(
         onTap: () {
@@ -31,33 +30,33 @@ class CollectionReportController extends GetxController {
         },
         child: isClick[index]
             ? Container(
-          height: 20,
-          width: 20,
-          decoration: BoxDecoration(
-              border: Border.all(color: ColorRes.mainColor),
-              color: ColorRes.mainColor,
-              borderRadius: const BorderRadius.all(Radius.circular(5))),
-          child: Icon(
-            size: 14,
-            Icons.check,
-            color: Colors.white,
-          ),
-        )
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                    border: Border.all(color: ColorRes.mainColor),
+                    color: ColorRes.mainColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(5))),
+                child: Icon(
+                  size: 14,
+                  Icons.check,
+                  color: Colors.white,
+                ),
+              )
             : Container(
-          height: 20,
-          width: 20,
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.all(Radius.circular(5))),
-        ));
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+              ));
   }
-
 
   num calculateTotalValue(num? In, num? out) {
     num total = (In ?? 0) + (out ?? 0);
     return total;
   }
+
   num calculateTotal(num? In, num? out) {
     num total = (In ?? 0) + (out ?? 0);
     return total;
@@ -127,11 +126,9 @@ class CollectionReportController extends GetxController {
             Current(In: 15, out: 9),
           ],
         ),
-
       ],
     ),
   ];
-
 }
 
 class allData {
@@ -141,11 +138,9 @@ class allData {
   List<MachineDetails>? machineDetails;
   int? machine;
   // Adjust the constructor to compute the machine length based on machineDetails
-  allData({this.title, this.employeeName, this.machineDetails,this.machine,this.address}) {
+  allData({this.title, this.employeeName, this.machineDetails, this.machine, this.address}) {
     machine = machineDetails?.length ?? 0;
   }
-
-
 }
 
 class MachineDetails {

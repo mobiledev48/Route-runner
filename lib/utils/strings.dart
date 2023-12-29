@@ -7,7 +7,12 @@ class StringRes {
   static const pass = 'Enter the password';
   static const resetPassword = 'Reset Password?';
   static const login = 'Log in';
-
+  static const enterEmailError = "Please enter email";
+  static const enterPasswordError = "Please enter password";
+  static const enterValidEmail = "Enter valid email";
+  static const passwordMustBe = "Must be at least 8 characters";
+  static const dots = "********";
+  static const rememberMe = "Remember me";
   //----------------------dash-board-----------
   static const home = 'Home';
   static const location = 'Location';
@@ -89,7 +94,6 @@ class StringRes {
   static const time = "Time";
   static const serviceRequested = "Service Requested";
   static const jobStickNot = "Joy stick not working..";
-
 
   ///---------------------------------------- New Report ----------------------------------------
 

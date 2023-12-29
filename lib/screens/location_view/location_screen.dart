@@ -78,7 +78,7 @@ class LocationScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: Get.height * 0.715,
+                      height: Get.height,
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
@@ -110,10 +110,14 @@ class LocationScreen extends StatelessWidget {
                                                     color: ColorRes.black, fontWeight: FontWeight.w600, fontSize: 13),
                                               ),
                                               SizedBox(height: 5),
-                                              Text(
-                                                _allData[index].subtitle,
-                                                // 'Admin: Arrora gaur',
-                                                style: commonSubtitle().copyWith(color: ColorRes.grey, fontSize: 10),
+                                              SizedBox(
+                                                width: Get.width * 0.26,
+                                                child: Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  _allData[index].subtitle,
+                                                  // 'Admin: Arrora gaur',
+                                                  style: commonSubtitle().copyWith(color: ColorRes.grey, fontSize: 10),
+                                                ),
                                               ),
                                               SizedBox(height: 5),
                                               Text(
@@ -131,7 +135,8 @@ class LocationScreen extends StatelessWidget {
                                             ),
                                             child: Center(
                                                 child: Text(
-                                              'Active',
+                                              // 'hello',
+                                              _allData[index].text,
                                               style: TextStyle(color: _allData[index].iconColor, fontSize: 12),
                                             )),
                                           ),
@@ -339,19 +344,15 @@ class allData {
   final String subtitle;
   final Color color;
   final Color iconColor;
-  allData(this.title, this.subtitle, this.color, this.iconColor);
+  final String text;
+  allData(this.title, this.subtitle, this.color, this.iconColor, this.text);
 }
 
 List<allData> _allData = [
-  allData(
-    'Moonlight Bar',
-    'Admin: Arrora gaur',
-    ColorRes.lightGreen,
-    ColorRes.green,
-  ),
-  allData('Black Sleep Bar', 'Admin: Edward Evan', ColorRes.lightBlue, ColorRes.green),
-  allData('Haven Martini', 'Admin: Bethany Jackson', ColorRes.lightYellow, ColorRes.yellow),
-  allData('Refined Mixers', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink),
-  allData('Haven Martini', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green),
-  allData('Black Sleep Bar', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink),
+  allData('Moonlight Bar', 'Admin: Arrora gaur', ColorRes.lightGreen, ColorRes.green, 'Active'),
+  allData('Black Sleep Bar', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green, 'Active'),
+  allData('Haven Martini', 'Admin: Bethany Jackson', ColorRes.lightYellow, ColorRes.yellow, 'Pending'),
+  allData('Refined Mixers', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink, 'Closed'),
+  allData('Haven Martini', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green, 'Active'),
+  allData('Black Sleep Bar', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink, 'Closed'),
 ];
