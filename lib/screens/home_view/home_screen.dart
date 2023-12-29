@@ -122,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                                 child: Center(
                                   child: Text(
                                     StringRes.go,
-                                    style: commonTitle().copyWith(fontSize: 17, color: ColorRes.white),
+                                    style: commonTitle().copyWith(fontSize: 14, color: ColorRes.white),
                                   ),
                                 ))
                           ],
@@ -139,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                       top: 10,
                       right: 10,
                     ),
-                    height: Get.height * 0.37,
+                    height: Get.height * 0.32,
                     width: Get.width * 0.9,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ColorRes.white),
                     child: Column(
@@ -213,9 +213,9 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 8),
-                        homeController.dividers(),
+                        homeController.dividers(5, 5),
                         SizedBox(
-                          height: Get.height * 0.18,
+                          height: Get.height * 0.19,
                           child: ListView.builder(
                             itemCount: homeController.recentCollectionList.length,
                             itemBuilder: (context, index) {
@@ -292,7 +292,10 @@ class HomeScreen extends StatelessWidget {
                                                             SizedBox(
                                                               width: Get.width * 0.22,
                                                               child: Text(
-                                                                'Machine: 7',
+                                                                homeController.recentCollectionList[index]
+                                                                    .listData![index].machine
+                                                                    .toString(),
+                                                                // 'Machine: 7',
                                                                 style: GoogleFonts.nunito(
                                                                     fontSize: 10,
                                                                     fontWeight: FontWeight.w500,
@@ -412,7 +415,7 @@ class HomeScreen extends StatelessWidget {
                     height: Get.height * 0.03,
                   ),
                   Container(
-                    height: Get.height * 0.3,
+                    height: Get.height * 0.74,
                     width: Get.width * 0.9,
                     decoration: BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
                     child: Column(
@@ -437,73 +440,91 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: 20,
+                          // height: 20,
                           width: 20,
                         ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(
-                                  'Serial No: #1-876364',
-                                  style: commonSubtitle().copyWith(fontSize: 12),
-                                ),
-                                SizedBox(
-                                  width: 70,
-                                ),
-                                Text(
-                                  'Reporter: Steven',
-                                  style: commonSubtitle().copyWith(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(
-                                  'Location: Moonlight Bar',
-                                  style: commonSubtitle().copyWith(fontSize: 12),
-                                ),
-                                SizedBox(
-                                  width: 58,
-                                ),
-                                Text(
-                                  'Date: 15 Dec, 2023',
-                                  style: commonSubtitle().copyWith(fontSize: 12),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 15),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              'Issue: Joy stick not working',
-                              style: commonSubtitle().copyWith(fontSize: 12),
-                            ),
-                            SizedBox(
-                              width: 40,
-                            ),
-                            Text(
-                              'Time: 11:06 AM',
-                              style: commonSubtitle().copyWith(fontSize: 12),
-                            )
-                          ],
-                        ),
                         SizedBox(
-                          height: 20,
+                          height: Get.height * 0.6,
+                          child: ListView.builder(
+                            itemCount: 4,
+                            itemBuilder: (context, index) => Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: Get.width * 0.05,
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.53,
+                                      child: Text(
+                                        'Serial No: #1-876364',
+                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Reporter: Steven',
+                                      style: commonSubtitle().copyWith(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 15),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.36,
+                                      child: Text(
+                                        'Location: Moonlight Bar',
+                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 58,
+                                    ),
+                                    Text(
+                                      'Date: 15 Dec, 2023',
+                                      style: commonSubtitle().copyWith(fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 15),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.52,
+                                      child: Text(
+                                        'Issue: Joy stick not working',
+                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Time: 11:06 AM',
+                                      style: commonSubtitle().copyWith(fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: ColorRes.grey,
+                                  endIndent: 15,
+                                  indent: 15,
+                                ),
+                                // homeController.dividers(12, 7),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        homeController.dividers(),
                       ],
                     ),
                   )
@@ -551,7 +572,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18),
-                    child: homeController.dividers(),
+                    child: homeController.dividers(5, 5),
                   ),
                   Expanded(
                       child: ListView.builder(

@@ -79,7 +79,7 @@ class AdminScreen extends StatelessWidget {
                         ? Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                              padding: const EdgeInsets.only(top: 0),
                               child: Text(adminController.emailError.tr,
                                   style: commonSubtitle().copyWith(color: ColorRes.red)),
                             ),
@@ -111,7 +111,7 @@ class AdminScreen extends StatelessWidget {
                         ? Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                              padding: const EdgeInsets.only(top: 0),
                               child: Text(adminController.passwordError.tr,
                                   style: commonSubtitle().copyWith(color: ColorRes.red)),
                             ),

@@ -6,9 +6,8 @@ import '../../utils/color_res.dart';
 class CollectionReportController extends GetxController {
   // bool onClick = false;
 
-
-  List<bool> onClick  = [];
-  List<bool> isClick  = [];
+  List<bool> onClick = [];
+  List<bool> isClick = [];
 
   TextEditingController searchController = TextEditingController();
   void nextPage(index) {
@@ -30,10 +29,12 @@ class CollectionReportController extends GetxController {
   List<allData> searchResults = [];
   List<allData> searchAllData(List<allData> data, String query) {
     query = query.toLowerCase();
-    return data.where((item) =>
-    item.title?.toLowerCase().contains(query) == true ||
-        item.employeeName?.toLowerCase().contains(query) == true ||
-        item.address?.toLowerCase().contains(query) == true).toList();
+    return data
+        .where((item) =>
+            item.title?.toLowerCase().contains(query) == true ||
+            item.employeeName?.toLowerCase().contains(query) == true ||
+            item.address?.toLowerCase().contains(query) == true)
+        .toList();
   }
 
   Widget customCheckbox(int index) {
@@ -238,7 +239,6 @@ class CollectionReportController extends GetxController {
             Current(In: 15, out: 9),
           ],
         ),
-
       ],
     ),
   ];
