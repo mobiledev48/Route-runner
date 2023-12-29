@@ -7,7 +7,7 @@ TextStyle hintTextStyle() {
   return TextStyle(
     color: ColorRes.darkBlue,
     fontWeight: FontWeight.w400,
-    fontSize: 16,
+    fontSize: 14,
   );
 }
 

@@ -70,7 +70,7 @@ class TextFormFields extends StatelessWidget {
               : null,
           // border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
           hintText: texts,
-          // hintStyle: textStyle().textform,
+          hintStyle: GoogleFonts.nunito(textStyle: hintTextStyle().copyWith(color: ColorRes.grey)),
           filled: true,
           fillColor: Colors.grey.shade200,
           focusColor: Colors.black12,

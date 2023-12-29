@@ -202,17 +202,6 @@ class LocationScreen extends StatelessWidget {
                                                   ];
                                                 },
                                               ),
-                                              // TextButton(
-                                              //     onPressed: () {},
-                                              //     child: const Text(
-                                              //       'View more',
-                                              //       style: TextStyle(
-                                              //         fontWeight: FontWeight.w500,
-                                              //         fontSize: 13,
-                                              //         color: ColorRes.grey3,
-                                              //         decoration: TextDecoration.underline,
-                                              //       ),
-                                              //     )),
                                               SizedBox(height: Get.height * 0.02),
                                               Row(
                                                 children: [
@@ -239,90 +228,8 @@ class LocationScreen extends StatelessWidget {
                                 ),
                               )
 
-                          //     Padding(
-                          //   padding: const EdgeInsets.all(8.0),
-                          //   child: Container(
-                          //     height: 70,
-                          //     width: Get.width,
-                          //     decoration:
-                          //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
-                          //     child: ListTile(
-                          //       trailing: Column(
-                          //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
-                          //       ),
-                          //       title: Text('Moonlight Bar'),
-                          //       leading: locationController.customCheckbox(),
-                          //       subtitle: Column(
-                          //         children: [
-                          //           Padding(
-                          //             padding: const EdgeInsets.only(right: 0),
-                          //             child: Text(
-                          //               'Admin: Arrora gaur',
-                          //               style: commonSubtitle(),
-                          //             ),
-                          //           ),
-                          //           Padding(
-                          //             padding: const EdgeInsets.only(right: 0),
-                          //             child: Text(
-                          //               'Machine: 7',
-                          //               style: commonSubtitle(),
-                          //             ),
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                           ),
                     ),
-
-                    // TextField(
-                    //   controller: controller.searchController,
-                    //   style: GoogleFonts.glory(),
-                    //   onChanged: (value) {
-                    //     controller.filterLocations(value);
-                    //   },
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Search',
-                    //     labelStyle: GoogleFonts.glory(),
-                    //     prefixIcon: const Icon(Icons.search),
-                    //   ),
-                    // ),
-                    // sizeH(h: 15),
-                    // controller.filteredLocations!.isNotEmpty
-                    //     ? Expanded(
-                    //         child: ListView.builder(
-                    //           physics: const BouncingScrollPhysics(),
-                    //           itemCount: controller.filteredLocations!.length,
-                    //           itemBuilder: (context, index) {
-                    //             var data = controller.filteredLocations![index].locationname;
-                    //             return Column(
-                    //               children: [
-                    //                 GestureDetector(
-                    //                   onTap: () {
-                    //                     FocusScope.of(context).unfocus();
-                    //                     Get.to(GoogleLocationScreen(
-                    //                       locationText: data,
-                    //                     ));
-                    //                   },
-                    //                   child: ListTile(
-                    //                     title: Text(
-                    //                       data!,
-                    //                       style: GoogleFonts.glory(),
-                    //                     ),
-                    //                   ),
-                    //                 ),
-                    //                 const Divider(
-                    //                   color: Colors.black26,
-                    //                   height: 1,
-                    //                   thickness: 1,
-                    //                 )
-                    //               ],
-                    //             );
-                    //           },
-                    //         ),
-                    //       )
-                    //     : const SizedBox(),
                   ],
                 ),
               ),

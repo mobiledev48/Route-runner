@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../common/appbar.dart';
 import '../../common/common_text_fild.dart';
+import '../../common/custom_checkbox.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
@@ -53,7 +54,7 @@ class CollectionReportScreen extends StatelessWidget {
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(bottom: 20, left: 5),
-                                              child: locationController.customCheckbox(),
+                                              child: CustomCheckbox(),
                                             ),
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,

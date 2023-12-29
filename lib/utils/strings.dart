@@ -7,6 +7,11 @@ class StringRes {
   static const pass = 'Enter the password';
   static const resetPassword = 'Reset Password?';
   static const login = 'Log in';
+  static const dots = '*********';
+  static const enterEmailError = "Please enter email";
+  static const enterValidEmail = "Enter valid email";
+  static const enterPasswordError = "Please enter password";
+  static const passwordMustBe = "Must be at least 8 characters";
 
   //----------------------dash-board-----------
   static const home = 'Home';
