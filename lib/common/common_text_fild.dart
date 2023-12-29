@@ -100,11 +100,17 @@ class CommonTextField extends StatelessWidget {
 }
 
 class CommomTextFormFeild extends StatelessWidget {
-  const CommomTextFormFeild({super.key});
+
+  final TextEditingController? controller;
+  ValueChanged<String>? onChanged;
+  // const CommomTextFormFeild({super.key});
+   CommomTextFormFeild({this.controller,this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller:controller ,
+      onChanged: onChanged,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(10),
         suffixIcon: Image.asset(

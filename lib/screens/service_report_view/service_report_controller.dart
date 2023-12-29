@@ -29,6 +29,16 @@ class ServiceReportController extends GetxController {
     //debugPrint("$locationModel");
     super.onInit();
   }
+  String searchTerm = 'Moonlight'; // Change this to your desired search term
+  List<allData> searchResults = [];
+
+  List<allData> searchServiceReportData(List<allData> data, String query) {
+    query = query.toLowerCase();
+    return data.where((item) =>
+    item.title.toLowerCase().contains(query) ||
+        item.subtitle.toLowerCase().contains(query) ||
+        item.subtitle1.toLowerCase().contains(query)).toList();
+  }
 
   void clickableContainer() {
     isClick = !isClick;
@@ -147,3 +157,27 @@ class ServiceReportController extends GetxController {
     }
   }
 }
+
+
+class allData {
+  final String title;
+  final String subtitle;
+  final String subtitle1;
+
+
+  allData(this.title, this.subtitle,this.subtitle1);
+}
+
+List<allData> serviceReportData = [
+  allData(
+      'SN: #1-654125',
+      'Employee: Steven',
+      'Issue: Joy stick not working'
+  ),
+  allData('SN: #2-654184', 'Employee: Elizabeth','Issue: Joy stick not working'),
+  allData('SN: #3-654199', 'Employee: Grace Hughey', 'Issue: Joy stick not working'),
+  allData('SN: #4-654204', 'Employee: Robert Brown', 'Issue: Joy stick not working'),
+  allData('SN: #6-654221', 'Employee: Alice Vincent', 'Issue: Joy stick not working`'),
+  allData('SN: #7-654228', 'Employee: Kathie Russell', 'Issue: Joy stick not working'),
+];
+

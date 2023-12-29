@@ -30,7 +30,7 @@ class ServiceReportScreen extends StatelessWidget {
             appBar: AppBar(
               leading: IconButton(
                   onPressed: () {
-                    Get.to(HomeScreen());
+                    Get.back();
                   },
                   icon: Icon(Icons.arrow_back_ios_sharp)),
               centerTitle: true,
@@ -74,6 +74,13 @@ class ServiceReportScreen extends StatelessWidget {
                         width: Get.width,
                         height:  40,
                         child: TextField(
+                          onChanged: (value) {
+                            controller.searchTerm = 'Moonlight'; // Change this to your desired search term
+                            controller.searchResults =   controller.searchServiceReportData(serviceReportData,value);
+                            print( controller.searchResults);
+                            controller.update(['service']);
+                          },
+                          controller: controller.searchController,
                           decoration: InputDecoration(
                             suffixIcon: Image.asset(
                               AssetRes.search,
@@ -101,9 +108,9 @@ class ServiceReportScreen extends StatelessWidget {
                         ),
                       ),
 
-                      Expanded(
+                      controller.searchResults.isEmpty?Expanded(
                         child: ListView.builder(
-                            itemCount: _allData.length,
+                            itemCount: serviceReportData.length,
                             itemBuilder: (context, index) => Padding(
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Container(
@@ -119,7 +126,7 @@ class ServiceReportScreen extends StatelessWidget {
                                       children: [
                                         SizedBox(height: 10),
                                         Text(
-                                          _allData[index].title,
+                                          serviceReportData[index].title,
 
                                           style:  GoogleFonts.nunito(
                                               fontSize: 10,
@@ -128,7 +135,7 @@ class ServiceReportScreen extends StatelessWidget {
                                         ),
                                         SizedBox(height: 5),
                                         Text(
-                                          _allData[index].subtitle,
+                                          serviceReportData[index].subtitle,
 
                                           style:  GoogleFonts.nunito(
                                               fontSize: 9,
@@ -139,7 +146,7 @@ class ServiceReportScreen extends StatelessWidget {
                                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                                _allData[index].subtitle1,
+                                              serviceReportData[index].subtitle1,
                                               style: GoogleFonts.nunito(
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
@@ -193,6 +200,98 @@ class ServiceReportScreen extends StatelessWidget {
                             //   ),
                             // ),
                             ),
+                      ):Expanded(
+                        child: ListView.builder(
+                            itemCount: controller.searchResults.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Container(
+                                height: 75,
+                                width: Get.width,
+                                padding: EdgeInsets.symmetric(horizontal: 13
+                                ),
+                                decoration: BoxDecoration(
+                                    color: ColorRes.white,
+                                    borderRadius:
+                                    BorderRadius.circular(10)),
+                                child: Column(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 10),
+                                    Text(
+                                      controller.searchResults[index].title,
+
+                                      style:  GoogleFonts.nunito(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          color:  ColorRes.color030229),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      controller.searchResults[index].subtitle,
+
+                                      style:  GoogleFonts.nunito(
+                                          fontSize: 9,
+                                          fontWeight: FontWeight.w400,
+                                          color:  ColorRes.color030229),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          controller.searchResults[index].subtitle1,
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.w400,
+                                              color:  ColorRes.color030229),
+                                        ),
+                                        Text(
+                                            'Date: 12 Dec, 2020',
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w400,
+                                                color:  ColorRes.color030229)
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          //     Padding(
+                          //   padding: const EdgeInsets.all(8.0),
+                          //   child: Container(
+                          //     height: 70,
+                          //     width: Get.width,
+                          //     decoration:
+                          //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
+                          //     child: ListTile(
+                          //       trailing: Column(
+                          //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
+                          //       ),
+                          //       title: Text('Moonlight Bar'),
+                          //       leading: locationController.customCheckbox(),
+                          //       subtitle: Column(
+                          //         children: [
+                          //           Padding(
+                          //             padding: const EdgeInsets.only(right: 0),
+                          //             child: Text(
+                          //               'Admin: Arrora gaur',
+                          //               style: commonSubtitle(),
+                          //             ),
+                          //           ),
+                          //           Padding(
+                          //             padding: const EdgeInsets.only(right: 0),
+                          //             child: Text(
+                          //               'Machine: 7',
+                          //               style: commonSubtitle(),
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                        ),
                       ),
 
                       // TextField(
@@ -250,24 +349,3 @@ class ServiceReportScreen extends StatelessWidget {
   }
 }
 
-class allData {
-  final String title;
-  final String subtitle;
-  final String subtitle1;
-
-
-  allData(this.title, this.subtitle,this.subtitle1);
-}
-
-List<allData> _allData = [
-  allData(
-    'SN: #1-654125',
-    'Employee: Steven',
-    'Issue: Joy stick not working'
-  ),
-  allData('SN: #2-654184', 'Employee: Elizabeth','Issue: Joy stick not working'),
-  allData('SN: #3-654199', 'Employee: Grace Hughey', 'Issue: Joy stick not working'),
-  allData('SN: #4-654204', 'Employee: Robert Brown', 'Issue: Joy stick not working'),
-  allData('SN: #6-654221', 'Employee: Alice Vincent', 'Issue: Joy stick not working`'),
-  allData('SN: #7-654228', 'Employee: Kathie Russell', 'Issue: Joy stick not working'),
-];

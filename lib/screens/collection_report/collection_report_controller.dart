@@ -5,8 +5,12 @@ import '../../utils/color_res.dart';
 
 class CollectionReportController extends GetxController {
   // bool onClick = false;
-  List<bool> onClick = [];
-  List<bool> isClick = [];
+
+
+  List<bool> onClick  = [];
+  List<bool> isClick  = [];
+
+  TextEditingController searchController = TextEditingController();
   void nextPage(index) {
     onClick = index;
     update(['collection']);
@@ -20,6 +24,16 @@ class CollectionReportController extends GetxController {
     super.onInit();
     isViewData = List.generate(allCollectionData.length, (index) => false);
     isClick = List.generate(allCollectionData.length, (index) => false);
+  }
+
+  String searchTerm = 'Moonlight'; // Change this to your desired search term
+  List<allData> searchResults = [];
+  List<allData> searchAllData(List<allData> data, String query) {
+    query = query.toLowerCase();
+    return data.where((item) =>
+    item.title?.toLowerCase().contains(query) == true ||
+        item.employeeName?.toLowerCase().contains(query) == true ||
+        item.address?.toLowerCase().contains(query) == true).toList();
   }
 
   Widget customCheckbox(int index) {
@@ -126,6 +140,105 @@ class CollectionReportController extends GetxController {
             Current(In: 15, out: 9),
           ],
         ),
+      ],
+    ),
+    allData(
+      title: 'Moonlight Bar',
+      employeeName: 'Arrora gaur',
+      address: "4617 Briercliff Road, New York, NY 10011",
+      machineDetails: [
+        MachineDetails(
+          machineId: 1,
+          current: [
+            Current(In: 10, out: 5),
+            Current(In: 8, out: 3),
+          ],
+          previous: [
+            Current(In: 15, out: 7),
+            Current(In: 12, out: 4),
+          ],
+        ),
+        MachineDetails(
+          machineId: 2,
+          current: [
+            Current(In: 20, out: 10),
+            Current(In: 28, out: 31),
+          ],
+          previous: [
+            Current(In: 15, out: 9),
+            Current(In: 13, out: 4),
+          ],
+        ),
+        MachineDetails(
+          machineId: 3,
+          current: [
+            Current(In: 10, out: 5),
+            Current(In: 8, out: 3),
+          ],
+          previous: [
+            Current(In: 15, out: 7),
+            Current(In: 12, out: 4),
+          ],
+        ),
+        MachineDetails(
+          machineId: 3,
+          current: [
+            Current(In: 10, out: 5),
+            Current(In: 8, out: 3),
+          ],
+          previous: [
+            Current(In: 15, out: 7),
+            Current(In: 12, out: 4),
+          ],
+        ),
+      ],
+    ),
+    allData(
+      title: 'Black Sleep Bar',
+      employeeName: 'Trevor Yowell',
+      address: "4617 Briercliff Road, New York, NY 10011",
+      machineDetails: [
+        MachineDetails(
+          machineId: 2,
+          current: [
+            Current(In: 20, out: 10),
+            Current(In: 28, out: 31),
+          ],
+          previous: [
+            Current(In: 15, out: 9),
+            Current(In: 13, out: 4),
+          ],
+        ),
+        MachineDetails(
+          machineId: 3,
+          current: [
+            Current(In: 10, out: 5),
+            Current(In: 8, out: 3),
+          ],
+          previous: [
+            Current(In: 15, out: 7),
+            Current(In: 12, out: 4),
+          ],
+        ),
+        MachineDetails(
+          machineId: 1,
+          current: [
+            Current(In: 10, out: 5),
+          ],
+          previous: [
+            Current(In: 5, out: 5),
+          ],
+        ),
+        MachineDetails(
+          machineId: 2,
+          current: [
+            Current(In: 20, out: 10),
+          ],
+          previous: [
+            Current(In: 15, out: 9),
+          ],
+        ),
+
       ],
     ),
   ];
