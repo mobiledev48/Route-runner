@@ -13,7 +13,6 @@ import '../../utils/text_style.dart';
 
 class LocationController extends GetxController {
   //--------------checkbox----------
-  bool isClick = false;
 
   //---------------drop down-------------
   bool onClick = false;
@@ -28,26 +27,19 @@ class LocationController extends GetxController {
   void onInit() {
     locationApi(Get.context!);
     //debugPrint("$locationModel");
+
     super.onInit();
   }
 
-  void clickableContainer() {
-    isClick = !isClick;
-    update(['location']);
-  }
-
-  Widget customDropDown() {
-    return Container(
-      height: Get.height * 0.13,
-      width: Get.width * 0.4,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightBlue),
-      child: const Column(
-        children: [
-          SizedBox(height: 10),
-          SizedBox(height: 10),
-        ],
-      ),
-    );
+  String searchTerm = 'Moonlight'; // Change this to your desired search term
+  List<allData> searchResults = [];
+  List<allData> searchAllData(String query) {
+    query = query.toLowerCase();
+    return locationAllData.where((allData) {
+      return allData.title.toLowerCase().contains(query) ||
+          allData.subtitle.toLowerCase().contains(query) ||
+          allData.active.toLowerCase().contains(query);
+    }).toList();
   }
 
   int currentIndex = 0;
@@ -55,35 +47,6 @@ class LocationController extends GetxController {
   void nextPage(index) {
     currentIndex = index;
     update(['location']);
-  }
-
-  Widget customCheckbox() {
-    return GestureDetector(
-        onTap: () {
-          clickableContainer();
-        },
-        child: isClick
-            ? Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                    border: Border.all(color: ColorRes.mainColor),
-                    color: ColorRes.mainColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(5))),
-                child: Icon(
-                  size: 14,
-                  Icons.check,
-                  color: Colors.white,
-                ),
-              )
-            : Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
-              ));
   }
 
   TextEditingController searchController = TextEditingController();
@@ -119,3 +82,69 @@ class LocationController extends GetxController {
     }
   }
 }
+
+class allData {
+  final String title;
+  final String subtitle;
+  final String active;
+  final Color color;
+  final Color iconColor;
+  allData(this.title, this.subtitle, this.active, this.color, this.iconColor);
+}
+
+List<allData> locationAllData = [
+  allData(
+    'Moonlight Bar',
+    'Admin: Arrora gaur',
+    'Active',
+    ColorRes.green.withOpacity(0.10),
+    ColorRes.green,
+  ),
+  allData('Black Sleep Bar', 'Admin: Edward Evan', 'Pending', ColorRes.lightYellow, ColorRes.yellow),
+  allData(
+    'Haven Martini',
+    'Admin: Bethany Jackson',
+    'Active',
+    ColorRes.lightGreen,
+    ColorRes.green,
+  ),
+  allData(
+    'Refined Mixers',
+    'Admin: Arrora gaur',
+    'Closed',
+    ColorRes.lightPink,
+    ColorRes.pink,
+  ),
+  allData(
+    'Haven Martini',
+    'Admin: Edward Evan',
+    'Active',
+    ColorRes.green.withOpacity(0.10),
+    ColorRes.green,
+  ),
+  allData(
+    'Black Sleep Bar',
+    'Admin: Arrora gaur',
+    'Active',
+    ColorRes.green.withOpacity(0.10),
+    ColorRes.green,
+  ),
+];
+
+// class allData {
+//   final String title;
+//   final String subtitle;
+//   final Color color;
+//   final Color iconColor;
+//   final String text;
+//   allData(this.title, this.subtitle, this.color, this.iconColor, this.text);
+// }
+//
+// List<allData> _allData = [
+//   allData('Moonlight Bar', 'Admin: Arrora gaur', ColorRes.lightGreen, ColorRes.green, 'Active'),
+//   allData('Black Sleep Bar', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green, 'Active'),
+//   allData('Haven Martini', 'Admin: Bethany Jackson', ColorRes.lightYellow, ColorRes.yellow, 'Pending'),
+//   allData('Refined Mixers', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink, 'Closed'),
+//   allData('Haven Martini', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green, 'Active'),
+//   allData('Black Sleep Bar', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink, 'Closed'),
+// ];

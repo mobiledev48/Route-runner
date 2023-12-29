@@ -20,12 +20,12 @@ class HomeController extends GetxController {
 
   int currentIndex = 0;
 
-  Widget dividers() {
+  Widget dividers(double end, double start) {
     return Divider(
       height: 1,
       color: ColorRes.grey,
-      endIndent: 5,
-      indent: 5,
+      endIndent: end,
+      indent: start,
     );
   }
 

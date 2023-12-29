@@ -69,7 +69,7 @@ class CommonTextField extends StatelessWidget {
           width: Get.width,
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
-                Radius.circular(10),
+                Radius.circular(20),
               ),
               color: ColorRes.colorF7F7F8),
           child: TextField(
@@ -77,7 +77,10 @@ class CommonTextField extends StatelessWidget {
             controller: controller,
             readOnly: readOnly ?? false,
             decoration: InputDecoration(
+                filled: true,
+                fillColor: ColorRes.tffGrey,
                 hintText: hintText ?? "",
+                hintStyle: TextStyle(fontSize: 12),
                 focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.transparent),
                 ),
@@ -100,16 +103,15 @@ class CommonTextField extends StatelessWidget {
 }
 
 class CommomTextFormFeild extends StatelessWidget {
-
   final TextEditingController? controller;
   ValueChanged<String>? onChanged;
   // const CommomTextFormFeild({super.key});
-   CommomTextFormFeild({this.controller,this.onChanged});
+  CommomTextFormFeild({this.controller, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller:controller ,
+      controller: controller,
       onChanged: onChanged,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(10),
