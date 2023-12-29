@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/screens/dash_board/dash_board_controller.dart';
 import 'package:route_runner/screens/home_view/home_screen.dart';
 import 'package:route_runner/screens/location_view/location_controller.dart';
+import 'package:route_runner/screens/machine_view/machine_controller.dart';
 import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/text_style.dart';
 
@@ -14,6 +16,7 @@ import '../../utils/strings.dart';
 class MachineScreen extends StatelessWidget {
   MachineScreen({super.key});
   LocationController locationController = Get.put(LocationController());
+  MachineController machineController = Get.put(MachineController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,290 +37,459 @@ class MachineScreen extends StatelessWidget {
         //   ),
         //   // automaticallyImplyLeading: false,
         // ),
-        body: SingleChildScrollView(
-      child: GetBuilder<LocationController>(
-        id: 'location',
-        builder: (controller) {
-          return Column(
-            children: [
-              AppBars(
-                width: Get.width * 0.27,
-                title: StringRes.machine,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                child: Column(
-                  children: [
-                    Container(width: Get.width * 0.9, height: Get.height * 0.06, child: CommomTextFormFeild()),
-                    SizedBox(
-                      height: Get.height,
-                      child: ListView.builder(
-                          itemCount: _allData.length,
-                          itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Container(
-                                  height: 75,
-                                  width: Get.width,
-                                  decoration:
-                                      BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(bottom: 20, left: 5),
-                                            child: locationController.customCheckbox(),
-                                          ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(height: 10),
-                                              Text(
-                                                _allData[index].title,
-                                                // 'Moonlight Bar',
-                                                style: commonTitle().copyWith(
-                                                    color: ColorRes.black, fontWeight: FontWeight.w600, fontSize: 13),
-                                              ),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                _allData[index].subtitle,
-                                                // 'Admin: Arrora gaur',
-                                                style: commonSubtitle().copyWith(color: ColorRes.grey, fontSize: 10),
-                                              ),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                'Machine: 7',
-                                                style: commonSubtitle().copyWith(color: ColorRes.grey),
-                                              )
-                                            ],
-                                          ),
-                                          Container(
-                                            height: Get.height * 0.04,
-                                            width: Get.width * 0.2,
-                                            decoration: BoxDecoration(
-                                              color: _allData[index].color,
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              'Active',
-                                              style: TextStyle(color: _allData[index].iconColor, fontSize: 12),
-                                            )),
-                                          ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              SizedBox(
-                                                height: Get.height * 0.02,
-                                              ),
-                                              PopupMenuButton(
-                                                offset: const Offset(0, 10),
-                                                // padding: EdgeInsets.zero,
-                                                constraints: BoxConstraints.expand(width: 120, height: 115),
-                                                position: PopupMenuPosition.under,
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                DashBoardController dashBoardController = Get.put(DashBoardController());
+                dashBoardController.currentIndex = 0;
+                dashBoardController.update(['dash']);
+                machineController.update(['location']);
+              },
+              icon: Icon(Icons.arrow_back_ios_sharp)),
+          centerTitle: true,
+          backgroundColor: ColorRes.mainColor,
+          title: Text(
+            StringRes.machine,
+            style: GoogleFonts.nunito(
+                fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
+          ),
 
-                                                child: const Text(
-                                                  "View more",
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
-                                                    decoration: TextDecoration.underline,
-                                                  ),
-                                                ),
-                                                itemBuilder: (context) {
-                                                  return [
-                                                    PopupMenuItem(
-                                                      child: Container(
-                                                        height: Get.height * 0.06,
-                                                        width: Get.width * 0.6,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(6),
-                                                            color: ColorRes.lightYellow),
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                          children: [
-                                                            Image.asset(
-                                                              AssetRes.pin,
-                                                              scale: 3,
-                                                            ),
-                                                            Text(
-                                                              'Change Status',
-                                                              style: commonSubtitle(),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    PopupMenuItem(
-                                                        child: Container(
+          // automaticallyImplyLeading: false,
+        ),
+        body: GetBuilder<MachineController>(
+          id: 'location',
+          builder: (controller) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              child: Column(
+                children: [
+                  Container(margin: EdgeInsets.only(bottom: 10),width: Get.width * 0.9, height: Get.height * 0.06,
+                      child: CommomTextFormFeild(controller: machineController.searchController,onChanged: (value) {
+                    machineController.searchTerm = 'Moonlight'; // Change this to your desired search term
+                    machineController.searchResults =   machineController.searchAllData(value);
+                    print( machineController.searchResults);
+                    machineController.update(['location']);
+                  },)),
+                  controller.searchResults.isEmpty?Expanded(
+                    child: ListView.builder(
+                        itemCount: machineAllData.length,
+                        itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Container(
+                                height: 75,
+                                width: Get.width,
+                                decoration:
+                                    BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        // Padding(
+                                        //   padding: const EdgeInsets.only(bottom: 20, left: 5),
+                                        //   child: locationController.customCheckbox(),
+                                        // ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(height: 10),
+                                            Text(
+                                              machineAllData[index].title,
+                                              // 'Moonlight Bar',
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 12, fontWeight: FontWeight.w600, color: ColorRes.black),
+                                            ),
+                                            SizedBox(height: 5),
+                                            Text(
+                                              machineAllData[index].subtitle,
+                                              // 'Admin: Arrora gaur',
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 9, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                            ),
+                                            SizedBox(height: 5),
+                                            Text(
+                                              'SN: #${index+1}-654184',
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 9, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                            )
+                                          ],
+                                        ),
+                                        Container(
+                                          height: Get.height * 0.04,
+                                          width: Get.width * 0.2,
+                                          decoration: BoxDecoration(
+                                            color: machineAllData[index].color,
+                                            borderRadius: BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                              child: Text(
+                                                machineAllData[index].active,
+                                            style: TextStyle(color: machineAllData[index].iconColor, fontSize: 12),
+                                          )),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            SizedBox(
+                                              height: Get.height * 0.02,
+                                            ),
+                                            PopupMenuButton(
+                                              offset: const Offset(0, 10),
+                                              // padding: EdgeInsets.zero,
+                                              constraints: BoxConstraints.expand(width: 120, height: 115),
+                                              position: PopupMenuPosition.under,
+
+                                              child:  Text(
+                                                "View more",
+                                                style: GoogleFonts.nunito(decoration: TextDecoration.underline,
+                                                    fontSize: 10, fontWeight: FontWeight.w600, color: ColorRes.color030229),
+                                              ),
+                                              itemBuilder: (context) {
+                                                return [
+                                                  PopupMenuItem(
+                                                    child: Container(
                                                       height: Get.height * 0.06,
-                                                      width: Get.width * 0.4,
+                                                      width: Get.width * 0.6,
                                                       decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(6), color: ColorRes.grey),
+                                                          borderRadius: BorderRadius.circular(6),
+                                                          color: ColorRes.lightYellow),
                                                       child: Row(
                                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                         children: [
                                                           Image.asset(
-                                                            AssetRes.list,
+                                                            AssetRes.pin,
                                                             scale: 3,
                                                           ),
                                                           Text(
-                                                            'List of machine',
+                                                            'Change Status',
                                                             style: commonSubtitle(),
                                                           )
                                                         ],
                                                       ),
-                                                    ))
-                                                  ];
-                                                },
-                                              ),
-                                              SizedBox(height: Get.height * 0.02),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Initial: \$ 2000',
-                                                    style: TextStyle(
-                                                      fontSize: 9,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorRes.black,
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 6,
-                                                  ),
-                                                  Text(
-                                                    'Current: \$ 2648',
-                                                    style: TextStyle(
-                                                      fontSize: 9,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorRes.black,
+                                                  PopupMenuItem(
+                                                      child: Container(
+                                                    height: Get.height * 0.06,
+                                                    width: Get.width * 0.4,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(6), color: ColorRes.grey),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        Image.asset(
+                                                          AssetRes.list,
+                                                          scale: 3,
+                                                        ),
+                                                        Text(
+                                                          'List of machine',
+                                                          style: commonSubtitle(),
+                                                        )
+                                                      ],
                                                     ),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
+                                                  ))
+                                                ];
+                                              },
+                                            ),
+                                            SizedBox(height: Get.height * 0.04),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Initial: \$ 2000',
+                                                  style: GoogleFonts.nunito(decoration: TextDecoration.underline,
+                                                      fontSize: 8, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                                ),
+                                                const SizedBox(
+                                                  width: 6,
+                                                ),
+                                                Text(
+                                                  'Current: \$ 2648',
+                                                  style: GoogleFonts.nunito(decoration: TextDecoration.underline,
+                                                      fontSize: 8, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
-                              )
+                              ),
+                            )
 
-                          //     Padding(
-                          //   padding: const EdgeInsets.all(8.0),
-                          //   child: Container(
-                          //     height: 70,
-                          //     width: Get.width,
-                          //     decoration:
-                          //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
-                          //     child: ListTile(
-                          //       trailing: Column(
-                          //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
-                          //       ),
-                          //       title: Text('Moonlight Bar'),
-                          //       leading: locationController.customCheckbox(),
-                          //       subtitle: Column(
-                          //         children: [
-                          //           Padding(
-                          //             padding: const EdgeInsets.only(right: 0),
-                          //             child: Text(
-                          //               'Admin: Arrora gaur',
-                          //               style: commonSubtitle(),
-                          //             ),
-                          //           ),
-                          //           Padding(
-                          //             padding: const EdgeInsets.only(right: 0),
-                          //             child: Text(
-                          //               'Machine: 7',
-                          //               style: commonSubtitle(),
-                          //             ),
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                        //     Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Container(
+                        //     height: 70,
+                        //     width: Get.width,
+                        //     decoration:
+                        //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
+                        //     child: ListTile(
+                        //       trailing: Column(
+                        //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
+                        //       ),
+                        //       title: Text('Moonlight Bar'),
+                        //       leading: locationController.customCheckbox(),
+                        //       subtitle: Column(
+                        //         children: [
+                        //           Padding(
+                        //             padding: const EdgeInsets.only(right: 0),
+                        //             child: Text(
+                        //               'Admin: Arrora gaur',
+                        //               style: commonSubtitle(),
+                        //             ),
+                        //           ),
+                        //           Padding(
+                        //             padding: const EdgeInsets.only(right: 0),
+                        //             child: Text(
+                        //               'Machine: 7',
+                        //               style: commonSubtitle(),
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        ),
+                  ):Expanded(
+                    child: ListView.builder(
+                        itemCount: controller.searchResults.length,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Container(
+                            height: 75,
+                            width: Get.width,
+                            decoration:
+                            BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(bottom: 20, left: 5),
+                                    //   child: locationController.customCheckbox(),
+                                    // ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 10),
+                                        Text(
+                                          controller.searchResults[index].title,
+                                          // 'Moonlight Bar',
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 12, fontWeight: FontWeight.w600, color: ColorRes.black),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          controller.searchResults[index].subtitle,
+                                          // 'Admin: Arrora gaur',
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 9, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          'SN: #${index+1}-654184',
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 9, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                        )
+                                      ],
+                                    ),
+                                    Container(
+                                      height: Get.height * 0.04,
+                                      width: Get.width * 0.2,
+                                      decoration: BoxDecoration(
+                                        color: controller.searchResults[index].color,
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                            controller.searchResults[index].active,
+                                            style: TextStyle(color: controller.searchResults[index].iconColor, fontSize: 12),
+                                          )),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        SizedBox(
+                                          height: Get.height * 0.02,
+                                        ),
+                                        PopupMenuButton(
+                                          offset: const Offset(0, 10),
+                                          // padding: EdgeInsets.zero,
+                                          constraints: BoxConstraints.expand(width: 120, height: 115),
+                                          position: PopupMenuPosition.under,
+
+                                          child:  Text(
+                                            "View more",
+                                            style: GoogleFonts.nunito(decoration: TextDecoration.underline,
+                                                fontSize: 10, fontWeight: FontWeight.w600, color: ColorRes.color030229),
+                                          ),
+                                          itemBuilder: (context) {
+                                            return [
+                                              PopupMenuItem(
+                                                child: Container(
+                                                  height: Get.height * 0.06,
+                                                  width: Get.width * 0.6,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(6),
+                                                      color: ColorRes.lightYellow),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                    children: [
+                                                      Image.asset(
+                                                        AssetRes.pin,
+                                                        scale: 3,
+                                                      ),
+                                                      Text(
+                                                        'Change Status',
+                                                        style: commonSubtitle(),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              PopupMenuItem(
+                                                  child: Container(
+                                                    height: Get.height * 0.06,
+                                                    width: Get.width * 0.4,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(6), color: ColorRes.grey),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        Image.asset(
+                                                          AssetRes.list,
+                                                          scale: 3,
+                                                        ),
+                                                        Text(
+                                                          'List of machine',
+                                                          style: commonSubtitle(),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ))
+                                            ];
+                                          },
+                                        ),
+                                        SizedBox(height: Get.height * 0.04),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Initial: \$ 2000',
+                                              style: GoogleFonts.nunito(decoration: TextDecoration.underline,
+                                                  fontSize: 8, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                            ),
+                                            const SizedBox(
+                                              width: 6,
+                                            ),
+                                            Text(
+                                              'Current: \$ 2648',
+                                              style: GoogleFonts.nunito(decoration: TextDecoration.underline,
+                                                  fontSize: 8, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                    ),
+                        )
 
-                    // TextField(
-                    //   controller: controller.searchController,
-                    //   style: GoogleFonts.glory(),
-                    //   onChanged: (value) {
-                    //     controller.filterLocations(value);
-                    //   },
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Search',
-                    //     labelStyle: GoogleFonts.glory(),
-                    //     prefixIcon: const Icon(Icons.search),
-                    //   ),
-                    // ),
-                    // sizeH(h: 15),
-                    // controller.filteredLocations!.isNotEmpty
-                    //     ? Expanded(
-                    //         child: ListView.builder(
-                    //           physics: const BouncingScrollPhysics(),
-                    //           itemCount: controller.filteredLocations!.length,
-                    //           itemBuilder: (context, index) {
-                    //             var data = controller.filteredLocations![index].locationname;
-                    //             return Column(
-                    //               children: [
-                    //                 GestureDetector(
-                    //                   onTap: () {
-                    //                     FocusScope.of(context).unfocus();
-                    //                     Get.to(GoogleLocationScreen(
-                    //                       locationText: data,
-                    //                     ));
-                    //                   },
-                    //                   child: ListTile(
-                    //                     title: Text(
-                    //                       data!,
-                    //                       style: GoogleFonts.glory(),
-                    //                     ),
-                    //                   ),
-                    //                 ),
-                    //                 const Divider(
-                    //                   color: Colors.black26,
-                    //                   height: 1,
-                    //                   thickness: 1,
-                    //                 )
-                    //               ],
-                    //             );
-                    //           },
-                    //         ),
-                    //       )
-                    //     : const SizedBox(),
-                  ],
-                ),
+                      //     Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: Container(
+                      //     height: 70,
+                      //     width: Get.width,
+                      //     decoration:
+                      //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
+                      //     child: ListTile(
+                      //       trailing: Column(
+                      //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
+                      //       ),
+                      //       title: Text('Moonlight Bar'),
+                      //       leading: locationController.customCheckbox(),
+                      //       subtitle: Column(
+                      //         children: [
+                      //           Padding(
+                      //             padding: const EdgeInsets.only(right: 0),
+                      //             child: Text(
+                      //               'Admin: Arrora gaur',
+                      //               style: commonSubtitle(),
+                      //             ),
+                      //           ),
+                      //           Padding(
+                      //             padding: const EdgeInsets.only(right: 0),
+                      //             child: Text(
+                      //               'Machine: 7',
+                      //               style: commonSubtitle(),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                    ),
+                  ),
+
+                  // TextField(
+                  //   controller: controller.searchController,
+                  //   style: GoogleFonts.glory(),
+                  //   onChanged: (value) {
+                  //     controller.filterLocations(value);
+                  //   },
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Search',
+                  //     labelStyle: GoogleFonts.glory(),
+                  //     prefixIcon: const Icon(Icons.search),
+                  //   ),
+                  // ),
+                  // sizeH(h: 15),
+                  // controller.filteredLocations!.isNotEmpty
+                  //     ? Expanded(
+                  //         child: ListView.builder(
+                  //           physics: const BouncingScrollPhysics(),
+                  //           itemCount: controller.filteredLocations!.length,
+                  //           itemBuilder: (context, index) {
+                  //             var data = controller.filteredLocations![index].locationname;
+                  //             return Column(
+                  //               children: [
+                  //                 GestureDetector(
+                  //                   onTap: () {
+                  //                     FocusScope.of(context).unfocus();
+                  //                     Get.to(GoogleLocationScreen(
+                  //                       locationText: data,
+                  //                     ));
+                  //                   },
+                  //                   child: ListTile(
+                  //                     title: Text(
+                  //                       data!,
+                  //                       style: GoogleFonts.glory(),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //                 const Divider(
+                  //                   color: Colors.black26,
+                  //                   height: 1,
+                  //                   thickness: 1,
+                  //                 )
+                  //               ],
+                  //             );
+                  //           },
+                  //         ),
+                  //       )
+                  //     : const SizedBox(),
+                ],
               ),
-            ],
-          );
-        },
-      ),
-    ));
+            );
+          },
+        ));
   }
 }
 
-class allData {
-  final String title;
-  final String subtitle;
-  final Color color;
-  final Color iconColor;
-  allData(this.title, this.subtitle, this.color, this.iconColor);
-}
-
-List<allData> _allData = [
-  allData(
-    'Moonlight Bar',
-    'Admin: Arrora gaur',
-    ColorRes.lightGreen,
-    ColorRes.green,
-  ),
-  allData('Black Sleep Bar', 'Admin: Edward Evan', ColorRes.lightBlue, ColorRes.green),
-  allData('Haven Martini', 'Admin: Bethany Jackson', ColorRes.lightYellow, ColorRes.yellow),
-  allData('Refined Mixers', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink),
-  allData('Haven Martini', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green),
-  allData('Black Sleep Bar', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink),
-];
