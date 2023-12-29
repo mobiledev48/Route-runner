@@ -6,7 +6,7 @@ import 'package:route_runner/screens/google_location_view/google_location_screen
 import 'package:route_runner/screens/home_view/home_controller.dart';
 import 'package:route_runner/screens/home_view/home_screen.dart';
 import 'package:route_runner/screens/location_view/location_controller.dart';
-import 'package:route_runner/screens/new_repair/new_service_report_screen.dart';
+import 'package:route_runner/screens/new_service_repair/new_service_report_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_controller.dart';
 import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/font_res.dart';
@@ -45,15 +45,15 @@ class ServiceReportScreen extends StatelessWidget {
               actions: [
                 GestureDetector(
                   onTap: () {
-                    Get.to(NewRepairScreen());
+                    Get.to(NewServiceRepairScreen());
                   },
                   child: Container(
                     height: 16,
-                    width: 32,
+                    width: 28,
                     alignment: Alignment.center,
-                    margin: EdgeInsets.only(right: 30,top: 12,bottom: 12),
+                    margin: EdgeInsets.only(right:  Get.width * 0.06,top: Get.height * 0.02,bottom:  Get.height * 0.02),
                     decoration:  BoxDecoration(
-                      color: ColorRes.white.withOpacity(0.30),
+                        color: ColorRes.white.withOpacity(0.30),
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Icon(Icons.add),
                   ),

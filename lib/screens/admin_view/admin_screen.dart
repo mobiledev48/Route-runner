@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/screens/admin_view/admin_controller.dart';
 import 'package:route_runner/screens/admin_view/widget/customFeildView.dart';
+import 'package:route_runner/service/pref_services.dart';
+import 'package:route_runner/utils/pref_keys.dart';
 import 'package:route_runner/utils/text_style.dart';
 
 import '../../utils/asset_res.dart';
@@ -134,6 +136,7 @@ class AdminScreen extends StatelessWidget {
                                 onPressed: () {
                                   if (adminController.formKey.currentState!.validate()) {
                                     Get.to(() => DashBoardScreen());
+                                    PrefService.setValue(PrefKeys.login, true);
                                   }
                                   // adminController.loginOnTap(context);
                                 })),

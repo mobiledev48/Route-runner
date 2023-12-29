@@ -89,4 +89,11 @@ class StringRes {
   static const time = "Time";
   static const serviceRequested = "Service Requested";
   static const jobStickNot = "Joy stick not working..";
+
+
+  ///---------------------------------------- New Report ----------------------------------------
+
+  static const newRepair = "New Repair";
+  static const reporter = "Reporter";
+  static const issue = "Issue";
 }

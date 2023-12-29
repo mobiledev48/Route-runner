@@ -4,18 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/common/common_text_fild.dart';
-import 'package:route_runner/screens/edit_location_view/edit_location_screen.dart';
-import 'package:route_runner/screens/google_location_view/google_location_screen.dart';
-import 'package:route_runner/screens/location_view/location_controller.dart';
-import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
-import 'package:route_runner/screens/new_repair/new_service_report_controller.dart';
+import 'package:route_runner/screens/new_service_repair/new_service_report_controller.dart';
+
 import 'package:route_runner/utils/asset_res.dart';
 import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/font_res.dart';
 import 'package:route_runner/utils/strings.dart';
 
-class NewRepairScreen extends StatelessWidget {
-  const NewRepairScreen({super.key});
+class NewServiceRepairScreen extends StatelessWidget {
+  const NewServiceRepairScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

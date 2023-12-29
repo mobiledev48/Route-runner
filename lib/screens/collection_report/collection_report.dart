@@ -23,7 +23,7 @@ class CollectionReportScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              //  Get.to(HomeScreen());
+              Get.back();
             },
             icon: Icon(Icons.arrow_back_ios_sharp)),
         centerTitle: true,
