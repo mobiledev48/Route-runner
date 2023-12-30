@@ -38,394 +38,911 @@ class LocationScreen extends StatelessWidget {
             StringRes.location,
             style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
           ),
-
-          // automaticallyImplyLeading: false,
+          automaticallyImplyLeading: false,
         ),
-        body: SingleChildScrollView(
-          child: GetBuilder<LocationController>(
-            id: 'location',
-            builder: (controller) {
-              return Column(
+        body: GetBuilder<LocationController>(
+          id: 'location',
+          builder: (controller) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                    child: Column(
-                      children: [
-                        Container(
-                            margin: EdgeInsets.only(bottom: 10),
-                            width: Get.width * 0.9,
-                            height: Get.height * 0.06,
-                            child: CommomTextFormFeild(
-                              controller: locationController.searchController,
-                              onChanged: (value) {
-                                locationController.searchTerm = 'Moonlight'; // Change this to your desired search term
-                                locationController.searchResults = locationController.searchAllData(value);
-                                print(locationController.searchResults);
-                                locationController.update(['location']);
-                              },
-                            )),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                controller.nextPage(0);
-                                controller.update(['machine']);
-                              },
-                              child: Container(
-                                height: Get.height * 0.06,
-                                width: Get.width * 0.455,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.only(topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)),
-                                    color: controller.currentIndex == 0 ? ColorRes.mainColor : ColorRes.white),
-                                child: Center(
-                                    child: Text(
-                                  StringRes.paid,
-                                  style:
-                                      TextStyle(color: controller.currentIndex == 0 ? ColorRes.white : ColorRes.black),
-                                )),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                controller.nextPage(1);
-                                controller.update(['machine']);
-                              },
-                              child: Container(
-                                height: Get.height * 0.06,
-                                width: Get.width * 0.455,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(7), bottomRight: Radius.circular(7)),
-                                    color: controller.currentIndex == 1 ? ColorRes.mainColor : ColorRes.white),
-                                child: Center(
-                                    child: Text(StringRes.unPaid,
-                                        style: TextStyle(
-                                            color: controller.currentIndex == 1 ? ColorRes.white : ColorRes.black))),
-                              ),
-                            ),
-                          ],
-                        ),
-                        controller.searchResults.isEmpty
-                            ? SizedBox(
-                                height: Get.height,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: _allData.length,
-                                    itemBuilder: (context, index) => Padding(
-                                          padding: const EdgeInsets.only(top: 10),
-                                          child: Container(
-                                            height: 75,
-                                            width: Get.width,
-                                            decoration: BoxDecoration(
-                                                color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        SizedBox(height: 10),
-                                                        Text(
-                                                          _allData[index].title,
-                                                          style: commonTitle().copyWith(
-                                                              color: ColorRes.black,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: 13),
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        SizedBox(
-                                                          width: Get.width * 0.26,
-                                                          child: Text(
-                                                            overflow: TextOverflow.ellipsis,
-                                                            _allData[index].subtitle,
-                                                            style: commonSubtitle()
-                                                                .copyWith(color: ColorRes.grey, fontSize: 10),
-                                                          ),
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        Text(
-                                                          'Machine: 7',
-                                                          style: commonSubtitle().copyWith(color: ColorRes.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      height: Get.height * 0.04,
-                                                      width: Get.width * 0.2,
-                                                      decoration: BoxDecoration(
-                                                        color: _allData[index].color,
-                                                        borderRadius: BorderRadius.circular(30),
-                                                      ),
-                                                      child: Center(
-                                                          child: Text(
-                                                        _allData[index].text,
-                                                        style:
-                                                            TextStyle(color: _allData[index].iconColor, fontSize: 12),
-                                                      )),
-                                                    ),
-                                                    Column(
-                                                      children: [
-                                                        SizedBox(
-                                                          height: Get.height * 0.02,
-                                                        ),
-                                                        PopupMenuButton(
-                                                          offset: const Offset(0, 10),
-                                                          // padding: EdgeInsets.zero,
-                                                          constraints: BoxConstraints.expand(width: 120, height: 115),
-                                                          padding: EdgeInsets.all(12),
-
-                                                          // position: PopupMenuPosition.under,
-                                                          child: const Text(
-                                                            "View more",
-                                                            style: TextStyle(
-                                                              fontSize: 10,
-                                                              fontWeight: FontWeight.w700,
-                                                              decoration: TextDecoration.underline,
-                                                            ),
-                                                          ),
-                                                          itemBuilder: (context) {
-                                                            return [
-                                                              PopupMenuItem(
-                                                                child: Container(
-                                                                  height: Get.height * 0.06,
-                                                                  width: Get.width * 0.9,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(6),
-                                                                      color: ColorRes.lightYellow),
-                                                                  child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                    children: [
-                                                                      Image.asset(
-                                                                        AssetRes.pin,
-                                                                        scale: 3,
-                                                                      ),
-                                                                      Text(
-                                                                        'Change Status',
-                                                                        style: commonSubtitle(),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              PopupMenuItem(
-                                                                  child: Container(
-                                                                height: Get.height * 0.06,
-                                                                width: Get.width * 0.4,
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(6),
-                                                                    color: ColorRes.grey),
-                                                                child: Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                  children: [
-                                                                    Image.asset(
-                                                                      AssetRes.list,
-                                                                      scale: 3,
-                                                                    ),
-                                                                    Text(
-                                                                      'List of machine',
-                                                                      style: commonSubtitle(),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ))
-                                                            ];
-                                                          },
-                                                        ),
-                                                        SizedBox(height: Get.height * 0.02),
-                                                        Row(
-                                                          children: [
-                                                            Image.asset(
-                                                              AssetRes.calendar,
-                                                              scale: 2.5,
-                                                            ),
-                                                            const Text(
-                                                              '12 Dec, 2020',
-                                                              style: TextStyle(
-                                                                fontSize: 9,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.black,
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )
-                                                      ],
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        )),
-                              )
-                            : SizedBox(
-                                height: Get.height,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: locationController.searchResults.length,
-                                    itemBuilder: (context, index) => Padding(
-                                          padding: const EdgeInsets.only(top: 10),
-                                          child: Container(
-                                            height: 75,
-                                            width: Get.width,
-                                            decoration: BoxDecoration(
-                                                color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        SizedBox(height: 10),
-                                                        Text(
-                                                          locationController.searchResults[index].title,
-                                                          style: commonTitle().copyWith(
-                                                              color: ColorRes.black,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: 13),
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        SizedBox(
-                                                          width: Get.width * 0.26,
-                                                          child: Text(
-                                                            overflow: TextOverflow.ellipsis,
-                                                            locationController.searchResults[index].subtitle,
-                                                            style: commonSubtitle()
-                                                                .copyWith(color: ColorRes.grey, fontSize: 10),
-                                                          ),
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        Text(
-                                                          'Machine: 7',
-                                                          style: commonSubtitle().copyWith(color: ColorRes.grey),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      height: Get.height * 0.04,
-                                                      width: Get.width * 0.2,
-                                                      decoration: BoxDecoration(
-                                                        color: locationController.searchResults[index].color,
-                                                        borderRadius: BorderRadius.circular(30),
-                                                      ),
-                                                      child: Center(
-                                                          child: Text(
-                                                        locationController.searchResults[index].active,
-                                                        // locationController.searchResults[index].text,
-                                                        // style:
-                                                        // TextStyle(color: locationController.searchResults[index].iconColor, fontSize: 12),
-                                                      )),
-                                                    ),
-                                                    Column(
-                                                      children: [
-                                                        SizedBox(
-                                                          height: Get.height * 0.02,
-                                                        ),
-                                                        PopupMenuButton(
-                                                          offset: const Offset(0, 10),
-                                                          // padding: EdgeInsets.zero,
-                                                          constraints: BoxConstraints.expand(width: 120, height: 115),
-                                                          padding: EdgeInsets.all(12),
-
-                                                          // position: PopupMenuPosition.under,
-                                                          child: const Text(
-                                                            "View more",
-                                                            style: TextStyle(
-                                                              fontSize: 10,
-                                                              fontWeight: FontWeight.w700,
-                                                              decoration: TextDecoration.underline,
-                                                            ),
-                                                          ),
-                                                          itemBuilder: (context) {
-                                                            return [
-                                                              PopupMenuItem(
-                                                                child: Container(
-                                                                  height: Get.height * 0.06,
-                                                                  width: Get.width * 0.9,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(6),
-                                                                      color: ColorRes.lightYellow),
-                                                                  child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                    children: [
-                                                                      Image.asset(
-                                                                        AssetRes.pin,
-                                                                        scale: 3,
-                                                                      ),
-                                                                      Text(
-                                                                        'Change Status',
-                                                                        style: commonSubtitle(),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              PopupMenuItem(
-                                                                  child: Container(
-                                                                height: Get.height * 0.06,
-                                                                width: Get.width * 0.4,
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(6),
-                                                                    color: ColorRes.grey),
-                                                                child: Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                  children: [
-                                                                    Image.asset(
-                                                                      AssetRes.list,
-                                                                      scale: 3,
-                                                                    ),
-                                                                    Text(
-                                                                      'List of machine',
-                                                                      style: commonSubtitle(),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ))
-                                                            ];
-                                                          },
-                                                        ),
-                                                        SizedBox(height: Get.height * 0.02),
-                                                        Row(
-                                                          children: [
-                                                            Image.asset(
-                                                              AssetRes.calendar,
-                                                              scale: 2.5,
-                                                            ),
-                                                            const Text(
-                                                              '12 Dec, 2020',
-                                                              style: TextStyle(
-                                                                fontSize: 9,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.black,
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )
-                                                      ],
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        )),
-                              )
-                      ],
-                    ),
+                  Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      width: Get.width * 0.9,
+                      height: Get.height * 0.06,
+                      child: CommomTextFormFeild(
+                        controller: locationController.searchController,
+                        onChanged: (value) {
+                          locationController.searchTerm = 'Moonlight';
+                          locationController.searchResults = locationController.searchAllData(value);
+                          print(locationController.searchResults);
+                          locationController.update(['location']);
+                        },
+                      )),
+                  SizedBox(
+                    height: 10,
                   ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          controller.nextPage(0);
+                          controller.update(['machine']);
+                        },
+                        child: Container(
+                          height: Get.height * 0.06,
+                          width: Get.width * 0.455,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.only(topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)),
+                              color: controller.currentIndex == 0 ? ColorRes.mainColor : ColorRes.white),
+                          child: Center(
+                              child: Text(
+                            StringRes.paid,
+                            style: TextStyle(color: controller.currentIndex == 0 ? ColorRes.white : ColorRes.black),
+                          )),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          controller.nextPage(1);
+                          controller.update(['machine']);
+                        },
+                        child: Container(
+                          height: Get.height * 0.06,
+                          width: Get.width * 0.455,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.only(topRight: Radius.circular(7), bottomRight: Radius.circular(7)),
+                              color: controller.currentIndex == 1 ? ColorRes.mainColor : ColorRes.white),
+                          child: Center(
+                              child: Text(StringRes.unPaid,
+                                  style: TextStyle(
+                                      color: controller.currentIndex == 1 ? ColorRes.white : ColorRes.black))),
+                        ),
+                      ),
+                    ],
+                  ),
+                  controller.currentIndex == 0
+                      ? controller.searchController.text.isEmpty
+                          ? Expanded(
+                              child: ListView.builder(
+                                  itemCount: locationAllData.length,
+                                  itemBuilder: (context, index) => Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Container(
+                                          height: 75,
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                              color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height: 10),
+                                                      Text(
+                                                        locationAllData[index].title,
+                                                        // 'Moonlight Bar',
+                                                        style: GoogleFonts.nunito(
+                                                            fontSize: 12,
+                                                            fontWeight: FontWeight.w600,
+                                                            color: ColorRes.black),
+                                                      ),
+                                                      SizedBox(height: 5),
+                                                      SizedBox(
+                                                        width: Get.width * 0.24,
+                                                        child: Text(
+                                                          overflow: TextOverflow.ellipsis,
+                                                          locationAllData[index].subtitle,
+                                                          // 'Admin: Arrora gaur',
+                                                          style: GoogleFonts.nunito(
+                                                              fontSize: 9,
+                                                              fontWeight: FontWeight.w400,
+                                                              color: ColorRes.grey),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Machine: ${index * 6 + 12}',
+                                                        style: GoogleFonts.nunito(
+                                                            fontSize: 9,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: ColorRes.grey),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    height: Get.height * 0.04,
+                                                    width: Get.width * 0.2,
+                                                    decoration: BoxDecoration(
+                                                      color: locationAllData[index].color,
+                                                      borderRadius: BorderRadius.circular(30),
+                                                    ),
+                                                    child: Center(
+                                                        child: Text(
+                                                      locationAllData[index].active,
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600,
+                                                          color: locationAllData[index].iconColor,
+                                                          fontSize: 12),
+                                                    )),
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: Get.height * 0.02,
+                                                      ),
+                                                      Container(
+                                                        padding: EdgeInsets.zero,
+                                                        decoration:
+                                                            BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                                                        child: PopupMenuButton(
+                                                          offset: const Offset(0, 10),
+                                                          padding: EdgeInsets.zero,
+                                                          constraints: BoxConstraints.expand(
+                                                              width: 120, height: Get.height * 0.205),
+                                                          position: PopupMenuPosition.under,
+                                                          child: Text(
+                                                            "View more",
+                                                            style: GoogleFonts.nunito(
+                                                                decoration: TextDecoration.underline,
+                                                                fontSize: 10,
+                                                                fontWeight: FontWeight.w600,
+                                                                color: ColorRes.color030229),
+                                                          ),
+                                                          itemBuilder: (context) {
+                                                            return [
+                                                              PopupMenuItem(
+                                                                height: Get.height * 0,
+                                                                padding:
+                                                                    EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                                                child: Container(
+                                                                  height: Get.height * 0.05,
+                                                                  width: Get.width * 0.6,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(6),
+                                                                      color: ColorRes.lightOrange),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    children: [
+                                                                      Image.asset(
+                                                                        AssetRes.pin,
+                                                                        scale: 3,
+                                                                      ),
+                                                                      Text(
+                                                                        StringRes.changeStatus,
+                                                                        style: commonSubtitle()
+                                                                            .copyWith(color: ColorRes.orange),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              PopupMenuItem(
+                                                                padding:
+                                                                    EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                                                child: Container(
+                                                                  height: Get.height * 0.05,
+                                                                  width: Get.width * 0.6,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(6),
+                                                                      color: ColorRes.lightYellow),
+                                                                  child: Row(
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    children: [
+                                                                      SizedBox(
+                                                                        width: Get.width * 0.02,
+                                                                      ),
+                                                                      Image.asset(
+                                                                        AssetRes.pay,
+                                                                        scale: 3,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width: Get.width * 0.02,
+                                                                      ),
+                                                                      Text(
+                                                                        StringRes.pay,
+                                                                        style: commonSubtitle()
+                                                                            .copyWith(color: ColorRes.yellow),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              PopupMenuItem(
+                                                                  height: Get.height * 0,
+                                                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                                                  child: Container(
+                                                                    height: Get.height * 0.05,
+                                                                    width: Get.width * 0.5,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(6),
+                                                                        color: ColorRes.grey3),
+                                                                    child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      children: [
+                                                                        Image.asset(
+                                                                          AssetRes.list,
+                                                                          scale: 3,
+                                                                        ),
+                                                                        Text(
+                                                                          StringRes.listOfMachine,
+                                                                          style: commonSubtitle()
+                                                                              .copyWith(color: ColorRes.grey2),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ))
+                                                            ];
+                                                          },
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: Get.height * 0.04),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            AssetRes.calendar,
+                                                            scale: 2.5,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 2,
+                                                          ),
+                                                          const Text(
+                                                            '12 Dec, 2020',
+                                                            style: TextStyle(
+                                                              fontSize: 9,
+                                                              fontWeight: FontWeight.w400,
+                                                              color: ColorRes.grey,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                            )
+                          : locationController.searchResults.isNotEmpty
+                              ? Expanded(
+                                  child: ListView.builder(
+                                      itemCount: controller.searchResults.length,
+                                      itemBuilder: (context, index) => Padding(
+                                            padding: const EdgeInsets.only(top: 10),
+                                            child: Container(
+                                              height: 75,
+                                              width: Get.width,
+                                              decoration: BoxDecoration(
+                                                  color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          SizedBox(height: 10),
+                                                          Text(
+                                                            controller.searchResults[index].title,
+                                                            // 'Moonlight Bar',
+                                                            style: GoogleFonts.nunito(
+                                                                fontSize: 12,
+                                                                fontWeight: FontWeight.w600,
+                                                                color: ColorRes.black),
+                                                          ),
+                                                          SizedBox(height: 5),
+                                                          SizedBox(
+                                                            width: Get.width * 0.24,
+                                                            child: Text(
+                                                              overflow: TextOverflow.ellipsis,
+                                                              controller.searchResults[index].subtitle,
+                                                              // 'Admin: Arrora gaur',
+                                                              style: GoogleFonts.nunito(
+                                                                  fontSize: 9,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: ColorRes.grey),
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 5),
+                                                          Text(
+                                                            'Machine: ${index * 6 + 12}',
+                                                            // 'SN: #${index + 1}-654184',
+                                                            style: GoogleFonts.nunito(
+                                                                fontSize: 9,
+                                                                fontWeight: FontWeight.w400,
+                                                                color: ColorRes.grey),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        height: Get.height * 0.04,
+                                                        width: Get.width * 0.2,
+                                                        decoration: BoxDecoration(
+                                                          color: controller.searchResults[index].color,
+                                                          borderRadius: BorderRadius.circular(30),
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                          controller.searchResults[index].active,
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.w600,
+                                                              color: controller.searchResults[index].iconColor,
+                                                              fontSize: 12),
+                                                        )),
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: Get.height * 0.02,
+                                                          ),
+                                                          PopupMenuButton(
+                                                            offset: const Offset(0, 10),
+                                                            // padding: EdgeInsets.zero,
+                                                            constraints: BoxConstraints.expand(
+                                                                width: 120, height: Get.height * 0.205),
+                                                            position: PopupMenuPosition.under,
+
+                                                            child: Text(
+                                                              "View more",
+                                                              style: GoogleFonts.nunito(
+                                                                  decoration: TextDecoration.underline,
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  color: ColorRes.color030229),
+                                                            ),
+                                                            itemBuilder: (context) {
+                                                              return [
+                                                                PopupMenuItem(
+                                                                  height: Get.height * 0,
+                                                                  padding:
+                                                                      EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                                                  child: Container(
+                                                                    height: Get.height * 0.05,
+                                                                    width: Get.width * 0.6,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(6),
+                                                                        color: ColorRes.lightOrange),
+                                                                    child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      children: [
+                                                                        Image.asset(
+                                                                          AssetRes.pin,
+                                                                          scale: 3,
+                                                                        ),
+                                                                        Text(
+                                                                          StringRes.changeStatus,
+                                                                          style: commonSubtitle()
+                                                                              .copyWith(color: ColorRes.orange),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                PopupMenuItem(
+                                                                  padding:
+                                                                      EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                                                  child: Container(
+                                                                    height: Get.height * 0.05,
+                                                                    width: Get.width * 0.6,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(6),
+                                                                        color: ColorRes.lightYellow),
+                                                                    child: Row(
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width: Get.width * 0.02,
+                                                                        ),
+                                                                        Image.asset(
+                                                                          AssetRes.pay,
+                                                                          scale: 3,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width: Get.width * 0.02,
+                                                                        ),
+                                                                        Text(
+                                                                          StringRes.pay,
+                                                                          style: commonSubtitle()
+                                                                              .copyWith(color: ColorRes.yellow),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                PopupMenuItem(
+                                                                    height: Get.height * 0,
+                                                                    padding: EdgeInsets.symmetric(horizontal: 5),
+                                                                    child: Container(
+                                                                      height: Get.height * 0.05,
+                                                                      width: Get.width * 0.5,
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(6),
+                                                                          color: ColorRes.grey3),
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: [
+                                                                          Image.asset(
+                                                                            AssetRes.list,
+                                                                            scale: 3,
+                                                                          ),
+                                                                          Text(
+                                                                            StringRes.listOfMachine,
+                                                                            style: commonSubtitle()
+                                                                                .copyWith(color: ColorRes.grey2),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ))
+                                                              ];
+                                                            },
+                                                          ),
+                                                          SizedBox(height: Get.height * 0.04),
+                                                          Row(
+                                                            children: [
+                                                              Image.asset(
+                                                                AssetRes.calendar,
+                                                                scale: 2.5,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2,
+                                                              ),
+                                                              const Text(
+                                                                '12 Dec, 2020',
+                                                                style: TextStyle(
+                                                                  fontSize: 9,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: ColorRes.grey,
+                                                                ),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 30),
+                                  child: Text(
+                                    'Not Found',
+                                    style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
+                                  ),
+                                )
+                      : controller.searchController.text.isEmpty
+                          ? Expanded(
+                              child: ListView.builder(
+                                  itemCount: locationAllData.length,
+                                  itemBuilder: (context, index) => Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Container(
+                                          height: 75,
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                              color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height: 10),
+                                                      Text(
+                                                        locationAllData[index].title,
+                                                        // 'Moonlight Bar',
+                                                        style: GoogleFonts.nunito(
+                                                            fontSize: 12,
+                                                            fontWeight: FontWeight.w600,
+                                                            color: ColorRes.black),
+                                                      ),
+                                                      SizedBox(height: 5),
+                                                      SizedBox(
+                                                        width: Get.width * 0.24,
+                                                        child: Text(
+                                                          overflow: TextOverflow.ellipsis,
+                                                          locationAllData[index].subtitle,
+                                                          // 'Admin: Arrora gaur',
+                                                          style: GoogleFonts.nunito(
+                                                              fontSize: 9,
+                                                              fontWeight: FontWeight.w400,
+                                                              color: ColorRes.grey),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Machine: ${index * 6 + 12}',
+                                                        style: GoogleFonts.nunito(
+                                                            fontSize: 9,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: ColorRes.grey),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    height: Get.height * 0.04,
+                                                    width: Get.width * 0.2,
+                                                    decoration: BoxDecoration(
+                                                      color: locationAllData[index].color,
+                                                      borderRadius: BorderRadius.circular(30),
+                                                    ),
+                                                    child: Center(
+                                                        child: Text(
+                                                      locationAllData[index].active,
+                                                      style: TextStyle(
+                                                          color: locationAllData[index].iconColor,
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize: 12),
+                                                    )),
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: Get.height * 0.02,
+                                                      ),
+                                                      PopupMenuButton(
+                                                        offset: const Offset(0, 10),
+                                                        // padding: EdgeInsets.zero,
+                                                        constraints: BoxConstraints.expand(
+                                                            width: 120, height: Get.height * 0.205),
+                                                        position: PopupMenuPosition.under,
+
+                                                        child: Text(
+                                                          "View more",
+                                                          style: GoogleFonts.nunito(
+                                                              decoration: TextDecoration.underline,
+                                                              fontSize: 10,
+                                                              fontWeight: FontWeight.w600,
+                                                              color: ColorRes.color030229),
+                                                        ),
+                                                        itemBuilder: (context) {
+                                                          return [
+                                                            PopupMenuItem(
+                                                              height: Get.height * 0,
+                                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                                              child: Container(
+                                                                height: Get.height * 0.05,
+                                                                width: Get.width * 0.6,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(6),
+                                                                    color: ColorRes.lightOrange),
+                                                                child: Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                  children: [
+                                                                    Image.asset(
+                                                                      AssetRes.pin,
+                                                                      scale: 3,
+                                                                    ),
+                                                                    Text(
+                                                                      StringRes.changeStatus,
+                                                                      style: commonSubtitle()
+                                                                          .copyWith(color: ColorRes.orange),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            PopupMenuItem(
+                                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                                              child: Container(
+                                                                height: Get.height * 0.05,
+                                                                width: Get.width * 0.6,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(6),
+                                                                    color: ColorRes.lightYellow),
+                                                                child: Row(
+                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: Get.width * 0.02,
+                                                                    ),
+                                                                    Image.asset(
+                                                                      AssetRes.pay,
+                                                                      scale: 3,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: Get.width * 0.02,
+                                                                    ),
+                                                                    Text(
+                                                                      StringRes.pay,
+                                                                      style: commonSubtitle()
+                                                                          .copyWith(color: ColorRes.yellow),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            PopupMenuItem(
+                                                                height: Get.height * 0,
+                                                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                                                child: Container(
+                                                                  height: Get.height * 0.05,
+                                                                  width: Get.width * 0.5,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(6),
+                                                                      color: ColorRes.grey3),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    children: [
+                                                                      Image.asset(
+                                                                        AssetRes.list,
+                                                                        scale: 3,
+                                                                      ),
+                                                                      Text(
+                                                                        StringRes.listOfMachine,
+                                                                        style: commonSubtitle()
+                                                                            .copyWith(color: ColorRes.grey2),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ))
+                                                          ];
+                                                        },
+                                                      ),
+                                                      SizedBox(height: Get.height * 0.04),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            AssetRes.calendar,
+                                                            scale: 2.5,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 2,
+                                                          ),
+                                                          const Text(
+                                                            '12 Dec, 2020',
+                                                            style: TextStyle(
+                                                              fontSize: 9,
+                                                              fontWeight: FontWeight.w400,
+                                                              color: ColorRes.grey,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                            )
+                          : locationController.searchResults.isNotEmpty
+                              ? Expanded(
+                                  child: ListView.builder(
+                                      itemCount: controller.searchResults.length,
+                                      itemBuilder: (context, index) => Padding(
+                                            padding: const EdgeInsets.only(top: 10),
+                                            child: Container(
+                                              height: 75,
+                                              width: Get.width,
+                                              decoration: BoxDecoration(
+                                                  color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          SizedBox(height: 10),
+                                                          Text(
+                                                            controller.searchResults[index].title,
+                                                            // 'Moonlight Bar',
+                                                            style: GoogleFonts.nunito(
+                                                                fontSize: 12,
+                                                                fontWeight: FontWeight.w600,
+                                                                color: ColorRes.black),
+                                                          ),
+                                                          SizedBox(height: 5),
+                                                          SizedBox(
+                                                            width: Get.width * 0.24,
+                                                            child: Text(
+                                                              overflow: TextOverflow.ellipsis,
+                                                              controller.searchResults[index].subtitle,
+                                                              // 'Admin: Arrora gaur',
+                                                              style: GoogleFonts.nunito(
+                                                                  fontSize: 9,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: ColorRes.grey),
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 5),
+                                                          Text(
+                                                            'Machine: ${index * 6 + 12}',
+                                                            // 'SN: #${index + 1}-654184',
+                                                            style: GoogleFonts.nunito(
+                                                                fontSize: 9,
+                                                                fontWeight: FontWeight.w400,
+                                                                color: ColorRes.grey),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        height: Get.height * 0.04,
+                                                        width: Get.width * 0.2,
+                                                        decoration: BoxDecoration(
+                                                          color: controller.searchResults[index].color,
+                                                          borderRadius: BorderRadius.circular(30),
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                          controller.searchResults[index].active,
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.w600,
+                                                              color: controller.searchResults[index].iconColor,
+                                                              fontSize: 12),
+                                                        )),
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: Get.height * 0.02,
+                                                          ),
+                                                          PopupMenuButton(
+                                                            offset: const Offset(0, 10),
+                                                            // padding: EdgeInsets.zero,
+                                                            constraints: BoxConstraints.expand(
+                                                                width: 120, height: Get.height * 0.205),
+                                                            position: PopupMenuPosition.under,
+
+                                                            child: Text(
+                                                              "View more",
+                                                              style: GoogleFonts.nunito(
+                                                                  decoration: TextDecoration.underline,
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  color: ColorRes.color030229),
+                                                            ),
+                                                            itemBuilder: (context) {
+                                                              return [
+                                                                PopupMenuItem(
+                                                                  height: Get.height * 0,
+                                                                  padding:
+                                                                      EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                                                  child: Container(
+                                                                    height: Get.height * 0.05,
+                                                                    width: Get.width * 0.6,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(6),
+                                                                        color: ColorRes.lightOrange),
+                                                                    child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      children: [
+                                                                        Image.asset(
+                                                                          AssetRes.pin,
+                                                                          scale: 3,
+                                                                        ),
+                                                                        Text(
+                                                                          StringRes.changeStatus,
+                                                                          style: commonSubtitle()
+                                                                              .copyWith(color: ColorRes.orange),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                PopupMenuItem(
+                                                                  padding:
+                                                                      EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                                                                  child: Container(
+                                                                    height: Get.height * 0.05,
+                                                                    width: Get.width * 0.6,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(6),
+                                                                        color: ColorRes.lightYellow),
+                                                                    child: Row(
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width: Get.width * 0.02,
+                                                                        ),
+                                                                        Image.asset(
+                                                                          AssetRes.pay,
+                                                                          scale: 3,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width: Get.width * 0.02,
+                                                                        ),
+                                                                        Text(
+                                                                          StringRes.pay,
+                                                                          style: commonSubtitle()
+                                                                              .copyWith(color: ColorRes.yellow),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                PopupMenuItem(
+                                                                    height: Get.height * 0,
+                                                                    padding: EdgeInsets.symmetric(horizontal: 5),
+                                                                    child: Container(
+                                                                      height: Get.height * 0.05,
+                                                                      width: Get.width * 0.5,
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(6),
+                                                                          color: ColorRes.grey3),
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: [
+                                                                          Image.asset(
+                                                                            AssetRes.list,
+                                                                            scale: 3,
+                                                                          ),
+                                                                          Text(
+                                                                            StringRes.listOfMachine,
+                                                                            style: commonSubtitle()
+                                                                                .copyWith(color: ColorRes.grey2),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ))
+                                                              ];
+                                                            },
+                                                          ),
+                                                          SizedBox(height: Get.height * 0.04),
+                                                          Row(
+                                                            children: [
+                                                              Image.asset(
+                                                                AssetRes.calendar,
+                                                                scale: 2.5,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2,
+                                                              ),
+                                                              const Text(
+                                                                '12 Dec, 2020',
+                                                                style: TextStyle(
+                                                                  fontSize: 9,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: ColorRes.grey,
+                                                                ),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 30),
+                                  child: Text(
+                                    'Not Found',
+                                    style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
+                                  ),
+                                )
                 ],
-              );
-            },
-          ),
+              ),
+            );
+          },
         ));
   }
 }

@@ -16,6 +16,8 @@ class ColorRes {
   static const white = Color(0xFFFFFFFF);
   static const trans = Color(0xFFABC2FC);
   static const tffGrey = Color(0xFFF3F2F2);
+  static const orange = Color(0xFFF29339);
+  static const lightOrange = Color(0xFFF5DFCB);
 
   static const black = Color(0xFF000000);
   static const black2 = Color(0xFF090909);

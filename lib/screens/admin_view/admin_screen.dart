@@ -131,6 +131,7 @@ class AdminScreen extends StatelessWidget {
                         FocusScope.of(context).unfocus();
                         if (adminController.validator()) {
                           Get.to(() => DashBoardScreen());
+                          PrefService.setValue(PrefKeys.login, true);
                         }
                       },
                     )

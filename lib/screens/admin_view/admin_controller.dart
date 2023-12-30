@@ -52,7 +52,7 @@ class AdminController extends GetxController {
       update(['logIn']);
       return false;
     } else {
-      if (passwordController.text.trim().length >= 8) {
+      if (passwordController.text.trim().length >= 1) {
         passwordError = '';
         update(['logIn']);
         return true;

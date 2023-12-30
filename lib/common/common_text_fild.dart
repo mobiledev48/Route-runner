@@ -17,6 +17,7 @@ class CommonTextField extends StatelessWidget {
   double? suffixIconSize;
   int? maxLines;
   double? containerHeight;
+  final TextInputType? type;
   final GestureTapCallback? suffixIconOnTap;
 
 // <<<<<<< HEAD
@@ -33,7 +34,7 @@ class CommonTextField extends StatelessWidget {
       this.suffixIcon,
       this.titleText,
       this.controller,
-      this.readOnly});
+      this.readOnly, this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +68,13 @@ class CommonTextField extends StatelessWidget {
         Container(
           height: containerHeight ?? 58,
           width: Get.width,
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                0,
               ),
               color: ColorRes.colorF7F7F8),
           child: TextField(
+            keyboardType:  type,
             maxLines: maxLines ?? 1,
             controller: controller,
             readOnly: readOnly ?? false,
@@ -80,11 +82,13 @@ class CommonTextField extends StatelessWidget {
                 filled: true,
                 fillColor: ColorRes.tffGrey,
                 hintText: hintText ?? "",
-                hintStyle: TextStyle(fontSize: 12),
-                focusedBorder: const OutlineInputBorder(
+                hintStyle: TextStyle(fontSize: 12, color: ColorRes.grey),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(color: Colors.transparent),
                 ),
-                enabledBorder: const OutlineInputBorder(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(color: Colors.transparent),
                 ),
                 suffixIcon: isSuffixIcon == true

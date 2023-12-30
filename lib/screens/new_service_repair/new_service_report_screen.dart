@@ -16,8 +16,7 @@ class NewServiceRepairScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NewServiceReportController newServiceReportController =
-        Get.put(NewServiceReportController());
+    NewServiceReportController newServiceReportController = Get.put(NewServiceReportController());
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
@@ -25,15 +24,15 @@ class NewServiceRepairScreen extends StatelessWidget {
                   onPressed: () {
                     Get.back();
                   },
-                  icon: Icon(Icons.arrow_back_ios_sharp)),
+                  icon: Icon(
+                    Icons.arrow_back_ios_sharp,
+                    size: 20,
+                  )),
               centerTitle: true,
               backgroundColor: ColorRes.mainColor,
               title: Text(
                 StringRes.newServiceRepair,
-                style: GoogleFonts.nunito(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: ColorRes.white),
+                style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
               ),
 
               // automaticallyImplyLeading: false,
@@ -56,22 +55,22 @@ class NewServiceRepairScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: CommonTextField(
+                                        type: TextInputType.number,
                                         isRequired: true,
                                         hintText: "#12",
                                         titleText: StringRes.machineNumber,
-                                        controller:
-                                            controller.machineNumberController),
+                                        controller: controller.machineNumberController),
                                   ),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   Expanded(
                                     child: CommonTextField(
+                                        type: TextInputType.number,
                                         isRequired: true,
                                         hintText: StringRes.entersSerialNumber,
                                         titleText: StringRes.serialNumber,
-                                        controller: controller
-                                            .enterSerialNumberController),
+                                        controller: controller.enterSerialNumberController),
                                   ),
                                 ],
                               ),
@@ -79,6 +78,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                 height: 20,
                               ),
                               CommonTextField(
+                                  type: TextInputType.number,
                                   isRequired: true,
                                   hintText: "4652387645",
                                   titleText: StringRes.auditsNumber,
@@ -142,8 +142,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                   isRequired: true,
                                   hintText: StringRes.jobStickNot,
                                   titleText: StringRes.serviceRequested,
-                                  controller:
-                                      controller.serviceRequestedController),
+                                  controller: controller.serviceRequestedController),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -160,11 +159,8 @@ class NewServiceRepairScreen extends StatelessWidget {
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                             color: ColorRes.color5B93FF,
-                                            border: Border.all(
-                                                width: 1,
-                                                color: ColorRes.color5B93FF),
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(10))),
+                                            border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))),
                                         child: Row(
                                           children: [
                                             SizedBox(
@@ -180,9 +176,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                             Text(
                                               StringRes.captureMachineReading,
                                               style: GoogleFonts.nunito(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorRes.white),
+                                                  fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                             ),
                                           ],
                                         ),
@@ -199,24 +193,22 @@ class NewServiceRepairScreen extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: controller.image != null
                                     ? Container(
-                                  height: 150,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: FileImage(File(controller.image!.path)),
-                                      fit: BoxFit.cover, // Choose the BoxFit that suits your needs
-                                    ),
-                                  ),
-                                )
+                                        height: 150,
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: FileImage(File(controller.image!.path)),
+                                            fit: BoxFit.cover, // Choose the BoxFit that suits your needs
+                                          ),
+                                        ),
+                                      )
                                     : SizedBox(),
                               ),
-
                               const SizedBox(
                                 height: 20,
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -225,17 +217,12 @@ class NewServiceRepairScreen extends StatelessWidget {
                                         width: 180,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 1,
-                                                color: ColorRes.color5B93FF),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
+                                            border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                            borderRadius: BorderRadius.all(Radius.circular(10))),
                                         child: Text(
                                           StringRes.close,
                                           style: GoogleFonts.nunito(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: ColorRes.color5B93FF),
+                                              fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.color5B93FF),
                                         ),
                                       ),
                                     ),
@@ -249,17 +236,12 @@ class NewServiceRepairScreen extends StatelessWidget {
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                             color: ColorRes.color5B93FF,
-                                            border: Border.all(
-                                                width: 1,
-                                                color: ColorRes.color5B93FF),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
+                                            border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                            borderRadius: BorderRadius.all(Radius.circular(10))),
                                         child: Text(
                                           StringRes.create,
                                           style: GoogleFonts.nunito(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: ColorRes.white),
+                                              fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                         ),
                                       ),
                                     )

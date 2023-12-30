@@ -26,6 +26,7 @@ class AssetRes {
   static const search = '${icon}search.png';
   static const camera = '${icon}Camera.png';
   static const print = '${icon}print.png';
+  static const pay = '${icon}pay.png';
 
   static const fileDocument = '${icon}File_Document.png';
   static const logOut = '${icon}logOut.png';

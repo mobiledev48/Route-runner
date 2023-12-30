@@ -11,7 +11,7 @@ class StringRes {
   static const enterPasswordError = "Please enter password";
   static const enterValidEmail = "Enter valid email";
   static const passwordMustBe = "Must be at least 8 characters";
-  static const dots = "********";
+  static const dots = "●●●●●●●●";
   static const rememberMe = "Remember me";
   //----------------------dash-board-----------
   static const home = 'Home';
@@ -44,11 +44,18 @@ class StringRes {
   static const repair = 'Repair';
   static const serviceReport = 'Service Report';
   static const logout = 'Logout';
+  static const serialno = 'Serial No: ';
+  static const Reporter = 'Reporter: ';
+  // static const logout = 'Logout';
+  // static const logout = 'Logout';
 
   //----------------------------location screen------------------
   static const search = 'Search';
   static const paid = 'Paid';
   static const unPaid = 'Unpaid';
+  static const pay = 'Pay';
+  static const changeStatus = 'Change Status';
+  static const listOfMachine = 'List of machine';
 
   //----------------------collection detail----------------
   static const collectionDetail = 'Collection Details';

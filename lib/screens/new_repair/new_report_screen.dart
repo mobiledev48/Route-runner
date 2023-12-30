@@ -22,7 +22,10 @@ class NewRepairScreen extends StatelessWidget {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(Icons.arrow_back_ios_sharp)),
+              icon: Icon(
+                Icons.arrow_back_ios_sharp,
+                size: 20,
+              )),
           centerTitle: true,
           backgroundColor: ColorRes.mainColor,
           title: Text(
@@ -50,6 +53,7 @@ class NewRepairScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: CommonTextField(
+                                    type: TextInputType.number,
                                     isRequired: true,
                                     hintText: "#12",
                                     titleText: StringRes.machineNumber,
@@ -60,6 +64,7 @@ class NewRepairScreen extends StatelessWidget {
                               ),
                               Expanded(
                                 child: CommonTextField(
+                                    type: TextInputType.number,
                                     isRequired: true,
                                     hintText: StringRes.entersSerialNumber,
                                     titleText: StringRes.serialNumber,
@@ -71,6 +76,7 @@ class NewRepairScreen extends StatelessWidget {
                             height: 20,
                           ),
                           CommonTextField(
+                              type: TextInputType.number,
                               isRequired: true,
                               hintText: "4652387645",
                               titleText: StringRes.auditsNumber,

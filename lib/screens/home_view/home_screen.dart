@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/home_view/home_controller.dart';
 import 'package:route_runner/screens/home_view/widget/appbar_container.dart';
 import 'package:route_runner/screens/home_view/widget/text_feild_view.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
+import '../../service/pref_services.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
+import '../../utils/pref_keys.dart';
 import '../../utils/strings.dart';
 import '../../utils/text_style.dart';
 
@@ -214,9 +217,12 @@ class HomeScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         homeController.dividers(5, 5),
-                        SizedBox(
-                          height: Get.height * 0.19,
+                        Flexible(
+                          flex: 2,
+                          // height: Get.height * 0.15,
                           child: ListView.builder(
+                            // physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
                             itemCount: homeController.recentCollectionList.length,
                             itemBuilder: (context, index) {
                               return Column(
@@ -292,10 +298,13 @@ class HomeScreen extends StatelessWidget {
                                                             SizedBox(
                                                               width: Get.width * 0.22,
                                                               child: Text(
-                                                                homeController.recentCollectionList[index]
-                                                                    .listData![index].machine
-                                                                    .toString(),
-                                                                // 'Machine: 7',
+                                                                // homeController.recentCollectionList[index]
+                                                                //     .listData![index].machine
+                                                                //     .toString(),
+                                                                //   "\$ ${controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In)}",
+                                                                // homeController.recentCollectionList[index]
+                                                                //     .locationDetails?[i].current![0].pre as String,
+                                                                'Machine: 7',
                                                                 style: GoogleFonts.nunito(
                                                                     fontSize: 10,
                                                                     fontWeight: FontWeight.w500,
@@ -414,118 +423,131 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
-                  Container(
-                    height: Get.height * 0.74,
-                    width: Get.width * 0.9,
-                    decoration: BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: [
-                        Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 20),
-                              child: Text(
-                                StringRes.pendingRepairs,
-                                style: commonTitle().copyWith(fontWeight: FontWeight.w700),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      // height: Get.height * 0.74,
+                      // width: Get.width * 0.9,
+                      decoration: BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        children: [
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20, top: 20),
+                                child: Text(
+                                  StringRes.pendingRepairs,
+                                  style: commonTitle().copyWith(fontWeight: FontWeight.w700),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 160, top: 20),
-                              child: Image.asset(
-                                AssetRes.menu,
-                                scale: 3,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 160, top: 20),
+                                child: Image.asset(
+                                  AssetRes.menu,
+                                  scale: 3,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          // height: 20,
-                          width: 20,
-                        ),
-                        SizedBox(
-                          height: Get.height * 0.6,
-                          child: ListView.builder(
-                            itemCount: 4,
-                            itemBuilder: (context, index) => Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: Get.width * 0.05,
-                                    ),
-                                    SizedBox(
-                                      width: Get.width * 0.53,
-                                      child: Text(
-                                        'Serial No: #1-876364',
+                            ],
+                          ),
+                          SizedBox(
+                            // height: 20,
+                            width: 20,
+                          ),
+                          SizedBox(
+                            // height: Get.height * 0.6,
+                            child: ListView.builder(
+                              itemCount: 4,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) => Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: Get.width * 0.05,
+                                      ),
+                                      SizedBox(
+                                        width: Get.width * 0.53,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              StringRes.serialno,
+                                              style: commonSubtitle().copyWith(fontSize: 12),
+                                            ),
+                                            Text(
+                                              '#1-876364',
+                                              style: commonSubtitle().copyWith(fontSize: 12),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Text(
+                                        'Reporter: Steven',
                                         style: commonSubtitle().copyWith(fontSize: 12),
                                       ),
-                                    ),
-                                    Text(
-                                      'Reporter: Steven',
-                                      style: commonSubtitle().copyWith(fontSize: 12),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 15),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    SizedBox(
-                                      width: Get.width * 0.36,
-                                      child: Text(
-                                        'Location: Moonlight Bar',
-                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                    ],
+                                  ),
+                                  SizedBox(height: 15),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 20,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 58,
-                                    ),
-                                    Text(
-                                      'Date: 15 Dec, 2023',
-                                      style: commonSubtitle().copyWith(fontSize: 12),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 15),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    SizedBox(
-                                      width: Get.width * 0.52,
-                                      child: Text(
-                                        'Issue: Joy stick not working',
-                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                      SizedBox(
+                                        width: Get.width * 0.36,
+                                        child: Text(
+                                          'Location: Moonlight Bar',
+                                          style: commonSubtitle().copyWith(fontSize: 12),
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Time: 11:06 AM',
-                                      style: commonSubtitle().copyWith(fontSize: 12),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Divider(
-                                  height: 1,
-                                  color: ColorRes.grey,
-                                  endIndent: 15,
-                                  indent: 15,
-                                ),
-                                // homeController.dividers(12, 7),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                              ],
+                                      SizedBox(
+                                        width: 58,
+                                      ),
+                                      Text(
+                                        'Date: 15 Dec, 2023',
+                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: 15),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      SizedBox(
+                                        width: Get.width * 0.52,
+                                        child: Text(
+                                          'Issue: Joy stick not working',
+                                          style: commonSubtitle().copyWith(fontSize: 12),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Time: 11:06 AM',
+                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Divider(
+                                    height: 1,
+                                    color: ColorRes.grey,
+                                    endIndent: 15,
+                                    indent: 15,
+                                  ),
+                                  // homeController.dividers(12, 7),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -589,6 +611,10 @@ class HomeScreen extends StatelessWidget {
                             Get.to(() => RepairScreen());
                           } else if (homeController.currentIndex == 2) {
                             Get.to(() => ServiceReportScreen());
+                          } else if (homeController.currentIndex == 3) {
+                            Get.to(() => AdminScreen());
+                            PrefService.clear();
+                            // PrefService.setValue(PrefKeys.login, false);
                           }
                         },
                         child: ListTile(
