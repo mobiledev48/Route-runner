@@ -26,201 +26,199 @@ class ProfileScreen extends StatelessWidget {
         },
         child: SingleChildScrollView(
           child: GetBuilder<ProfileController>(
-              id: 'profile',
-              builder: (con) {
-                return SizedBox(
-                  height: Get.height,
-                  width: Get.width,
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: Get.height * 0.35,
-                        width: Get.width,
-                        decoration: BoxDecoration(color: ColorRes.mainColor),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: Get.height * 0.08),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      DashBoardController dashBoardController = Get.put(DashBoardController());
-                                      dashBoardController.currentIndex = 0;
-                                      dashBoardController.update(['dash']);
-                                      profileController.update(['location']);
-                                    },
-                                    child: const Icon(
-                                      Icons.arrow_back_ios_new,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
+            id: 'profile',
+            builder: (con) {
+              return SizedBox(
+                height: Get.height,
+                width: Get.width,
+                child: Stack(
+                  children: [
+                    Container(
+                      height: Get.height * 0.35,
+                      width: Get.width,
+                      decoration: BoxDecoration(color: ColorRes.mainColor),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: Get.height * 0.08),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    DashBoardController dashBoardController = Get.put(DashBoardController());
+                                    dashBoardController.currentIndex = 0;
+                                    dashBoardController.update(['dash']);
+                                    profileController.update(['location']);
+                                  },
+                                  child: const Icon(
+                                    Icons.arrow_back_ios_new,
+                                    color: Colors.white,
+                                    size: 20,
                                   ),
-                                  Text(
-                                    'Profile',
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
-                                  ),
-                                  Text(
-                                    '',
-                                    style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600),
-                                  )
-                                ]),
-                              ),
-                            ],
-                          ),
+                                ),
+                                Text(
+                                  'Profile',
+                                  style: GoogleFonts.nunito(
+                                      fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
+                                ),
+                                Text(
+                                  '',
+                                  style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600),
+                                )
+                              ]),
+                            ),
+                          ],
                         ),
                       ),
-                      Positioned(
-                          // top: 190,
-                          bottom: 0,
-                          left: 20,
-                          right: 20,
-                          child: Column(
-                            children: [
-                              Container(
-                                  height: Get.height * 0.08,
-                                  width: Get.width,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(15), topLeft: Radius.circular(15)))),
-                              Container(
-                                height: Get.height * 0.64,
+                    ),
+                    Positioned(
+                        // top: 190,
+                        bottom: 0,
+                        left: 20,
+                        right: 20,
+                        child: Column(
+                          children: [
+                            Container(
+                                height: Get.height * 0.08,
                                 width: Get.width,
                                 decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(15),
-                                      bottomRight: Radius.circular(15),
-                                    )),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                                  child: SingleChildScrollView(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: Get.height * 0.04,
-                                        ),
-                                        CommonTextField(
-                                            titleText: StringRes.employeeName,
-                                            controller: profileController.employeeController),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        CommonTextField(
-                                            titleText: StringRes.enterEmail,
-                                            controller: profileController.enterEmailController),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        CommonTextField(
-                                            titleText: StringRes.enterMobile,
-                                            controller: profileController.enterMobileController),
-                                        SizedBox(
-                                          height: Get.height * 0.04,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 0),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Container(
-                                                  height: 40,
-                                                  width: 180,
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                                                  child: Text(
-                                                    StringRes.close,
-                                                    style: GoogleFonts.nunito(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: ColorRes.color5B93FF),
-                                                  ),
+                                        topRight: Radius.circular(15), topLeft: Radius.circular(15)))),
+                            Container(
+                              height: Get.height * 0.64,
+                              width: Get.width,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(15),
+                                  )),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                child: SingleChildScrollView(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: Get.height * 0.04,
+                                      ),
+                                      CommonTextField(
+                                          titleText: StringRes.employeeName,
+                                          controller: profileController.employeeController),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      CommonTextField(
+                                          titleText: StringRes.enterEmail,
+                                          controller: profileController.enterEmailController),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      CommonTextField(
+                                          titleText: StringRes.enterMobile,
+                                          controller: profileController.enterMobileController),
+                                      SizedBox(
+                                        height: Get.height * 0.04,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 0),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                height: 40,
+                                                width: 180,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                child: Text(
+                                                  StringRes.close,
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorRes.color5B93FF),
                                                 ),
                                               ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  height: 40,
-                                                  width: 180,
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                      color: ColorRes.color5B93FF,
-                                                      border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                                                  child: Text(
-                                                    StringRes.save,
-                                                    style: GoogleFonts.nunito(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: ColorRes.white),
-                                                  ),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                height: 40,
+                                                width: 180,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                    color: ColorRes.color5B93FF,
+                                                    border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                child: Text(
+                                                  StringRes.save,
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.37,
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                      SizedBox(
+                                        height: Get.height * 0.37,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ],
-                          )),
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: Get.height * 0.16),
-                          child: Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              Container(
-                                  height: 150,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.blue,
-                                      image: con.image == null
-                                          ? DecorationImage(image: AssetImage(AssetRes.profilePhoto))
-                                          : DecorationImage(
-                                              fit: BoxFit.fill, image: FileImage(File(con.image!.path))))),
-                              GestureDetector(
-                                onTap: () {
-                                  profileController.getImageFromCamera();
-                                  con.update(['profile']);
-                                },
-                                child: Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: const BoxDecoration(boxShadow: [
-                                      BoxShadow(color: Colors.white, spreadRadius: 4),
-                                    ], shape: BoxShape.circle, color: ColorRes.mainColor),
-                                    child: Image.asset(
-                                      AssetRes.camera,
-                                      scale: 4,
-                                    )),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        )),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: Get.height * 0.16),
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                                height: 150,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.blue,
+                                    image: con.image == null
+                                        ? DecorationImage(image: AssetImage(AssetRes.profilePhoto))
+                                        : DecorationImage(fit: BoxFit.fill, image: FileImage(File(con.image!.path))))),
+                            GestureDetector(
+                              onTap: () {
+                                profileController.getImageFromCamera();
+                                con.update(['profile']);
+                              },
+                              child: Container(
+                                  height: 35,
+                                  width: 35,
+                                  decoration: const BoxDecoration(boxShadow: [
+                                    BoxShadow(color: Colors.white, spreadRadius: 4),
+                                  ], shape: BoxShape.circle, color: ColorRes.mainColor),
+                                  child: Image.asset(
+                                    AssetRes.camera,
+                                    scale: 4,
+                                  )),
+                            ),
+                          ],
                         ),
                       ),
-                      // SizedBox(
-                      //   height: 300,
-                      // )
-                    ],
-                  ),
-                );
-              }),
+                    ),
+                    // SizedBox(
+                    //   height: 300,
+                    // )
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

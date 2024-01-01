@@ -483,7 +483,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                   ],
                                                 ),
                                               )
-                                            : SizedBox(),
+                                            : const SizedBox(),
                                       ],
                                     ),
                                   ),
