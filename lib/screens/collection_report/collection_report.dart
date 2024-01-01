@@ -297,7 +297,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                               image: AssetImage(AssetRes.photo)),
                                                                           borderRadius: BorderRadius.circular(3)),
                                                                     ),
-                                                                    SizedBox(
+                                                                    const SizedBox(
                                                                       width: 10,
                                                                     ),
                                                                     Expanded(
@@ -705,7 +705,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                  height: Get.height * 0.12,
+                                                                  height: Get.height * 0.17,
                                                                   width: Get.width * 0.9,
                                                                   decoration: BoxDecoration(
                                                                       border: Border.all(
@@ -718,148 +718,155 @@ class CollectionReportScreen extends StatelessWidget {
                                                                   child: Padding(
                                                                     padding: const EdgeInsets.symmetric(
                                                                         horizontal: 10, vertical: 10),
-                                                                    child: Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Row(
-                                                                            children: [
-                                                                              Expanded(
-                                                                                flex: 7,
-                                                                                child: Text(
-                                                                                  'In',
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Container(
+                                                                          width: 70,
+                                                                          decoration: BoxDecoration(
+                                                                              image: DecorationImage(
+                                                                                  fit: BoxFit.fill,
+                                                                                  image: AssetImage(AssetRes.photo)),
+                                                                              borderRadius: BorderRadius.circular(3)),
+                                                                        ),
+                                                                        const SizedBox(
+                                                                          width: 10,
+                                                                        ),
+                                                                        Expanded(
+                                                                          child: Column(
+                                                                              mainAxisAlignment:
+                                                                                  MainAxisAlignment.spaceBetween,
+                                                                              children: [
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Expanded(
+                                                                                      flex: 7,
+                                                                                      child: Text(
+                                                                                        'In',
+                                                                                        style: GoogleFonts.nunito(
+                                                                                            fontSize: 10,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            color:
+                                                                                                ColorRes.color030229),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      "\$ ${controller.searchResults[index].machineDetails?[i].current?[0].In}",
+                                                                                      style: GoogleFonts.nunito(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: ColorRes.color030229),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: Get.width * 0.07,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      "\$ ${controller.searchResults[index].machineDetails?[i].previous?[0].In}",
+                                                                                      style: GoogleFonts.nunito(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: ColorRes.color030229),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: Get.width * 0.07,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      "\$ ${controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].In, controller.searchResults[index].machineDetails?[i].previous?[0].In)}",
+                                                                                      style: GoogleFonts.nunito(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: ColorRes.color030229),
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Text(
-                                                                                  "\$ ${controller.searchResults[index].machineDetails?[i].current?[0].In}",
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Expanded(
+                                                                                      flex: 7,
+                                                                                      child: Text(
+                                                                                        'Out',
+                                                                                        style: GoogleFonts.nunito(
+                                                                                            fontSize: 10,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            color:
+                                                                                                ColorRes.color030229),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      "\$ ${controller.searchResults[index].machineDetails?[i].current?[0].out}",
+                                                                                      style: GoogleFonts.nunito(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: ColorRes.color030229),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: Get.width * 0.07,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      "\$ ${controller.searchResults[index].machineDetails?[i].previous?[0].out}",
+                                                                                      style: GoogleFonts.nunito(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: ColorRes.color030229),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: Get.width * 0.07,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      // "\$ ${ controller.allCollectionData[index].machineDetails?[i].previous?[0].out}",
+                                                                                      "\$ ${controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].out, controller.searchResults[index].machineDetails?[i].previous?[0].out)}",
+                                                                                      style: GoogleFonts.nunito(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: ColorRes.color030229),
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: Get.width * 0.07,
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Text(
-                                                                                  "\$ ${controller.searchResults[index].machineDetails?[i].previous?[0].In}",
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Expanded(
+                                                                                      flex: 7,
+                                                                                      child: Text(
+                                                                                        'Total',
+                                                                                        style: GoogleFonts.nunito(
+                                                                                            fontSize: 10,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            color:
+                                                                                                ColorRes.color030229),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      "\$ ${controller.calculateTotalValue(controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].In, controller.searchResults[index].machineDetails?[i].previous?[0].In), controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].out, controller.searchResults[index].machineDetails?[i].previous?[0].out))}",
+                                                                                      style: GoogleFonts.nunito(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: (controller.calculateTotalValue(
+                                                                                                      controller
+                                                                                                          .searchResults[
+                                                                                                              index]
+                                                                                                          .machineDetails?[
+                                                                                                              i]
+                                                                                                          .previous?[0]
+                                                                                                          .In,
+                                                                                                      controller
+                                                                                                          .searchResults[
+                                                                                                              index]
+                                                                                                          .machineDetails?[
+                                                                                                              i]
+                                                                                                          .previous?[0]
+                                                                                                          .out) >=
+                                                                                                  0)
+                                                                                              ? ColorRes.color3A974C
+                                                                                              : Colors.red),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: Get.width * 0.004,
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: Get.width * 0.07,
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Text(
-                                                                                  "\$ ${controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].In, controller.searchResults[index].machineDetails?[i].previous?[0].In)}",
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            children: [
-                                                                              Expanded(
-                                                                                flex: 7,
-                                                                                child: Text(
-                                                                                  'Out',
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
-                                                                                ),
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Text(
-                                                                                  "\$ ${controller.searchResults[index].machineDetails?[i].current?[0].out}",
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
-                                                                                ),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: Get.width * 0.07,
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Text(
-                                                                                  "\$ ${controller.searchResults[index].machineDetails?[i].previous?[0].out}",
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
-                                                                                ),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: Get.width * 0.07,
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Text(
-                                                                                  // "\$ ${ controller.allCollectionData[index].machineDetails?[i].previous?[0].out}",
-                                                                                  "\$ ${controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].out, controller.searchResults[index].machineDetails?[i].previous?[0].out)}",
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            children: [
-                                                                              Expanded(
-                                                                                flex: 7,
-                                                                                child: Text(
-                                                                                  'Total',
-                                                                                  style: GoogleFonts.nunito(
-                                                                                      fontSize: 10,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      color: ColorRes.color030229),
-                                                                                ),
-                                                                              ),
-                                                                              Text(
-                                                                                "\$ ${controller.calculateTotalValue(controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].In, controller.searchResults[index].machineDetails?[i].previous?[0].In), controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].out, controller.searchResults[index].machineDetails?[i].previous?[0].out))}",
-                                                                                style: GoogleFonts.nunito(
-                                                                                    fontSize: 10,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    color:
-                                                                                        (controller.calculateTotalValue(
-                                                                                                    controller
-                                                                                                        .searchResults[
-                                                                                                            index]
-                                                                                                        .machineDetails?[
-                                                                                                            i]
-                                                                                                        .previous?[0]
-                                                                                                        .In,
-                                                                                                    controller
-                                                                                                        .searchResults[
-                                                                                                            index]
-                                                                                                        .machineDetails?[
-                                                                                                            i]
-                                                                                                        .previous?[0]
-                                                                                                        .out) >=
-                                                                                                0)
-                                                                                            ? ColorRes.color3A974C
-                                                                                            : Colors.red),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: Get.width * 0.004,
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ]),
+                                                                              ]),
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ],

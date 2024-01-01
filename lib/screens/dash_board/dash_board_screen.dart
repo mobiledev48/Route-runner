@@ -21,14 +21,15 @@ class DashBoardScreen extends StatelessWidget {
         return Scaffold(
           body: dashBoardController.screen.elementAt(dashBoardController.currentIndex),
           bottomNavigationBar: Container(
-            height: Get.height * 0.1,
+            height: 75,
+            alignment: Alignment.center,
             child: BottomAppBar(
                 color: ColorRes.white,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 10),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         splashFactory: NoSplash.splashFactory,
@@ -57,7 +58,7 @@ class DashBoardScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 10),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         splashFactory: NoSplash.splashFactory,
@@ -86,7 +87,7 @@ class DashBoardScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 10),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         splashFactory: NoSplash.splashFactory,
@@ -115,7 +116,7 @@ class DashBoardScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 10),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         splashFactory: NoSplash.splashFactory,
