@@ -705,7 +705,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                  height: Get.height * 0.17,
+                                                                  height: Get.height * 0.16,
                                                                   width: Get.width * 0.9,
                                                                   decoration: BoxDecoration(
                                                                       border: Border.all(
