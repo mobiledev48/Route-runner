@@ -102,7 +102,7 @@ class ServiceReportScreen extends StatelessWidget {
                     ),
                   ),
 
-                  controller.searchResults.isEmpty
+                  controller.searchController.text.isEmpty
                       ? Expanded(
                           child: ListView.builder(
                               itemCount: serviceReportData.length,
@@ -188,91 +188,103 @@ class ServiceReportScreen extends StatelessWidget {
                               // ),
                               ),
                         )
-                      : Expanded(
-                          child: ListView.builder(
-                              itemCount: controller.searchResults.length,
-                              itemBuilder: (context, index) => Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      height: 75,
-                                      width: Get.width,
-                                      padding: EdgeInsets.symmetric(horizontal: 13),
-                                      decoration:
-                                          BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: 10),
-                                          Text(
-                                            controller.searchResults[index].title,
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 10, fontWeight: FontWeight.w700, color: ColorRes.color030229),
-                                          ),
-                                          SizedBox(height: 5),
-                                          Text(
-                                            controller.searchResults[index].subtitle,
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 9, fontWeight: FontWeight.w400, color: ColorRes.color030229),
-                                          ),
-                                          SizedBox(height: 5),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      : controller.searchResults.isNotEmpty
+                          ? Expanded(
+                              child: ListView.builder(
+                                  itemCount: controller.searchResults.length,
+                                  itemBuilder: (context, index) => Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Container(
+                                          height: 75,
+                                          width: Get.width,
+                                          padding: EdgeInsets.symmetric(horizontal: 13),
+                                          decoration: BoxDecoration(
+                                              color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
+                                              SizedBox(height: 10),
                                               Text(
-                                                controller.searchResults[index].subtitle1,
+                                                controller.searchResults[index].title,
+                                                style: GoogleFonts.nunito(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: ColorRes.color030229),
+                                              ),
+                                              SizedBox(height: 5),
+                                              Text(
+                                                controller.searchResults[index].subtitle,
                                                 style: GoogleFonts.nunito(
                                                     fontSize: 9,
                                                     fontWeight: FontWeight.w400,
                                                     color: ColorRes.color030229),
                                               ),
-                                              Text('Date: 12 Dec, 2020',
-                                                  style: GoogleFonts.nunito(
-                                                      fontSize: 8,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorRes.color030229))
+                                              SizedBox(height: 5),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    controller.searchResults[index].subtitle1,
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 9,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorRes.color030229),
+                                                  ),
+                                                  Text('Date: 12 Dec, 2020',
+                                                      style: GoogleFonts.nunito(
+                                                          fontSize: 8,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: ColorRes.color030229))
+                                                ],
+                                              )
                                             ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                              //     Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: Container(
-                              //     height: 70,
-                              //     width: Get.width,
-                              //     decoration:
-                              //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
-                              //     child: ListTile(
-                              //       trailing: Column(
-                              //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
-                              //       ),
-                              //       title: Text('Moonlight Bar'),
-                              //       leading: locationController.customCheckbox(),
-                              //       subtitle: Column(
-                              //         children: [
-                              //           Padding(
-                              //             padding: const EdgeInsets.only(right: 0),
-                              //             child: Text(
-                              //               'Admin: Arrora gaur',
-                              //               style: commonSubtitle(),
-                              //             ),
-                              //           ),
-                              //           Padding(
-                              //             padding: const EdgeInsets.only(right: 0),
-                              //             child: Text(
-                              //               'Machine: 7',
-                              //               style: commonSubtitle(),
-                              //             ),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
+                                          ),
+                                        ),
+                                      )
+                                  //     Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Container(
+                                  //     height: 70,
+                                  //     width: Get.width,
+                                  //     decoration:
+                                  //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
+                                  //     child: ListTile(
+                                  //       trailing: Column(
+                                  //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
+                                  //       ),
+                                  //       title: Text('Moonlight Bar'),
+                                  //       leading: locationController.customCheckbox(),
+                                  //       subtitle: Column(
+                                  //         children: [
+                                  //           Padding(
+                                  //             padding: const EdgeInsets.only(right: 0),
+                                  //             child: Text(
+                                  //               'Admin: Arrora gaur',
+                                  //               style: commonSubtitle(),
+                                  //             ),
+                                  //           ),
+                                  //           Padding(
+                                  //             padding: const EdgeInsets.only(right: 0),
+                                  //             child: Text(
+                                  //               'Machine: 7',
+                                  //               style: commonSubtitle(),
+                                  //             ),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 30),
+                              child: Text(
+                                'Not Found',
+                                style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                               ),
-                        ),
+                            ),
 
                   // TextField(
                   //   controller: controller.searchController,

@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                       top: 10,
                       right: 10,
                     ),
-                    height: Get.height * 0.32,
+                    // height: Get.height,
                     width: Get.width * 0.9,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ColorRes.white),
                     child: Column(
@@ -217,165 +217,161 @@ class HomeScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         homeController.dividers(5, 5),
-                        Flexible(
-                          flex: 2,
-                          // height: Get.height * 0.15,
-                          child: ListView.builder(
-                            // physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: homeController.recentCollectionList.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "${homeController.recentCollectionList[index].serialNo}",
-                                        // 'Moonlight Bar',
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: homeController.recentCollectionList.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "${homeController.recentCollectionList[index].serialNo}",
+                                      // 'Moonlight Bar',
+                                      style: GoogleFonts.nunito(
+                                          fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black),
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.1,
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.37,
+                                      child: Text(
+                                        "${homeController.recentCollectionList[index].location}",
                                         style: GoogleFonts.nunito(
                                             fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black),
                                       ),
-                                      SizedBox(
-                                        width: Get.width * 0.1,
-                                      ),
-                                      SizedBox(
-                                        width: Get.width * 0.37,
-                                        child: Text(
-                                          "${homeController.recentCollectionList[index].location}",
-                                          style: GoogleFonts.nunito(
-                                              fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black),
-                                        ),
-                                      ),
-                                      Text(
-                                        "${homeController.recentCollectionList[index].total}",
-                                        style: GoogleFonts.nunito(
-                                            fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black),
-                                      ),
-                                      SizedBox(
-                                        width: Get.width * 0.09,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (homeController.isViewData[index] == false) {
-                                            homeController.isViewData[index] = true;
-                                          } else {
-                                            homeController.isViewData[index] = false;
-                                          }
-                                          homeController.update(['home']);
-                                        },
-                                        child: homeController.isViewData[index]
-                                            ? const Icon(
-                                                Icons.keyboard_arrow_down_sharp,
-                                                color: ColorRes.grey,
-                                                size: 22,
-                                              )
-                                            : const Icon(
-                                                Icons.keyboard_arrow_right,
-                                                color: ColorRes.grey,
-                                                size: 22,
-                                              ),
-                                      )
-                                    ],
-                                  ),
-                                  homeController.isViewData[index]
-                                      ? SizedBox(
-                                          child: ListView.separated(
-                                            physics: NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemCount: homeController.recentCollectionList[index].listData?.length ?? 0,
-                                            itemBuilder: (context, i) {
-                                              return Padding(
-                                                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                  child: Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                        child: Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: Get.width * 0.18,
+                                    ),
+                                    Text(
+                                      "${homeController.recentCollectionList[index].total}",
+                                      style: GoogleFonts.nunito(
+                                          fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black),
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.09,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (homeController.isViewData[index] == false) {
+                                          homeController.isViewData[index] = true;
+                                        } else {
+                                          homeController.isViewData[index] = false;
+                                        }
+                                        homeController.update(['home']);
+                                      },
+                                      child: homeController.isViewData[index]
+                                          ? const Icon(
+                                              Icons.keyboard_arrow_down_sharp,
+                                              color: ColorRes.grey,
+                                              size: 22,
+                                            )
+                                          : const Icon(
+                                              Icons.keyboard_arrow_right,
+                                              color: ColorRes.grey,
+                                              size: 22,
+                                            ),
+                                    )
+                                  ],
+                                ),
+                                homeController.isViewData[index]
+                                    ? SizedBox(
+                                        child: ListView.separated(
+                                          physics: NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: homeController.recentCollectionList[index].listData?.length ?? 0,
+                                          itemBuilder: (context, i) {
+                                            return Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: Get.width * 0.18,
+                                                          ),
+                                                          SizedBox(
+                                                            width: Get.width * 0.22,
+                                                            child: Text(
+                                                              // homeController.recentCollectionList[index]
+                                                              //     .listData![index].machine
+                                                              //     .toString(),
+                                                              //   "\$ ${controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In)}",
+                                                              // homeController.recentCollectionList[index]
+                                                              //     .locationDetails?[i].current![0].pre as String,
+                                                              'Machine: 7',
+                                                              style: GoogleFonts.nunito(
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: ColorRes.grey),
                                                             ),
-                                                            SizedBox(
-                                                              width: Get.width * 0.22,
-                                                              child: Text(
-                                                                // homeController.recentCollectionList[index]
-                                                                //     .listData![index].machine
-                                                                //     .toString(),
-                                                                //   "\$ ${controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In)}",
-                                                                // homeController.recentCollectionList[index]
-                                                                //     .locationDetails?[i].current![0].pre as String,
-                                                                'Machine: 7',
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Text(
+                                                                'Previous',
                                                                 style: GoogleFonts.nunito(
                                                                     fontSize: 10,
                                                                     fontWeight: FontWeight.w500,
                                                                     color: ColorRes.grey),
                                                               ),
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                Text(
-                                                                  'Previous',
-                                                                  style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
-                                                                ),
-                                                                Text(
-                                                                  'Current',
-                                                                  style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              width: Get.width * 0.03,
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                Text(
-                                                                  '\$2500',
-                                                                  style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
-                                                                ),
-                                                                Text(
-                                                                  '\$2000',
-                                                                  style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              height: 30,
-                                                            )
-                                                          ],
-                                                        ),
+                                                              Text(
+                                                                'Current',
+                                                                style: GoogleFonts.nunito(
+                                                                    fontSize: 10,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: ColorRes.grey),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            width: Get.width * 0.03,
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Text(
+                                                                '\$2500',
+                                                                style: GoogleFonts.nunito(
+                                                                    fontSize: 10,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: ColorRes.grey),
+                                                              ),
+                                                              Text(
+                                                                '\$2000',
+                                                                style: GoogleFonts.nunito(
+                                                                    fontSize: 10,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: ColorRes.grey),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 30,
+                                                          )
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ));
-                                            },
-                                            separatorBuilder: (BuildContext context, int index) {
-                                              return const SizedBox(
-                                                height: 20,
-                                              );
-                                            },
-                                          ),
-                                        )
-                                      : SizedBox(),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
+                                                    ),
+                                                  ],
+                                                ));
+                                          },
+                                          separatorBuilder: (BuildContext context, int index) {
+                                            return const SizedBox(
+                                              height: 20,
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    : SizedBox(),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            );
+                          },
                         )
                         // SizedBox(
                         //   height: Get.height * 0.19,

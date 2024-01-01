@@ -27,6 +27,6 @@ class ProfileController extends GetxController {
     if (photo != null) {
       image = File(photo.path);
     }
-    update(['collection']);
+    update(['profile']);
   }
 }

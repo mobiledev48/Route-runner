@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,190 +25,202 @@ class ProfileScreen extends StatelessWidget {
           FocusScope.of(context).unfocus();
         },
         child: SingleChildScrollView(
-          child: SizedBox(
-            height: Get.height,
-            width: Get.width,
-            child: Stack(
-              children: [
-                Container(
-                  height: Get.height * 0.35,
+          child: GetBuilder<ProfileController>(
+              id: 'profile',
+              builder: (con) {
+                return SizedBox(
+                  height: Get.height,
                   width: Get.width,
-                  decoration: BoxDecoration(color: ColorRes.mainColor),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: Get.height * 0.08),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                            GestureDetector(
-                              onTap: () {
-                                DashBoardController dashBoardController = Get.put(DashBoardController());
-                                dashBoardController.currentIndex = 0;
-                                dashBoardController.update(['dash']);
-                                profileController.update(['location']);
-                              },
-                              child: const Icon(
-                                Icons.arrow_back_ios_new,
-                                color: Colors.white,
-                                size: 20,
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: Get.height * 0.35,
+                        width: Get.width,
+                        decoration: BoxDecoration(color: ColorRes.mainColor),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: Get.height * 0.08),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      DashBoardController dashBoardController = Get.put(DashBoardController());
+                                      dashBoardController.currentIndex = 0;
+                                      dashBoardController.update(['dash']);
+                                      profileController.update(['location']);
+                                    },
+                                    child: const Icon(
+                                      Icons.arrow_back_ios_new,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Profile',
+                                    style: GoogleFonts.nunito(
+                                        fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
+                                  ),
+                                  Text(
+                                    '',
+                                    style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600),
+                                  )
+                                ]),
                               ),
-                            ),
-                            Text(
-                              'Profile',
-                              style:
-                                  GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
-                            ),
-                            Text(
-                              '',
-                              style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600),
-                            )
-                          ]),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                    // top: 190,
-                    bottom: 0,
-                    left: 20,
-                    right: 20,
-                    child: Column(
-                      children: [
-                        Container(
-                            height: Get.height * 0.08,
-                            width: Get.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15)))),
-                        Container(
-                          height: Get.height * 0.63,
-                          width: Get.width,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
-                              )),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: SingleChildScrollView(
-                              physics: NeverScrollableScrollPhysics(),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: Get.height * 0.02,
-                                  ),
-                                  CommonTextField(
-                                      titleText: StringRes.employeeName,
-                                      controller: profileController.employeeController),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  CommonTextField(
-                                      titleText: StringRes.enterEmail,
-                                      controller: profileController.enterEmailController),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  CommonTextField(
-                                      titleText: StringRes.enterMobile,
-                                      controller: profileController.enterMobileController),
-                                  SizedBox(
-                                    height: Get.height * 0.05,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 0),
-                                    child: Row(
+                      ),
+                      Positioned(
+                          // top: 190,
+                          bottom: 0,
+                          left: 20,
+                          right: 20,
+                          child: Column(
+                            children: [
+                              Container(
+                                  height: Get.height * 0.08,
+                                  width: Get.width,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(15), topLeft: Radius.circular(15)))),
+                              Container(
+                                height: Get.height * 0.63,
+                                width: Get.width,
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(15),
+                                      bottomRight: Radius.circular(15),
+                                    )),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: SingleChildScrollView(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    child: Column(
                                       children: [
-                                        Expanded(
-                                          child: Container(
-                                            height: 40,
-                                            width: 180,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                borderRadius: BorderRadius.all(Radius.circular(10))),
-                                            child: Text(
-                                              StringRes.close,
-                                              style: GoogleFonts.nunito(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorRes.color5B93FF),
-                                            ),
+                                        SizedBox(
+                                          height: Get.height * 0.02,
+                                        ),
+                                        CommonTextField(
+                                            titleText: StringRes.employeeName,
+                                            controller: profileController.employeeController),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        CommonTextField(
+                                            titleText: StringRes.enterEmail,
+                                            controller: profileController.enterEmailController),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        CommonTextField(
+                                            titleText: StringRes.enterMobile,
+                                            controller: profileController.enterMobileController),
+                                        SizedBox(
+                                          height: Get.height * 0.05,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  height: 40,
+                                                  width: 180,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                  child: Text(
+                                                    StringRes.close,
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorRes.color5B93FF),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  height: 40,
+                                                  width: 180,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      color: ColorRes.color5B93FF,
+                                                      border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                  child: Text(
+                                                    StringRes.save,
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorRes.white),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 10,
+                                          height: Get.height * 0.4,
                                         ),
-                                        Expanded(
-                                          child: Container(
-                                            height: 40,
-                                            width: 180,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                                color: ColorRes.color5B93FF,
-                                                border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                borderRadius: BorderRadius.all(Radius.circular(10))),
-                                            child: Text(
-                                              StringRes.save,
-                                              style: GoogleFonts.nunito(
-                                                  fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
-                                            ),
-                                          ),
-                                        )
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: Get.height * 0.4,
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
+                          )),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: Get.height * 0.16),
+                          child: Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              Container(
+                                  height: 150,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.blue,
+                                      image: con.image == null
+                                          ? DecorationImage(image: AssetImage(AssetRes.profilePhoto))
+                                          : DecorationImage(
+                                              fit: BoxFit.fill, image: FileImage(File(con.image!.path))))),
+                              GestureDetector(
+                                onTap: () {
+                                  profileController.getImageFromCamera();
+                                  con.update(['profile']);
+                                },
+                                child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    decoration: const BoxDecoration(boxShadow: [
+                                      BoxShadow(color: Colors.white, spreadRadius: 4),
+                                    ], shape: BoxShape.circle, color: ColorRes.mainColor),
+                                    child: Image.asset(
+                                      AssetRes.camera,
+                                      scale: 4,
+                                    )),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    )),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: Get.height * 0.16),
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        Container(
-                            height: 150,
-                            width: 150,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.transparent,
-                                image: DecorationImage(image: AssetImage(AssetRes.profilePhoto)))),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                              height: 35,
-                              width: 35,
-                              decoration: const BoxDecoration(boxShadow: [
-                                BoxShadow(color: Colors.white, spreadRadius: 4),
-                              ], shape: BoxShape.circle, color: ColorRes.mainColor),
-                              child: Image.asset(
-                                AssetRes.camera,
-                                scale: 4,
-                              )),
-                        ),
-                      ],
-                    ),
+                      ),
+                      // SizedBox(
+                      //   height: 300,
+                      // )
+                    ],
                   ),
-                ),
-                // SizedBox(
-                //   height: 300,
-                // )
-              ],
-            ),
-          ),
+                );
+              }),
         ),
       ),
     );

@@ -75,7 +75,7 @@ class RepairScreen extends StatelessWidget {
                           controller.update(['location']);
                         },
                       )),
-                  controller.searchResults.isEmpty
+                  controller.searchController.text.isEmpty
                       ? Expanded(
                           child: ListView.builder(
                               itemCount: repairAllData.length,
@@ -220,151 +220,159 @@ class RepairScreen extends StatelessWidget {
                               // ),
                               ),
                         )
-                      : Expanded(
-                          child: ListView.builder(
-                              itemCount: controller.searchResults.length,
-                              itemBuilder: (context, index) => Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      height: 75,
-                                      width: Get.width,
-                                      decoration:
-                                          BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      : controller.searchResults.isNotEmpty
+                          ? Expanded(
+                              child: ListView.builder(
+                                  itemCount: controller.searchResults.length,
+                                  itemBuilder: (context, index) => Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Container(
+                                          height: 75,
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                              color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                          child: Column(
                                             children: [
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height: 10),
-                                                    Text(
-                                                      controller.searchResults[index].title,
-                                                      // 'Moonlight Bar',
-                                                      style: GoogleFonts.nunito(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w600,
-                                                          color: ColorRes.black),
-                                                    ),
-                                                    SizedBox(height: 5),
-                                                    Row(
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
+                                                        SizedBox(height: 10),
                                                         Text(
-                                                          controller.searchResults[index].subtitle,
-                                                          // 'Admin: Arrora gaur',
+                                                          controller.searchResults[index].title,
+                                                          // 'Moonlight Bar',
+                                                          style: GoogleFonts.nunito(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeight.w600,
+                                                              color: ColorRes.black),
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              controller.searchResults[index].subtitle,
+                                                              // 'Admin: Arrora gaur',
+                                                              style: GoogleFonts.nunito(
+                                                                  fontSize: 9,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: ColorRes.color030229),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 30,
+                                                            ),
+                                                            Text(
+                                                              'SN: #1-654125',
+                                                              style: commonSubtitle().copyWith(fontSize: 9),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Text(
+                                                          'Machine: 7',
                                                           style: GoogleFonts.nunito(
                                                               fontSize: 9,
                                                               fontWeight: FontWeight.w400,
                                                               color: ColorRes.color030229),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 30,
-                                                        ),
-                                                        Text(
-                                                          'SN: #1-654125',
-                                                          style: commonSubtitle().copyWith(fontSize: 9),
-                                                        ),
+                                                        )
                                                       ],
                                                     ),
-                                                    SizedBox(height: 5),
-                                                    Text(
-                                                      'Machine: 7',
-                                                      style: GoogleFonts.nunito(
-                                                          fontSize: 9,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: ColorRes.color030229),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top: 10),
-                                                    child: Container(
-                                                      height: Get.height * 0.04,
-                                                      width: Get.width * 0.2,
-                                                      decoration: BoxDecoration(
-                                                        color: controller.searchResults[index].color,
-                                                        borderRadius: BorderRadius.circular(30),
-                                                      ),
-                                                      child: Center(
-                                                          child: Text(
-                                                        controller.searchResults[index].active,
-                                                        style: TextStyle(
-                                                            color: controller.searchResults[index].iconColor,
-                                                            fontSize: 12),
-                                                      )),
-                                                    ),
                                                   ),
-                                                  SizedBox(height: Get.height * 0.018),
-                                                  Row(
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
                                                     children: [
-                                                      Text(
-                                                        'Date: 12 Dec,2023',
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 8,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: ColorRes.color030229),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(top: 10),
+                                                        child: Container(
+                                                          height: Get.height * 0.04,
+                                                          width: Get.width * 0.2,
+                                                          decoration: BoxDecoration(
+                                                            color: controller.searchResults[index].color,
+                                                            borderRadius: BorderRadius.circular(30),
+                                                          ),
+                                                          child: Center(
+                                                              child: Text(
+                                                            controller.searchResults[index].active,
+                                                            style: TextStyle(
+                                                                color: controller.searchResults[index].iconColor,
+                                                                fontSize: 12),
+                                                          )),
+                                                        ),
                                                       ),
-                                                      SizedBox(width: Get.width * 0.02),
-                                                      Text(
-                                                        'Time: 11:45 PM',
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 8,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: ColorRes.color030229),
+                                                      SizedBox(height: Get.height * 0.018),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            'Date: 12 Dec,2023',
+                                                            style: GoogleFonts.nunito(
+                                                                fontSize: 8,
+                                                                fontWeight: FontWeight.w400,
+                                                                color: ColorRes.color030229),
+                                                          ),
+                                                          SizedBox(width: Get.width * 0.02),
+                                                          Text(
+                                                            'Time: 11:45 PM',
+                                                            style: GoogleFonts.nunito(
+                                                                fontSize: 8,
+                                                                fontWeight: FontWeight.w400,
+                                                                color: ColorRes.color030229),
+                                                          )
+                                                        ],
                                                       )
                                                     ],
                                                   )
                                                 ],
                                               )
                                             ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  )
+                                          ),
+                                        ),
+                                      )
 
-                              //     Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: Container(
-                              //     height: 70,
-                              //     width: Get.width,
-                              //     decoration:
-                              //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
-                              //     child: ListTile(
-                              //       trailing: Column(
-                              //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
-                              //       ),
-                              //       title: Text('Moonlight Bar'),
-                              //       leading: locationController.customCheckbox(),
-                              //       subtitle: Column(
-                              //         children: [
-                              //           Padding(
-                              //             padding: const EdgeInsets.only(right: 0),
-                              //             child: Text(
-                              //               'Admin: Arrora gaur',
-                              //               style: commonSubtitle(),
-                              //             ),
-                              //           ),
-                              //           Padding(
-                              //             padding: const EdgeInsets.only(right: 0),
-                              //             child: Text(
-                              //               'Machine: 7',
-                              //               style: commonSubtitle(),
-                              //             ),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
+                                  //     Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Container(
+                                  //     height: 70,
+                                  //     width: Get.width,
+                                  //     decoration:
+                                  //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
+                                  //     child: ListTile(
+                                  //       trailing: Column(
+                                  //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
+                                  //       ),
+                                  //       title: Text('Moonlight Bar'),
+                                  //       leading: locationController.customCheckbox(),
+                                  //       subtitle: Column(
+                                  //         children: [
+                                  //           Padding(
+                                  //             padding: const EdgeInsets.only(right: 0),
+                                  //             child: Text(
+                                  //               'Admin: Arrora gaur',
+                                  //               style: commonSubtitle(),
+                                  //             ),
+                                  //           ),
+                                  //           Padding(
+                                  //             padding: const EdgeInsets.only(right: 0),
+                                  //             child: Text(
+                                  //               'Machine: 7',
+                                  //               style: commonSubtitle(),
+                                  //             ),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 30),
+                              child: Text(
+                                'Not Found',
+                                style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                               ),
-                        ),
+                            ),
                 ],
               ),
             );
