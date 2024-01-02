@@ -25,7 +25,7 @@ class AppbarContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 15, top: 22),
       child: Padding(
-        padding: EdgeInsets.only(top: Get.height * 0.15),
+        padding: EdgeInsets.only(top: Get.height * 0.17),
         child: Container(
           height: Get.height * 0.1,
           width: Get.width * 0.44,

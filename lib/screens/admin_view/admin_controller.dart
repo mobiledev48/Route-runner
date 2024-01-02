@@ -1,13 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:route_runner/common/pop_up.dart';
-import 'package:route_runner/screens/location_view/location_screen.dart';
-import 'package:route_runner/service/pref_services.dart';
-import 'package:http/http.dart' as http;
-import 'package:route_runner/utils/pref_keys.dart';
-
+import '../../common/common_text_fild.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
 import '../../utils/text_style.dart';
@@ -22,7 +15,6 @@ class AdminController extends GetxController {
   bool isClick = false;
   String emailError = "";
   String passwordError = "";
-  // bool _obscurePassword = true;
 
   emailValidation() {
     if (emailController.text.trim() == "") {
@@ -95,13 +87,6 @@ class AdminController extends GetxController {
   //     obText.value = true;
   //   }
   // }
-
-  //_______________________________ validation Email _________________
-
-  bool isEmailValid(String email) {
-    RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
-    return regex.hasMatch(email);
-  }
 
   //_______________________________ login On Tap _________________
 
@@ -184,4 +169,62 @@ class AdminController extends GetxController {
 //   }
 //   loader.value = false;
 // }
+
+  Widget formView() {
+    return Column(
+      children: [
+        const SizedBox(height: 80),
+        CommonTextField(
+          containerHeight: Get.height * 0.07,
+          titleText: StringRes.emailAddress,
+          controller: emailController,
+          color: Colors.grey.shade100,
+          hintText: StringRes.exampleEmail,
+        ),
+        (emailError != "")
+            ? Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0),
+                  child: Text(emailError.tr, style: commonSubtitle().copyWith(color: ColorRes.red)),
+                ),
+              )
+            : const SizedBox(),
+        const SizedBox(
+          height: 27,
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            StringRes.password,
+            style: hintTextStyle().copyWith(fontSize: 14),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: Get.height * 0.09,
+          child: PasswordField(
+            texts: StringRes.dots,
+            con: passwordController,
+            isprefix: false,
+            issufix: true,
+          ),
+        ),
+        (passwordError != "")
+            ? Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0),
+                  child: Text(passwordError, style: commonSubtitle().copyWith(color: ColorRes.red)),
+                ),
+              )
+            : const SizedBox(),
+        const SizedBox(
+          height: 27,
+        ),
+      ],
+    );
+  }
 }

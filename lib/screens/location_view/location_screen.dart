@@ -8,6 +8,7 @@ import 'package:route_runner/utils/text_style.dart';
 
 import '../../common/appbar.dart';
 import '../../common/common_text_fild.dart';
+import '../../common/drop_down_menu.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/strings.dart';
 import '../dash_board/dash_board_controller.dart';
@@ -20,90 +21,40 @@ class LocationScreen extends StatelessWidget {
     LocationController locationController = Get.put(LocationController());
 
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                DashBoardController dashBoardController = Get.put(DashBoardController());
-                dashBoardController.currentIndex = 0;
-                dashBoardController.update(['dash']);
-                locationController.update(['location']);
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_sharp,
-                size: 20,
-              )),
-          centerTitle: true,
-          backgroundColor: ColorRes.mainColor,
-          title: Text(
-            StringRes.location,
-            style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
-          ),
-          automaticallyImplyLeading: false,
-        ),
+        appBar: customAppbar(
+            title: StringRes.location,
+            leadingOnpress: () {
+              DashBoardController dashBoardController = Get.put(DashBoardController());
+              dashBoardController.currentIndex = 0;
+              dashBoardController.update(['dash']);
+              locationController.update(['location']);
+            },
+            action: false),
         body: GetBuilder<LocationController>(
           id: 'location',
           builder: (controller) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 children: [
-                  Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      width: Get.width * 0.9,
-                      height: Get.height * 0.06,
-                      child: CommomTextFormFeild(
-                        controller: locationController.searchController,
-                        onChanged: (value) {
-                          locationController.searchTerm = 'Moonlight';
-                          locationController.searchResults = locationController.searchAllData(value);
-                          print(locationController.searchResults);
-                          locationController.update(['location']);
-                        },
-                      )),
-                  SizedBox(
+                  CommonTextField(
+                    containerHeight: Get.height * 0.07,
+                    isSuffixIcon: true,
+                    suffixIcon: AssetRes.search,
+                    suffixIconSize: 3,
+                    hintText: StringRes.search,
+                    controller: locationController.searchController,
+                    onChanged: (value) {
+                      locationController.searchTerm = 'Moonlight';
+                      locationController.searchResults = locationController.searchAllData(value);
+                      print(locationController.searchResults);
+                      locationController.update(['location']);
+                    },
+                  ),
+                  const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          controller.nextPage(0);
-                          controller.update(['machine']);
-                        },
-                        child: Container(
-                          height: Get.height * 0.06,
-                          width: Get.width * 0.455,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.only(topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)),
-                              color: controller.currentIndex == 0 ? ColorRes.mainColor : ColorRes.white),
-                          child: Center(
-                              child: Text(
-                            StringRes.paid,
-                            style: TextStyle(color: controller.currentIndex == 0 ? ColorRes.white : ColorRes.black),
-                          )),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          controller.nextPage(1);
-                          controller.update(['machine']);
-                        },
-                        child: Container(
-                          height: Get.height * 0.06,
-                          width: Get.width * 0.455,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.only(topRight: Radius.circular(7), bottomRight: Radius.circular(7)),
-                              color: controller.currentIndex == 1 ? ColorRes.mainColor : ColorRes.white),
-                          child: Center(
-                              child: Text(StringRes.unPaid,
-                                  style: TextStyle(
-                                      color: controller.currentIndex == 1 ? ColorRes.white : ColorRes.black))),
-                        ),
-                      ),
-                    ],
-                  ),
+                  locationController.clickableContainer(),
                   controller.currentIndex == 0
                       ? controller.searchController.text.isEmpty
                           ? Expanded(
@@ -137,22 +88,12 @@ class LocationScreen extends StatelessWidget {
                                                       SizedBox(
                                                         width: Get.width * 0.24,
                                                         child: Text(
-                                                          overflow: TextOverflow.ellipsis,
-                                                          locationAllData[index].subtitle,
-                                                          // 'Admin: Arrora gaur',
-                                                          style: GoogleFonts.nunito(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.grey),
-                                                        ),
+                                                            overflow: TextOverflow.ellipsis,
+                                                            locationAllData[index].subtitle,
+                                                            // 'Admin: Arrora gaur',
+                                                            style: subTitle()),
                                                       ),
-                                                      Text(
-                                                        'Machine: ${index * 6 + 12}',
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 9,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: ColorRes.grey),
-                                                      )
+                                                      Text('Machine: ${index * 6 + 12}', style: subTitle())
                                                     ],
                                                   ),
                                                   Container(
@@ -177,112 +118,7 @@ class LocationScreen extends StatelessWidget {
                                                       SizedBox(
                                                         height: Get.height * 0.02,
                                                       ),
-                                                      Container(
-                                                        padding: EdgeInsets.zero,
-                                                        decoration:
-                                                            BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                                                        child: PopupMenuButton(
-                                                          offset: const Offset(0, 10),
-                                                          padding: EdgeInsets.zero,
-                                                          constraints: BoxConstraints.expand(
-                                                              width: 120, height: Get.height * 0.205),
-                                                          position: PopupMenuPosition.under,
-                                                          child: Text(
-                                                            "View more",
-                                                            style: GoogleFonts.nunito(
-                                                                decoration: TextDecoration.underline,
-                                                                fontSize: 10,
-                                                                fontWeight: FontWeight.w600,
-                                                                color: ColorRes.color030229),
-                                                          ),
-                                                          itemBuilder: (context) {
-                                                            return [
-                                                              PopupMenuItem(
-                                                                height: Get.height * 0,
-                                                                padding:
-                                                                    EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                                                child: Container(
-                                                                  height: Get.height * 0.05,
-                                                                  width: Get.width * 0.6,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(6),
-                                                                      color: ColorRes.lightOrange),
-                                                                  child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                    children: [
-                                                                      Image.asset(
-                                                                        AssetRes.pin,
-                                                                        scale: 3,
-                                                                      ),
-                                                                      Text(
-                                                                        StringRes.changeStatus,
-                                                                        style: commonSubtitle()
-                                                                            .copyWith(color: ColorRes.orange),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              PopupMenuItem(
-                                                                padding:
-                                                                    EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                                                child: Container(
-                                                                  height: Get.height * 0.05,
-                                                                  width: Get.width * 0.6,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(6),
-                                                                      color: ColorRes.lightYellow),
-                                                                  child: Row(
-                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                    children: [
-                                                                      SizedBox(
-                                                                        width: Get.width * 0.02,
-                                                                      ),
-                                                                      Image.asset(
-                                                                        AssetRes.pay,
-                                                                        scale: 3,
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: Get.width * 0.02,
-                                                                      ),
-                                                                      Text(
-                                                                        StringRes.pay,
-                                                                        style: commonSubtitle()
-                                                                            .copyWith(color: ColorRes.yellow),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              PopupMenuItem(
-                                                                  height: Get.height * 0,
-                                                                  padding: EdgeInsets.symmetric(horizontal: 5),
-                                                                  child: Container(
-                                                                    height: Get.height * 0.05,
-                                                                    width: Get.width * 0.5,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(6),
-                                                                        color: ColorRes.grey3),
-                                                                    child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                      children: [
-                                                                        Image.asset(
-                                                                          AssetRes.list,
-                                                                          scale: 3,
-                                                                        ),
-                                                                        Text(
-                                                                          StringRes.listOfMachine,
-                                                                          style: commonSubtitle()
-                                                                              .copyWith(color: ColorRes.grey2),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ))
-                                                            ];
-                                                          },
-                                                        ),
-                                                      ),
+                                                      DropDownMenu(),
                                                       SizedBox(height: Get.height * 0.04),
                                                       Row(
                                                         children: [
@@ -293,14 +129,7 @@ class LocationScreen extends StatelessWidget {
                                                           SizedBox(
                                                             width: 2,
                                                           ),
-                                                          const Text(
-                                                            '12 Dec, 2020',
-                                                            style: TextStyle(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.grey,
-                                                            ),
-                                                          )
+                                                          Text('12 Dec, 2020', style: subTitle())
                                                         ],
                                                       )
                                                     ],
@@ -344,24 +173,15 @@ class LocationScreen extends StatelessWidget {
                                                           SizedBox(
                                                             width: Get.width * 0.24,
                                                             child: Text(
-                                                              overflow: TextOverflow.ellipsis,
-                                                              controller.searchResults[index].subtitle,
-                                                              // 'Admin: Arrora gaur',
-                                                              style: GoogleFonts.nunito(
-                                                                  fontSize: 9,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorRes.grey),
-                                                            ),
+                                                                overflow: TextOverflow.ellipsis,
+                                                                controller.searchResults[index].subtitle,
+                                                                // 'Admin: Arrora gaur',
+                                                                style: subTitle()),
                                                           ),
                                                           SizedBox(height: 5),
-                                                          Text(
-                                                            'Machine: ${index * 6 + 12}',
-                                                            // 'SN: #${index + 1}-654184',
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: 9,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.grey),
-                                                          )
+                                                          Text('Machine: ${index * 6 + 12}',
+                                                              // 'SN: #${index + 1}-654184',
+                                                              style: subTitle())
                                                         ],
                                                       ),
                                                       Container(
@@ -386,109 +206,7 @@ class LocationScreen extends StatelessWidget {
                                                           SizedBox(
                                                             height: Get.height * 0.02,
                                                           ),
-                                                          PopupMenuButton(
-                                                            offset: const Offset(0, 10),
-                                                            // padding: EdgeInsets.zero,
-                                                            constraints: BoxConstraints.expand(
-                                                                width: 120, height: Get.height * 0.205),
-                                                            position: PopupMenuPosition.under,
-
-                                                            child: Text(
-                                                              "View more",
-                                                              style: GoogleFonts.nunito(
-                                                                  decoration: TextDecoration.underline,
-                                                                  fontSize: 10,
-                                                                  fontWeight: FontWeight.w600,
-                                                                  color: ColorRes.color030229),
-                                                            ),
-                                                            itemBuilder: (context) {
-                                                              return [
-                                                                PopupMenuItem(
-                                                                  height: Get.height * 0,
-                                                                  padding:
-                                                                      EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                                                  child: Container(
-                                                                    height: Get.height * 0.05,
-                                                                    width: Get.width * 0.6,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(6),
-                                                                        color: ColorRes.lightOrange),
-                                                                    child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                      children: [
-                                                                        Image.asset(
-                                                                          AssetRes.pin,
-                                                                          scale: 3,
-                                                                        ),
-                                                                        Text(
-                                                                          StringRes.changeStatus,
-                                                                          style: commonSubtitle()
-                                                                              .copyWith(color: ColorRes.orange),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                PopupMenuItem(
-                                                                  padding:
-                                                                      EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                                                  child: Container(
-                                                                    height: Get.height * 0.05,
-                                                                    width: Get.width * 0.6,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(6),
-                                                                        color: ColorRes.lightYellow),
-                                                                    child: Row(
-                                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width: Get.width * 0.02,
-                                                                        ),
-                                                                        Image.asset(
-                                                                          AssetRes.pay,
-                                                                          scale: 3,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width: Get.width * 0.02,
-                                                                        ),
-                                                                        Text(
-                                                                          StringRes.pay,
-                                                                          style: commonSubtitle()
-                                                                              .copyWith(color: ColorRes.yellow),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                PopupMenuItem(
-                                                                    height: Get.height * 0,
-                                                                    padding: EdgeInsets.symmetric(horizontal: 5),
-                                                                    child: Container(
-                                                                      height: Get.height * 0.05,
-                                                                      width: Get.width * 0.5,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(6),
-                                                                          color: ColorRes.grey3),
-                                                                      child: Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceEvenly,
-                                                                        children: [
-                                                                          Image.asset(
-                                                                            AssetRes.list,
-                                                                            scale: 3,
-                                                                          ),
-                                                                          Text(
-                                                                            StringRes.listOfMachine,
-                                                                            style: commonSubtitle()
-                                                                                .copyWith(color: ColorRes.grey2),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ))
-                                                              ];
-                                                            },
-                                                          ),
+                                                          DropDownMenu(),
                                                           SizedBox(height: Get.height * 0.04),
                                                           Row(
                                                             children: [
@@ -499,14 +217,7 @@ class LocationScreen extends StatelessWidget {
                                                               SizedBox(
                                                                 width: 2,
                                                               ),
-                                                              const Text(
-                                                                '12 Dec, 2020',
-                                                                style: TextStyle(
-                                                                  fontSize: 9,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorRes.grey,
-                                                                ),
-                                                              )
+                                                              Text('12 Dec, 2020', style: subTitle())
                                                             ],
                                                           )
                                                         ],
@@ -521,7 +232,7 @@ class LocationScreen extends StatelessWidget {
                               : Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 30),
                                   child: Text(
-                                    'Not Found',
+                                    StringRes.notFound,
                                     style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                                   ),
                                 )
@@ -544,10 +255,9 @@ class LocationScreen extends StatelessWidget {
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      SizedBox(height: 10),
+                                                      const SizedBox(height: 10),
                                                       Text(
                                                         locationAllData[index].title,
-                                                        // 'Moonlight Bar',
                                                         style: GoogleFonts.nunito(
                                                             fontSize: 12,
                                                             fontWeight: FontWeight.w600,
@@ -557,22 +267,11 @@ class LocationScreen extends StatelessWidget {
                                                       SizedBox(
                                                         width: Get.width * 0.24,
                                                         child: Text(
-                                                          overflow: TextOverflow.ellipsis,
-                                                          locationAllData[index].subtitle,
-                                                          // 'Admin: Arrora gaur',
-                                                          style: GoogleFonts.nunito(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.grey),
-                                                        ),
+                                                            overflow: TextOverflow.ellipsis,
+                                                            locationAllData[index].subtitle,
+                                                            style: subTitle()),
                                                       ),
-                                                      Text(
-                                                        'Machine: ${index * 6 + 12}',
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 9,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: ColorRes.grey),
-                                                      )
+                                                      Text('Machine: ${index * 6 + 12}', style: subTitle())
                                                     ],
                                                   ),
                                                   Container(
@@ -597,106 +296,7 @@ class LocationScreen extends StatelessWidget {
                                                       SizedBox(
                                                         height: Get.height * 0.02,
                                                       ),
-                                                      PopupMenuButton(
-                                                        offset: const Offset(0, 10),
-                                                        // padding: EdgeInsets.zero,
-                                                        constraints: BoxConstraints.expand(
-                                                            width: 120, height: Get.height * 0.205),
-                                                        position: PopupMenuPosition.under,
-
-                                                        child: Text(
-                                                          "View more",
-                                                          style: GoogleFonts.nunito(
-                                                              decoration: TextDecoration.underline,
-                                                              fontSize: 10,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: ColorRes.color030229),
-                                                        ),
-                                                        itemBuilder: (context) {
-                                                          return [
-                                                            PopupMenuItem(
-                                                              height: Get.height * 0,
-                                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                                              child: Container(
-                                                                height: Get.height * 0.05,
-                                                                width: Get.width * 0.6,
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(6),
-                                                                    color: ColorRes.lightOrange),
-                                                                child: Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                  children: [
-                                                                    Image.asset(
-                                                                      AssetRes.pin,
-                                                                      scale: 3,
-                                                                    ),
-                                                                    Text(
-                                                                      StringRes.changeStatus,
-                                                                      style: commonSubtitle()
-                                                                          .copyWith(color: ColorRes.orange),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            PopupMenuItem(
-                                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                                              child: Container(
-                                                                height: Get.height * 0.05,
-                                                                width: Get.width * 0.6,
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(6),
-                                                                    color: ColorRes.lightYellow),
-                                                                child: Row(
-                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                  children: [
-                                                                    SizedBox(
-                                                                      width: Get.width * 0.02,
-                                                                    ),
-                                                                    Image.asset(
-                                                                      AssetRes.pay,
-                                                                      scale: 3,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: Get.width * 0.02,
-                                                                    ),
-                                                                    Text(
-                                                                      StringRes.pay,
-                                                                      style: commonSubtitle()
-                                                                          .copyWith(color: ColorRes.yellow),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            PopupMenuItem(
-                                                                height: Get.height * 0,
-                                                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                                                child: Container(
-                                                                  height: Get.height * 0.05,
-                                                                  width: Get.width * 0.5,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(6),
-                                                                      color: ColorRes.grey3),
-                                                                  child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                    children: [
-                                                                      Image.asset(
-                                                                        AssetRes.list,
-                                                                        scale: 3,
-                                                                      ),
-                                                                      Text(
-                                                                        StringRes.listOfMachine,
-                                                                        style: commonSubtitle()
-                                                                            .copyWith(color: ColorRes.grey2),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ))
-                                                          ];
-                                                        },
-                                                      ),
+                                                      DropDownMenu(),
                                                       SizedBox(height: Get.height * 0.04),
                                                       Row(
                                                         children: [
@@ -704,17 +304,10 @@ class LocationScreen extends StatelessWidget {
                                                             AssetRes.calendar,
                                                             scale: 2.5,
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 2,
                                                           ),
-                                                          const Text(
-                                                            '12 Dec, 2020',
-                                                            style: TextStyle(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.grey,
-                                                            ),
-                                                          )
+                                                          Text('12 Dec, 2020', style: subTitle())
                                                         ],
                                                       )
                                                     ],
@@ -748,7 +341,6 @@ class LocationScreen extends StatelessWidget {
                                                           SizedBox(height: 10),
                                                           Text(
                                                             controller.searchResults[index].title,
-                                                            // 'Moonlight Bar',
                                                             style: GoogleFonts.nunito(
                                                                 fontSize: 12,
                                                                 fontWeight: FontWeight.w600,
@@ -758,24 +350,14 @@ class LocationScreen extends StatelessWidget {
                                                           SizedBox(
                                                             width: Get.width * 0.24,
                                                             child: Text(
-                                                              overflow: TextOverflow.ellipsis,
-                                                              controller.searchResults[index].subtitle,
-                                                              // 'Admin: Arrora gaur',
-                                                              style: GoogleFonts.nunito(
-                                                                  fontSize: 9,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorRes.grey),
-                                                            ),
+                                                                overflow: TextOverflow.ellipsis,
+                                                                controller.searchResults[index].subtitle,
+                                                                style: subTitle()),
                                                           ),
                                                           SizedBox(height: 5),
-                                                          Text(
-                                                            'Machine: ${index * 6 + 12}',
-                                                            // 'SN: #${index + 1}-654184',
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: 9,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.grey),
-                                                          )
+                                                          Text('Machine: ${index * 6 + 12}',
+                                                              // 'SN: #${index + 1}-654184',
+                                                              style: subTitle())
                                                         ],
                                                       ),
                                                       Container(
@@ -800,109 +382,7 @@ class LocationScreen extends StatelessWidget {
                                                           SizedBox(
                                                             height: Get.height * 0.02,
                                                           ),
-                                                          PopupMenuButton(
-                                                            offset: const Offset(0, 10),
-                                                            // padding: EdgeInsets.zero,
-                                                            constraints: BoxConstraints.expand(
-                                                                width: 120, height: Get.height * 0.205),
-                                                            position: PopupMenuPosition.under,
-
-                                                            child: Text(
-                                                              "View more",
-                                                              style: GoogleFonts.nunito(
-                                                                  decoration: TextDecoration.underline,
-                                                                  fontSize: 10,
-                                                                  fontWeight: FontWeight.w600,
-                                                                  color: ColorRes.color030229),
-                                                            ),
-                                                            itemBuilder: (context) {
-                                                              return [
-                                                                PopupMenuItem(
-                                                                  height: Get.height * 0,
-                                                                  padding:
-                                                                      EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                                                  child: Container(
-                                                                    height: Get.height * 0.05,
-                                                                    width: Get.width * 0.6,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(6),
-                                                                        color: ColorRes.lightOrange),
-                                                                    child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                      children: [
-                                                                        Image.asset(
-                                                                          AssetRes.pin,
-                                                                          scale: 3,
-                                                                        ),
-                                                                        Text(
-                                                                          StringRes.changeStatus,
-                                                                          style: commonSubtitle()
-                                                                              .copyWith(color: ColorRes.orange),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                PopupMenuItem(
-                                                                  padding:
-                                                                      EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                                                                  child: Container(
-                                                                    height: Get.height * 0.05,
-                                                                    width: Get.width * 0.6,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(6),
-                                                                        color: ColorRes.lightYellow),
-                                                                    child: Row(
-                                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width: Get.width * 0.02,
-                                                                        ),
-                                                                        Image.asset(
-                                                                          AssetRes.pay,
-                                                                          scale: 3,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width: Get.width * 0.02,
-                                                                        ),
-                                                                        Text(
-                                                                          StringRes.pay,
-                                                                          style: commonSubtitle()
-                                                                              .copyWith(color: ColorRes.yellow),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                PopupMenuItem(
-                                                                    height: Get.height * 0,
-                                                                    padding: EdgeInsets.symmetric(horizontal: 5),
-                                                                    child: Container(
-                                                                      height: Get.height * 0.05,
-                                                                      width: Get.width * 0.5,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(6),
-                                                                          color: ColorRes.grey3),
-                                                                      child: Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceEvenly,
-                                                                        children: [
-                                                                          Image.asset(
-                                                                            AssetRes.list,
-                                                                            scale: 3,
-                                                                          ),
-                                                                          Text(
-                                                                            StringRes.listOfMachine,
-                                                                            style: commonSubtitle()
-                                                                                .copyWith(color: ColorRes.grey2),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ))
-                                                              ];
-                                                            },
-                                                          ),
+                                                          DropDownMenu(),
                                                           SizedBox(height: Get.height * 0.04),
                                                           Row(
                                                             children: [
@@ -913,14 +393,7 @@ class LocationScreen extends StatelessWidget {
                                                               SizedBox(
                                                                 width: 2,
                                                               ),
-                                                              const Text(
-                                                                '12 Dec, 2020',
-                                                                style: TextStyle(
-                                                                  fontSize: 9,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorRes.grey,
-                                                                ),
-                                                              )
+                                                              Text('12 Dec, 2020', style: subTitle())
                                                             ],
                                                           )
                                                         ],
@@ -935,7 +408,7 @@ class LocationScreen extends StatelessWidget {
                               : Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 30),
                                   child: Text(
-                                    'Not Found',
+                                    StringRes.notFound,
                                     style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                                   ),
                                 )
@@ -946,21 +419,4 @@ class LocationScreen extends StatelessWidget {
         ));
   }
 }
-
-class allData {
-  final String title;
-  final String subtitle;
-  final Color color;
-  final Color iconColor;
-  final String text;
-  allData(this.title, this.subtitle, this.color, this.iconColor, this.text);
-}
-
-List<allData> _allData = [
-  allData('Moonlight Bar', 'Admin: Arrora gaur', ColorRes.lightGreen, ColorRes.green, 'Active'),
-  allData('Black Sleep Bar', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green, 'Active'),
-  allData('Haven Martini', 'Admin: Bethany Jackson', ColorRes.lightYellow, ColorRes.yellow, 'Pending'),
-  allData('Refined Mixers', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink, 'Closed'),
-  allData('Haven Martini', 'Admin: Edward Evan', ColorRes.lightGreen, ColorRes.green, 'Active'),
-  allData('Black Sleep Bar', 'Admin: Arrora gaur', ColorRes.lightPink, ColorRes.pink, 'Closed'),
-];
+//967

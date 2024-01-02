@@ -10,6 +10,7 @@ import 'package:route_runner/utils/asset_res.dart';
 import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/strings.dart';
 
+import '../../service/pref_services.dart';
 import '../dash_board/dash_board_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -105,65 +106,66 @@ class ProfileScreen extends StatelessWidget {
                                         height: Get.height * 0.04,
                                       ),
                                       CommonTextField(
+                                          color: ColorRes.tffGrey,
                                           titleText: StringRes.employeeName,
                                           controller: profileController.employeeController),
                                       const SizedBox(
                                         height: 15,
                                       ),
                                       CommonTextField(
+                                          color: ColorRes.tffGrey,
                                           titleText: StringRes.enterEmail,
                                           controller: profileController.enterEmailController),
                                       const SizedBox(
                                         height: 15,
                                       ),
                                       CommonTextField(
+                                          color: ColorRes.tffGrey,
                                           titleText: StringRes.enterMobile,
                                           controller: profileController.enterMobileController),
                                       SizedBox(
                                         height: Get.height * 0.04,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 0),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                height: 40,
-                                                width: 180,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                                                child: Text(
-                                                  StringRes.close,
-                                                  style: GoogleFonts.nunito(
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorRes.color5B93FF),
-                                                ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              height: 40,
+                                              width: 180,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                  borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              child: Text(
+                                                StringRes.close,
+                                                style: GoogleFonts.nunito(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorRes.color5B93FF),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Expanded(
-                                              child: Container(
-                                                height: 40,
-                                                width: 180,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                    color: ColorRes.color5B93FF,
-                                                    border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                                                child: Text(
-                                                  StringRes.save,
-                                                  style: GoogleFonts.nunito(
-                                                      fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
-                                                ),
+                                          ),
+                                          SizedBox(
+                                            width: 19,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              height: 40,
+                                              width: 180,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  color: ColorRes.color5B93FF,
+                                                  border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                  borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              child: Text(
+                                                StringRes.save,
+                                                style: GoogleFonts.nunito(
+                                                    fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                               ),
-                                            )
-                                          ],
-                                        ),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                       SizedBox(
                                         height: Get.height * 0.37,
@@ -186,11 +188,17 @@ class ProfileScreen extends StatelessWidget {
                                 height: 150,
                                 width: 150,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.blue,
-                                    image: con.image == null
-                                        ? DecorationImage(image: AssetImage(AssetRes.profilePhoto))
-                                        : DecorationImage(fit: BoxFit.fill, image: FileImage(File(con.image!.path))))),
+                                  shape: BoxShape.circle,
+                                  color: Colors.blue,
+                                  image: con.image == null
+                                      ? DecorationImage(image: AssetImage(AssetRes.profilePhoto))
+                                      : DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: FileImage(
+                                            File(con.image!.path),
+                                          )),
+                                  // PrefService.setValue('profileImage', con.image!.path)
+                                )),
                             GestureDetector(
                               onTap: () {
                                 profileController.getImageFromCamera();

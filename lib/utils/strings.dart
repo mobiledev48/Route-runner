@@ -56,6 +56,8 @@ class StringRes {
   static const pay = 'Pay';
   static const changeStatus = 'Change Status';
   static const listOfMachine = 'List of machine';
+  static const viewMore = 'View more';
+  static const notFound = 'Not Found';
 
   //----------------------collection detail----------------
   static const collectionDetail = 'Collection Details';

@@ -3,9 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/utils/color_res.dart';
 
-import '../utils/asset_res.dart';
-import '../utils/strings.dart';
-
 class CommonTextField extends StatelessWidget {
   final TextEditingController? controller;
   bool? readOnly;
@@ -19,10 +16,9 @@ class CommonTextField extends StatelessWidget {
   double? containerHeight;
   final TextInputType? type;
   final GestureTapCallback? suffixIconOnTap;
+  final ValueChanged<String>? onChanged;
+  final Color? color;
 
-// <<<<<<< HEAD
-//   CommonTextField({this.hintText, this.isRequired, this.titleText, this.controller, this.readOnly});
-// =======
   CommonTextField(
       {this.maxLines,
       this.containerHeight,
@@ -34,7 +30,10 @@ class CommonTextField extends StatelessWidget {
       this.suffixIcon,
       this.titleText,
       this.controller,
-      this.readOnly, this.type});
+      this.readOnly,
+      this.type,
+      this.onChanged,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +43,14 @@ class CommonTextField extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(titleText ?? "",
-                style: GoogleFonts.nunito(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: ColorRes.color030229,
-                )),
+            titleText != null
+                ? Text(titleText ?? "",
+                    style: GoogleFonts.nunito(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.color030229,
+                    ))
+                : SizedBox(),
             isRequired == true
                 ? const Text(
                     ' *',
@@ -69,20 +70,21 @@ class CommonTextField extends StatelessWidget {
           height: containerHeight ?? 58,
           width: Get.width,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                0,
-              ),
-              color: ColorRes.colorF7F7F8),
+            borderRadius: BorderRadius.circular(
+              0,
+            ),
+          ),
           child: TextField(
-            keyboardType:  type,
+            onChanged: onChanged,
+            keyboardType: type,
             maxLines: maxLines ?? 1,
             controller: controller,
             readOnly: readOnly ?? false,
             decoration: InputDecoration(
                 filled: true,
-                fillColor: ColorRes.tffGrey,
+                fillColor: color ?? ColorRes.white,
                 hintText: hintText ?? "",
-                hintStyle: TextStyle(fontSize: 12, color: ColorRes.grey),
+                hintStyle: TextStyle(fontSize: 12, color: ColorRes.darkBlue, fontWeight: FontWeight.w400),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(color: Colors.transparent),
@@ -106,34 +108,74 @@ class CommonTextField extends StatelessWidget {
   }
 }
 
-class CommomTextFormFeild extends StatelessWidget {
-  final TextEditingController? controller;
-  ValueChanged<String>? onChanged;
-  // const CommomTextFormFeild({super.key});
-  CommomTextFormFeild({this.controller, this.onChanged});
+class PasswordField extends StatelessWidget {
+  final String texts;
+  final TextEditingController con;
+  final Widget? prefix;
+  final bool isprefix;
+  final Widget? sufix;
+  final bool issufix;
+  final bool? isclick;
+  final TextInputType? type;
+  final Function(String)? onChange;
+  final String? Function(String?)? vadidation;
+  const PasswordField(
+      {Key? key,
+      required this.texts,
+      required this.con,
+      this.prefix,
+      required this.isprefix,
+      this.sufix,
+      required this.issufix,
+      this.isclick,
+      this.type,
+      this.onChange,
+      this.vadidation})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(10),
-        suffixIcon: Image.asset(
-          AssetRes.search,
-          scale: 2,
-        ),
-        hintText: StringRes.search,
-        filled: true,
-        fillColor: Colors.grey.shade100,
-        focusColor: Colors.black12,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xfff6f6f6)),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xfff6f6f6)),
-          borderRadius: BorderRadius.circular(5),
+    final ValueNotifier _visiblePassword = ValueNotifier<bool>(true);
+
+    return ValueListenableBuilder(
+      valueListenable: _visiblePassword,
+      builder: (context, value, child) => TextFormField(
+        validator: vadidation,
+        onChanged: onChange,
+        keyboardType: type,
+        obscureText: value,
+        controller: con,
+        style: TextStyle(fontSize: 15, color: Colors.black),
+        decoration: InputDecoration(
+          prefixIcon: isprefix
+              ? IconButton(
+                  iconSize: 18,
+                  icon: prefix ?? SizedBox(),
+                  onPressed: () {},
+                )
+              : null,
+          suffixIcon: issufix
+              ? IconButton(
+                  color: ColorRes.black,
+                  iconSize: 18,
+                  onPressed: () => _visiblePassword.value = !_visiblePassword.value,
+                  icon: value ? Icon(Icons.visibility_off_outlined) : Icon(Icons.visibility_outlined))
+              : null,
+          contentPadding: EdgeInsets.only(top: 17, left: 12),
+          // border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
+          hintText: texts,
+          hintStyle: TextStyle(color: ColorRes.darkBlue),
+          filled: true,
+          fillColor: Colors.grey.shade100,
+          focusColor: Colors.black12,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xfff6f6f6)),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xfff6f6f6)),
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
       ),
     );

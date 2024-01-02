@@ -20,24 +20,12 @@ class CollectionReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_sharp,
-              size: 20,
-            )),
-        centerTitle: true,
-        backgroundColor: ColorRes.mainColor,
-        title: Text(
-          StringRes.collectionReport,
-          style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
-        ),
-
-        // automaticallyImplyLeading: false,
-      ),
+      appBar: customAppbar(
+          title: StringRes.collectionReport,
+          leadingOnpress: () {
+            Get.back();
+          },
+          action: false),
       body: GetBuilder<CollectionReportController>(
         id: 'collection',
         builder: (controller) {
@@ -45,19 +33,20 @@ class CollectionReportScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: Column(
               children: [
-                Container(
-                    width: Get.width * 0.9,
-                    height: Get.height * 0.06,
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: CommomTextFormFeild(
-                      controller: controller.searchController,
-                      onChanged: (value) {
-                        controller.searchTerm = 'Moonlight'; // Change this to your desired search term
-                        controller.searchResults = controller.searchAllData(controller.allCollectionData, value);
-                        print(controller.searchResults);
-                        controller.update(['collection']);
-                      },
-                    )),
+                CommonTextField(
+                  containerHeight: Get.height * 0.07,
+                  isSuffixIcon: true,
+                  suffixIcon: AssetRes.search,
+                  suffixIconSize: 3,
+                  hintText: StringRes.search,
+                  controller: controller.searchController,
+                  onChanged: (value) {
+                    controller.searchTerm = 'Moonlight'; // Change this to your desired search term
+                    controller.searchResults = controller.searchAllData(controller.allCollectionData, value);
+                    print(controller.searchResults);
+                    controller.update(['collection']);
+                  },
+                ),
                 controller.searchController.text.isEmpty
                     ? Expanded(
                         child: ListView.builder(
@@ -99,7 +88,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                       style: GoogleFonts.nunito(
                                                           fontSize: 9,
                                                           fontWeight: FontWeight.w400,
-                                                          color: ColorRes.color030229),
+                                                          color: ColorRes.grey2),
                                                     ),
                                                     SizedBox(height: 2),
                                                     Row(
@@ -109,7 +98,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                           style: GoogleFonts.nunito(
                                                               fontSize: 9,
                                                               fontWeight: FontWeight.w400,
-                                                              color: ColorRes.color030229),
+                                                              color: ColorRes.grey2),
                                                         ),
                                                         SizedBox(
                                                           width: 3,
@@ -119,7 +108,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                           style: GoogleFonts.nunito(
                                                               fontSize: 9,
                                                               fontWeight: FontWeight.w400,
-                                                              color: ColorRes.color030229),
+                                                              color: ColorRes.grey2),
                                                         ),
                                                         SizedBox(
                                                           width: 3,
@@ -129,7 +118,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                           style: GoogleFonts.nunito(
                                                               fontSize: 9,
                                                               fontWeight: FontWeight.w400,
-                                                              color: ColorRes.color030229),
+                                                              color: ColorRes.grey2),
                                                         ),
                                                       ],
                                                     ),
@@ -140,7 +129,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                       style: GoogleFonts.nunito(
                                                           fontSize: 9,
                                                           fontWeight: FontWeight.w400,
-                                                          color: ColorRes.color030229),
+                                                          color: ColorRes.grey2),
                                                     ),
                                                     SizedBox(height: 10),
                                                   ],
@@ -162,7 +151,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                         style: TextStyle(
                                                           fontSize: 9,
                                                           fontWeight: FontWeight.w400,
-                                                          color: ColorRes.black,
+                                                          color: ColorRes.grey2,
                                                         ),
                                                       )
                                                     ],
@@ -274,7 +263,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Container(
-                                                              height: Get.height * 0.16,
+                                                              height: Get.height * 0.12,
                                                               width: Get.width * 0.9,
                                                               decoration: BoxDecoration(
                                                                   border:
@@ -290,7 +279,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                 child: Row(
                                                                   children: [
                                                                     Container(
-                                                                      width: 70,
+                                                                      width: 80,
                                                                       decoration: BoxDecoration(
                                                                           image: DecorationImage(
                                                                               fit: BoxFit.fill,
@@ -926,7 +915,7 @@ class CollectionReportScreen extends StatelessWidget {
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 30),
                             child: Text(
-                              'Not Found',
+                              StringRes.notFound,
                               style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                             ),
                           ),

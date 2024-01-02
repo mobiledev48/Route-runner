@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/common/appbar.dart';
 import 'package:route_runner/common/common_text_fild.dart';
 import 'package:route_runner/screens/new_repair/new_report_controller.dart';
 
@@ -17,24 +18,13 @@ class NewRepairScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     NewReportController newReportController = Get.put(NewReportController());
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_sharp,
-                size: 20,
-              )),
-          centerTitle: true,
-          backgroundColor: ColorRes.mainColor,
-          title: Text(
-            StringRes.newRepair,
-            style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
-          ),
-
-          // automaticallyImplyLeading: false,
-        ),
+        backgroundColor: ColorRes.white,
+        appBar: customAppbar(
+            title: StringRes.newRepair,
+            leadingOnpress: () {
+              Get.back();
+            },
+            action: false),
         body: GetBuilder<NewReportController>(
           id: 'newRepair',
           builder: (controller) {
@@ -53,6 +43,7 @@ class NewRepairScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: CommonTextField(
+                                    color: ColorRes.tffGrey,
                                     type: TextInputType.number,
                                     isRequired: true,
                                     hintText: "#12",
@@ -64,6 +55,7 @@ class NewRepairScreen extends StatelessWidget {
                               ),
                               Expanded(
                                 child: CommonTextField(
+                                    color: ColorRes.tffGrey,
                                     type: TextInputType.number,
                                     isRequired: true,
                                     hintText: StringRes.entersSerialNumber,
@@ -76,6 +68,7 @@ class NewRepairScreen extends StatelessWidget {
                             height: 20,
                           ),
                           CommonTextField(
+                              color: ColorRes.tffGrey,
                               type: TextInputType.number,
                               isRequired: true,
                               hintText: "4652387645",
@@ -88,6 +81,7 @@ class NewRepairScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: CommonTextField(
+                                  color: ColorRes.tffGrey,
                                   suffixIconOnTap: () {
                                     controller.selectDate(context);
                                     controller.update(['newRepair']);
@@ -107,6 +101,7 @@ class NewRepairScreen extends StatelessWidget {
                               ),
                               Expanded(
                                 child: CommonTextField(
+                                  color: ColorRes.tffGrey,
                                   suffixIconOnTap: () {
                                     controller.selectTime(context);
                                     controller.update(['newRepair']);
@@ -127,6 +122,7 @@ class NewRepairScreen extends StatelessWidget {
                             height: 20,
                           ),
                           CommonTextField(
+                              color: ColorRes.tffGrey,
                               isRequired: true,
                               hintText: StringRes.steven,
                               titleText: StringRes.reporter,
@@ -135,6 +131,7 @@ class NewRepairScreen extends StatelessWidget {
                             height: 20,
                           ),
                           CommonTextField(
+                              color: ColorRes.tffGrey,
                               containerHeight: 130,
                               maxLines: 4,
                               isRequired: true,
@@ -181,7 +178,7 @@ class NewRepairScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Spacer()
+                              const Spacer()
                             ],
                           ),
                           const SizedBox(
@@ -205,48 +202,46 @@ class NewRepairScreen extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 40,
-                                    width: 180,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                                    child: Text(
-                                      StringRes.close,
-                                      style: GoogleFonts.nunito(
-                                          fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.color5B93FF),
-                                    ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 40,
+                                  width: 180,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                                  child: Text(
+                                    StringRes.close,
+                                    style: GoogleFonts.nunito(
+                                        fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.color5B93FF),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    height: 40,
-                                    width: 180,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: ColorRes.color5B93FF,
-                                        border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                                    child: Text(
-                                      StringRes.create,
-                                      style: GoogleFonts.nunito(
-                                          fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
-                                    ),
+                              ),
+                              const SizedBox(
+                                width: 19,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 40,
+                                  width: 180,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: ColorRes.color5B93FF,
+                                      border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                                  child: Text(
+                                    StringRes.create,
+                                    style: GoogleFonts.nunito(
+                                        fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                         ],

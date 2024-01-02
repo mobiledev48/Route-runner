@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,13 +5,12 @@ import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/home_view/home_controller.dart';
 import 'package:route_runner/screens/home_view/widget/appbar_container.dart';
-import 'package:route_runner/screens/home_view/widget/text_feild_view.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
+import '../../common/common_text_fild.dart';
 import '../../service/pref_services.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
-import '../../utils/pref_keys.dart';
 import '../../utils/strings.dart';
 import '../../utils/text_style.dart';
 
@@ -34,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                   Stack(
                     children: [
                       Container(
-                        height: Get.height * 0.26,
+                        height: Get.height * 0.27,
                         width: Get.width,
                         decoration: BoxDecoration(color: ColorRes.mainColor),
                         child: Row(
@@ -112,11 +110,18 @@ class HomeScreen extends StatelessWidget {
                           child:
                               Text(StringRes.newCollection, style: commonTitle().copyWith(fontWeight: FontWeight.w700)),
                         ),
-                        SizedBox(height: 17),
+                        const SizedBox(height: 7),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Container(width: Get.width * 0.6, height: Get.height * 0.06, child: const TextFeildView()),
+                            SizedBox(
+                                width: Get.width * 0.6,
+                                child: CommonTextField(
+                                  containerHeight: Get.height * 0.06,
+                                  color: ColorRes.tffGrey,
+                                  controller: homeController.auditController,
+                                  hintText: StringRes.auditNumber,
+                                )),
                             Container(
                                 height: Get.height * 0.055,
                                 width: Get.width * 0.125,
@@ -137,12 +142,11 @@ class HomeScreen extends StatelessWidget {
                     height: Get.height * 0.03,
                   ),
                   Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 10,
                       top: 10,
                       right: 10,
                     ),
-                    // height: Get.height,
                     width: Get.width * 0.9,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ColorRes.white),
                     child: Column(
@@ -173,7 +177,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 1,
                             ),
                             Text(
@@ -210,15 +214,15 @@ class HomeScreen extends StatelessWidget {
                               StringRes.total,
                               style: commonSubtitle(),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 6,
                             ),
                           ],
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         homeController.dividers(5, 5),
                         ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: homeController.recentCollectionList.length,
                           itemBuilder: (context, index) {
@@ -373,46 +377,6 @@ class HomeScreen extends StatelessWidget {
                             );
                           },
                         )
-                        // SizedBox(
-                        //   height: Get.height * 0.19,
-                        //   child: ListView.separated(
-                        //     physics: NeverScrollableScrollPhysics(),
-                        //     itemCount: 4,
-                        //     itemBuilder: (context, index) => Row(
-                        //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //       children: [
-                        //         SizedBox(
-                        //           width: 1,
-                        //         ),
-                        //         Text(
-                        //           StringRes.num3,
-                        //           style: commonSubtitle(),
-                        //         ),
-                        //         SizedBox(
-                        //           width: 15,
-                        //         ),
-                        //         Text(StringRes.moonlightBar, style: commonSubtitle()),
-                        //         SizedBox(
-                        //           width: 15,
-                        //         ),
-                        //         Text(StringRes.num4, style: commonSubtitle()),
-                        //         SizedBox(
-                        //           width: 20,
-                        //         ),
-                        //         Text(StringRes.num5, style: commonSubtitle()),
-                        //         SizedBox(
-                        //           width: 25,
-                        //         ),
-                        //         Text(StringRes.num6, style: commonSubtitle()),
-                        //       ],
-                        //     ),
-                        //     separatorBuilder: (BuildContext context, int index) {
-                        //       return SizedBox(
-                        //         height: 15,
-                        //       );
-                        //     },
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -422,13 +386,10 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Container(
-                      // height: Get.height * 0.74,
-                      // width: Get.width * 0.9,
                       decoration: BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         children: [
                           Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 20, top: 20),
@@ -446,8 +407,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            // height: 20,
+                          const SizedBox(
                             width: 20,
                           ),
                           SizedBox(
@@ -468,11 +428,7 @@ class HomeScreen extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             Text(
-                                              StringRes.serialno,
-                                              style: commonSubtitle().copyWith(fontSize: 12),
-                                            ),
-                                            Text(
-                                              '#1-876364',
+                                              "Serialno:  ${'#1-876364'}",
                                               style: commonSubtitle().copyWith(fontSize: 12),
                                             ),
                                           ],
@@ -487,18 +443,15 @@ class HomeScreen extends StatelessWidget {
                                   SizedBox(height: 15),
                                   Row(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 20,
                                       ),
                                       SizedBox(
-                                        width: Get.width * 0.36,
+                                        width: Get.width * 0.52,
                                         child: Text(
                                           'Location: Moonlight Bar',
                                           style: commonSubtitle().copyWith(fontSize: 12),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 58,
                                       ),
                                       Text(
                                         'Date: 15 Dec, 2023',
@@ -509,7 +462,7 @@ class HomeScreen extends StatelessWidget {
                                   SizedBox(height: 15),
                                   Row(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 20,
                                       ),
                                       SizedBox(
@@ -525,17 +478,17 @@ class HomeScreen extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
-                                  Divider(
+                                  const Divider(
                                     height: 1,
                                     color: ColorRes.grey,
                                     endIndent: 15,
                                     indent: 15,
                                   ),
                                   // homeController.dividers(12, 7),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                 ],
@@ -582,7 +535,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text("Employee",
                                 style: GoogleFonts.nunito(
-                                    fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black)),
+                                    fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.grey)),
                           ],
                         )
                       ],
@@ -597,32 +550,30 @@ class HomeScreen extends StatelessWidget {
                     itemCount: homeController.imageList.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () {
-                          Get.back();
-                          homeController.Currentindex(index);
-                          homeController.update(['home']);
-                          if (homeController.currentIndex == 0) {
-                            Get.to(() => CollectionReportScreen());
-                          } else if (homeController.currentIndex == 1) {
-                            Get.to(() => RepairScreen());
-                          } else if (homeController.currentIndex == 2) {
-                            Get.to(() => ServiceReportScreen());
-                          } else if (homeController.currentIndex == 3) {
-                            Get.to(() => AdminScreen());
-                            PrefService.clear();
-                            // PrefService.setValue(PrefKeys.login, false);
-                          }
-                        },
-                        child: ListTile(
-                          leading: Image.asset(
-                            homeController.imageList[index],
-                            scale: 4,
-                          ),
-                          title: Text(homeController.drawerTitle[index].toString(),
-                              style: GoogleFonts.nunito(
-                                  fontSize: 16, fontWeight: FontWeight.w600, color: ColorRes.color9A9AA9)),
-                        ),
-                      );
+                          onTap: () {
+                            Get.back();
+                            homeController.Currentindex(index);
+                            homeController.update(['home']);
+                            if (homeController.currentIndex == 0) {
+                              Get.to(() => CollectionReportScreen());
+                            } else if (homeController.currentIndex == 1) {
+                              Get.to(() => RepairScreen());
+                            } else if (homeController.currentIndex == 2) {
+                              Get.to(() => const ServiceReportScreen());
+                            } else if (homeController.currentIndex == 3) {
+                              Get.to(() => const AdminScreen());
+                              PrefService.clear();
+                            }
+                          },
+                          child: ListTile(
+                            leading: Image.asset(
+                              homeController.imageList[index],
+                              scale: 4,
+                            ),
+                            title: Text(homeController.drawerTitle[index].toString(),
+                                style: GoogleFonts.nunito(
+                                    fontSize: 16, fontWeight: FontWeight.w600, color: ColorRes.color9A9AA9)),
+                          ));
                     },
                   ))
                 ],

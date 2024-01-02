@@ -9,6 +9,7 @@ import 'package:route_runner/utils/pref_keys.dart';
 
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
+import '../../utils/strings.dart';
 import '../../utils/text_style.dart';
 
 class LocationController extends GetxController {
@@ -80,6 +81,51 @@ class LocationController extends GetxController {
 
       return [];
     }
+  }
+
+  Widget clickableContainer() {
+    return Row(
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              nextPage(0);
+              update(['machine']);
+            },
+            child: Container(
+              height: Get.height * 0.06,
+              width: Get.width * 0.455,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)),
+                  color: currentIndex == 0 ? ColorRes.mainColor : ColorRes.white),
+              child: Center(
+                  child: Text(
+                StringRes.paid,
+                style: TextStyle(color: currentIndex == 0 ? ColorRes.white : ColorRes.black),
+              )),
+            ),
+          ),
+        ),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              nextPage(1);
+              update(['machine']);
+            },
+            child: Container(
+              height: Get.height * 0.06,
+              width: Get.width * 0.455,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(7), bottomRight: Radius.circular(7)),
+                  color: currentIndex == 1 ? ColorRes.mainColor : ColorRes.white),
+              child: Center(
+                  child: Text(StringRes.unPaid,
+                      style: TextStyle(color: currentIndex == 1 ? ColorRes.white : ColorRes.black))),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 

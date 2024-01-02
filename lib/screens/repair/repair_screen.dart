@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/common/appbar.dart';
 import 'package:route_runner/screens/location_view/location_controller.dart';
 import 'package:route_runner/screens/new_repair/new_report_screen.dart';
 import 'package:route_runner/screens/repair/repair_controller.dart';
@@ -9,6 +10,7 @@ import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/text_style.dart';
 
 import '../../common/common_text_fild.dart';
+import '../../utils/asset_res.dart';
 import '../../utils/strings.dart';
 
 class RepairScreen extends StatelessWidget {
@@ -19,62 +21,37 @@ class RepairScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_sharp,
-                size: 20,
-              )),
-          centerTitle: true,
-          backgroundColor: ColorRes.mainColor,
-          title: Text(
-            StringRes.repair,
-            style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
-          ),
-          actions: [
-            GestureDetector(
-              onTap: () {
-                Get.to(NewRepairScreen());
-              },
-              child: Container(
-                height: 12,
-                width: 26,
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(right: Get.width * 0.06, top: Get.height * 0.024, bottom: Get.height * 0.02),
-                decoration: BoxDecoration(
-                    color: ColorRes.white.withOpacity(0.30), borderRadius: BorderRadius.all(Radius.circular(5))),
-                child: Icon(
-                  Icons.add,
-                  size: 20,
-                ),
-              ),
-            ),
-          ],
-          // automaticallyImplyLeading: false,
+        appBar: customAppbar(
+          title: StringRes.repair,
+          leadingOnpress: () {
+            Get.back();
+          },
+          action: true,
+          actionOnpress: () {
+            Get.to(NewRepairScreen());
+          },
         ),
         body: GetBuilder<RepairController>(
           id: 'location',
           builder: (controller) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Column(
                 children: [
-                  Container(
-                      width: Get.width * 0.9,
-                      height: Get.height * 0.06,
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: CommomTextFormFeild(
-                        controller: controller.searchController,
-                        onChanged: (value) {
-                          controller.searchTerm = 'Moonlight'; // Change this to your desired search term
-                          controller.searchResults = controller.searchAllData(value);
-                          print(controller.searchResults);
-                          controller.update(['location']);
-                        },
-                      )),
+                  CommonTextField(
+                    containerHeight: Get.height * 0.07,
+                    isSuffixIcon: true,
+                    suffixIcon: AssetRes.search,
+                    suffixIconSize: 3,
+                    hintText: StringRes.search,
+                    controller: controller.searchController,
+                    onChanged: (value) {
+                      controller.searchTerm = 'Moonlight'; // Change this to your desired search term
+                      controller.searchResults = controller.searchAllData(value);
+                      print(controller.searchResults);
+                      controller.update(['location']);
+                    },
+                  ),
                   controller.searchController.text.isEmpty
                       ? Expanded(
                           child: ListView.builder(
@@ -82,6 +59,7 @@ class RepairScreen extends StatelessWidget {
                               itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
                                       height: 75,
                                       width: Get.width,
                                       decoration:
@@ -107,16 +85,16 @@ class RepairScreen extends StatelessWidget {
                                                     SizedBox(height: 5),
                                                     Row(
                                                       children: [
-                                                        Text(
-                                                          repairAllData[index].subtitle,
-                                                          // 'Admin: Arrora gaur',
-                                                          style: GoogleFonts.nunito(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.color030229),
-                                                        ),
                                                         SizedBox(
-                                                          width: 30,
+                                                          width: Get.width * 0.31,
+                                                          child: Text(
+                                                            overflow: TextOverflow.ellipsis,
+                                                            repairAllData[index].subtitle,
+                                                            style: GoogleFonts.nunito(
+                                                                fontSize: 9,
+                                                                fontWeight: FontWeight.w400,
+                                                                color: ColorRes.color030229),
+                                                          ),
                                                         ),
                                                         Text(
                                                           'SN: #1-654125',
@@ -182,43 +160,7 @@ class RepairScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                  )
-
-                              //     Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: Container(
-                              //     height: 70,
-                              //     width: Get.width,
-                              //     decoration:
-                              //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
-                              //     child: ListTile(
-                              //       trailing: Column(
-                              //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
-                              //       ),
-                              //       title: Text('Moonlight Bar'),
-                              //       leading: locationController.customCheckbox(),
-                              //       subtitle: Column(
-                              //         children: [
-                              //           Padding(
-                              //             padding: const EdgeInsets.only(right: 0),
-                              //             child: Text(
-                              //               'Admin: Arrora gaur',
-                              //               style: commonSubtitle(),
-                              //             ),
-                              //           ),
-                              //           Padding(
-                              //             padding: const EdgeInsets.only(right: 0),
-                              //             child: Text(
-                              //               'Machine: 7',
-                              //               style: commonSubtitle(),
-                              //             ),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              ),
+                                  )),
                         )
                       : controller.searchResults.isNotEmpty
                           ? Expanded(
@@ -328,48 +270,12 @@ class RepairScreen extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                      )
-
-                                  //     Padding(
-                                  //   padding: const EdgeInsets.all(8.0),
-                                  //   child: Container(
-                                  //     height: 70,
-                                  //     width: Get.width,
-                                  //     decoration:
-                                  //         BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
-                                  //     child: ListTile(
-                                  //       trailing: Column(
-                                  //         children: [TextButton(onPressed: () {}, child: Text('View more'))],
-                                  //       ),
-                                  //       title: Text('Moonlight Bar'),
-                                  //       leading: locationController.customCheckbox(),
-                                  //       subtitle: Column(
-                                  //         children: [
-                                  //           Padding(
-                                  //             padding: const EdgeInsets.only(right: 0),
-                                  //             child: Text(
-                                  //               'Admin: Arrora gaur',
-                                  //               style: commonSubtitle(),
-                                  //             ),
-                                  //           ),
-                                  //           Padding(
-                                  //             padding: const EdgeInsets.only(right: 0),
-                                  //             child: Text(
-                                  //               'Machine: 7',
-                                  //               style: commonSubtitle(),
-                                  //             ),
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  ),
+                                      )),
                             )
                           : Padding(
                               padding: const EdgeInsets.symmetric(vertical: 30),
                               child: Text(
-                                'Not Found',
+                                StringRes.notFound,
                                 style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                               ),
                             ),

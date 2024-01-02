@@ -44,16 +44,20 @@ class CustomCheckbox extends StatelessWidget {
         SizedBox(
           width: Get.width * 0.02,
         ),
-        Text(
-          StringRes.rememberMe,
-          style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: 14)),
+        Expanded(
+          child: Text(
+            StringRes.rememberMe,
+            style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: 14)),
+          ),
         ),
         SizedBox(
-          width: Get.width * 0.18,
+          width: Get.width * 0.1,
         ),
-        Text(
-          StringRes.resetPassword,
-          style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: 14, color: ColorRes.mainColor)),
+        Expanded(
+          child: Text(
+            StringRes.resetPassword,
+            style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: 14, color: ColorRes.mainColor)),
+          ),
         ),
       ],
     );

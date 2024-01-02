@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'color_res.dart';
 import 'font_res.dart';
+
+TextStyle logoStyle() {
+  return GoogleFonts.nunito(
+    textStyle: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+      fontFamily: FontRes.black,
+    ),
+  );
+}
 
 TextStyle hintTextStyle() {
   return TextStyle(
@@ -33,5 +44,18 @@ TextStyle commonSubtitle() {
     fontWeight: FontWeight.w400,
     fontSize: 11,
     // fontFamily: FontRes.black,
+  );
+}
+
+TextStyle subTitle() {
+  return GoogleFonts.nunito(fontSize: 9, fontWeight: FontWeight.w400, color: ColorRes.darkBlue);
+}
+
+TextStyle subTitleUnderline() {
+  return GoogleFonts.nunito(
+    fontWeight: FontWeight.w400,
+    color: ColorRes.darkBlue,
+    fontSize: 8,
+    decoration: TextDecoration.underline,
   );
 }

@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
       child: Container(
         height: height,
         width: width,
-        decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(15)),
         child: Center(
             child: Text(
           StringRes.login,

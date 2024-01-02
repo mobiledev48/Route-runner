@@ -8,14 +8,11 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      if(PrefService.getBool(PrefKeys.login) == true)
-        {
-         Get.offAll(DashBoardScreen());
-        }
-      else
-        {
-          Get.offAll(const AdminScreen());
-        }
+      if (PrefService.getBool(PrefKeys.login) == true) {
+        Get.offAll(() => DashBoardScreen());
+      } else {
+        Get.offAll(() => const AdminScreen());
+      }
     });
     super.onInit();
   }
