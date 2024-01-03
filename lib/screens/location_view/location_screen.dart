@@ -112,7 +112,7 @@ class LocationScreen extends StatelessWidget {
                                   itemBuilder: (context, index) => Padding(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Container(
-                                          height: 75,
+                                          //height: 75,
                                           width: Get.width,
                                           decoration: BoxDecoration(
                                               color: ColorRes.white, borderRadius: BorderRadius.circular(10)),

@@ -40,10 +40,11 @@ class RepairScreen extends StatelessWidget {
                 Get.to(NewRepairScreen());
               },
               child: Container(
-                height: 12,
-                width: 26,
+                height: 30,
+                width: 40,
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(right: Get.width * 0.06, top: Get.height * 0.024, bottom: Get.height * 0.02),
+              // margin: EdgeInsets.only(right: Get.width * 0.06, top: Get.height * 0.024, bottom: Get.height * 0.02),
+              margin: EdgeInsets.only( bottom: Get.height * 0.01,top: Get.height * 0.01),
                 decoration: BoxDecoration(
                     color: ColorRes.white.withOpacity(0.30), borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Icon(
@@ -52,6 +53,7 @@ class RepairScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(width: 20,)
           ],
           // automaticallyImplyLeading: false,
         ),
