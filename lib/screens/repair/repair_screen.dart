@@ -21,7 +21,6 @@ class RepairScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: customAppbar(
           title: StringRes.repair,
           leadingOnpress: () {
@@ -31,45 +30,6 @@ class RepairScreen extends StatelessWidget {
           actionOnpress: () {
             Get.to(NewRepairScreen());
           },
-// =======
-//         appBar: AppBar(
-//           leading: IconButton(
-//               onPressed: () {
-//                 Get.back();
-//               },
-//               icon: Icon(
-//                 Icons.arrow_back_ios_sharp,
-//                 size: 20,
-//               )),
-//           centerTitle: true,
-//           backgroundColor: ColorRes.mainColor,
-//           title: Text(
-//             StringRes.repair,
-//             style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
-//           ),
-//           actions: [
-//             GestureDetector(
-//               onTap: () {
-//                 Get.to(NewRepairScreen());
-//               },
-//               child: Container(
-//                 height: 30,
-//                 width: 40,
-//                 alignment: Alignment.center,
-//               // margin: EdgeInsets.only(right: Get.width * 0.06, top: Get.height * 0.024, bottom: Get.height * 0.02),
-//               margin: EdgeInsets.only( bottom: Get.height * 0.01,top: Get.height * 0.01),
-//                 decoration: BoxDecoration(
-//                     color: ColorRes.white.withOpacity(0.30), borderRadius: BorderRadius.all(Radius.circular(5))),
-//                 child: Icon(
-//                   Icons.add,
-//                   size: 20,
-//                 ),
-//               ),
-//             ),
-//             SizedBox(width: 20,)
-//           ],
-//           // automaticallyImplyLeading: false,
-// >>>>>>> main
         ),
         body: GetBuilder<RepairController>(
           id: 'location',
@@ -126,7 +86,7 @@ class RepairScreen extends StatelessWidget {
                                                     Row(
                                                       children: [
                                                         SizedBox(
-                                                          width: Get.width * 0.31,
+                                                          width: Get.width * 0.24,
                                                           child: Text(
                                                             overflow: TextOverflow.ellipsis,
                                                             repairAllData[index].subtitle,
@@ -136,6 +96,7 @@ class RepairScreen extends StatelessWidget {
                                                                 color: ColorRes.color030229),
                                                           ),
                                                         ),
+                                                        SizedBox(width: Get.width * 0.045),
                                                         Text(
                                                           'SN: #1-654125',
                                                           style: commonSubtitle().copyWith(fontSize: 9),
@@ -144,7 +105,7 @@ class RepairScreen extends StatelessWidget {
                                                     ),
                                                     SizedBox(height: 5),
                                                     Text(
-                                                      'Machine: 7',
+                                                      'Issue: Joy stick not working',
                                                       style: GoogleFonts.nunito(
                                                           fontSize: 9,
                                                           fontWeight: FontWeight.w400,

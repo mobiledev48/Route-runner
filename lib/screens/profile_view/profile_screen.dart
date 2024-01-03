@@ -197,7 +197,6 @@ class ProfileScreen extends StatelessWidget {
                                           image: FileImage(
                                             File(con.image!.path),
                                           )),
-                                  // PrefService.setValue('profileImage', con.image!.path)
                                 )),
                             GestureDetector(
                               onTap: () {

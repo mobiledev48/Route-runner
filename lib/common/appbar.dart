@@ -19,9 +19,10 @@ customAppbar({
   return AppBar(
       leading: IconButton(
           onPressed: leadingOnpress,
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_sharp,
             size: 20,
+            color: ColorRes.white,
           )),
       centerTitle: true,
       backgroundColor: ColorRes.mainColor,
@@ -33,20 +34,24 @@ customAppbar({
         action == true
             ? GestureDetector(
                 onTap: actionOnpress,
-                child: Container(
-                  height: 16,
-                  width: 28,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(right: Get.width * 0.06, top: Get.height * 0.024, bottom: Get.height * 0.02),
-                  decoration: BoxDecoration(
-                      color: ColorRes.white.withOpacity(0.30), borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Icon(
-                    Icons.add,
-                    size: 20,
+                child: Expanded(
+                  child: Container(
+                    height: Get.height * 0.1,
+                    width: Get.width * 0.07,
+                    alignment: Alignment.center,
+                    margin:
+                        EdgeInsets.only(right: Get.width * 0.06, top: Get.height * 0.024, bottom: Get.height * 0.02),
+                    decoration: BoxDecoration(
+                        color: ColorRes.white.withOpacity(0.30),
+                        borderRadius: const BorderRadius.all(Radius.circular(5))),
+                    child: const Icon(
+                      Icons.add,
+                      size: 20,
+                    ),
                   ),
                 ),
               )
-            : SizedBox()
+            : const SizedBox()
       ]
       // automaticallyImplyLeading: false,
       );
