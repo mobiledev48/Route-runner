@@ -416,6 +416,16 @@ class NewCollectionScreen extends StatelessWidget {
                                     onTap: () {
                                       if (newCollectionController.validation()) {
                                         Get.to(() => CollectionDetailScreen());
+                                        Iterable<CollectionReport> dynamicParameters = [
+                                          CollectionReport(serialNumber: newCollectionController.enterSerialNumberController.text,
+                                            inCurrent: newCollectionController.currentNumberInController.text,
+                                            inPrevious: newCollectionController.previousNumberInController.text,
+                                            outCurrent: newCollectionController.currentNumberOutController.text,
+                                            outPrevious: newCollectionController.previousNumberOutController.text,
+                                            image:controller.image!.path
+                                          ),
+                                        ];
+                                        newCollectionController.addCampaignData.addAll(dynamicParameters);
                                       }
                                     },
                                     child: Container(
@@ -449,5 +459,54 @@ class NewCollectionScreen extends StatelessWidget {
             );
           },
         ));
+  }
+}
+
+
+
+class CollectionReport {
+  String? serialNumber;
+  String? inPrevious;
+  String? inCurrent;
+  String? outPrevious;
+  String? outCurrent;
+  String? image;
+
+
+  CollectionReport({
+    this.serialNumber,
+    this.inPrevious,
+    this.inCurrent,
+    this.outPrevious,
+    this.outCurrent,
+    this.image,
+    Map<String, dynamic>? customParameters,
+  }) {
+    // Set custom parameters if provided
+    customParameters?.forEach((key, value) {
+      switch (key) {
+        case 'serialNumber':
+          serialNumber = value as String?;
+          break;
+        case 'inPrevious':
+          inPrevious = value as String?;
+          break;
+        case 'inCurrent':
+          inCurrent = value as String?;
+          break;
+        case 'outPrevious':
+          outPrevious = value as String?;
+          break;
+        case 'outCurrent':
+          outCurrent = value as String?;
+          break;
+        case 'image':
+          image = value as String?;
+          break;
+        default:
+        // Handle unknown parameter
+          break;
+      }
+    });
   }
 }

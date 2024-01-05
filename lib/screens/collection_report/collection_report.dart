@@ -28,10 +28,7 @@ class CollectionReportScreen extends StatelessWidget {
           leadingOnpress: () {
             Get.back();
           },
-          action: true,
-          actionOnpress: () {
-            Get.to(NewCollectionScreen());
-          }),
+          action: false,),
       body: GetBuilder<CollectionReportController>(
         id: 'collection',
         builder: (controller) {
@@ -74,7 +71,7 @@ class CollectionReportScreen extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               Padding(
-                                                padding: EdgeInsets.only(bottom: Get.height * 0.1, left: 5, right: 10),
+                                                padding: EdgeInsets.only(bottom: 51, left: 5, right: 10),
                                                 child: controller.customCheckbox(index),
                                               ),
                                               Expanded(
@@ -423,48 +420,49 @@ class CollectionReportScreen extends StatelessWidget {
                                                 ),
                                               )
                                             : SizedBox(),
-                                        // controller.isViewData[index]
-                                        //     ? Padding(
-                                        //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                        //         child: Row(
-                                        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        //           children: [
-                                        //             Text(
-                                        //               'Total profit- 600',
-                                        //               style: GoogleFonts.nunito(
-                                        //                   fontSize: width * 0.034,
-                                        //                   fontWeight: FontWeight.w600,
-                                        //                   color: ColorRes.black),
-                                        //             ),
-                                        //             Text(
-                                        //               '50%- 300',
-                                        //               style: GoogleFonts.nunito(
-                                        //                   fontSize: width * 0.034,
-                                        //                   fontWeight: FontWeight.w600,
-                                        //                   color: ColorRes.black),
-                                        //             ),
-                                        //             Text(
-                                        //               'Paid- 300',
-                                        //               style: GoogleFonts.nunito(
-                                        //                   fontSize: width * 0.034,
-                                        //                   fontWeight: FontWeight.w600,
-                                        //                   color: ColorRes.black),
-                                        //             ),
-                                        //             Text(
-                                        //               'Due- 0',
-                                        //               style: GoogleFonts.nunito(
-                                        //                   fontSize: width * 0.034,
-                                        //                   fontWeight: FontWeight.w600,
-                                        //                   color: ColorRes.black),
-                                        //             ),
-                                        //           ],
-                                        //         ),
-                                        //       )
-                                        //     : const SizedBox(),
+                                        controller.isViewData[index]
+                                            ? Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Total profit- 600',
+                                                      style: GoogleFonts.nunito(
+                                                          fontSize: width * 0.034,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: ColorRes.black),
+                                                    ),
+                                                    Text(
+                                                      '50%- 300',
+                                                      style: GoogleFonts.nunito(
+                                                          fontSize: width * 0.034,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: ColorRes.black),
+                                                    ),
+                                                    Text(
+                                                      'Paid- 300',
+                                                      style: GoogleFonts.nunito(
+                                                          fontSize: width * 0.034,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: ColorRes.black),
+                                                    ),
+                                                    Text(
+                                                      'Due- 0',
+                                                      style: GoogleFonts.nunito(
+                                                          fontSize: width * 0.034,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: ColorRes.black),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            : const SizedBox(),
                                       ],
                                     ),
                                   ),
-                                )),
+                                )
+                        ),
                       )
                     : controller.searchResults.isNotEmpty
                         ? Expanded(

@@ -8,6 +8,7 @@ class AssetRes {
   static const profilePhoto = '${image}Profile photo.png';
   static const profilePhotoDrawer = '${image}profilePhotoDrawer.png';
   static const photo = '${image}photo.png';
+  static const addMenu = '${image}addmenu.png';
 
   //---------------------icon-------------------------------
   static const home = '${icon}home.png';

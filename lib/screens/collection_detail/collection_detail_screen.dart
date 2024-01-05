@@ -15,6 +15,7 @@ class CollectionDetailScreen extends StatelessWidget {
   CollectionDetailScreen({super.key});
   CollectionDetailController controller = Get.put(CollectionDetailController());
   NewCollectionController newCollectionController = Get.put(NewCollectionController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,13 +61,15 @@ class CollectionDetailScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: FileImage(File(newCollectionController.image!.path)),
-                      fit: BoxFit.cover, // Choose the BoxFit that suits your needs
-                    ),
+                  decoration: const BoxDecoration(
+                    // image: DecorationImage(
+                    //   image: FileImage(File(newCollectionController.image!.path)),
+                    //   fit: BoxFit.cover, // Choose the BoxFit that suits your needs
+                    // ),
                   ),
-                  child: Image.asset(
+                  child: newCollectionController.addCampaignData[0].image != ""?
+                      Image.file(File(newCollectionController.addCampaignData[0].image ?? ""),height: 180,)
+                      :Image.asset(
                     AssetRes.photo,
                   ),
                 ),
@@ -107,39 +110,39 @@ class CollectionDetailScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            '#1-876364',
+                            '${newCollectionController.addCampaignData[0].serialNumber}',
                             style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
                           ),
-                          SizedBox(
-                            width: Get.width * 0.1,
-                          ),
+                          // SizedBox(
+                          //   width: Get.width * 0.1,
+                          // ),
                           Text(
                             StringRes.current,
                             style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
                           ),
-                          SizedBox(
-                            width: Get.width * 0.1,
-                          ),
+                          // SizedBox(
+                          //   width: Get.width * 0.1,
+                          // ),
                           Text(
                             StringRes.previous,
                             style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
                           ),
-                          SizedBox(
-                            width: Get.width * 0.1,
-                          ),
+                          // SizedBox(
+                          //   width: Get.width * 0.1,
+                          // ),
                           Text(
                             StringRes.total,
                             style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
                           ),
                         ],
                       ),
-                      Expanded(
+                    /*  Expanded(
                         child: ListView.separated(
                           itemCount: 2,
-                          separatorBuilder: (context, index) => SizedBox(
+                          separatorBuilder: (context, index) => const SizedBox(
                             height: 5,
                           ),
                           itemBuilder: (context, index) {
@@ -171,7 +174,59 @@ class CollectionDetailScreen extends StatelessWidget {
                             );
                           },
                         ),
-                      ),
+                      ),*/
+                      SizedBox(height: 10,),
+                      Row(children: [
+                        SizedBox(
+                            width: Get.width * 0.3,
+                            child: Text(
+                             "In",
+                              style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                            )),
+                        SizedBox(
+                            width: Get.width * 0.22,
+                            child: Text(
+                              "\$${newCollectionController.addCampaignData[0].inCurrent}",
+                              style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                            )),
+                        SizedBox(
+                            width: Get.width * 0.25,
+                            child: Text(
+                              "\$${newCollectionController.addCampaignData[0].inPrevious}",
+                              style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                            )),
+                        Text(
+                          "\$${controller.calculateTotalValue(int.parse(newCollectionController.addCampaignData[0].inCurrent ?? ""),
+                              int.parse(newCollectionController.addCampaignData[0].inPrevious ?? ""))}",
+                          style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                        ),
+                      ],),
+                      const SizedBox(height: 10,),
+                      Row(children: [
+                        SizedBox(
+                            width: Get.width * 0.3,
+                            child: Text(
+                              "Out",
+                              style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                            )),
+                        SizedBox(
+                            width: Get.width * 0.22,
+                            child: Text(
+                              "\$${newCollectionController.addCampaignData[0].outCurrent}",
+                              style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                            )),
+                        SizedBox(
+                            width: Get.width * 0.25,
+                            child: Text(
+                              "\$${newCollectionController.addCampaignData[0].outPrevious}",
+                              style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                            )),
+                        Text(
+                          "\$${controller.calculateTotalValue(int.parse(newCollectionController.addCampaignData[0].outCurrent ?? ""),int.parse(newCollectionController.addCampaignData[0].outPrevious ?? ""))}",
+                          style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                        ),
+                      ],),
+                      const SizedBox(height: 10,),
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: SizedBox(
@@ -182,7 +237,12 @@ class CollectionDetailScreen extends StatelessWidget {
                             children: [
                               Text('Profit: ', style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w500)),
                               Text(
-                                "\$${newCollectionController.previousNumberOutController.text}",
+                                "\$ ${controller.calculateTotalValue(
+                                    controller.calculateTotalValue(int.parse(newCollectionController.addCampaignData[0].inCurrent ?? ""),
+                                        int.parse(newCollectionController.addCampaignData[0].inPrevious ?? "")),
+                                    controller.calculateTotalValue(int.parse(newCollectionController.addCampaignData[0].outCurrent ?? ""),
+                                        int.parse(newCollectionController.addCampaignData[0].outPrevious ?? ""))
+                                )}",
                                 style: TextStyle(color: ColorRes.green),
                               )
                             ],
@@ -207,7 +267,7 @@ class CollectionDetailScreen extends StatelessWidget {
               height: Get.height * 0.07,
               width: Get.width * 0.9,
               decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
-              child: Center(
+              child: const Center(
                   child: Text(
                 StringRes.save,
                 style: TextStyle(fontSize: 16, color: ColorRes.white),

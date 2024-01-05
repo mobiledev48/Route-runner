@@ -52,8 +52,8 @@ class AdminScreen extends StatelessWidget {
                       height: 27,
                     ),
                     Button(
-                      height: Get.height * 0.08,
-                      width: Get.width * 0.9,
+                      height: 50,
+                      width: 321,
                       onpressed: () {
                         FocusScope.of(context).unfocus();
                         if (adminController.validator()) {

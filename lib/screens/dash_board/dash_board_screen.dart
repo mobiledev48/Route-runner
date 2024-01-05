@@ -22,7 +22,7 @@ class DashBoardScreen extends StatelessWidget {
           backgroundColor: ColorRes.white,
           body: dashBoardController.screen.elementAt(dashBoardController.currentIndex),
           bottomNavigationBar: Container(
-            height: Get.height * 0.13,
+            height: Get.height * 0.11,
             color: ColorRes.white,
             alignment: Alignment.center,
             padding: EdgeInsets.only(top: Get.height * 0.03),
@@ -46,7 +46,8 @@ class DashBoardScreen extends StatelessWidget {
                         children: [
                           Image.asset(
                             AssetRes.home,
-                            scale: 3,
+
+                            height: Get.height * 0.03,
                             color: dashBoardController.currentIndex == 0 ? ColorRes.mainColor : Colors.grey,
                           ),
                           SizedBox(height: 10),
@@ -76,8 +77,9 @@ class DashBoardScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           Image.asset(
+                            height: Get.height * 0.03,
                             AssetRes.location,
-                            scale: 3,
+                       //     scale: 3,
                             color: dashBoardController.currentIndex == 1 ? ColorRes.mainColor : Colors.grey,
                           ),
                           SizedBox(height: 10),
@@ -108,7 +110,7 @@ class DashBoardScreen extends StatelessWidget {
                         children: [
                           Image.asset(
                             AssetRes.machine,
-                            scale: 3,
+                            height: Get.height * 0.03,
                             color: dashBoardController.currentIndex == 2 ? ColorRes.mainColor : Colors.grey,
                           ),
                           SizedBox(height: 10),
@@ -139,7 +141,7 @@ class DashBoardScreen extends StatelessWidget {
                         children: [
                           Image.asset(
                             AssetRes.profile,
-                            scale: 3,
+                            height: Get.height * 0.03,
                             color: dashBoardController.currentIndex == 3 ? ColorRes.mainColor : Colors.grey,
                           ),
                           SizedBox(height: 10),

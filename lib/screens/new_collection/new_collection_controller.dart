@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:route_runner/model/location_model.dart';
+import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 
 import '../../utils/strings.dart';
 
@@ -13,6 +14,7 @@ class NewCollectionController extends GetxController {
 
   List<Location>? filteredLocations = [];
   LocationModel? locationModel;
+  List<CollectionReport>  addCampaignData= [];
 
 // <<<<<<< HEAD
 //   TextEditingController machineNumberController = TextEditingController();
