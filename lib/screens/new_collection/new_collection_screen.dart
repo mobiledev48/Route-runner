@@ -471,6 +471,8 @@ class CollectionReport {
   String? outPrevious;
   String? outCurrent;
   String? image;
+  String? data;
+  String? time;
 
 
   CollectionReport({
@@ -480,6 +482,8 @@ class CollectionReport {
     this.outPrevious,
     this.outCurrent,
     this.image,
+    this.data,
+    this.time,
     Map<String, dynamic>? customParameters,
   }) {
     // Set custom parameters if provided
@@ -501,6 +505,12 @@ class CollectionReport {
           outCurrent = value as String?;
           break;
         case 'image':
+          image = value as String?;
+          break;
+        case 'data':
+          image = value as String?;
+          break;
+        case 'time':
           image = value as String?;
           break;
         default:

@@ -60,7 +60,7 @@ class ServiceReportScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: GestureDetector(onTap: () {
-                          Get.to(NewCollectionScreen());
+                          Get.to(NewServiceRepairScreen());
                         },child: Image.asset(AssetRes.addMenu,scale: 3,)),
                       ),
                     ]),),
