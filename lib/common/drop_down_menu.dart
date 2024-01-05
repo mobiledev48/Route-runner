@@ -28,7 +28,7 @@ Widget DropDownMenu() {
     child: Text(
       StringRes.viewMore,
       style: GoogleFonts.nunito(
-          decoration: TextDecoration.underline, fontSize: 12, fontWeight: FontWeight.w500, color: ColorRes.grey),
+          decoration: TextDecoration.underline, fontSize: 12, fontWeight: FontWeight.w500, color: ColorRes.color030229),
     ),
 
     itemBuilder: (context) {

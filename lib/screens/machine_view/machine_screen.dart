@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,221 +56,50 @@ class MachineScreen extends StatelessWidget {
                   ),
                   controller.searchController.text.isEmpty
                       ? Expanded(
-                          child: ListView.builder(
-                              itemCount: machineAllData.length,
-                              itemBuilder: (context, index) => Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      height: 85,
-                                      width: Get.width,
-                                      decoration:
-                                          BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                      child: Stack(
-                                        alignment: Alignment.topCenter,
+                    child: ListView.builder(
+                        itemCount: machineAllData.length,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Container(
+                            width: Get.width,
+                            decoration:
+                            BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                            child: Stack(
+                              alignment: Alignment.topCenter,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        SizedBox(height: 10),
-                                                        Text(
-                                                          machineAllData[index].title,
-                                                          style: title(),
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        SizedBox(
-                                                          width: Get.width * 0.24,
-                                                          child: Text(
-                                                            machineAllData[index].subtitle,
-                                                            overflow: TextOverflow.ellipsis,
-                                                            style: subTitle().copyWith(fontSize: width * 0.034),
-                                                          ),
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        Text(
-                                                          'SN: #${index + 1}-654184',
-                                                          style: subTitle().copyWith(fontSize: width * 0.034),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                                      children: [
-                                                        SizedBox(
-                                                          height: Get.height * 0.02,
-                                                        ),
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(right: 6),
-                                                          child: SizedBox(
-                                                              height: Get.height * 0.05, child: DropDownMenu()),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 0,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              'Initial: \$ 2000',
-                                                              style: subTitle(),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 6,
-                                                            ),
-                                                            Text(
-                                                              'Current: \$ 2648',
-                                                              style: subTitle(),
-                                                            ),
-                                                            // const SizedBox(
-                                                            //   width: 6,
-                                                            // ),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                                // const SizedBox(
-                                                //   height: 10,
-                                                // ),
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            height: Get.height * 0.04,
-                                            width: Get.width * 0.2,
-                                            margin: EdgeInsets.only(top: 10),
-                                            decoration: BoxDecoration(
-                                              color: machineAllData[index].color,
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              machineAllData[index].active,
-                                              style: TextStyle(
-                                                  color: machineAllData[index].iconColor, fontSize: width * 0.034),
-                                            )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )),
-                        )
-                      : controller.searchResults.isNotEmpty
-                          // controller.searchResults
-                          ? Expanded(
-                              child: ListView.builder(
-                                  itemCount: controller.searchResults.length,
-                                  itemBuilder: (context, index) => Padding(
-                                        padding: const EdgeInsets.only(top: 10),
-                                        child: Container(
-                                          width: Get.width,
-                                          decoration: BoxDecoration(
-                                              color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                          child: Stack(
-                                            alignment: Alignment.topCenter,
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            SizedBox(height: 10),
-                                                            Text(
-                                                              controller.searchResults[index].title,
-                                                              style: title(),
-                                                            ),
-                                                            SizedBox(height: 5),
-                                                            SizedBox(
-                                                              width: Get.width * 0.24,
-                                                              child: Text(
-                                                                controller.searchResults[index].subtitle,
-                                                                overflow: TextOverflow.ellipsis,
-                                                                style: subTitle().copyWith(fontSize: width * 0.034),
-                                                              ),
-                                                            ),
-                                                            SizedBox(height: 5),
-                                                            Text(
-                                                              'SN: #${index + 1}-654184',
-                                                              style: subTitle().copyWith(fontSize: width * 0.034),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                                          children: [
-                                                            SizedBox(
-                                                              height: Get.height * 0.02,
-                                                            ),
-                                                            Padding(
-                                                              padding: const EdgeInsets.only(right: 6),
-                                                              child: SizedBox(
-                                                                  height: Get.height * 0.05, child: DropDownMenu()),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 0,
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  'Initial: \$ 2000',
-                                                                  style: subTitleUnderline()
-                                                                      .copyWith(fontSize: width * 0.03),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 6,
-                                                                ),
-                                                                Text(
-                                                                  'Current: \$ 2648',
-                                                                  style: subTitleUnderline()
-                                                                      .copyWith(fontSize: width * 0.03),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 6,
-                                                                ),
-                                                              ],
-                                                            )
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                  ],
+                                              SizedBox(height: 10),
+                                              Text(
+                                                machineAllData[index].title,
+                                                style: title(),
+                                              ),
+                                              SizedBox(height: 5),
+                                              SizedBox(
+                                                width: Get.width * 0.24,
+                                                child: Text(
+                                                  machineAllData[index].subtitle,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
                                                 ),
                                               ),
-                                              Container(
-                                                height: Get.height * 0.04,
-                                                width: Get.width * 0.2,
-                                                margin: EdgeInsets.only(top: 10),
-                                                decoration: BoxDecoration(
-                                                  color: controller.searchResults[index].color,
-                                                  borderRadius: BorderRadius.circular(30),
-                                                ),
-                                                child: Center(
-                                                    child: Text(
-                                                  controller.searchResults[index].active,
-                                                  style: TextStyle(
-                                                      color: controller.searchResults[index].iconColor,
-                                                      fontSize: width * 0.034),
-                                                )),
-                                              ),
+                                              SizedBox(height: 5),
+                                              Text(
+                                                'SN: #${index + 1}-654184',
+                                                style: GoogleFonts.nunito(
+                                                    fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
+                                              )
                                             ],
                                           ),
-
-                                        ),
-
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
@@ -280,22 +111,23 @@ class MachineScreen extends StatelessWidget {
                                                 child:
                                                 SizedBox(height: Get.height * 0.05, child: DropDownMenu()),
                                               ),
-                                              const SizedBox(
+                                              SizedBox(
                                                 height: 0,
                                               ),
                                               Row(
                                                 children: [
                                                   Text(
                                                     'Initial: \$ 2000',
-                                                    style: subTitleUnderline().copyWith(fontSize: width * 0.03),
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: width * 0.03, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
                                                   ),
                                                   const SizedBox(
                                                     width: 6,
                                                   ),
                                                   Text(
                                                     'Current: \$ 2648',
-                                                    style:
-                                                    subTitleUnderline().copyWith(fontSize: width * 0.03),
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: width * 0.03, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
                                                   ),
                                                   const SizedBox(
                                                     width: 6,
@@ -315,7 +147,118 @@ class MachineScreen extends StatelessWidget {
                                 Container(
                                   height: Get.height * 0.04,
                                   width: Get.width * 0.2,
-                                  margin: const EdgeInsets.only(top: 10),
+                                  margin: EdgeInsets.only(top: 10),
+                                  decoration: BoxDecoration(
+                                    color: machineAllData[index].color,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                        machineAllData[index].active,
+                                        style: TextStyle(
+                                            color: machineAllData[index].iconColor, fontSize: width * 0.034),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )),
+                  )
+                      : controller.searchResults.isNotEmpty
+                  // controller.searchResults
+                      ? Expanded(
+                    child: ListView.builder(
+                        itemCount: controller.searchResults.length,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Container(
+                            width: Get.width,
+                            decoration:
+                            BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                            child: Stack(
+                              alignment: Alignment.topCenter,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(height: 10),
+                                              Text(
+                                                controller.searchResults[index].title,
+                                                style: title(),
+                                              ),
+                                              SizedBox(height: 5),
+                                              SizedBox(
+                                                width: Get.width * 0.24,
+                                                child: Text(
+                                                  controller.searchResults[index].subtitle,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
+                                                ),
+                                              ),
+                                              SizedBox(height: 5),
+                                              Text(
+                                                'SN: #${index + 1}-654184',
+                                                style: GoogleFonts.nunito(
+                                                    fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              SizedBox(
+                                                height: Get.height * 0.02,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 6),
+                                                child:
+                                                SizedBox(height: Get.height * 0.05, child: DropDownMenu()),
+                                              ),
+                                              SizedBox(
+                                                height: 0,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Initial: \$ 2000',
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: width * 0.03, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 6,
+                                                  ),
+                                                  Text(
+                                                    'Current: \$ 2648',
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: width * 0.03, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 6,
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  height: Get.height * 0.04,
+                                  width: Get.width * 0.2,
+                                  margin: EdgeInsets.only(top: 10),
                                   decoration: BoxDecoration(
                                     color: controller.searchResults[index].color,
                                     borderRadius: BorderRadius.circular(30),
@@ -325,16 +268,20 @@ class MachineScreen extends StatelessWidget {
                                         controller.searchResults[index].active,
                                         style: TextStyle(
                                             color: controller.searchResults[index].iconColor, fontSize: width * 0.034),
-
                                       )),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 30),
-                              child: Text(
-                                StringRes.notFound,
-                                style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
-                              ),
-                            )
+                                ),
+                              ],
+                            ),
+                          ),
+                        )),
+                  )
+                      : Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: Text(
+                      StringRes.notFound,
+                      style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                  )
                 ],
               ),
             );

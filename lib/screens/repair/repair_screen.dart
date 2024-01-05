@@ -20,6 +20,7 @@ class RepairScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: ColorRes.bgColor,
         appBar: customAppbar(
@@ -88,15 +89,23 @@ class RepairScreen extends StatelessWidget {
                                                           child: Text(
                                                             repairAllData[index].subtitle,
                                                             overflow: TextOverflow.ellipsis,
-                                                            style: subTitle(),
+                                                            // style: subTitle(),
+                                                            style:  GoogleFonts.nunito(
+                                                                fontSize:  width * 0.031, fontWeight: FontWeight.w400, color: ColorRes.color030229),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                     SizedBox(height: 5),
-                                                    Text(
-                                                      'Machine: 7',
-                                                      style: subTitle(),
+                                                    SizedBox(
+                                                      width: width * 0.37,
+                                                      child: Text(
+                                                        'Issue: Joy stick not working',
+                                                        overflow: TextOverflow.ellipsis,
+                                                        maxLines: 2,
+                                                        style:  GoogleFonts.nunito(
+                                                            fontSize:  width * 0.031, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                                      ),
                                                     )
                                                   ],
                                                 ),
@@ -124,19 +133,22 @@ class RepairScreen extends StatelessWidget {
                                                   Padding(
                                                     padding: EdgeInsets.only(right: Get.width * 0.23),
                                                     child:
-                                                        Text('SN: #1-654125', style: subTitle().copyWith(fontSize: 10)),
+                                                        Text('SN: #1-654125',     style:  GoogleFonts.nunito(
+                                                            fontSize:  width * 0.031, fontWeight: FontWeight.w400, color: ColorRes.color030229),),
                                                   ),
                                                   SizedBox(height: Get.height * 0.01),
                                                   Row(
                                                     children: [
                                                       Text(
                                                         'Date: 12 Dec,2023',
-                                                        style: subTitle().copyWith(fontSize: 10),
+                                                        style:  GoogleFonts.nunito(
+                                                            fontSize:  width * 0.027, fontWeight: FontWeight.w400, color: ColorRes.color030229),
                                                       ),
                                                       SizedBox(width: Get.width * 0.02),
                                                       Text(
                                                         'Time: 11:45 PM',
-                                                        style: subTitle().copyWith(fontSize: 10),
+                                                        style:  GoogleFonts.nunito(
+                                                            fontSize:  width * 0.027, fontWeight: FontWeight.w400, color: ColorRes.color030229),
                                                       )
                                                     ],
                                                   )
