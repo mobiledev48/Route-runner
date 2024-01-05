@@ -407,7 +407,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 160, top: 20),
+                                padding: const EdgeInsets.only(left: 140, top: 20),
                                 child: Image.asset(
                                   AssetRes.menu,
                                   scale: 3,
@@ -429,7 +429,7 @@ class HomeScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       SizedBox(
-                                        width: Get.width * 0.05,
+                                        width: Get.width * 0.03,
                                       ),
                                       SizedBox(
                                         width: Get.width * 0.53,
@@ -451,8 +451,8 @@ class HomeScreen extends StatelessWidget {
                                   SizedBox(height: 15),
                                   Row(
                                     children: [
-                                      const SizedBox(
-                                        width: 20,
+                                       SizedBox(
+                                        width: width * 0.03,
                                       ),
                                       SizedBox(
                                         width: Get.width * 0.52,
@@ -463,15 +463,15 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         'Date: 15 Dec, 2023',
-                                        style: commonSubtitle().copyWith(fontSize: width * 0.034),
+                                        style: commonSubtitle().copyWith(fontSize: width * 0.033),
                                       )
                                     ],
                                   ),
                                   SizedBox(height: 15),
                                   Row(
                                     children: [
-                                      const SizedBox(
-                                        width: 20,
+                                      SizedBox(
+                                        width: width * 0.03,
                                       ),
                                       SizedBox(
                                         width: Get.width * 0.52,
