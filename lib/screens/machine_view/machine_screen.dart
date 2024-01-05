@@ -266,7 +266,66 @@ class MachineScreen extends StatelessWidget {
                                               ),
                                             ],
                                           ),
+
                                         ),
+
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              SizedBox(
+                                                height: Get.height * 0.02,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 6),
+                                                child:
+                                                SizedBox(height: Get.height * 0.05, child: DropDownMenu()),
+                                              ),
+                                              const SizedBox(
+                                                height: 0,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Initial: \$ 2000',
+                                                    style: subTitleUnderline().copyWith(fontSize: width * 0.03),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 6,
+                                                  ),
+                                                  Text(
+                                                    'Current: \$ 2648',
+                                                    style:
+                                                    subTitleUnderline().copyWith(fontSize: width * 0.03),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 6,
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  height: Get.height * 0.04,
+                                  width: Get.width * 0.2,
+                                  margin: const EdgeInsets.only(top: 10),
+                                  decoration: BoxDecoration(
+                                    color: controller.searchResults[index].color,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                        controller.searchResults[index].active,
+                                        style: TextStyle(
+                                            color: controller.searchResults[index].iconColor, fontSize: width * 0.034),
+
                                       )),
                             )
                           : Padding(
