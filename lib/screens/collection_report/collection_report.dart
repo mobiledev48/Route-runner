@@ -463,7 +463,6 @@ class CollectionReportScreen extends StatelessWidget {
                                 )),
                       )
                     : controller.searchResults.isNotEmpty
-                // controller.searchResults[index].machineDetails
                         ? Expanded(
                        child: ListView.builder(
                       scrollDirection: Axis.vertical,
