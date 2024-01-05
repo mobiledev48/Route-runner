@@ -29,7 +29,7 @@ class allData {
 List<allData> repairAllData = [
   allData(
     'Moonlight Bar',
-    'Admin: Arrora gaur',
+    'Reporter: Arrora gaur',
     'Done',
     ColorRes.color3A974C.withOpacity(0.10),
     ColorRes.color3A974C,

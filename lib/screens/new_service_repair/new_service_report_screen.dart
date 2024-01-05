@@ -235,37 +235,51 @@ class NewServiceRepairScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 flex: 3,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    await controller.getImageFromCamera();
-                                  },
-                                  child: Container(
-                                    height: 40,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: ColorRes.color5B93FF,
-                                        border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                        borderRadius: const BorderRadius.all(Radius.circular(10))),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: Get.width * 0.06,
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () async {
+                                        await controller.getImageFromCamera();
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            color: ColorRes.color5B93FF,
+                                            border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: Get.width * 0.06,
+                                            ),
+                                            Image.asset(
+                                              AssetRes.camera,
+                                              scale: 5,
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              StringRes.captureMachineReading,
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
+                                            ),
+                                          ],
                                         ),
-                                        Image.asset(
-                                          AssetRes.camera,
-                                          scale: 5,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          StringRes.captureMachineReading,
-                                          style: GoogleFonts.nunito(
-                                              fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                    (controller.imageError != "")
+                                        ? Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(top: 3),
+                                              child: Text(controller.imageError.tr,
+                                                  style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                  ],
                                 ),
                               ),
                               Spacer()

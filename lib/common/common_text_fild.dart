@@ -84,7 +84,7 @@ class CommonTextField extends StatelessWidget {
                 filled: true,
                 fillColor: color ?? ColorRes.white,
                 hintText: hintText ?? "",
-                hintStyle: TextStyle(fontSize: 14, color: ColorRes.grey, fontWeight: FontWeight.w400),
+                hintStyle: TextStyle(fontSize: 15, color: ColorRes.grey, fontWeight: FontWeight.w400),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(color: Colors.transparent),

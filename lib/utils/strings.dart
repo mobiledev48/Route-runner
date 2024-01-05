@@ -119,4 +119,5 @@ class StringRes {
   static const timeError = "Enter time";
   static const reporterError = "Enter reporter";
   static const issueError = "Enter issue";
+  static const addImage = "Add image";
 }
