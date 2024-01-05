@@ -39,7 +39,7 @@ TextStyle commonTitle() {
 }
 
 TextStyle title() {
-  return GoogleFonts.nunito(fontSize: 13, fontWeight: FontWeight.w600, color: ColorRes.black);
+  return GoogleFonts.nunito(fontSize: 13, fontWeight: FontWeight.w700, color: ColorRes.black);
 }
 
 TextStyle commonSubtitle() {
@@ -52,7 +52,7 @@ TextStyle commonSubtitle() {
 }
 
 TextStyle subTitle() {
-  return GoogleFonts.nunito(fontSize: 11, fontWeight: FontWeight.w500, color: ColorRes.grey);
+  return GoogleFonts.nunito(fontSize: 12, fontWeight: FontWeight.w500, color: ColorRes.grey2);
 }
 
 TextStyle subTitleUnderline() {

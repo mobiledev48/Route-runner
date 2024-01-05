@@ -192,7 +192,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Image.asset(
                               AssetRes.arrowDown,
-                              color: ColorRes.grey,
+                              color: ColorRes.grey3,
                               scale: 3,
                             ),
                             SizedBox(
@@ -207,7 +207,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Image.asset(
                               AssetRes.arrowDown,
-                              color: ColorRes.grey,
+                              color: ColorRes.grey3,
                               scale: 3,
                             ),
                             SizedBox(
@@ -247,9 +247,7 @@ class HomeScreen extends StatelessWidget {
                                       child: Text(
                                         "${homeController.recentCollectionList[index].location}",
                                         style: GoogleFonts.nunito(
-                                            fontSize: width * 0.032,
-                                            fontWeight: FontWeight.w400,
-                                            color: ColorRes.black),
+                                            fontSize: 12, fontWeight: FontWeight.w400, color: ColorRes.black),
                                       ),
                                     ),
                                     Text(
@@ -451,7 +449,7 @@ class HomeScreen extends StatelessWidget {
                                   SizedBox(height: 15),
                                   Row(
                                     children: [
-                                       SizedBox(
+                                      SizedBox(
                                         width: width * 0.03,
                                       ),
                                       SizedBox(
