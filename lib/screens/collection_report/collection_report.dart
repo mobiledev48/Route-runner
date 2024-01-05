@@ -133,14 +133,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                         AssetRes.calendar,
                                                         scale: 2.5,
                                                       ),
-                                                      const Text(
-                                                        '12 Dec, 2020',
-                                                        style: TextStyle(
-                                                          fontSize: 9,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: ColorRes.grey2,
-                                                        ),
-                                                      )
+                                                      Text('12 Dec, 2020', style: subTitle())
                                                     ],
                                                   ),
                                                   SizedBox(height: Get.height * 0.04),

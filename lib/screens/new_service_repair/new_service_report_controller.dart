@@ -80,7 +80,7 @@ class NewServiceReportController extends GetxController {
   String imageError = "";
 
   imageValidation() {
-    if (image != null) {
+    if (image == null) {
       imageError = StringRes.addImage;
     } else {
       imageError = "";

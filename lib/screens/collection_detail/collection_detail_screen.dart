@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:route_runner/screens/collection_report/collection_report.dart';
+import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
 
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
@@ -12,6 +14,7 @@ import 'collection_detail_controller.dart';
 class CollectionDetailScreen extends StatelessWidget {
   CollectionDetailScreen({super.key});
   CollectionDetailController controller = Get.put(CollectionDetailController());
+  NewCollectionController newCollectionController = Get.put(NewCollectionController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +66,7 @@ class CollectionDetailScreen extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                  height: Get.height * 0.23,
+                  height: Get.height * 0.25,
                   width: Get.width,
                   color: Colors.transparent,
                   child: Column(
@@ -71,23 +74,26 @@ class CollectionDetailScreen extends StatelessWidget {
                       Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            StringRes.machine,
-                            style: commonTitle().copyWith(color: ColorRes.black, fontWeight: FontWeight.w600),
-                          ),
                           SizedBox(
-                            width: Get.width * 0.35,
+                            width: Get.width * 0.4,
+                            child: Text(
+                              StringRes.machine,
+                              style: title().copyWith(fontSize: 15),
+                            ),
                           ),
+                          // SizedBox(
+                          //   width: Get.width * 0.35,
+                          // ),
                           Text(
                             'Date: 15 Dec, 2023',
-                            style: commonSubtitle().copyWith(fontSize: 8),
+                            style: subTitle().copyWith(fontSize: 10),
                           ),
                           SizedBox(
                             width: Get.width * 0.02,
                           ),
                           Text(
                             'Time: 11:45 PM',
-                            style: commonSubtitle().copyWith(fontSize: 8),
+                            style: subTitle().copyWith(fontSize: 10),
                           )
                         ],
                       ),
@@ -95,19 +101,31 @@ class CollectionDetailScreen extends StatelessWidget {
                       Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text('#1-876364'),
+                          Text(
+                            '#1-876364',
+                            style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
+                          ),
                           SizedBox(
                             width: Get.width * 0.1,
                           ),
-                          Text(StringRes.current),
+                          Text(
+                            StringRes.current,
+                            style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
+                          ),
                           SizedBox(
                             width: Get.width * 0.1,
                           ),
-                          Text(StringRes.previous),
+                          Text(
+                            StringRes.previous,
+                            style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
+                          ),
                           SizedBox(
                             width: Get.width * 0.1,
                           ),
-                          Text(StringRes.total),
+                          Text(
+                            StringRes.total,
+                            style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
+                          ),
                         ],
                       ),
                       Expanded(
@@ -119,37 +137,48 @@ class CollectionDetailScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return Row(
                               children: [
-                                Text('data'),
                                 SizedBox(
-                                  width: Get.width * 0.22,
-                                ),
-                                Text(StringRes.num4),
+                                    width: Get.width * 0.3,
+                                    child: Text(
+                                      controller.data[index],
+                                      style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                                    )),
                                 SizedBox(
-                                  width: Get.width * 0.12,
-                                ),
-                                Text(StringRes.num5),
+                                    width: Get.width * 0.22,
+                                    child: Text(
+                                      "\$${newCollectionController.currentNumberInController.text}",
+                                      style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                                    )),
                                 SizedBox(
-                                  width: Get.width * 0.14,
+                                    width: Get.width * 0.25,
+                                    child: Text(
+                                      "\$${newCollectionController.previousNumberOutController.text}",
+                                      style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                                    )),
+                                Text(
+                                  "\$${newCollectionController.previousNumberOutController.text} ",
+                                  style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                                 ),
-                                Text(StringRes.num6),
                               ],
                             );
                           },
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 235),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Profit: ',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              '\$1000',
-                              style: TextStyle(color: ColorRes.green),
-                            )
-                          ],
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SizedBox(
+                          // width: Get.width * 0.1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text('Profit: ', style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w500)),
+                              Text(
+                                "\$${newCollectionController.previousNumberOutController.text}",
+                                style: TextStyle(color: ColorRes.green),
+                              )
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -162,15 +191,20 @@ class CollectionDetailScreen extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
-        child: Container(
-            height: Get.height * 0.07,
-            width: Get.width * 0.9,
-            decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
-            child: Center(
-                child: Text(
-              StringRes.save,
-              style: TextStyle(fontSize: 16, color: ColorRes.white),
-            ))),
+        child: GestureDetector(
+          onTap: () {
+            Get.to(() => CollectionReportScreen());
+          },
+          child: Container(
+              height: Get.height * 0.07,
+              width: Get.width * 0.9,
+              decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                  child: Text(
+                StringRes.save,
+                style: TextStyle(fontSize: 16, color: ColorRes.white),
+              ))),
+        ),
       ),
     );
   }

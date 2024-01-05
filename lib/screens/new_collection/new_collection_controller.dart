@@ -48,6 +48,16 @@ class NewCollectionController extends GetxController {
   String outPreviousError = "";
   String outCurrentError = "";
   String totalError = "";
+  String imageError = "";
+
+  imageValidation() {
+    if (image == null) {
+      imageError = StringRes.addImage;
+    } else {
+      imageError = "";
+    }
+    update(['newRepair']);
+  }
 
   machineValidation() {
     if (machineNumberController.text.trim() == "") {
@@ -130,6 +140,7 @@ class NewCollectionController extends GetxController {
     outCurValidation();
     outPreValidation();
     totalValidation();
+    imageValidation();
   }
 
   validation() {
@@ -141,7 +152,8 @@ class NewCollectionController extends GetxController {
         inPreviousError == '' &&
         outCurrentError == '' &&
         outPreviousError == '' &&
-        totalError == '') {
+        totalError == '' &&
+        imageError == '') {
       return true;
     } else {
       return false;
