@@ -61,41 +61,51 @@ class RepairScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Container(
                                       padding: EdgeInsets.symmetric(horizontal: 10),
-                                      // height: 85,
+                                      height: 85,
                                       width: Get.width,
                                       decoration:
                                           BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(height: 10),
-                                          Text(
-                                            repairAllData[index].title,
-                                            // 'Moonlight Bar',
-                                            style: title(),
-                                          ),
-                                          SizedBox(height: 5),
                                           Row(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                                             children: [
-                                              SizedBox(
-                                                width: Get.width * 0.3,
-                                                child: Text(
-                                                  overflow: TextOverflow.ellipsis,
-                                                  repairAllData[index].subtitle,
-                                                  style: subTitle(),
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(height: 10),
+                                                    Text(
+                                                      repairAllData[index].title,
+                                                      style: title(),
+                                                    ),
+                                                    SizedBox(height: 5),
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: Get.width * 0.4,
+                                                          child: Text(
+                                                            repairAllData[index].subtitle,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            style: subTitle(),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 5),
+                                                    Text(
+                                                      'Machine: 7',
+                                                      style: subTitle(),
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                              SizedBox(width: Get.width * 0.045),
-                                              Text(
-                                                'SN: #1-654125',
-                                                style: commonSubtitle().copyWith(fontSize: 9),
-                                              ),
-                                              Spacer(),
                                               Column(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsets.only(bottom: 0),
+                                                    padding: const EdgeInsets.only(top: 10),
                                                     child: Container(
                                                       height: Get.height * 0.04,
                                                       width: Get.width * 0.2,
@@ -111,30 +121,29 @@ class RepairScreen extends StatelessWidget {
                                                       )),
                                                     ),
                                                   ),
-                                                  SizedBox(height: 15),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(right: Get.width * 0.276),
+                                                    child:
+                                                        Text('SN: #1-654125', style: subTitle().copyWith(fontSize: 10)),
+                                                  ),
+                                                  SizedBox(height: Get.height * 0.01),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        'Date: 12 Dec,2023',
+                                                        style: subTitle().copyWith(fontSize: 10),
+                                                      ),
+                                                      SizedBox(width: Get.width * 0.02),
+                                                      Text(
+                                                        'Time: 11:45 PM',
+                                                        style: subTitle().copyWith(fontSize: 10),
+                                                      )
+                                                    ],
+                                                  )
                                                 ],
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: 5),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'Issue: Joy stick not working',
-                                                style: subTitle(),
-                                              ),
-                                              Text(
-                                                'Date: 12 Dec,2023',
-                                                style: subTitle(),
-                                              ),
-                                              SizedBox(width: Get.width * 0.02),
-                                              Text(
-                                                'Time: 11:45 PM',
-                                                style: subTitle(),
                                               )
                                             ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.018)
+                                          )
                                         ],
                                       ),
                                     ),
@@ -147,7 +156,8 @@ class RepairScreen extends StatelessWidget {
                                   itemBuilder: (context, index) => Padding(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Container(
-                                          height: 75,
+                                          padding: EdgeInsets.symmetric(horizontal: 10),
+                                          // height: 85,
                                           width: Get.width,
                                           decoration: BoxDecoration(
                                               color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
@@ -160,42 +170,28 @@ class RepairScreen extends StatelessWidget {
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        SizedBox(height: 10),
+                                                        // SizedBox(height: 10),
                                                         Text(
                                                           controller.searchResults[index].title,
-                                                          // 'Moonlight Bar',
-                                                          style: GoogleFonts.nunito(
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: ColorRes.black),
+                                                          style: title(),
                                                         ),
                                                         SizedBox(height: 5),
                                                         Row(
                                                           children: [
-                                                            Text(
-                                                              controller.searchResults[index].subtitle,
-                                                              // 'Admin: Arrora gaur',
-                                                              style: GoogleFonts.nunito(
-                                                                  fontSize: 9,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorRes.color030229),
-                                                            ),
                                                             SizedBox(
-                                                              width: 30,
-                                                            ),
-                                                            Text(
-                                                              'SN: #1-654125',
-                                                              style: commonSubtitle().copyWith(fontSize: 9),
+                                                              width: Get.width * 0.4,
+                                                              child: Text(
+                                                                controller.searchResults[index].subtitle,
+                                                                overflow: TextOverflow.ellipsis,
+                                                                style: subTitle(),
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
                                                         SizedBox(height: 5),
                                                         Text(
                                                           'Machine: 7',
-                                                          style: GoogleFonts.nunito(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.color030229),
+                                                          style: subTitle(),
                                                         )
                                                       ],
                                                     ),
@@ -221,23 +217,22 @@ class RepairScreen extends StatelessWidget {
                                                           )),
                                                         ),
                                                       ),
+                                                      Padding(
+                                                        padding: EdgeInsets.only(right: Get.width * 0.276),
+                                                        child: Text('SN: #1-654125',
+                                                            style: subTitle().copyWith(fontSize: 10)),
+                                                      ),
                                                       SizedBox(height: Get.height * 0.018),
                                                       Row(
                                                         children: [
                                                           Text(
                                                             'Date: 12 Dec,2023',
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: 8,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.color030229),
+                                                            style: subTitle().copyWith(fontSize: 10),
                                                           ),
                                                           SizedBox(width: Get.width * 0.02),
                                                           Text(
                                                             'Time: 11:45 PM',
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: 8,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.color030229),
+                                                            style: subTitle().copyWith(fontSize: 10),
                                                           )
                                                         ],
                                                       )

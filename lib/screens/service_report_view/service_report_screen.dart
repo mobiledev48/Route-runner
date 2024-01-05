@@ -5,6 +5,7 @@ import 'package:route_runner/common/appbar.dart';
 import 'package:route_runner/screens/new_service_repair/new_service_report_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_controller.dart';
 import 'package:route_runner/utils/color_res.dart';
+import 'package:route_runner/utils/text_style.dart';
 import '../../common/common_text_fild.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/strings.dart';
@@ -58,7 +59,7 @@ class ServiceReportScreen extends StatelessWidget {
                               itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Container(
-                                      height: 75,
+                                      // height: 75,
                                       width: Get.width,
                                       padding: EdgeInsets.symmetric(horizontal: 13),
                                       decoration:
@@ -70,14 +71,12 @@ class ServiceReportScreen extends StatelessWidget {
                                           SizedBox(height: 10),
                                           Text(
                                             serviceReportData[index].title,
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 10, fontWeight: FontWeight.w700, color: ColorRes.color030229),
+                                            style: title(),
                                           ),
                                           SizedBox(height: 5),
                                           Text(
                                             serviceReportData[index].subtitle,
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 9, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                            style: subTitle(),
                                           ),
                                           SizedBox(height: 5),
                                           Row(
@@ -85,18 +84,15 @@ class ServiceReportScreen extends StatelessWidget {
                                             children: [
                                               Text(
                                                 serviceReportData[index].subtitle1,
-                                                style: GoogleFonts.nunito(
-                                                    fontSize: 9,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorRes.color030229),
+                                                style: subTitle(),
                                               ),
-                                              Text('Date: 12 Dec, 2020',
-                                                  style: GoogleFonts.nunito(
-                                                      fontSize: 8,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorRes.color030229))
+                                              Text(
+                                                'Date: 12 Dec, 2020',
+                                                style: subTitle().copyWith(fontSize: 10),
+                                              )
                                             ],
-                                          )
+                                          ),
+                                          SizedBox(height: 10),
                                         ],
                                       ),
                                     ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_detail/collection_detail_screen.dart';
 import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
+import 'package:route_runner/screens/home_view/home_screen.dart';
 
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Nunito',
         primarySwatch: Colors.blue,
       ),
-      home: AdminScreen(),
+      home: HomeScreen(),
     );
   }
 }

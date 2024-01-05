@@ -77,6 +77,16 @@ class NewServiceReportController extends GetxController {
   String timeError = "";
   String reporterError = "";
   String issueError = "";
+  String imageError = "";
+
+  imageValidation() {
+    if (image != null) {
+      imageError = StringRes.addImage;
+    } else {
+      imageError = "";
+    }
+    update(['newRepair']);
+  }
 
   machineValidation() {
     if (machineNumberController.text.trim() == "") {
@@ -149,6 +159,7 @@ class NewServiceReportController extends GetxController {
     timeValidation();
     reporterValidation();
     issueValidation();
+    imageValidation();
   }
 
   validation() {
@@ -159,7 +170,8 @@ class NewServiceReportController extends GetxController {
         dateError == '' &&
         timeError == '' &&
         reporterError == '' &&
-        issueError == '') {
+        issueError == '' &&
+        imageError == '') {
       return true;
     } else {
       return false;
