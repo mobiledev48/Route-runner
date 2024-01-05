@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
-
+import 'dart:io';
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
@@ -59,8 +59,16 @@ class CollectionDetailScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Image.asset(
-                  AssetRes.photo,
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: FileImage(File(newCollectionController.image!.path)),
+                      fit: BoxFit.cover, // Choose the BoxFit that suits your needs
+                    ),
+                  ),
+                  child: Image.asset(
+                    AssetRes.photo,
+                  ),
                 ),
                 SizedBox(
                   height: 20,
