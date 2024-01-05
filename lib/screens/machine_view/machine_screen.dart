@@ -215,7 +215,7 @@ class MachineScreen extends StatelessWidget {
                                                 child:
                                                 SizedBox(height: Get.height * 0.05, child: DropDownMenu()),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 0,
                                               ),
                                               Row(
@@ -250,7 +250,7 @@ class MachineScreen extends StatelessWidget {
                                 Container(
                                   height: Get.height * 0.04,
                                   width: Get.width * 0.2,
-                                  margin: EdgeInsets.only(top: 10),
+                                  margin: const EdgeInsets.only(top: 10),
                                   decoration: BoxDecoration(
                                     color: controller.searchResults[index].color,
                                     borderRadius: BorderRadius.circular(30),

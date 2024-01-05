@@ -115,8 +115,8 @@ class StringRes {
   static const newRepair = "New Repair";
   static const reporter = "Reporter";
   static const issue = "Issue";
-  static const dateError = "Enter date";
-  static const timeError = "Enter time";
+  static const dateError = "Select date";
+  static const timeError = "Select time";
   static const reporterError = "Enter reporter";
   static const issueError = "Enter issue";
   static const addImage = "Add image";
