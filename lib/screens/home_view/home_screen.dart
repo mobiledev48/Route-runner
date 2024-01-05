@@ -400,7 +400,7 @@ class HomeScreen extends StatelessWidget {
                                   width: Get.width * 0.35,
                                   child: Text(
                                     StringRes.pendingRepairs,
-                                    style: commonTitle().copyWith(fontWeight: FontWeight.w700),
+                                    style: commonTitle().copyWith(fontWeight: FontWeight.w700, fontSize: width * 0.042),
                                   ),
                                 ),
                               ),
@@ -435,14 +435,14 @@ class HomeScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               "Serialno:  ${'#1-876364'}",
-                                              style: commonSubtitle().copyWith(fontSize: width * 0.034),
+                                              style: commonSubtitle().copyWith(fontSize: width * 0.038),
                                             ),
                                           ],
                                         ),
                                       ),
                                       Text(
                                         'Reporter: Steven',
-                                        style: commonSubtitle().copyWith(fontSize: width * 0.034),
+                                        style: commonSubtitle().copyWith(fontSize: width * 0.038),
                                       ),
                                     ],
                                   ),
@@ -456,12 +456,12 @@ class HomeScreen extends StatelessWidget {
                                         width: Get.width * 0.52,
                                         child: Text(
                                           'Location: Moonlight Bar',
-                                          style: commonSubtitle().copyWith(fontSize: width * 0.034),
+                                          style: commonSubtitle().copyWith(fontSize: width * 0.038),
                                         ),
                                       ),
                                       Text(
                                         'Date: 15 Dec, 2023',
-                                        style: commonSubtitle().copyWith(fontSize: width * 0.033),
+                                        style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                       )
                                     ],
                                   ),
@@ -475,7 +475,7 @@ class HomeScreen extends StatelessWidget {
                                         width: Get.width * 0.52,
                                         child: Text(
                                           'Issue: Joy stick not working',
-                                          style: commonSubtitle().copyWith(fontSize: width * 0.034),
+                                          style: commonSubtitle().copyWith(fontSize: width * 0.038),
                                         ),
                                       ),
                                       Text(

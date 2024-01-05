@@ -28,10 +28,10 @@ class RepairScreen extends StatelessWidget {
           leadingOnpress: () {
             Get.back();
           },
-          action: true,
-          actionOnpress: () {
-            Get.to(NewRepairScreen());
-          },
+          action: false,
+          // actionOnpress: () {
+          //   Get.to(NewRepairScreen());
+          // },
         ),
         body: GetBuilder<RepairController>(
           id: 'location',
