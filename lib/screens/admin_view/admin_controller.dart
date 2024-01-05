@@ -175,7 +175,7 @@ class AdminController extends GetxController {
       children: [
         const SizedBox(height: 80),
         CommonTextField(
-          containerHeight: Get.height * 0.07,
+          containerHeight: Get.height * 0.065,
           titleText: StringRes.emailAddress,
           controller: emailController,
           color: Colors.grey.shade100,
@@ -185,7 +185,7 @@ class AdminController extends GetxController {
             ? Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 0),
+                  padding: const EdgeInsets.only(top: 15),
                   child: Text(emailError.tr, style: commonSubtitle().copyWith(color: ColorRes.red)),
                 ),
               )

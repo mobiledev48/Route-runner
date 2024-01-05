@@ -47,12 +47,11 @@ customAppbar({
                     child: const Icon(
                       Icons.add,
                       size: 20,
+                      color: ColorRes.white,
                     ),
                   ),
                 ),
               )
             : const SizedBox()
-      ]
-      // automaticallyImplyLeading: false,
-      );
+      ]);
 }

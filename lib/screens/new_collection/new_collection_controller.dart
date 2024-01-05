@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:route_runner/model/location_model.dart';
 
+import '../../utils/strings.dart';
+
 class NewCollectionController extends GetxController {
   RxBool loader = false.obs;
   ScrollController scrollController = ScrollController();
@@ -36,6 +38,114 @@ class NewCollectionController extends GetxController {
       image = File(photo.path);
     }
     update(['collection']);
+  }
+
+  String machineError = "";
+  String serialError = "";
+  String auditError = "";
+  String inPreviousError = "";
+  String inCurrentError = "";
+  String outPreviousError = "";
+  String outCurrentError = "";
+  String totalError = "";
+
+  machineValidation() {
+    if (machineNumberController.text.trim() == "") {
+      machineError = StringRes.machineError;
+    } else {
+      machineError = '';
+    }
+    update(['collection']);
+  }
+
+  serialValidation() {
+    if (enterSerialNumberController.text.trim() == "") {
+      serialError = StringRes.serialError;
+    } else {
+      serialError = '';
+    }
+    update(['collection']);
+  }
+
+  auditValidation() {
+    if (auditNumberController.text.trim() == "") {
+      auditError = StringRes.auditError;
+    } else {
+      auditError = '';
+    }
+    update(['collection']);
+  }
+
+  inPreValidation() {
+    if (previousNumberInController.text.trim() == "") {
+      inPreviousError = StringRes.previousError;
+    } else {
+      inPreviousError = '';
+    }
+    update(['collection']);
+  }
+
+  inCurValidation() {
+    if (currentNumberInController.text.trim() == "") {
+      inCurrentError = StringRes.currentError;
+    } else {
+      inCurrentError = '';
+    }
+    update(['collection']);
+  }
+
+  outPreValidation() {
+    if (previousNumberOutController.text.trim() == "") {
+      outPreviousError = StringRes.previousError;
+    } else {
+      outPreviousError = '';
+    }
+    update(['collection']);
+  }
+
+  outCurValidation() {
+    if (currentNumberOutController.text.trim() == "") {
+      outCurrentError = StringRes.currentError;
+    } else {
+      outCurrentError = '';
+    }
+    update(['collection']);
+  }
+
+  totalValidation() {
+    if (totalController.text.trim() == "") {
+      totalError = StringRes.totalError;
+    } else {
+      totalError = '';
+    }
+    update(['collection']);
+  }
+
+  val() async {
+    machineValidation();
+    serialValidation();
+    auditValidation();
+    inCurValidation();
+    inPreValidation();
+    outCurValidation();
+    outPreValidation();
+    totalValidation();
+  }
+
+  validation() {
+    val();
+    if (machineError == '' &&
+        serialError == '' &&
+        auditError == '' &&
+        inCurrentError == '' &&
+        inPreviousError == '' &&
+        outCurrentError == '' &&
+        outPreviousError == '' &&
+        totalError == '') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   //

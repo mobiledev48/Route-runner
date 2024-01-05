@@ -19,6 +19,7 @@ class ServiceReportScreen extends StatelessWidget {
     AdminController adminController = Get.put(AdminController());
 
     return Scaffold(
+        backgroundColor: ColorRes.bgColor,
         appBar: customAppbar(
           title: StringRes.serviceReport,
           leadingOnpress: () {

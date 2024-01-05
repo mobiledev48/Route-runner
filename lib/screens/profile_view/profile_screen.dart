@@ -21,6 +21,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorRes.bgColor,
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();

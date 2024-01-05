@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: ColorRes.mainColor),
         fontFamily: 'Nunito',
         primarySwatch: Colors.blue,
       ),

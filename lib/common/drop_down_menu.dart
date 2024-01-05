@@ -15,20 +15,20 @@ Widget DropDownMenu() {
 
     // enableFeedback: true,
     enabled: true,
-
+    color: ColorRes.white,
     // splashRadius: 20,
     offset: Offset(0, 10),
-
+    surfaceTintColor: ColorRes.white,
     padding: EdgeInsets.zero,
 
     constraints: BoxConstraints(
-      maxWidth: 90,
+      maxWidth: 110,
     ),
     position: PopupMenuPosition.under,
     child: Text(
       StringRes.viewMore,
       style: GoogleFonts.nunito(
-          decoration: TextDecoration.underline, fontSize: 10, fontWeight: FontWeight.w600, color: ColorRes.color030229),
+          decoration: TextDecoration.underline, fontSize: 11, fontWeight: FontWeight.w600, color: ColorRes.color030229),
     ),
 
     itemBuilder: (context) {
@@ -38,18 +38,18 @@ Widget DropDownMenu() {
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
           child: Container(
             height: Get.height * 0.04,
-            width: Get.width * 0.5,
+            width: Get.width * 0.6,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightOrange),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.asset(
                   AssetRes.pin,
-                  scale: 3,
+                  scale: 2.5,
                 ),
                 Text(
                   StringRes.changeStatus,
-                  style: commonSubtitle().copyWith(color: ColorRes.orange, fontSize: 8),
+                  style: commonSubtitle().copyWith(color: ColorRes.orange, fontSize: 11),
                 )
               ],
             ),
@@ -71,14 +71,14 @@ Widget DropDownMenu() {
                 ),
                 Image.asset(
                   AssetRes.pay,
-                  scale: 3,
+                  scale: 2.5,
                 ),
                 SizedBox(
                   width: Get.width * 0.02,
                 ),
                 Text(
                   StringRes.pay,
-                  style: commonSubtitle().copyWith(color: ColorRes.yellow, fontSize: 8),
+                  style: commonSubtitle().copyWith(color: ColorRes.yellow, fontSize: 11),
                 )
               ],
             ),
@@ -90,17 +90,17 @@ Widget DropDownMenu() {
             child: Container(
               height: Get.height * 0.04,
               width: Get.width * 0.5,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: Colors.grey.shade300),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: Colors.grey.shade100),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.asset(
                     AssetRes.list,
-                    scale: 3,
+                    scale: 2.5,
                   ),
                   Text(
                     StringRes.listOfMachine,
-                    style: commonSubtitle().copyWith(color: ColorRes.grey2, fontSize: 8),
+                    style: commonSubtitle().copyWith(color: ColorRes.grey2, fontSize: 11),
                   )
                 ],
               ),

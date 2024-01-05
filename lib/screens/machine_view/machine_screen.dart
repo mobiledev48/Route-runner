@@ -18,7 +18,9 @@ class MachineScreen extends StatelessWidget {
   MachineController machineController = Get.put(MachineController());
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
+        backgroundColor: ColorRes.bgColor,
         appBar: customAppbar(
           title: StringRes.machine,
           leadingOnpress: () {
@@ -60,81 +62,94 @@ class MachineScreen extends StatelessWidget {
                                       width: Get.width,
                                       decoration:
                                           BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                      child: Column(
+                                      child: Stack(
+                                        alignment: Alignment.topCenter,
                                         children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          Column(
                                             children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 children: [
-                                                  SizedBox(height: 10),
-                                                  Text(
-                                                    machineAllData[index].title,
-                                                    style: GoogleFonts.nunito(
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.w600,
-                                                        color: ColorRes.black),
-                                                  ),
-                                                  SizedBox(height: 5),
-                                                  SizedBox(
-                                                    width: Get.width * 0.24,
-                                                    child: Text(
-                                                      machineAllData[index].subtitle,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: subTitle(),
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 5),
-                                                  Text(
-                                                    'SN: #${index + 1}-654184',
-                                                    style: subTitle(),
-                                                  )
-                                                ],
-                                              ),
-                                              Container(
-                                                height: Get.height * 0.04,
-                                                width: Get.width * 0.2,
-                                                decoration: BoxDecoration(
-                                                  color: machineAllData[index].color,
-                                                  borderRadius: BorderRadius.circular(30),
-                                                ),
-                                                child: Center(
-                                                    child: Text(
-                                                  machineAllData[index].active,
-                                                  style:
-                                                      TextStyle(color: machineAllData[index].iconColor, fontSize: 12),
-                                                )),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  SizedBox(
-                                                    height: Get.height * 0.02,
-                                                  ),
-                                                  DropDownMenu(),
-                                                  SizedBox(height: Get.height * 0.04),
-                                                  Row(
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
+                                                      SizedBox(height: 10),
                                                       Text(
-                                                        'Initial: \$ 2000',
-                                                        style: subTitleUnderline(),
+                                                        machineAllData[index].title,
+                                                        style: title(),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 6,
+                                                      SizedBox(height: 5),
+                                                      SizedBox(
+                                                        width: Get.width * 0.24,
+                                                        child: Text(
+                                                          machineAllData[index].subtitle,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: subTitle().copyWith(fontSize: width * 0.034),
+                                                        ),
                                                       ),
+                                                      SizedBox(height: 5),
                                                       Text(
-                                                        'Current: \$ 2648',
-                                                        style: subTitleUnderline(),
+                                                        'SN: #${index + 1}-654184',
+                                                        style: subTitle().copyWith(fontSize: width * 0.034),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: Get.height * 0.02,
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(right: 6),
+                                                        child:
+                                                            SizedBox(height: Get.height * 0.05, child: DropDownMenu()),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 0,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            'Initial: \$ 2000',
+                                                            style: subTitleUnderline().copyWith(fontSize: width * 0.03),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 6,
+                                                          ),
+                                                          Text(
+                                                            'Current: \$ 2648',
+                                                            style:
+                                                                subTitleUnderline().copyWith(fontSize: width * 0.028),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 6,
+                                                          ),
+                                                        ],
                                                       )
                                                     ],
                                                   )
                                                 ],
-                                              )
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                             ],
                                           ),
-                                          const SizedBox(
-                                            height: 10,
+                                          Container(
+                                            height: Get.height * 0.04,
+                                            width: Get.width * 0.2,
+                                            margin: EdgeInsets.only(top: 10),
+                                            decoration: BoxDecoration(
+                                              color: machineAllData[index].color,
+                                              borderRadius: BorderRadius.circular(30),
+                                            ),
+                                            child: Center(
+                                                child: Text(
+                                              machineAllData[index].active,
+                                              style: TextStyle(
+                                                  color: machineAllData[index].iconColor, fontSize: width * 0.034),
+                                            )),
                                           ),
                                         ],
                                       ),
@@ -151,72 +166,96 @@ class MachineScreen extends StatelessWidget {
                                           width: Get.width,
                                           decoration: BoxDecoration(
                                               color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                          child: Column(
+                                          child: Stack(
+                                            alignment: Alignment.topCenter,
                                             children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              Column(
                                                 children: [
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
-                                                      SizedBox(height: 10),
-                                                      Text(
-                                                        controller.searchResults[index].title,
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 12,
-                                                            fontWeight: FontWeight.w600,
-                                                            color: ColorRes.black),
-                                                      ),
-                                                      SizedBox(height: 5),
-                                                      SizedBox(
-                                                        width: Get.width * 0.24,
-                                                        child: Text(
-                                                            overflow: TextOverflow.ellipsis,
-                                                            controller.searchResults[index].subtitle,
-                                                            style: subTitle()),
-                                                      ),
-                                                      SizedBox(height: 5),
-                                                      Text('SN: #${index + 1}-654184', style: subTitle())
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                    height: Get.height * 0.04,
-                                                    width: Get.width * 0.2,
-                                                    decoration: BoxDecoration(
-                                                      color: controller.searchResults[index].color,
-                                                      borderRadius: BorderRadius.circular(30),
-                                                    ),
-                                                    child: Center(
-                                                        child: Text(
-                                                      controller.searchResults[index].active,
-                                                      style: TextStyle(
-                                                          color: controller.searchResults[index].iconColor,
-                                                          fontSize: 12),
-                                                    )),
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                                    children: [
-                                                      SizedBox(
-                                                        height: Get.height * 0.02,
-                                                      ),
-                                                      DropDownMenu(),
-                                                      SizedBox(height: Get.height * 0.04),
-                                                      Row(
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Text('Initial: \$ 2000', style: subTitleUnderline()),
-                                                          const SizedBox(
-                                                            width: 6,
+                                                          SizedBox(height: 10),
+                                                          Text(
+                                                            controller.searchResults[index].title,
+                                                            style: title(),
                                                           ),
-                                                          Text('Current: \$ 2648', style: subTitleUnderline())
+                                                          SizedBox(height: 5),
+                                                          SizedBox(
+                                                            width: Get.width * 0.24,
+                                                            child: Text(
+                                                              controller.searchResults[index].subtitle,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              style: subTitle().copyWith(fontSize: width * 0.034),
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 5),
+                                                          Text(
+                                                            'SN: #${index + 1}-654184',
+                                                            style: subTitle().copyWith(fontSize: width * 0.034),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: Get.height * 0.02,
+                                                          ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(right: 6),
+                                                            child: SizedBox(
+                                                                height: Get.height * 0.05, child: DropDownMenu()),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 0,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'Initial: \$ 2000',
+                                                                style: subTitleUnderline()
+                                                                    .copyWith(fontSize: width * 0.03),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 6,
+                                                              ),
+                                                              Text(
+                                                                'Current: \$ 2648',
+                                                                style: subTitleUnderline()
+                                                                    .copyWith(fontSize: width * 0.028),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 6,
+                                                              ),
+                                                            ],
+                                                          )
                                                         ],
                                                       )
                                                     ],
-                                                  )
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
                                                 ],
                                               ),
-                                              const SizedBox(
-                                                height: 10,
+                                              Container(
+                                                height: Get.height * 0.04,
+                                                width: Get.width * 0.2,
+                                                margin: EdgeInsets.only(top: 10),
+                                                decoration: BoxDecoration(
+                                                  color: controller.searchResults[index].color,
+                                                  borderRadius: BorderRadius.circular(30),
+                                                ),
+                                                child: Center(
+                                                    child: Text(
+                                                  controller.searchResults[index].active,
+                                                  style: TextStyle(
+                                                      color: controller.searchResults[index].iconColor,
+                                                      fontSize: width * 0.034),
+                                                )),
                                               ),
                                             ],
                                           ),

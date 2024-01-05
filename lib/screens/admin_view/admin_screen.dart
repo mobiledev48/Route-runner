@@ -37,7 +37,7 @@ class AdminScreen extends StatelessWidget {
                       child: Image.asset(
                         AssetRes.splashLogo,
                         color: ColorRes.mainColor,
-                        scale: 4,
+                        scale: 5,
                       ),
                     ),
                     const SizedBox(

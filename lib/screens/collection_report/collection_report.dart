@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import '../../common/appbar.dart';
 import '../../common/common_text_fild.dart';
 import '../../utils/asset_res.dart';
@@ -20,12 +21,16 @@ class CollectionReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorRes.bgColor,
       appBar: customAppbar(
           title: StringRes.collectionReport,
           leadingOnpress: () {
             Get.back();
           },
-          action: false),
+          action: true,
+          actionOnpress: () {
+            Get.to(NewCollectionScreen());
+          }),
       body: GetBuilder<CollectionReportController>(
         id: 'collection',
         builder: (controller) {
@@ -76,49 +81,34 @@ class CollectionReportScreen extends StatelessWidget {
                                                     Text(
                                                       "${controller.allCollectionData[index].title}",
                                                       // 'Moonlight Bar',
-                                                      style: GoogleFonts.nunito(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w600,
-                                                          color: ColorRes.black),
+                                                      style: title(),
                                                     ),
                                                     SizedBox(height: 2),
                                                     Text(
                                                       "Employee: ${controller.allCollectionData[index].employeeName}",
                                                       // 'Admin: Arrora gaur',
-                                                      style: GoogleFonts.nunito(
-                                                          fontSize: 9,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: ColorRes.grey2),
+                                                      style: subTitle(),
                                                     ),
                                                     SizedBox(height: 2),
                                                     Row(
                                                       children: [
                                                         Text(
                                                           'Machine: ${controller.allCollectionData[index].machine}',
-                                                          style: GoogleFonts.nunito(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.grey2),
+                                                          style: subTitle(),
                                                         ),
                                                         SizedBox(
                                                           width: 3,
                                                         ),
                                                         Text(
                                                           'Beginning: ${controller.allCollectionData[index].machine}',
-                                                          style: GoogleFonts.nunito(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.grey2),
+                                                          style: subTitle(),
                                                         ),
                                                         SizedBox(
                                                           width: 3,
                                                         ),
                                                         Text(
                                                           'Closed: ${controller.allCollectionData[index].machine}',
-                                                          style: GoogleFonts.nunito(
-                                                              fontSize: 9,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.grey2),
+                                                          style: subTitle(),
                                                         ),
                                                       ],
                                                     ),
@@ -126,10 +116,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                     Text(
                                                       "Address: ${controller.allCollectionData[index].address}",
                                                       // 'Admin: Arrora gaur',
-                                                      style: GoogleFonts.nunito(
-                                                          fontSize: 9,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: ColorRes.grey2),
+                                                      style: subTitle(),
                                                     ),
                                                     SizedBox(height: 10),
                                                   ],

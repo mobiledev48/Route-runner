@@ -93,6 +93,12 @@ class StringRes {
   static const currentNumber = "Current Number";
   static const enterCurrentNumber = "0";
   static const collect = "Collect";
+  static const machineError = "Enter machine number";
+  static const serialError = "Enter serial number";
+  static const auditError = "Enter audit number";
+  static const previousError = "Enter previous number";
+  static const currentError = "Enter current number";
+  static const totalError = "Enter total";
 
   ///---------------------------------------- New Service Report ----------------------------------------
 
@@ -109,4 +115,8 @@ class StringRes {
   static const newRepair = "New Repair";
   static const reporter = "Reporter";
   static const issue = "Issue";
+  static const dateError = "Enter date";
+  static const timeError = "Enter time";
+  static const reporterError = "Enter reporter";
+  static const issueError = "Enter issue";
 }

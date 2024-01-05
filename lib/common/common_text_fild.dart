@@ -84,7 +84,7 @@ class CommonTextField extends StatelessWidget {
                 filled: true,
                 fillColor: color ?? ColorRes.white,
                 hintText: hintText ?? "",
-                hintStyle: TextStyle(fontSize: 12, color: ColorRes.darkBlue, fontWeight: FontWeight.w400),
+                hintStyle: TextStyle(fontSize: 14, color: ColorRes.grey, fontWeight: FontWeight.w400),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(color: Colors.transparent),
@@ -159,12 +159,17 @@ class PasswordField extends StatelessWidget {
                   color: ColorRes.black,
                   iconSize: 18,
                   onPressed: () => _visiblePassword.value = !_visiblePassword.value,
-                  icon: value ? Icon(Icons.visibility_off_outlined) : Icon(Icons.visibility_outlined))
+                  icon: value
+                      ? Icon(
+                          Icons.visibility_off,
+                          color: ColorRes.grey,
+                        )
+                      : Icon(Icons.visibility_rounded, color: ColorRes.grey))
               : null,
           contentPadding: EdgeInsets.only(top: 17, left: 12),
           // border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
           hintText: texts,
-          hintStyle: TextStyle(color: ColorRes.darkBlue),
+          hintStyle: TextStyle(color: ColorRes.grey),
           filled: true,
           fillColor: Colors.grey.shade100,
           focusColor: Colors.black12,

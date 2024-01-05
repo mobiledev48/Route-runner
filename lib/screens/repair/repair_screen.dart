@@ -21,6 +21,7 @@ class RepairScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: ColorRes.bgColor,
         appBar: customAppbar(
           title: StringRes.repair,
           leadingOnpress: () {
@@ -60,65 +61,41 @@ class RepairScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Container(
                                       padding: EdgeInsets.symmetric(horizontal: 10),
-                                      height: 75,
+                                      // height: 85,
                                       width: Get.width,
                                       decoration:
                                           BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
                                       child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+                                          SizedBox(height: 10),
+                                          Text(
+                                            repairAllData[index].title,
+                                            // 'Moonlight Bar',
+                                            style: title(),
+                                          ),
+                                          SizedBox(height: 5),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height: 10),
-                                                    Text(
-                                                      repairAllData[index].title,
-                                                      // 'Moonlight Bar',
-                                                      style: GoogleFonts.nunito(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w600,
-                                                          color: ColorRes.black),
-                                                    ),
-                                                    SizedBox(height: 5),
-                                                    Row(
-                                                      children: [
-                                                        SizedBox(
-                                                          width: Get.width * 0.24,
-                                                          child: Text(
-                                                            overflow: TextOverflow.ellipsis,
-                                                            repairAllData[index].subtitle,
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: 9,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.color030229),
-                                                          ),
-                                                        ),
-                                                        SizedBox(width: Get.width * 0.045),
-                                                        Text(
-                                                          'SN: #1-654125',
-                                                          style: commonSubtitle().copyWith(fontSize: 9),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 5),
-                                                    Text(
-                                                      'Issue: Joy stick not working',
-                                                      style: GoogleFonts.nunito(
-                                                          fontSize: 9,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: ColorRes.color030229),
-                                                    )
-                                                  ],
+                                              SizedBox(
+                                                width: Get.width * 0.3,
+                                                child: Text(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  repairAllData[index].subtitle,
+                                                  style: subTitle(),
                                                 ),
                                               ),
+                                              SizedBox(width: Get.width * 0.045),
+                                              Text(
+                                                'SN: #1-654125',
+                                                style: commonSubtitle().copyWith(fontSize: 9),
+                                              ),
+                                              Spacer(),
                                               Column(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsets.only(top: 10),
+                                                    padding: const EdgeInsets.only(bottom: 0),
                                                     child: Container(
                                                       height: Get.height * 0.04,
                                                       width: Get.width * 0.2,
@@ -134,30 +111,30 @@ class RepairScreen extends StatelessWidget {
                                                       )),
                                                     ),
                                                   ),
-                                                  SizedBox(height: Get.height * 0.018),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        'Date: 12 Dec,2023',
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 8,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: ColorRes.color030229),
-                                                      ),
-                                                      SizedBox(width: Get.width * 0.02),
-                                                      Text(
-                                                        'Time: 11:45 PM',
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 8,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: ColorRes.color030229),
-                                                      )
-                                                    ],
-                                                  )
+                                                  SizedBox(height: 15),
                                                 ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 5),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Issue: Joy stick not working',
+                                                style: subTitle(),
+                                              ),
+                                              Text(
+                                                'Date: 12 Dec,2023',
+                                                style: subTitle(),
+                                              ),
+                                              SizedBox(width: Get.width * 0.02),
+                                              Text(
+                                                'Time: 11:45 PM',
+                                                style: subTitle(),
                                               )
                                             ],
-                                          )
+                                          ),
+                                          SizedBox(height: Get.height * 0.018)
                                         ],
                                       ),
                                     ),

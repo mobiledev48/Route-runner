@@ -21,7 +21,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: ColorRes.bgColor,
       key: homeController.scaffoldKey,
       body: SingleChildScrollView(
         child: GetBuilder<HomeController>(
@@ -157,7 +160,7 @@ class HomeScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 10, top: 15),
                               child: Text(
                                 StringRes.recentCollection,
-                                style: commonTitle().copyWith(fontWeight: FontWeight.w700),
+                                style: commonTitle().copyWith(fontWeight: FontWeight.w700, fontSize: width * 0.042),
                               ),
                             ),
                             SizedBox(
@@ -182,14 +185,14 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               StringRes.serialNo,
-                              style: commonSubtitle(),
+                              style: commonSubtitle().copyWith(fontSize: width * 0.04),
                             ),
                             const SizedBox(
                               width: 5,
                             ),
                             Image.asset(
                               AssetRes.arrowDown,
-                              color: Colors.grey,
+                              color: ColorRes.grey,
                               scale: 3,
                             ),
                             SizedBox(
@@ -197,14 +200,14 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               StringRes.location,
-                              style: commonSubtitle(),
+                              style: commonSubtitle().copyWith(fontSize: width * 0.04),
                             ),
                             SizedBox(
                               width: Get.width * 0.04,
                             ),
                             Image.asset(
                               AssetRes.arrowDown,
-                              color: Colors.grey,
+                              color: ColorRes.grey,
                               scale: 3,
                             ),
                             SizedBox(
@@ -212,7 +215,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Text(
                               StringRes.total,
-                              style: commonSubtitle(),
+                              style: commonSubtitle().copyWith(fontSize: width * 0.04),
                             ),
                             const SizedBox(
                               width: 6,
@@ -234,26 +237,28 @@ class HomeScreen extends StatelessWidget {
                                       "${homeController.recentCollectionList[index].serialNo}",
                                       // 'Moonlight Bar',
                                       style: GoogleFonts.nunito(
-                                          fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black),
+                                          fontSize: width * 0.034, fontWeight: FontWeight.w400, color: ColorRes.black),
                                     ),
                                     SizedBox(
-                                      width: Get.width * 0.1,
+                                      width: Get.width * 0.09,
                                     ),
                                     SizedBox(
                                       width: Get.width * 0.37,
                                       child: Text(
                                         "${homeController.recentCollectionList[index].location}",
                                         style: GoogleFonts.nunito(
-                                            fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black),
+                                            fontSize: width * 0.032,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorRes.black),
                                       ),
                                     ),
                                     Text(
                                       "${homeController.recentCollectionList[index].total}",
                                       style: GoogleFonts.nunito(
-                                          fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.black),
+                                          fontSize: width * 0.034, fontWeight: FontWeight.w400, color: ColorRes.black),
                                     ),
                                     SizedBox(
-                                      width: Get.width * 0.09,
+                                      width: Get.width * 0.04,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -267,12 +272,12 @@ class HomeScreen extends StatelessWidget {
                                       child: homeController.isViewData[index]
                                           ? const Icon(
                                               Icons.keyboard_arrow_down_sharp,
-                                              color: ColorRes.grey,
+                                              color: ColorRes.grey3,
                                               size: 22,
                                             )
                                           : const Icon(
                                               Icons.keyboard_arrow_right,
-                                              color: ColorRes.grey,
+                                              color: ColorRes.grey3,
                                               size: 22,
                                             ),
                                     )
@@ -393,9 +398,12 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 20, top: 20),
-                                child: Text(
-                                  StringRes.pendingRepairs,
-                                  style: commonTitle().copyWith(fontWeight: FontWeight.w700),
+                                child: SizedBox(
+                                  width: Get.width * 0.35,
+                                  child: Text(
+                                    StringRes.pendingRepairs,
+                                    style: commonTitle().copyWith(fontWeight: FontWeight.w700),
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -429,14 +437,14 @@ class HomeScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               "Serialno:  ${'#1-876364'}",
-                                              style: commonSubtitle().copyWith(fontSize: 12),
+                                              style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                             ),
                                           ],
                                         ),
                                       ),
                                       Text(
                                         'Reporter: Steven',
-                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                        style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                       ),
                                     ],
                                   ),
@@ -450,12 +458,12 @@ class HomeScreen extends StatelessWidget {
                                         width: Get.width * 0.52,
                                         child: Text(
                                           'Location: Moonlight Bar',
-                                          style: commonSubtitle().copyWith(fontSize: 12),
+                                          style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                         ),
                                       ),
                                       Text(
                                         'Date: 15 Dec, 2023',
-                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                        style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                       )
                                     ],
                                   ),
@@ -469,12 +477,12 @@ class HomeScreen extends StatelessWidget {
                                         width: Get.width * 0.52,
                                         child: Text(
                                           'Issue: Joy stick not working',
-                                          style: commonSubtitle().copyWith(fontSize: 12),
+                                          style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                         ),
                                       ),
                                       Text(
                                         'Time: 11:06 AM',
-                                        style: commonSubtitle().copyWith(fontSize: 12),
+                                        style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                       )
                                     ],
                                   ),
@@ -484,6 +492,7 @@ class HomeScreen extends StatelessWidget {
                                   const Divider(
                                     height: 1,
                                     color: ColorRes.grey,
+                                    thickness: 0.1,
                                     endIndent: 15,
                                     indent: 15,
                                   ),
@@ -498,7 +507,10 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.05,
+                  ),
                 ],
               );
             }),

@@ -19,8 +19,9 @@ class LocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LocationController locationController = Get.put(LocationController());
-
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
+        backgroundColor: ColorRes.bgColor,
         appBar: customAppbar(
             title: StringRes.location,
             leadingOnpress: () {
@@ -54,6 +55,7 @@ class LocationScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
+                  // controller.searchResults
                   locationController.clickableContainer(),
                   controller.currentIndex == 0
                       ? controller.searchController.text.isEmpty
@@ -76,50 +78,54 @@ class LocationScreen extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       SizedBox(height: 10),
-                                                      Text(
-                                                        locationAllData[index].title,
-                                                        // 'Moonlight Bar',
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 12,
-                                                            fontWeight: FontWeight.w600,
-                                                            color: ColorRes.black),
-                                                      ),
-                                                      SizedBox(height: 5),
+                                                      Text(locationAllData[index].title,
+                                                          // 'Moonlight Bar',
+                                                          style: title()),
+                                                      // SizedBox(height: 5),
                                                       SizedBox(
-                                                        width: Get.width * 0.24,
+                                                        //  width: width * 0.24,
                                                         child: Text(
                                                             overflow: TextOverflow.ellipsis,
                                                             locationAllData[index].subtitle,
                                                             // 'Admin: Arrora gaur',
-                                                            style: subTitle()),
+                                                            style: subTitle().copyWith(fontSize: width * 0.034)),
                                                       ),
-                                                      Text('Machine: ${index * 6 + 12}', style: subTitle())
+                                                      Text('Machine: ${index * 6 + 12}',
+                                                          style: subTitle().copyWith(fontSize: width * 0.034)),
+                                                      SizedBox(height: 10),
                                                     ],
                                                   ),
-                                                  Container(
-                                                    height: Get.height * 0.04,
-                                                    width: Get.width * 0.2,
-                                                    decoration: BoxDecoration(
-                                                      color: locationAllData[index].color,
-                                                      borderRadius: BorderRadius.circular(30),
-                                                    ),
-                                                    child: Center(
-                                                        child: Text(
-                                                      locationAllData[index].active,
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.w600,
-                                                          color: locationAllData[index].iconColor,
-                                                          fontSize: 12),
-                                                    )),
+                                                  Column(
+                                                    children: [
+                                                      Container(
+                                                        height: Get.height * 0.04,
+                                                        width: Get.width * 0.2,
+                                                        decoration: BoxDecoration(
+                                                          color: locationAllData[index].color,
+                                                          borderRadius: BorderRadius.circular(30),
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                          locationAllData[index].active,
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.w600,
+                                                              color: locationAllData[index].iconColor,
+                                                              fontSize: width * 0.035),
+                                                        )),
+                                                      ),
+                                                      SizedBox(
+                                                        height: Get.height * 0.03,
+                                                      ),
+                                                    ],
                                                   ),
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.end,
                                                     children: [
-                                                      SizedBox(
-                                                        height: Get.height * 0.02,
-                                                      ),
-                                                      DropDownMenu(),
-                                                      SizedBox(height: Get.height * 0.04),
+                                                      // SizedBox(
+                                                      //   height: Get.height * 0.02,
+                                                      // ),
+                                                      SizedBox(height: Get.height * 0.035, child: DropDownMenu()),
+                                                      // SizedBox(height: Get.height * 0.04),
                                                       Row(
                                                         children: [
                                                           Image.asset(
@@ -129,7 +135,8 @@ class LocationScreen extends StatelessWidget {
                                                           SizedBox(
                                                             width: 2,
                                                           ),
-                                                          Text('12 Dec, 2020', style: subTitle())
+                                                          Text('12 Dec, 2020',
+                                                              style: subTitle().copyWith(fontSize: width * 0.034))
                                                         ],
                                                       )
                                                     ],
@@ -148,7 +155,7 @@ class LocationScreen extends StatelessWidget {
                                       itemBuilder: (context, index) => Padding(
                                             padding: const EdgeInsets.only(top: 10),
                                             child: Container(
-                                              height: 75,
+                                              //height: 75,
                                               width: Get.width,
                                               decoration: BoxDecoration(
                                                   color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
@@ -161,53 +168,54 @@ class LocationScreen extends StatelessWidget {
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           SizedBox(height: 10),
-                                                          Text(
-                                                            controller.searchResults[index].title,
-                                                            // 'Moonlight Bar',
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: 12,
-                                                                fontWeight: FontWeight.w600,
-                                                                color: ColorRes.black),
-                                                          ),
-                                                          SizedBox(height: 5),
+                                                          Text(controller.searchResults[index].title,
+                                                              // 'Moonlight Bar',
+                                                              style: title()),
+                                                          // SizedBox(height: 5),
                                                           SizedBox(
-                                                            width: Get.width * 0.24,
+                                                            //  width: width * 0.24,
                                                             child: Text(
                                                                 overflow: TextOverflow.ellipsis,
                                                                 controller.searchResults[index].subtitle,
                                                                 // 'Admin: Arrora gaur',
-                                                                style: subTitle()),
+                                                                style: subTitle().copyWith(fontSize: width * 0.034)),
                                                           ),
-                                                          SizedBox(height: 5),
                                                           Text('Machine: ${index * 6 + 12}',
-                                                              // 'SN: #${index + 1}-654184',
-                                                              style: subTitle())
+                                                              style: subTitle().copyWith(fontSize: width * 0.034)),
+                                                          SizedBox(height: 10),
                                                         ],
                                                       ),
-                                                      Container(
-                                                        height: Get.height * 0.04,
-                                                        width: Get.width * 0.2,
-                                                        decoration: BoxDecoration(
-                                                          color: controller.searchResults[index].color,
-                                                          borderRadius: BorderRadius.circular(30),
-                                                        ),
-                                                        child: Center(
-                                                            child: Text(
-                                                          controller.searchResults[index].active,
-                                                          style: TextStyle(
-                                                              fontWeight: FontWeight.w600,
-                                                              color: controller.searchResults[index].iconColor,
-                                                              fontSize: 12),
-                                                        )),
+                                                      Column(
+                                                        children: [
+                                                          Container(
+                                                            height: Get.height * 0.04,
+                                                            width: Get.width * 0.2,
+                                                            decoration: BoxDecoration(
+                                                              color: controller.searchResults[index].color,
+                                                              borderRadius: BorderRadius.circular(30),
+                                                            ),
+                                                            child: Center(
+                                                                child: Text(
+                                                              controller.searchResults[index].active,
+                                                              style: TextStyle(
+                                                                  fontWeight: FontWeight.w600,
+                                                                  color: controller.searchResults[index].iconColor,
+                                                                  fontSize: width * 0.035),
+                                                            )),
+                                                          ),
+                                                          SizedBox(
+                                                            height: Get.height * 0.03,
+                                                          ),
+                                                        ],
                                                       ),
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.end,
                                                         children: [
-                                                          SizedBox(
-                                                            height: Get.height * 0.02,
-                                                          ),
-                                                          DropDownMenu(),
-                                                          SizedBox(height: Get.height * 0.04),
+                                                          // SizedBox(
+                                                          //   height: Get.height * 0.02,
+                                                          // ),
+                                                          SizedBox(height: Get.height * 0.035, child: DropDownMenu()),
+                                                          // SizedBox(height: Get.height * 0.04),
                                                           Row(
                                                             children: [
                                                               Image.asset(
@@ -217,7 +225,8 @@ class LocationScreen extends StatelessWidget {
                                                               SizedBox(
                                                                 width: 2,
                                                               ),
-                                                              Text('12 Dec, 2020', style: subTitle())
+                                                              Text('12 Dec, 2020',
+                                                                  style: subTitle().copyWith(fontSize: width * 0.034))
                                                             ],
                                                           )
                                                         ],
@@ -243,7 +252,7 @@ class LocationScreen extends StatelessWidget {
                                   itemBuilder: (context, index) => Padding(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Container(
-                                          height: 75,
+                                          //height: 75,
                                           width: Get.width,
                                           decoration: BoxDecoration(
                                               color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
@@ -255,59 +264,66 @@ class LocationScreen extends StatelessWidget {
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      const SizedBox(height: 10),
-                                                      Text(
-                                                        locationAllData[index].title,
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 12,
-                                                            fontWeight: FontWeight.w600,
-                                                            color: ColorRes.black),
-                                                      ),
-                                                      SizedBox(height: 5),
+                                                      SizedBox(height: 10),
+                                                      Text(locationAllData[index].title,
+                                                          // 'Moonlight Bar',
+                                                          style: title()),
+                                                      // SizedBox(height: 5),
                                                       SizedBox(
-                                                        width: Get.width * 0.24,
+                                                        //  width: width * 0.24,
                                                         child: Text(
                                                             overflow: TextOverflow.ellipsis,
                                                             locationAllData[index].subtitle,
-                                                            style: subTitle()),
+                                                            // 'Admin: Arrora gaur',
+                                                            style: subTitle().copyWith(fontSize: width * 0.034)),
                                                       ),
-                                                      Text('Machine: ${index * 6 + 12}', style: subTitle())
+                                                      Text('Machine: ${index * 6 + 12}',
+                                                          style: subTitle().copyWith(fontSize: width * 0.034)),
+                                                      SizedBox(height: 10),
                                                     ],
                                                   ),
-                                                  Container(
-                                                    height: Get.height * 0.04,
-                                                    width: Get.width * 0.2,
-                                                    decoration: BoxDecoration(
-                                                      color: locationAllData[index].color,
-                                                      borderRadius: BorderRadius.circular(30),
-                                                    ),
-                                                    child: Center(
-                                                        child: Text(
-                                                      locationAllData[index].active,
-                                                      style: TextStyle(
-                                                          color: locationAllData[index].iconColor,
-                                                          fontWeight: FontWeight.w600,
-                                                          fontSize: 12),
-                                                    )),
+                                                  Column(
+                                                    children: [
+                                                      Container(
+                                                        height: Get.height * 0.04,
+                                                        width: Get.width * 0.2,
+                                                        decoration: BoxDecoration(
+                                                          color: locationAllData[index].color,
+                                                          borderRadius: BorderRadius.circular(30),
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                          locationAllData[index].active,
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.w600,
+                                                              color: locationAllData[index].iconColor,
+                                                              fontSize: width * 0.035),
+                                                        )),
+                                                      ),
+                                                      SizedBox(
+                                                        height: Get.height * 0.03,
+                                                      ),
+                                                    ],
                                                   ),
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.end,
                                                     children: [
-                                                      SizedBox(
-                                                        height: Get.height * 0.02,
-                                                      ),
-                                                      DropDownMenu(),
-                                                      SizedBox(height: Get.height * 0.04),
+                                                      // SizedBox(
+                                                      //   height: Get.height * 0.02,
+                                                      // ),
+                                                      SizedBox(height: Get.height * 0.035, child: DropDownMenu()),
+                                                      // SizedBox(height: Get.height * 0.04),
                                                       Row(
                                                         children: [
                                                           Image.asset(
                                                             AssetRes.calendar,
                                                             scale: 2.5,
                                                           ),
-                                                          const SizedBox(
+                                                          SizedBox(
                                                             width: 2,
                                                           ),
-                                                          Text('12 Dec, 2020', style: subTitle())
+                                                          Text('12 Dec, 2020',
+                                                              style: subTitle().copyWith(fontSize: width * 0.034))
                                                         ],
                                                       )
                                                     ],
@@ -326,7 +342,7 @@ class LocationScreen extends StatelessWidget {
                                       itemBuilder: (context, index) => Padding(
                                             padding: const EdgeInsets.only(top: 10),
                                             child: Container(
-                                              height: 75,
+                                              //height: 75,
                                               width: Get.width,
                                               decoration: BoxDecoration(
                                                   color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
@@ -339,51 +355,54 @@ class LocationScreen extends StatelessWidget {
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           SizedBox(height: 10),
-                                                          Text(
-                                                            controller.searchResults[index].title,
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: 12,
-                                                                fontWeight: FontWeight.w600,
-                                                                color: ColorRes.black),
-                                                          ),
-                                                          SizedBox(height: 5),
+                                                          Text(controller.searchResults[index].title,
+                                                              // 'Moonlight Bar',
+                                                              style: title()),
+                                                          // SizedBox(height: 5),
                                                           SizedBox(
-                                                            width: Get.width * 0.24,
+                                                            //  width: width * 0.24,
                                                             child: Text(
                                                                 overflow: TextOverflow.ellipsis,
                                                                 controller.searchResults[index].subtitle,
-                                                                style: subTitle()),
+                                                                // 'Admin: Arrora gaur',
+                                                                style: subTitle().copyWith(fontSize: width * 0.034)),
                                                           ),
-                                                          SizedBox(height: 5),
                                                           Text('Machine: ${index * 6 + 12}',
-                                                              // 'SN: #${index + 1}-654184',
-                                                              style: subTitle())
+                                                              style: subTitle().copyWith(fontSize: width * 0.034)),
+                                                          SizedBox(height: 10),
                                                         ],
                                                       ),
-                                                      Container(
-                                                        height: Get.height * 0.04,
-                                                        width: Get.width * 0.2,
-                                                        decoration: BoxDecoration(
-                                                          color: controller.searchResults[index].color,
-                                                          borderRadius: BorderRadius.circular(30),
-                                                        ),
-                                                        child: Center(
-                                                            child: Text(
-                                                          controller.searchResults[index].active,
-                                                          style: TextStyle(
-                                                              fontWeight: FontWeight.w600,
-                                                              color: controller.searchResults[index].iconColor,
-                                                              fontSize: 12),
-                                                        )),
+                                                      Column(
+                                                        children: [
+                                                          Container(
+                                                            height: Get.height * 0.04,
+                                                            width: Get.width * 0.2,
+                                                            decoration: BoxDecoration(
+                                                              color: controller.searchResults[index].color,
+                                                              borderRadius: BorderRadius.circular(30),
+                                                            ),
+                                                            child: Center(
+                                                                child: Text(
+                                                              controller.searchResults[index].active,
+                                                              style: TextStyle(
+                                                                  fontWeight: FontWeight.w600,
+                                                                  color: controller.searchResults[index].iconColor,
+                                                                  fontSize: width * 0.035),
+                                                            )),
+                                                          ),
+                                                          SizedBox(
+                                                            height: Get.height * 0.03,
+                                                          ),
+                                                        ],
                                                       ),
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.end,
                                                         children: [
-                                                          SizedBox(
-                                                            height: Get.height * 0.02,
-                                                          ),
-                                                          DropDownMenu(),
-                                                          SizedBox(height: Get.height * 0.04),
+                                                          // SizedBox(
+                                                          //   height: Get.height * 0.02,
+                                                          // ),
+                                                          SizedBox(height: Get.height * 0.035, child: DropDownMenu()),
+                                                          // SizedBox(height: Get.height * 0.04),
                                                           Row(
                                                             children: [
                                                               Image.asset(
@@ -393,7 +412,8 @@ class LocationScreen extends StatelessWidget {
                                                               SizedBox(
                                                                 width: 2,
                                                               ),
-                                                              Text('12 Dec, 2020', style: subTitle())
+                                                              Text('12 Dec, 2020',
+                                                                  style: subTitle().copyWith(fontSize: width * 0.034))
                                                             ],
                                                           )
                                                         ],

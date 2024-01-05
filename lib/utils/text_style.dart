@@ -38,17 +38,21 @@ TextStyle commonTitle() {
   );
 }
 
+TextStyle title() {
+  return GoogleFonts.nunito(fontSize: 13, fontWeight: FontWeight.w700, color: ColorRes.black);
+}
+
 TextStyle commonSubtitle() {
   return TextStyle(
     // color: ColorRes.grey2,
-    fontWeight: FontWeight.w400,
-    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    fontSize: 12,
     // fontFamily: FontRes.black,
   );
 }
 
 TextStyle subTitle() {
-  return GoogleFonts.nunito(fontSize: 9, fontWeight: FontWeight.w400, color: ColorRes.darkBlue);
+  return GoogleFonts.nunito(fontSize: 12, fontWeight: FontWeight.w500, color: ColorRes.grey);
 }
 
 TextStyle subTitleUnderline() {

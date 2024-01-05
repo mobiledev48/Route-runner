@@ -19,9 +19,11 @@ class DashBoardScreen extends StatelessWidget {
       id: 'dash',
       builder: (controller) {
         return Scaffold(
+          backgroundColor: ColorRes.white,
           body: dashBoardController.screen.elementAt(dashBoardController.currentIndex),
           bottomNavigationBar: Container(
-            height: Get.height * 0.11,
+            height: Get.height * 0.13,
+            color: ColorRes.white,
             alignment: Alignment.center,
             child: BottomAppBar(
                 color: ColorRes.white,

@@ -57,7 +57,7 @@ class AppbarContainer extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 35),
                     child: Text(
                       number,
-                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                      style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                     ),
                   ),
                   SizedBox(

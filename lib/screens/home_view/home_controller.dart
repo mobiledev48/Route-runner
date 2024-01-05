@@ -23,6 +23,7 @@ class HomeController extends GetxController {
   Widget dividers(double end, double start) {
     return Divider(
       height: 1,
+      thickness: 0.1,
       color: ColorRes.grey,
       endIndent: end,
       indent: start,
