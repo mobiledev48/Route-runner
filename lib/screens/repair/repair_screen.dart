@@ -122,7 +122,7 @@ class RepairScreen extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Padding(
-                                                    padding: EdgeInsets.only(right: Get.width * 0.276),
+                                                    padding: EdgeInsets.only(right: Get.width * 0.23),
                                                     child:
                                                         Text('SN: #1-654125', style: subTitle().copyWith(fontSize: 10)),
                                                   ),
