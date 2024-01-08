@@ -96,9 +96,11 @@ class StringRes {
   static const machineError = "Enter machine number";
   static const serialError = "Enter serial number";
   static const auditError = "Enter audit number";
+  static const machineTypeError = "Enter Machine Type";
   static const previousError = "Enter previous number";
   static const currentError = "Enter current number";
   static const totalError = "Enter total";
+  static const machineType = "Machine Type";
 
   ///---------------------------------------- New Service Report ----------------------------------------
 

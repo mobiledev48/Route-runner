@@ -7,4 +7,9 @@ class CollectionDetailController extends GetxController {
     num total = (In ?? 0) + (out ?? 0);
     return total;
   }
+
+  num calculateSubtractedValue(num? In, num? out) {
+    num total = (In ?? 0) - (out ?? 0);
+    return total;
+  }
 }

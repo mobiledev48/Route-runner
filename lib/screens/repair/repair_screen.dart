@@ -197,6 +197,8 @@ class RepairScreen extends StatelessWidget {
                           )),
                     )
                         : controller.searchResults.isNotEmpty
+
+                    // controller.searchResults
                         ? Expanded(
                       child: ListView.builder(
                           itemCount: controller.searchResults.length,
@@ -206,8 +208,8 @@ class RepairScreen extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               // height: 85,
                               width: Get.width,
-                              decoration: BoxDecoration(
-                                  color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                              decoration:
+                              BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
                               child: Column(
                                 children: [
                                   Row(
@@ -215,9 +217,10 @@ class RepairScreen extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            // SizedBox(height: 10),
+                                            SizedBox(height: 10),
                                             Text(
                                               controller.searchResults[index].title,
                                               style: title(),
@@ -230,15 +233,27 @@ class RepairScreen extends StatelessWidget {
                                                   child: Text(
                                                     controller.searchResults[index].subtitle,
                                                     overflow: TextOverflow.ellipsis,
-                                                    style: subTitle(),
+                                                    // style: subTitle(),
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: width * 0.031,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorRes.color030229),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                             SizedBox(height: 5),
-                                            Text(
-                                              'Machine: 7',
-                                              style: subTitle(),
+                                            SizedBox(
+                                              width: width * 0.37,
+                                              child: Text(
+                                                'Issue: Joy stick not working',
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                style: GoogleFonts.nunito(
+                                                    fontSize: width * 0.031,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorRes.color030229),
+                                              ),
                                             )
                                           ],
                                         ),
@@ -259,27 +274,31 @@ class RepairScreen extends StatelessWidget {
                                                   child: Text(
                                                     controller.searchResults[index].active,
                                                     style: TextStyle(
-                                                        color: controller.searchResults[index].iconColor,
-                                                        fontSize: 12),
+                                                        color: controller.searchResults[index].iconColor, fontSize: 12),
                                                   )),
                                             ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(right: Get.width * 0.276),
-                                            child: Text('SN: #1-654125',
-                                                style: subTitle().copyWith(fontSize: 10)),
+                                            padding: EdgeInsets.only(right: Get.width * 0.23),
+                                            child: Text(
+                                              'SN: #1-654125',
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: width * 0.031,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorRes.color030229),
+                                            ),
                                           ),
-                                          SizedBox(height: Get.height * 0.018),
+                                          SizedBox(height: Get.height * 0.01),
                                           Row(
                                             children: [
                                               Text(
                                                 'Date: 12 Dec,2023',
-                                                style: subTitle().copyWith(fontSize: 10),
+                                                style: subTitle().copyWith(fontSize: 9),
                                               ),
                                               SizedBox(width: Get.width * 0.02),
                                               Text(
                                                 'Time: 11:45 PM',
-                                                style: subTitle().copyWith(fontSize: 10),
+                                                style: subTitle().copyWith(fontSize: 9),
                                               )
                                             ],
                                           )

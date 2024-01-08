@@ -54,12 +54,18 @@ class CollectionReportScreen extends StatelessWidget {
                       StringRes.collectionReport,
                       style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
                     ),
+                    GestureDetector(onTap: () {
+                      Get.to(NewCollectionScreen());
+                    },child: Image.asset(AssetRes.addMenu,scale: 3,)),
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
-                      child: GestureDetector(onTap: () {
-                        Get.to(NewCollectionScreen());
-                      },child: Image.asset(AssetRes.addMenu,scale: 3,)),
-                    ),
+                      child: GestureDetector(
+                          onTap: () {},
+                          child: Image.asset(
+                            AssetRes.print,
+                            scale: 3,
+                          )),
+                    )
                   ]),),
                 Expanded(
                   child: Padding(
@@ -297,7 +303,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                             Container(
                                                                               width: 80,
                                                                               decoration: BoxDecoration(
-                                                                                  image: DecorationImage(
+                                                                                  image: const DecorationImage(
                                                                                       fit: BoxFit.fill,
                                                                                       image: AssetImage(AssetRes.photo)),
                                                                                   borderRadius: BorderRadius.circular(3)),
@@ -343,7 +349,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                           width: Get.width * 0.05,
                                                                                         ),
                                                                                         Text(
-                                                                                          "\$ ${controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In)}",
+                                                                                          "\$ ${controller.calculateSubtractedValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In)}",
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
                                                                                               fontWeight: FontWeight.w500,
@@ -385,7 +391,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                         ),
                                                                                         Text(
                                                                                           // "\$ ${ controller.allCollectionData[index].machineDetails?[i].previous?[0].out}",
-                                                                                          "\$ ${controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].out, controller.allCollectionData[index].machineDetails?[i].previous?[0].out)}",
+                                                                                          "\$ ${controller.calculateSubtractedValue(controller.allCollectionData[index].machineDetails?[i].current![0].out, controller.allCollectionData[index].machineDetails?[i].previous?[0].out)}",
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
                                                                                               fontWeight: FontWeight.w500,
@@ -406,28 +412,11 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                           ),
                                                                                         ),
                                                                                         Text(
-                                                                                          "\$ ${controller.calculateTotalValue(controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In), controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].out, controller.allCollectionData[index].machineDetails?[i].previous?[0].out))}",
+                                                                                          '\$ ${controller.calculateAndFormatValue(index, i)}',
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
                                                                                               fontWeight: FontWeight.w500,
-                                                                                              color: (controller.calculateTotalValue(
-                                                                                                          controller
-                                                                                                              .allCollectionData[
-                                                                                                                  index]
-                                                                                                              .machineDetails?[
-                                                                                                                  i]
-                                                                                                              .previous?[0]
-                                                                                                              .In,
-                                                                                                          controller
-                                                                                                              .allCollectionData[
-                                                                                                                  index]
-                                                                                                              .machineDetails?[
-                                                                                                                  i]
-                                                                                                              .previous?[0]
-                                                                                                              .out) >=
-                                                                                                      0)
-                                                                                                  ? ColorRes.color3A974C
-                                                                                                  : Colors.red),
+                                                                                            color: controller.getTextColor(index, i),),
                                                                                         ),
                                                                                         SizedBox(
                                                                                           width: Get.width * 0.004,
@@ -513,8 +502,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                       child: Row(
                                                         children: [
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsets.only(bottom: Get.height * 0.1, left: 5, right: 10),
+                                                      padding: EdgeInsets.only(bottom: 51, left: 5, right: 10),
                                                             child: controller.customCheckbox(index),
                                                           ),
                                                           Expanded(

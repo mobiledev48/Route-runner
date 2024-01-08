@@ -131,59 +131,50 @@ class ServiceReportScreen extends StatelessWidget {
                                 )
                               : controller.searchResults.isNotEmpty
                                   ? Expanded(
-                                      child: ListView.builder(
-                                          itemCount: controller.searchResults.length,
-                                          itemBuilder: (context, index) => Padding(
-                                                padding: const EdgeInsets.only(top: 10),
-                                                child: Container(
-                                                  height: 75,
-                                                  width: Get.width,
-                                                  padding: EdgeInsets.symmetric(horizontal: 13),
-                                                  decoration: BoxDecoration(
-                                                      color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      SizedBox(height: 10),
-                                                      Text(
-                                                        controller.searchResults[index].title,
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w700,
-                                                            color: ColorRes.color030229),
-                                                      ),
-                                                      SizedBox(height: 5),
-                                                      Text(
-                                                        controller.searchResults[index].subtitle,
-                                                        style: GoogleFonts.nunito(
-                                                            fontSize: 9,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: ColorRes.color030229),
-                                                      ),
-                                                      SizedBox(height: 5),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            controller.searchResults[index].subtitle1,
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: 9,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.color030229),
-                                                          ),
-                                                          Text('Date: 12 Dec, 2020',
-                                                              style: GoogleFonts.nunito(
-                                                                  fontSize: 8,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorRes.color030229))
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              )),
-                                    )
+                            child: ListView.builder(
+                                itemCount: controller.searchResults.length,
+                                itemBuilder: (context, index) => Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Container(
+                                    // height: 75,
+                                    width: Get.width,
+                                    padding: EdgeInsets.symmetric(horizontal: 13),
+                                    decoration:
+                                    BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 10),
+                                        Text(
+                                          controller.searchResults[index].title,
+                                          style: title(),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          controller.searchResults[index].subtitle,
+                                          style: subTitle(),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              controller.searchResults[index].subtitle1,
+                                              style: subTitle(),
+                                            ),
+                                            Text(
+                                              'Date: 12 Dec, 2020',
+                                              style: subTitle().copyWith(fontSize: 10),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                      ],
+                                    ),
+                                  ),
+                                )),
+                          )
                                   : Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 30),
                                       child: Text(

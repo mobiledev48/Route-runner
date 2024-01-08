@@ -329,7 +329,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 19,
                               ),
                               Expanded(
@@ -337,6 +337,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                   onTap: () {
                                     if (controller.validation()) {
                                       Get.to(() => ServiceReportScreen());
+                                      // Get.offAll(ServiceReportScreen());
                                     }
                                   },
                                   child: Container(

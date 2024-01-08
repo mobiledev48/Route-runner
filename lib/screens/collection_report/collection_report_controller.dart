@@ -77,6 +77,43 @@ class CollectionReportController extends GetxController {
     return total;
   }
 
+  num calculateSubtractedValue(num? In, num? out) {
+    num total = (In ?? 0) - (out ?? 0);
+    return total;
+  }
+
+  String calculateAndFormatValue(int index, int i) {
+    final currentValueIn = allCollectionData[index].machineDetails?[i].current?[0].In ?? 0;
+    final previousValueIn = allCollectionData[index].machineDetails?[i].previous?[0].In ?? 0;
+    final currentValueOut = allCollectionData[index].machineDetails?[i].current?[0].out ?? 0;
+    final previousValueOut = allCollectionData[index].machineDetails?[i].previous?[0].out ?? 0;
+
+    final netValue = calculateSubtractedValue(
+      calculateSubtractedValue(currentValueIn, previousValueIn),
+      calculateSubtractedValue(currentValueOut, previousValueOut),
+    );
+
+    // Format the netValue as currency (e.g., 2 decimal places)
+    return '${netValue}';
+  }
+
+  Color getTextColor(int index, int i) {
+    final currentValueIn = allCollectionData[index].machineDetails?[i].current?[0].In ?? 0;
+    final previousValueIn = allCollectionData[index].machineDetails?[i].previous?[0].In ?? 0;
+    final currentValueOut = allCollectionData[index].machineDetails?[i].current?[0].out ?? 0;
+    final previousValueOut = allCollectionData[index].machineDetails?[i].previous?[0].out ?? 0;
+
+    final netValue = calculateSubtractedValue(
+      calculateSubtractedValue(currentValueIn, previousValueIn),
+      calculateSubtractedValue(currentValueOut, previousValueOut),
+    );
+    print("netValue---->$netValue");
+
+    // Set text color based on netValue
+    return (netValue >= 0) ? ColorRes.color3A974C : Colors.red;
+  }
+
+
   List<allData> allCollectionData = [
     allData(
       title: 'Moonlight Bar',
@@ -243,6 +280,7 @@ class CollectionReportController extends GetxController {
     ),
   ];
 }
+
 
 class allData {
   String? title;

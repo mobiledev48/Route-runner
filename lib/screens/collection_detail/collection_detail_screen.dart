@@ -77,7 +77,7 @@ class CollectionDetailScreen extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                  height: Get.height * 0.25,
+                 // height: Get.height * 0.25,
                   width: Get.width,
                   color: Colors.transparent,
                   child: Column(
@@ -130,13 +130,16 @@ class CollectionDetailScreen extends StatelessWidget {
                             StringRes.previous,
                             style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
                           ),
-                          // SizedBox(
-                          //   width: Get.width * 0.1,
-                          // ),
+                          SizedBox(
+                            width: Get.width * 0.02,
+                          ),
                           Text(
                             StringRes.total,
                             style: subTitle().copyWith(fontSize: 14, color: ColorRes.grey2),
                           ),
+                          // SizedBox(
+                          //   width: Get.width * 0.07,
+                          // ),
                         ],
                       ),
                     /*  Expanded(
@@ -178,7 +181,7 @@ class CollectionDetailScreen extends StatelessWidget {
                       SizedBox(height: 10,),
                       Row(children: [
                         SizedBox(
-                            width: Get.width * 0.3,
+                            width: Get.width * 0.27,
                             child: Text(
                              "In",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
@@ -194,9 +197,9 @@ class CollectionDetailScreen extends StatelessWidget {
                             child: Text(
                               "\$${newCollectionController.addCampaignData[0].inPrevious}",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
-                            )),
+                            ),),
                         Text(
-                          "\$${controller.calculateTotalValue(int.parse(newCollectionController.addCampaignData[0].inCurrent ?? ""),
+                          "\$${controller.calculateSubtractedValue(int.parse(newCollectionController.addCampaignData[0].inCurrent ?? ""),
                               int.parse(newCollectionController.addCampaignData[0].inPrevious ?? ""))}",
                           style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                         ),
@@ -204,7 +207,7 @@ class CollectionDetailScreen extends StatelessWidget {
                       const SizedBox(height: 10,),
                       Row(children: [
                         SizedBox(
-                            width: Get.width * 0.3,
+                            width: Get.width * 0.27,
                             child: Text(
                               "Out",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
@@ -222,7 +225,7 @@ class CollectionDetailScreen extends StatelessWidget {
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             )),
                         Text(
-                          "\$${controller.calculateTotalValue(int.parse(newCollectionController.addCampaignData[0].outCurrent ?? ""),int.parse(newCollectionController.addCampaignData[0].outPrevious ?? ""))}",
+                          "\$${controller.calculateSubtractedValue(int.parse(newCollectionController.addCampaignData[0].outCurrent ?? ""),int.parse(newCollectionController.addCampaignData[0].outPrevious ?? ""))}",
                           style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                         ),
                       ],),
@@ -238,9 +241,9 @@ class CollectionDetailScreen extends StatelessWidget {
                               Text('Profit: ', style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w500)),
                               Text(
                                 "\$ ${controller.calculateTotalValue(
-                                    controller.calculateTotalValue(int.parse(newCollectionController.addCampaignData[0].inCurrent ?? ""),
+                                    controller.calculateSubtractedValue(int.parse(newCollectionController.addCampaignData[0].inCurrent ?? ""),
                                         int.parse(newCollectionController.addCampaignData[0].inPrevious ?? "")),
-                                    controller.calculateTotalValue(int.parse(newCollectionController.addCampaignData[0].outCurrent ?? ""),
+                                    controller.calculateSubtractedValue(int.parse(newCollectionController.addCampaignData[0].outCurrent ?? ""),
                                         int.parse(newCollectionController.addCampaignData[0].outPrevious ?? ""))
                                 )}",
                                 style: TextStyle(color: ColorRes.green),
@@ -262,6 +265,7 @@ class CollectionDetailScreen extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             Get.to(() => CollectionReportScreen());
+            // Get.offAll(CollectionReportScreen());
           },
           child: Container(
               height: Get.height * 0.07,

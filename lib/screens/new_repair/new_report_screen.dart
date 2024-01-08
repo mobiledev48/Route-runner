@@ -336,6 +336,7 @@ class NewRepairScreen extends StatelessWidget {
                                   onTap: () {
                                     if (controller.validation()) {
                                       Get.to(() => RepairScreen());
+                                      // Get.offAll(RepairScreen());
                                     }
                                   },
                                   child: Container(

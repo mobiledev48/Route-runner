@@ -81,7 +81,7 @@ class NewCollectionController extends GetxController {
 
   auditValidation() {
     if (auditNumberController.text.trim() == "") {
-      auditError = StringRes.auditError;
+      auditError = StringRes.machineTypeError;
     } else {
       auditError = '';
     }

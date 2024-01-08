@@ -120,7 +120,7 @@ class NewCollectionScreen extends StatelessWidget {
                               color: ColorRes.bgColor,
                               isRequired: true,
                               hintText: "4652387645",
-                              titleText: StringRes.auditsNumber,
+                              titleText: StringRes.machineType,
                               controller: controller.auditNumberController),
                           (newCollectionController.auditError != "")
                               ? Align(
@@ -416,6 +416,7 @@ class NewCollectionScreen extends StatelessWidget {
                                     onTap: () {
                                       if (newCollectionController.validation()) {
                                         Get.to(() => CollectionDetailScreen());
+
                                         Iterable<CollectionReport> dynamicParameters = [
                                           CollectionReport(serialNumber: newCollectionController.enterSerialNumberController.text,
                                             inCurrent: newCollectionController.currentNumberInController.text,
