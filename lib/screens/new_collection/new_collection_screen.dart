@@ -5,14 +5,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/common/common_text_fild.dart';
 import 'package:route_runner/screens/collection_detail/collection_detail_screen.dart';
-import 'package:route_runner/screens/collection_report/collection_report.dart';
-import 'package:route_runner/screens/edit_location_view/edit_location_screen.dart';
-import 'package:route_runner/screens/google_location_view/google_location_screen.dart';
-import 'package:route_runner/screens/location_view/location_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
 import 'package:route_runner/utils/asset_res.dart';
 import 'package:route_runner/utils/color_res.dart';
-import 'package:route_runner/utils/font_res.dart';
 import 'package:route_runner/utils/strings.dart';
 
 import '../../utils/text_style.dart';
@@ -115,12 +110,78 @@ class NewCollectionScreen extends StatelessWidget {
                           SizedBox(
                             height: 20,
                           ),
+                          Row(
+                            children: [
+                              Text(StringRes.machineType,
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorRes.color030229,
+                                  )),
+                              Text(
+                                ' *',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                width: Get.width * 0.47,
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    newCollectionController.isClick = !newCollectionController.isClick;
+                                    newCollectionController.update(['collection']);
+                                  },
+                                  icon: newCollectionController.isClick == false
+                                      ? Icon(Icons.arrow_drop_down)
+                                      : Icon(Icons.arrow_drop_up))
+                            ],
+                          ),
+                          newCollectionController.isClick == false
+                              ? SizedBox()
+                              : Container(
+                                  height: Get.height * 0.24,
+                                  width: Get.width * 0.9,
+                                  decoration: BoxDecoration(color: ColorRes.bgColor),
+                                  child: ListView.separated(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: false,
+                                      itemBuilder: (context, index) => GestureDetector(
+                                            onTap: () {
+                                              newCollectionController.auditNumberController.text =
+                                                  newCollectionController.machineType[index];
+                                              newCollectionController.machineType;
+                                              newCollectionController.isClick = false;
+                                              newCollectionController.update(['collection']);
+                                            },
+                                            child: ListTile(
+                                              title: Text(newCollectionController.machineType[index],
+                                                  style: GoogleFonts.nunito(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorRes.color030229,
+                                                  )),
+                                            ),
+                                          ),
+                                      separatorBuilder: (context, index) =>
+                                          Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                      itemCount: 3)),
+                          // Container(
+                          //   height: Get.height * 0.08,
+                          //   width: Get.width * 0.9,
+                          //   decoration:
+                          //       BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
+                          // )
                           CommonTextField(
+                              readOnly: true,
                               type: TextInputType.number,
                               color: ColorRes.bgColor,
-                              isRequired: true,
+                              // isRequired: true,
                               hintText: "4652387645",
-                              titleText: StringRes.machineType,
+                              // titleText: StringRes.machineType,
+
                               controller: controller.auditNumberController),
                           (newCollectionController.auditError != "")
                               ? Align(
@@ -132,6 +193,7 @@ class NewCollectionScreen extends StatelessWidget {
                                   ),
                                 )
                               : const SizedBox(),
+
                           SizedBox(
                             height: 20,
                           ),
@@ -418,13 +480,13 @@ class NewCollectionScreen extends StatelessWidget {
                                         Get.to(() => CollectionDetailScreen());
 
                                         Iterable<CollectionReport> dynamicParameters = [
-                                          CollectionReport(serialNumber: newCollectionController.enterSerialNumberController.text,
-                                            inCurrent: newCollectionController.currentNumberInController.text,
-                                            inPrevious: newCollectionController.previousNumberInController.text,
-                                            outCurrent: newCollectionController.currentNumberOutController.text,
-                                            outPrevious: newCollectionController.previousNumberOutController.text,
-                                            image:controller.image!.path
-                                          ),
+                                          CollectionReport(
+                                              serialNumber: newCollectionController.enterSerialNumberController.text,
+                                              inCurrent: newCollectionController.currentNumberInController.text,
+                                              inPrevious: newCollectionController.previousNumberInController.text,
+                                              outCurrent: newCollectionController.currentNumberOutController.text,
+                                              outPrevious: newCollectionController.previousNumberOutController.text,
+                                              image: controller.image!.path),
                                         ];
                                         newCollectionController.addCampaignData.addAll(dynamicParameters);
                                       }
@@ -463,8 +525,6 @@ class NewCollectionScreen extends StatelessWidget {
   }
 }
 
-
-
 class CollectionReport {
   String? serialNumber;
   String? inPrevious;
@@ -474,7 +534,6 @@ class CollectionReport {
   String? image;
   String? data;
   String? time;
-
 
   CollectionReport({
     this.serialNumber,
@@ -515,7 +574,7 @@ class CollectionReport {
           image = value as String?;
           break;
         default:
-        // Handle unknown parameter
+          // Handle unknown parameter
           break;
       }
     });

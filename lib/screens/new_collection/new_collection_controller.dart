@@ -14,7 +14,7 @@ class NewCollectionController extends GetxController {
 
   List<Location>? filteredLocations = [];
   LocationModel? locationModel;
-  List<CollectionReport>  addCampaignData= [];
+  List<CollectionReport> addCampaignData = [];
 
 // <<<<<<< HEAD
 //   TextEditingController machineNumberController = TextEditingController();
@@ -42,6 +42,8 @@ class NewCollectionController extends GetxController {
     update(['collection']);
   }
 
+  List machineType = ['4652387645', '876366756', '9576315760'];
+
   String machineError = "";
   String serialError = "";
   String auditError = "";
@@ -51,6 +53,8 @@ class NewCollectionController extends GetxController {
   String outCurrentError = "";
   String totalError = "";
   String imageError = "";
+
+  bool isClick = false;
 
   imageValidation() {
     if (image == null) {
