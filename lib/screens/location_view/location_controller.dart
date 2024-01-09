@@ -148,7 +148,7 @@ List<allData> locationAllData = [
     ColorRes.green,
     ColorRes.green,
   ),
-  allData('Black Sleep Bar', 'Admin: Edward Evan', 'Pending', Colors.yellow.withOpacity(0.10), ColorRes.yellow,
+  allData('Black Sleep Bar', 'Admin: Edward Evan', 'Pending', Colors.orange.withOpacity(0.10), ColorRes.orange,
       ColorRes.yellow),
   allData(
     'Haven Martini',

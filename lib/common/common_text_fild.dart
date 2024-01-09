@@ -14,6 +14,8 @@ class CommonTextField extends StatelessWidget {
   double? suffixIconSize;
   int? maxLines;
   double? containerHeight;
+  double? contentPadding;
+  double? borderRadius;
   final TextInputType? type;
   final GestureTapCallback? suffixIconOnTap;
   final ValueChanged<String>? onChanged;
@@ -22,6 +24,8 @@ class CommonTextField extends StatelessWidget {
   CommonTextField(
       {this.maxLines,
       this.containerHeight,
+      this.contentPadding,
+      this.borderRadius,
       this.hintText,
       this.isRequired,
       this.suffixIconOnTap,
@@ -46,8 +50,8 @@ class CommonTextField extends StatelessWidget {
             titleText != null
                 ? Text(titleText ?? "",
                     style: GoogleFonts.nunito(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                       color: ColorRes.color030229,
                     ))
                 : SizedBox(),
@@ -75,33 +79,35 @@ class CommonTextField extends StatelessWidget {
             ),
           ),
           child: TextField(
-            onChanged: onChanged,
-            keyboardType: type,
-            maxLines: maxLines ?? 1,
-            controller: controller,
-            readOnly: readOnly ?? false,
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: color ?? ColorRes.white,
-                hintText: hintText ?? "",
-                hintStyle: TextStyle(fontSize: 15, color: ColorRes.grey, fontWeight: FontWeight.w400),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(color: Colors.transparent),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(color: Colors.transparent),
-                ),
-                suffixIcon: isSuffixIcon == true
-                    ? GestureDetector(
-                        onTap: suffixIconOnTap,
-                        child: Image.asset(
-                          suffixIcon ?? "",
-                          scale: suffixIconSize ?? 0.0,
-                        ))
-                    : SizedBox()),
-          ),
+              onChanged: onChanged,
+              keyboardType: type,
+              maxLines: maxLines ?? 1,
+              controller: controller,
+              readOnly: readOnly ?? false,
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(contentPadding ?? 10),
+                  filled: true,
+                  fillColor: color ?? ColorRes.white,
+                  hintText: hintText ?? "",
+                  hintStyle: TextStyle(fontSize: 15, color: ColorRes.grey, fontWeight: FontWeight.w400),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadius ?? 15),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadius ?? 15),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  suffixIcon: isSuffixIcon != null
+                      ? isSuffixIcon == true
+                          ? GestureDetector(
+                              onTap: suffixIconOnTap,
+                              child: Image.asset(
+                                suffixIcon ?? "",
+                                scale: suffixIconSize ?? 0.0,
+                              ))
+                          : SizedBox()
+                      : null)),
         ),
       ],
     );

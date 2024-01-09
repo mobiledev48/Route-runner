@@ -38,8 +38,8 @@ class LocationScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 children: [
-
                   CommonTextField(
+                    borderRadius: 12,
                     containerHeight: Get.height * 0.07,
                     isSuffixIcon: true,
                     suffixIcon: AssetRes.search,
@@ -276,222 +276,222 @@ class LocationScreen extends StatelessWidget {
                                   ),
                                 )
                       : controller.searchController.text.isEmpty
-                      ? Expanded(
-                    child: ListView.builder(
-                        itemCount: locationAllData.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Container(
-                            //height: 75,
-                            width: Get.width,
-                            decoration: BoxDecoration(
-                                color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                            child: Stack(
-                              alignment: Alignment.topCenter,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                          ? Expanded(
+                              child: ListView.builder(
+                                  itemCount: locationAllData.length,
+                                  itemBuilder: (context, index) => Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Container(
+                                          //height: 75,
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                              color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                          child: Stack(
+                                            alignment: Alignment.topCenter,
                                             children: [
-                                              SizedBox(height: 10),
-                                              Text(locationAllData[index].title,
-                                                  // 'Moonlight Bar',
-                                                  style: title()),
-                                              // SizedBox(height: 5),
-                                              SizedBox(
-                                                //  width: width * 0.24,
-                                                child: Text(
-                                                    overflow: TextOverflow.ellipsis,
-                                                    locationAllData[index].subtitle,
-                                                    // 'Admin: Arrora gaur',
-                                                    style: subTitle()
-                                                  // GoogleFonts.nunito(
-                                                  //     fontSize:  width * 0.034, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            SizedBox(height: 10),
+                                                            Text(locationAllData[index].title,
+                                                                // 'Moonlight Bar',
+                                                                style: title()),
+                                                            // SizedBox(height: 5),
+                                                            SizedBox(
+                                                              //  width: width * 0.24,
+                                                              child: Text(
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  locationAllData[index].subtitle,
+                                                                  // 'Admin: Arrora gaur',
+                                                                  style: subTitle()
+                                                                  // GoogleFonts.nunito(
+                                                                  //     fontSize:  width * 0.034, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                                                  ),
+                                                            ),
+                                                            Text(
+                                                              'Machine: ${index * 6 + 12}',
+                                                              style: subTitle(),
+                                                            ),
+                                                            SizedBox(height: 8),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            SizedBox(
+                                                              height: Get.height * 0.04,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                                          children: [
+                                                            SizedBox(
+                                                              height: Get.height * 0.02,
+                                                            ),
+                                                            SizedBox(height: Get.height * 0.035, child: DropDownMenu()),
+                                                            SizedBox(height: Get.height * 0.02),
+                                                            Row(
+                                                              children: [
+                                                                Image.asset(
+                                                                  AssetRes.calendar,
+                                                                  scale: 2.5,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 2,
+                                                                ),
+                                                                Text('12 Dec, 2020',
+                                                                    style: subTitle().copyWith(fontSize: 12)
+                                                                    // GoogleFonts.nunito(
+                                                                    //     fontSize: width * 0.034,
+                                                                    //     fontWeight: FontWeight.w400,
+                                                                    //     color: ColorRes.color030229),
+                                                                    )
+                                                              ],
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                              Text(
-                                                'Machine: ${index * 6 + 12}',
-                                                style: subTitle(),
-                                              ),
-                                              SizedBox(height: 8),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              SizedBox(
+                                              Container(
                                                 height: Get.height * 0.04,
+                                                width: Get.width * 0.2,
+                                                margin: EdgeInsets.only(top: 10, left: Get.width * 0.05),
+                                                decoration: BoxDecoration(
+                                                  color: locationAllData[index].color,
+                                                  borderRadius: BorderRadius.circular(30),
+                                                ),
+                                                child: Center(
+                                                    child: Text(
+                                                  locationAllData[index].active,
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      color: locationAllData[index].iconColor,
+                                                      fontSize: width * 0.035),
+                                                )),
                                               ),
                                             ],
                                           ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              SizedBox(
-                                                height: Get.height * 0.02,
-                                              ),
-                                              SizedBox(height: Get.height * 0.035, child: DropDownMenu()),
-                                              SizedBox(height: Get.height * 0.02),
-                                              Row(
-                                                children: [
-                                                  Image.asset(
-                                                    AssetRes.calendar,
-                                                    scale: 2.5,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 2,
-                                                  ),
-                                                  Text('12 Dec, 2020',
-                                                      style: subTitle().copyWith(fontSize: 12)
-                                                    // GoogleFonts.nunito(
-                                                    //     fontSize: width * 0.034,
-                                                    //     fontWeight: FontWeight.w400,
-                                                    //     color: ColorRes.color030229),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  height: Get.height * 0.04,
-                                  width: Get.width * 0.2,
-                                  margin: EdgeInsets.only(top: 10, left: Get.width * 0.05),
-                                  decoration: BoxDecoration(
-                                    color: locationAllData[index].color,
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                        locationAllData[index].active,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color: locationAllData[index].iconColor,
-                                            fontSize: width * 0.035),
+                                        ),
                                       )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
-                  )
-                      : locationController.searchResults.isNotEmpty
-                      ? Expanded(
-                    child: ListView.builder(
-                        itemCount: controller.searchResults.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Container(
-                            //height: 75,
-                            width: Get.width,
-                            decoration: BoxDecoration(
-                                color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
-                            child: Stack(
-                              alignment: Alignment.topCenter,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(height: 10),
-                                              Text(controller.searchResults[index].title,
-                                                  // 'Moonlight Bar',
-                                                  style: title()),
-                                              // SizedBox(height: 5),
-                                              SizedBox(
-                                                //  width: width * 0.24,
-                                                child: Text(
-                                                    overflow: TextOverflow.ellipsis,
-                                                    controller.searchResults[index].subtitle,
-                                                    // 'Admin: Arrora gaur',
-                                                    style: subTitle()),
-                                              ),
-                                              Text('Machine: ${index * 6 + 12}', style: subTitle()),
-                                              SizedBox(height: 8),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              SizedBox(
-                                                height: Get.height * 0.04,
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              SizedBox(
-                                                height: Get.height * 0.02,
-                                              ),
-                                              SizedBox(
-                                                  height: Get.height * 0.035, child: DropDownMenu()),
-                                              SizedBox(height: Get.height * 0.02),
-                                              Row(
+                            )
+                          : locationController.searchResults.isNotEmpty
+                              ? Expanded(
+                                  child: ListView.builder(
+                                      itemCount: controller.searchResults.length,
+                                      itemBuilder: (context, index) => Padding(
+                                            padding: const EdgeInsets.only(top: 10),
+                                            child: Container(
+                                              //height: 75,
+                                              width: Get.width,
+                                              decoration: BoxDecoration(
+                                                  color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                              child: Stack(
+                                                alignment: Alignment.topCenter,
                                                 children: [
-                                                  Image.asset(
-                                                    AssetRes.calendar,
-                                                    scale: 2.5,
+                                                  Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                SizedBox(height: 10),
+                                                                Text(controller.searchResults[index].title,
+                                                                    // 'Moonlight Bar',
+                                                                    style: title()),
+                                                                // SizedBox(height: 5),
+                                                                SizedBox(
+                                                                  //  width: width * 0.24,
+                                                                  child: Text(
+                                                                      overflow: TextOverflow.ellipsis,
+                                                                      controller.searchResults[index].subtitle,
+                                                                      // 'Admin: Arrora gaur',
+                                                                      style: subTitle()),
+                                                                ),
+                                                                Text('Machine: ${index * 6 + 12}', style: subTitle()),
+                                                                SizedBox(height: 8),
+                                                              ],
+                                                            ),
+                                                            Column(
+                                                              children: [
+                                                                SizedBox(
+                                                                  height: Get.height * 0.04,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                                              children: [
+                                                                SizedBox(
+                                                                  height: Get.height * 0.02,
+                                                                ),
+                                                                SizedBox(
+                                                                    height: Get.height * 0.035, child: DropDownMenu()),
+                                                                SizedBox(height: Get.height * 0.02),
+                                                                Row(
+                                                                  children: [
+                                                                    Image.asset(
+                                                                      AssetRes.calendar,
+                                                                      scale: 2.5,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 2,
+                                                                    ),
+                                                                    Text('12 Dec, 2020',
+                                                                        style: subTitle().copyWith(fontSize: 12))
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 2,
+                                                  Container(
+                                                    height: Get.height * 0.04,
+                                                    width: Get.width * 0.2,
+                                                    margin: EdgeInsets.only(top: 10, left: Get.width * 0.05),
+                                                    decoration: BoxDecoration(
+                                                      color: controller.searchResults[index].color,
+                                                      borderRadius: BorderRadius.circular(30),
+                                                    ),
+                                                    child: Center(
+                                                        child: Text(
+                                                      controller.searchResults[index].active,
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600,
+                                                          color: controller.searchResults[index].iconColor,
+                                                          fontSize: width * 0.035),
+                                                    )),
                                                   ),
-                                                  Text('12 Dec, 2020',
-                                                      style: subTitle().copyWith(fontSize: 12))
                                                 ],
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                              ),
+                                            ),
+                                          )),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 30),
+                                  child: Text(
+                                    StringRes.notFound,
+                                    style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                                   ),
-                                ),
-                                Container(
-                                  height: Get.height * 0.04,
-                                  width: Get.width * 0.2,
-                                  margin: EdgeInsets.only(top: 10, left: Get.width * 0.05),
-                                  decoration: BoxDecoration(
-                                    color: controller.searchResults[index].color,
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                        controller.searchResults[index].active,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color: controller.searchResults[index].iconColor,
-                                            fontSize: width * 0.035),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
-                  )
-                      : Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30),
-                    child: Text(
-                      StringRes.notFound,
-                      style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
-                    ),
-                  )
+                                )
                 ],
               ),
             );

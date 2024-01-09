@@ -175,9 +175,10 @@ class AdminController extends GetxController {
       children: [
         const SizedBox(height: 80),
         CommonTextField(
-          containerHeight: Get.height * 0.065,
+          containerHeight: Get.height * 0.07,
           titleText: StringRes.emailAddress,
           controller: emailController,
+          // color: ColorRes.tffGrey2,
           color: Colors.grey.shade100,
           hintText: StringRes.exampleEmail,
         ),

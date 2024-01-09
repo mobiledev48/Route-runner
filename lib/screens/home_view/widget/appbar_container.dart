@@ -38,7 +38,7 @@ class AppbarContainer extends StatelessWidget {
               ),
               CircleAvatar(
                 backgroundColor: bgColor,
-                radius: 24,
+                radius: 22,
                 child: Image.asset(
                   image,
                   color: iconColor,

@@ -142,12 +142,12 @@ class NewCollectionScreen extends StatelessWidget {
                           newCollectionController.isClick == false
                               ? SizedBox()
                               : Container(
-                                  height: Get.height * 0.24,
+                                  // height: Get.height * 0.26,
                                   width: Get.width * 0.9,
                                   decoration: BoxDecoration(color: ColorRes.bgColor),
                                   child: ListView.separated(
                                       physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: false,
+                                      shrinkWrap: true,
                                       itemBuilder: (context, index) => GestureDetector(
                                             onTap: () {
                                               newCollectionController.auditNumberController.text =
@@ -470,7 +470,7 @@ class NewCollectionScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Expanded(

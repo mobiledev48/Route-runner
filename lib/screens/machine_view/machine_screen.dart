@@ -39,6 +39,7 @@ class MachineScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CommonTextField(
+                    borderRadius: 12,
                     containerHeight: Get.height * 0.07,
                     isSuffixIcon: true,
                     suffixIcon: AssetRes.search,
@@ -108,7 +109,7 @@ class MachineScreen extends StatelessWidget {
                                                               height: Get.height * 0.05, child: DropDownMenu()),
                                                         ),
                                                         SizedBox(
-                                                          height: 0,
+                                                          height: Get.height * 0.015,
                                                         ),
                                                         Row(
                                                           children: [
@@ -227,7 +228,7 @@ class MachineScreen extends StatelessWidget {
                                                                   height: Get.height * 0.05, child: DropDownMenu()),
                                                             ),
                                                             SizedBox(
-                                                              height: 0,
+                                                              height: Get.height * 0.015,
                                                             ),
                                                             Row(
                                                               children: [

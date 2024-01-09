@@ -29,15 +29,18 @@ class ServiceReportController extends GetxController {
     //debugPrint("$locationModel");
     super.onInit();
   }
+
   String searchTerm = 'Moonlight'; // Change this to your desired search term
   List<allData> searchResults = [];
 
   List<allData> searchServiceReportData(List<allData> data, String query) {
     query = query.toLowerCase();
-    return data.where((item) =>
-    item.title.toLowerCase().contains(query) ||
-        item.subtitle.toLowerCase().contains(query) ||
-        item.subtitle1.toLowerCase().contains(query)).toList();
+    return data
+        .where((item) =>
+            item.title.toLowerCase().contains(query) ||
+            item.subtitle.toLowerCase().contains(query) ||
+            item.subtitle1.toLowerCase().contains(query))
+        .toList();
   }
 
   void clickableContainer() {
@@ -45,55 +48,55 @@ class ServiceReportController extends GetxController {
     update(['location']);
   }
 
-  Widget customDropDown() {
-    return Container(
-      height: Get.height * 0.13,
-      width: Get.width * 0.4,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightBlue),
-      child: Column(
-        children: [
-          SizedBox(height: 10),
-          Container(
-            height: 30,
-            width: 120,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightYellow),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  AssetRes.pin,
-                  scale: 3,
-                ),
-                Text(
-                  'Change Status',
-                  style: commonSubtitle(),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            height: 30,
-            width: 120,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.grey),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  AssetRes.list,
-                  scale: 3,
-                ),
-                Text(
-                  'List of machine',
-                  style: commonSubtitle(),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  // Widget customDropDown() {
+  //   return Container(
+  //     height: Get.height * 0.13,
+  //     width: Get.width * 0.4,
+  //     decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightBlue),
+  //     child: Column(
+  //       children: [
+  //         SizedBox(height: 10),
+  //         Container(
+  //           height: 30,
+  //           width: 120,
+  //           decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightYellow),
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //             children: [
+  //               Image.asset(
+  //                 AssetRes.pin,
+  //                 scale: 3,
+  //               ),
+  //               Text(
+  //                 'Change Status',
+  //                 style: commonSubtitle(),
+  //               )
+  //             ],
+  //           ),
+  //         ),
+  //         SizedBox(height: 10),
+  //         Container(
+  //           height: 30,
+  //           width: 120,
+  //           decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.grey),
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //             children: [
+  //               Image.asset(
+  //                 AssetRes.list,
+  //                 scale: 3,
+  //               ),
+  //               Text(
+  //                 'List of machine',
+  //                 style: commonSubtitle(),
+  //               )
+  //             ],
+  //           ),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget customCheckbox() {
     return GestureDetector(
@@ -158,26 +161,19 @@ class ServiceReportController extends GetxController {
   }
 }
 
-
 class allData {
   final String title;
   final String subtitle;
   final String subtitle1;
 
-
-  allData(this.title, this.subtitle,this.subtitle1);
+  allData(this.title, this.subtitle, this.subtitle1);
 }
 
 List<allData> serviceReportData = [
-  allData(
-      'SN: #1-654125',
-      'Employee: Steven',
-      'Issue: Joy stick not working'
-  ),
-  allData('SN: #2-654184', 'Employee: Elizabeth','Issue: Joy stick not working'),
+  allData('SN: #1-654125', 'Employee: Steven', 'Issue: Joy stick not working'),
+  allData('SN: #2-654184', 'Employee: Elizabeth', 'Issue: Joy stick not working'),
   allData('SN: #3-654199', 'Employee: Grace Hughey', 'Issue: Joy stick not working'),
   allData('SN: #4-654204', 'Employee: Robert Brown', 'Issue: Joy stick not working'),
   allData('SN: #6-654221', 'Employee: Alice Vincent', 'Issue: Joy stick not working`'),
   allData('SN: #7-654228', 'Employee: Kathie Russell', 'Issue: Joy stick not working'),
 ];
-

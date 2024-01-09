@@ -35,8 +35,10 @@ class CollectionReportScreen extends StatelessWidget {
           builder: (controller) {
             return Column(
               children: [
-                Container(height: 60,color:ColorRes.mainColor,
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
+                Container(
+                  height: 60,
+                  color: ColorRes.mainColor,
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: IconButton(
@@ -49,14 +51,18 @@ class CollectionReportScreen extends StatelessWidget {
                             color: ColorRes.white,
                           )),
                     ),
-
                     Text(
                       StringRes.collectionReport,
                       style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
                     ),
-                    GestureDetector(onTap: () {
-                      Get.to(NewCollectionScreen());
-                    },child: Image.asset(AssetRes.addMenu,scale: 3,)),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(NewCollectionScreen());
+                        },
+                        child: Image.asset(
+                          AssetRes.addMenu,
+                          scale: 3,
+                        )),
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: GestureDetector(
@@ -66,14 +72,15 @@ class CollectionReportScreen extends StatelessWidget {
                             scale: 3,
                           )),
                     )
-                  ]),),
+                  ]),
+                ),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                     child: Column(
                       children: [
-
                         CommonTextField(
+                          borderRadius: 12,
                           containerHeight: Get.height * 0.07,
                           isSuffixIcon: true,
                           suffixIcon: AssetRes.search,
@@ -88,7 +95,7 @@ class CollectionReportScreen extends StatelessWidget {
                           },
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 0,
                         ),
                         controller.searchController.text.isEmpty
                             ? Expanded(
@@ -99,8 +106,8 @@ class CollectionReportScreen extends StatelessWidget {
                                           padding: const EdgeInsets.only(top: 10),
                                           child: Container(
                                             width: Get.width,
-                                            decoration:
-                                                BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                                            decoration: BoxDecoration(
+                                                color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
                                             child: Column(
                                               children: [
                                                 Padding(
@@ -216,8 +223,9 @@ class CollectionReportScreen extends StatelessWidget {
                                                         child: ListView.separated(
                                                           physics: NeverScrollableScrollPhysics(),
                                                           shrinkWrap: true,
-                                                          itemCount:
-                                                              controller.allCollectionData[index].machineDetails?.length ?? 0,
+                                                          itemCount: controller
+                                                                  .allCollectionData[index].machineDetails?.length ??
+                                                              0,
                                                           itemBuilder: (context, i) {
                                                             return Padding(
                                                                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -227,15 +235,16 @@ class CollectionReportScreen extends StatelessWidget {
                                                                       height: 35,
                                                                       width: Get.width * 0.9,
                                                                       decoration: BoxDecoration(
-                                                                          border:
-                                                                              Border.all(width: 1, color: ColorRes.colorF2F2F2),
+                                                                          border: Border.all(
+                                                                              width: 1, color: ColorRes.colorF2F2F2),
                                                                           borderRadius: const BorderRadius.only(
                                                                             topLeft: Radius.circular(10),
                                                                             topRight: Radius.circular(10),
                                                                           ),
                                                                           color: ColorRes.colorF2F2F2),
                                                                       child: Padding(
-                                                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                                        padding:
+                                                                            const EdgeInsets.symmetric(horizontal: 10),
                                                                         child: Row(
                                                                           children: [
                                                                             Expanded(
@@ -288,8 +297,8 @@ class CollectionReportScreen extends StatelessWidget {
                                                                       height: Get.height * 0.12,
                                                                       width: Get.width * 0.9,
                                                                       decoration: BoxDecoration(
-                                                                          border:
-                                                                              Border.all(width: 1, color: ColorRes.colorF2F2F2),
+                                                                          border: Border.all(
+                                                                              width: 1, color: ColorRes.colorF2F2F2),
                                                                           borderRadius: const BorderRadius.only(
                                                                             bottomLeft: Radius.circular(10),
                                                                             bottomRight: Radius.circular(10),
@@ -305,8 +314,10 @@ class CollectionReportScreen extends StatelessWidget {
                                                                               decoration: BoxDecoration(
                                                                                   image: const DecorationImage(
                                                                                       fit: BoxFit.fill,
-                                                                                      image: AssetImage(AssetRes.photo)),
-                                                                                  borderRadius: BorderRadius.circular(3)),
+                                                                                      image:
+                                                                                          AssetImage(AssetRes.photo)),
+                                                                                  borderRadius:
+                                                                                      BorderRadius.circular(3)),
                                                                             ),
                                                                             const SizedBox(
                                                                               width: 10,
@@ -324,16 +335,20 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                             'In',
                                                                                             style: GoogleFonts.nunito(
                                                                                                 fontSize: width * 0.036,
-                                                                                                fontWeight: FontWeight.w500,
-                                                                                                color: ColorRes.color030229),
+                                                                                                fontWeight:
+                                                                                                    FontWeight.w500,
+                                                                                                color: ColorRes
+                                                                                                    .color030229),
                                                                                           ),
                                                                                         ),
                                                                                         Text(
                                                                                           "\$ ${controller.allCollectionData[index].machineDetails?[i].current?[0].In}",
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              color: ColorRes.color030229),
+                                                                                              fontWeight:
+                                                                                                  FontWeight.w500,
+                                                                                              color:
+                                                                                                  ColorRes.color030229),
                                                                                         ),
                                                                                         SizedBox(
                                                                                           width: Get.width * 0.07,
@@ -342,8 +357,10 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                           "\$ ${controller.allCollectionData[index].machineDetails?[i].previous?[0].In}",
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              color: ColorRes.color030229),
+                                                                                              fontWeight:
+                                                                                                  FontWeight.w500,
+                                                                                              color:
+                                                                                                  ColorRes.color030229),
                                                                                         ),
                                                                                         SizedBox(
                                                                                           width: Get.width * 0.05,
@@ -352,8 +369,10 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                           "\$ ${controller.calculateSubtractedValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In)}",
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              color: ColorRes.color030229),
+                                                                                              fontWeight:
+                                                                                                  FontWeight.w500,
+                                                                                              color:
+                                                                                                  ColorRes.color030229),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -365,16 +384,20 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                             'Out',
                                                                                             style: GoogleFonts.nunito(
                                                                                                 fontSize: width * 0.036,
-                                                                                                fontWeight: FontWeight.w500,
-                                                                                                color: ColorRes.color030229),
+                                                                                                fontWeight:
+                                                                                                    FontWeight.w500,
+                                                                                                color: ColorRes
+                                                                                                    .color030229),
                                                                                           ),
                                                                                         ),
                                                                                         Text(
                                                                                           "\$ ${controller.allCollectionData[index].machineDetails?[i].current?[0].out}",
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              color: ColorRes.color030229),
+                                                                                              fontWeight:
+                                                                                                  FontWeight.w500,
+                                                                                              color:
+                                                                                                  ColorRes.color030229),
                                                                                         ),
                                                                                         SizedBox(
                                                                                           width: Get.width * 0.07,
@@ -383,8 +406,10 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                           "\$ ${controller.allCollectionData[index].machineDetails?[i].previous?[0].out}",
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              color: ColorRes.color030229),
+                                                                                              fontWeight:
+                                                                                                  FontWeight.w500,
+                                                                                              color:
+                                                                                                  ColorRes.color030229),
                                                                                         ),
                                                                                         SizedBox(
                                                                                           width: Get.width * 0.07,
@@ -394,8 +419,10 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                           "\$ ${controller.calculateSubtractedValue(controller.allCollectionData[index].machineDetails?[i].current![0].out, controller.allCollectionData[index].machineDetails?[i].previous?[0].out)}",
                                                                                           style: GoogleFonts.nunito(
                                                                                               fontSize: width * 0.034,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              color: ColorRes.color030229),
+                                                                                              fontWeight:
+                                                                                                  FontWeight.w500,
+                                                                                              color:
+                                                                                                  ColorRes.color030229),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -407,16 +434,20 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                             'Total',
                                                                                             style: GoogleFonts.nunito(
                                                                                                 fontSize: 12,
-                                                                                                fontWeight: FontWeight.w500,
-                                                                                                color: ColorRes.color030229),
+                                                                                                fontWeight:
+                                                                                                    FontWeight.w500,
+                                                                                                color: ColorRes
+                                                                                                    .color030229),
                                                                                           ),
                                                                                         ),
                                                                                         Text(
                                                                                           '\$ ${controller.calculateAndFormatValue(index, i)}',
                                                                                           style: GoogleFonts.nunito(
-                                                                                              fontSize: width * 0.034,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                            color: controller.getTextColor(index, i),),
+                                                                                            fontSize: width * 0.034,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            color: controller
+                                                                                                .getTextColor(index, i),
+                                                                                          ),
                                                                                         ),
                                                                                         SizedBox(
                                                                                           width: Get.width * 0.004,
@@ -442,7 +473,8 @@ class CollectionReportScreen extends StatelessWidget {
                                                     : SizedBox(),
                                                 controller.isViewData[index]
                                                     ? Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                                        padding:
+                                                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: [
@@ -481,8 +513,7 @@ class CollectionReportScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                        )
-                                ),
+                                        )),
                               )
                             : controller.searchResults.isNotEmpty
                                 ? Expanded(
@@ -502,7 +533,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                       child: Row(
                                                         children: [
                                                           Padding(
-                                                      padding: EdgeInsets.only(bottom: 51, left: 5, right: 10),
+                                                            padding: EdgeInsets.only(bottom: 51, left: 5, right: 10),
                                                             child: controller.customCheckbox(index),
                                                           ),
                                                           Expanded(
@@ -610,8 +641,9 @@ class CollectionReportScreen extends StatelessWidget {
                                                             child: ListView.separated(
                                                               physics: NeverScrollableScrollPhysics(),
                                                               shrinkWrap: true,
-                                                              itemCount:
-                                                                  controller.searchResults[index].machineDetails?.length ?? 0,
+                                                              itemCount: controller
+                                                                      .searchResults[index].machineDetails?.length ??
+                                                                  0,
                                                               itemBuilder: (context, i) {
                                                                 return Padding(
                                                                     padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -622,14 +654,16 @@ class CollectionReportScreen extends StatelessWidget {
                                                                           width: Get.width * 0.9,
                                                                           decoration: BoxDecoration(
                                                                               border: Border.all(
-                                                                                  width: 1, color: ColorRes.colorF2F2F2),
+                                                                                  width: 1,
+                                                                                  color: ColorRes.colorF2F2F2),
                                                                               borderRadius: const BorderRadius.only(
                                                                                 topLeft: Radius.circular(10),
                                                                                 topRight: Radius.circular(10),
                                                                               ),
                                                                               color: ColorRes.colorF2F2F2),
                                                                           child: Padding(
-                                                                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                                            padding: const EdgeInsets.symmetric(
+                                                                                horizontal: 10),
                                                                             child: Row(
                                                                               children: [
                                                                                 Expanded(
@@ -683,7 +717,8 @@ class CollectionReportScreen extends StatelessWidget {
                                                                           width: Get.width * 0.9,
                                                                           decoration: BoxDecoration(
                                                                               border: Border.all(
-                                                                                  width: 1, color: ColorRes.colorF2F2F2),
+                                                                                  width: 1,
+                                                                                  color: ColorRes.colorF2F2F2),
                                                                               borderRadius: const BorderRadius.only(
                                                                                 bottomLeft: Radius.circular(10),
                                                                                 bottomRight: Radius.circular(10),
@@ -699,8 +734,10 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                   decoration: BoxDecoration(
                                                                                       image: const DecorationImage(
                                                                                           fit: BoxFit.fill,
-                                                                                          image: AssetImage(AssetRes.photo)),
-                                                                                      borderRadius: BorderRadius.circular(3)),
+                                                                                          image: AssetImage(
+                                                                                              AssetRes.photo)),
+                                                                                      borderRadius:
+                                                                                          BorderRadius.circular(3)),
                                                                                 ),
                                                                                 const SizedBox(
                                                                                   width: 10,
@@ -708,7 +745,8 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                 Expanded(
                                                                                   child: Column(
                                                                                       mainAxisAlignment:
-                                                                                          MainAxisAlignment.spaceBetween,
+                                                                                          MainAxisAlignment
+                                                                                              .spaceBetween,
                                                                                       children: [
                                                                                         Row(
                                                                                           children: [
@@ -717,18 +755,23 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                               child: Text(
                                                                                                 'In',
                                                                                                 style: GoogleFonts.nunito(
-                                                                                                    fontSize: width * 0.036,
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                    color:
-                                                                                                        ColorRes.color030229),
+                                                                                                    fontSize:
+                                                                                                        width * 0.036,
+                                                                                                    fontWeight:
+                                                                                                        FontWeight.w500,
+                                                                                                    color: ColorRes
+                                                                                                        .color030229),
                                                                                               ),
                                                                                             ),
                                                                                             Text(
                                                                                               "\$ ${controller.searchResults[index].machineDetails?[i].current?[0].In}",
                                                                                               style: GoogleFonts.nunito(
-                                                                                                  fontSize: width * 0.034,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: ColorRes.color030229),
+                                                                                                  fontSize:
+                                                                                                      width * 0.034,
+                                                                                                  fontWeight:
+                                                                                                      FontWeight.w500,
+                                                                                                  color: ColorRes
+                                                                                                      .color030229),
                                                                                             ),
                                                                                             SizedBox(
                                                                                               width: Get.width * 0.07,
@@ -736,9 +779,12 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                             Text(
                                                                                               "\$ ${controller.searchResults[index].machineDetails?[i].previous?[0].In}",
                                                                                               style: GoogleFonts.nunito(
-                                                                                                  fontSize: width * 0.034,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: ColorRes.color030229),
+                                                                                                  fontSize:
+                                                                                                      width * 0.034,
+                                                                                                  fontWeight:
+                                                                                                      FontWeight.w500,
+                                                                                                  color: ColorRes
+                                                                                                      .color030229),
                                                                                             ),
                                                                                             SizedBox(
                                                                                               width: Get.width * 0.05,
@@ -746,9 +792,12 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                             Text(
                                                                                               "\$ ${controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].In, controller.searchResults[index].machineDetails?[i].previous?[0].In)}",
                                                                                               style: GoogleFonts.nunito(
-                                                                                                  fontSize: width * 0.034,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: ColorRes.color030229),
+                                                                                                  fontSize:
+                                                                                                      width * 0.034,
+                                                                                                  fontWeight:
+                                                                                                      FontWeight.w500,
+                                                                                                  color: ColorRes
+                                                                                                      .color030229),
                                                                                             ),
                                                                                           ],
                                                                                         ),
@@ -759,18 +808,23 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                               child: Text(
                                                                                                 'Out',
                                                                                                 style: GoogleFonts.nunito(
-                                                                                                    fontSize: width * 0.036,
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                    color:
-                                                                                                        ColorRes.color030229),
+                                                                                                    fontSize:
+                                                                                                        width * 0.036,
+                                                                                                    fontWeight:
+                                                                                                        FontWeight.w500,
+                                                                                                    color: ColorRes
+                                                                                                        .color030229),
                                                                                               ),
                                                                                             ),
                                                                                             Text(
                                                                                               "\$ ${controller.searchResults[index].machineDetails?[i].current?[0].out}",
                                                                                               style: GoogleFonts.nunito(
-                                                                                                  fontSize: width * 0.034,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: ColorRes.color030229),
+                                                                                                  fontSize:
+                                                                                                      width * 0.034,
+                                                                                                  fontWeight:
+                                                                                                      FontWeight.w500,
+                                                                                                  color: ColorRes
+                                                                                                      .color030229),
                                                                                             ),
                                                                                             SizedBox(
                                                                                               width: Get.width * 0.07,
@@ -778,9 +832,12 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                             Text(
                                                                                               "\$ ${controller.searchResults[index].machineDetails?[i].previous?[0].out}",
                                                                                               style: GoogleFonts.nunito(
-                                                                                                  fontSize: width * 0.034,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: ColorRes.color030229),
+                                                                                                  fontSize:
+                                                                                                      width * 0.034,
+                                                                                                  fontWeight:
+                                                                                                      FontWeight.w500,
+                                                                                                  color: ColorRes
+                                                                                                      .color030229),
                                                                                             ),
                                                                                             SizedBox(
                                                                                               width: Get.width * 0.07,
@@ -789,9 +846,12 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                               // "\$ ${ controller.allCollectionData[index].machineDetails?[i].previous?[0].out}",
                                                                                               "\$ ${controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].out, controller.searchResults[index].machineDetails?[i].previous?[0].out)}",
                                                                                               style: GoogleFonts.nunito(
-                                                                                                  fontSize: width * 0.034,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  color: ColorRes.color030229),
+                                                                                                  fontSize:
+                                                                                                      width * 0.034,
+                                                                                                  fontWeight:
+                                                                                                      FontWeight.w500,
+                                                                                                  color: ColorRes
+                                                                                                      .color030229),
                                                                                             ),
                                                                                           ],
                                                                                         ),
@@ -802,34 +862,41 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                               child: Text(
                                                                                                 'Total',
                                                                                                 style: GoogleFonts.nunito(
-                                                                                                    fontSize: width * 0.036,
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                    color:
-                                                                                                        ColorRes.color030229),
+                                                                                                    fontSize:
+                                                                                                        width * 0.036,
+                                                                                                    fontWeight:
+                                                                                                        FontWeight.w500,
+                                                                                                    color: ColorRes
+                                                                                                        .color030229),
                                                                                               ),
                                                                                             ),
                                                                                             Text(
                                                                                               "\$ ${controller.calculateTotalValue(controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].In, controller.searchResults[index].machineDetails?[i].previous?[0].In), controller.calculateTotalValue(controller.searchResults[index].machineDetails?[i].current![0].out, controller.searchResults[index].machineDetails?[i].previous?[0].out))}",
                                                                                               style: GoogleFonts.nunito(
-                                                                                                  fontSize: width * 0.034,
-                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  fontSize:
+                                                                                                      width * 0.034,
+                                                                                                  fontWeight:
+                                                                                                      FontWeight.w500,
                                                                                                   color: (controller.calculateTotalValue(
                                                                                                               controller
                                                                                                                   .searchResults[
                                                                                                                       index]
                                                                                                                   .machineDetails?[
                                                                                                                       i]
-                                                                                                                  .previous?[0]
+                                                                                                                  .previous?[
+                                                                                                                      0]
                                                                                                                   .In,
                                                                                                               controller
                                                                                                                   .searchResults[
                                                                                                                       index]
                                                                                                                   .machineDetails?[
                                                                                                                       i]
-                                                                                                                  .previous?[0]
+                                                                                                                  .previous?[
+                                                                                                                      0]
                                                                                                                   .out) >=
                                                                                                           0)
-                                                                                                      ? ColorRes.color3A974C
+                                                                                                      ? ColorRes
+                                                                                                          .color3A974C
                                                                                                       : Colors.red),
                                                                                             ),
                                                                                             SizedBox(
@@ -856,7 +923,8 @@ class CollectionReportScreen extends StatelessWidget {
                                                         : SizedBox(),
                                                     controller.isViewData[index]
                                                         ? Padding(
-                                                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                                            padding: const EdgeInsets.symmetric(
+                                                                horizontal: 20, vertical: 10),
                                                             child: Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [

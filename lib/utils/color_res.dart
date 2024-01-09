@@ -6,9 +6,10 @@ class ColorRes {
   static const darkBlue = Color(0xFF030229);
   static const grey = Color(0xFF9A9AA9);
   static const yellow = Color(0xFFFFC327);
-  static const lightYellow = Color(0xFFFFF6E0);
+  static const lightYellow = Color(0xFFFFF7E5);
   static const grey2 = Color(0xFF4F4E69);
   static const grey3 = Color(0xFFB3B3BF);
+  static const grey4 = Color(0xFFCECDCD);
   static const green = Color(0xFF3A974C);
   static const lightGreen = Color(0xFFB8FAC6);
   static const pink = Color(0xFFD11A2A);
@@ -16,8 +17,9 @@ class ColorRes {
   static const white = Color(0xFFFFFFFF);
   static const trans = Color(0xFFABC2FC);
   static const tffGrey = Color(0xFFF7F7F8);
+  static const tffGrey2 = Color(0xFFD7D7D7);
   static const orange = Color(0xFFF29339);
-  static const lightOrange = Color(0xFFF8EFE8);
+  static const lightOrange = Color(0xFFFFF6EE);
   static const bgColor = Color(0xFFF2F4F9);
 
   static const black = Color(0xFF000000);
