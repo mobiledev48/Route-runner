@@ -39,6 +39,15 @@ class MachineController extends GetxController {
 
   GetMachinesModel getMachinesModel= GetMachinesModel();
   //List<LocationData> locationsData = [];
+
+
+
+   Map<String, dynamic> data = {
+
+   };
+  //
+  // ];
+
   List<Location> machinesLocationsData = [];
   // List machinesLocationsData = [];
   getMachines({page,search})
