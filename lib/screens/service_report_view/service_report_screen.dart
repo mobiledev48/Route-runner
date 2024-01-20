@@ -94,7 +94,8 @@ class ServiceReportScreen extends StatelessWidget {
                                       child: RefreshIndicator(
                                         onRefresh: () async {
                                           controller.repairServiceReportData.clear();
-                                          await controller.getServiceReport(page: 1);
+                                          controller.currentPage = 1;
+                                          await controller.getServiceReport(page:  controller.currentPage);
                                           controller.update(['service']);
                                         },
                                         child: ListView.builder(

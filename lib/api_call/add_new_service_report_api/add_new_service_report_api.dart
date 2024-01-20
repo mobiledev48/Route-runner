@@ -6,11 +6,15 @@ import 'package:route_runner/api_call/add_new_service_report_api/add_new_service
 import 'package:route_runner/common/pop_up.dart';
 import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
+import 'package:route_runner/screens/service_report_view/service_report_controller.dart';
 import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
 import 'package:route_runner/service/http_services.dart';
 import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';
 import 'package:route_runner/utils/pref_keys.dart';
+
+
+ServiceReportController serviceReportController = Get.put(ServiceReportController());
 
 class CustomerNewServiceReportApi {
   static Future<NewServiceReportModel> customerNewServiceReportApi({
@@ -57,6 +61,10 @@ class CustomerNewServiceReportApi {
         if (decoded["success"] == true) {
           flutterToast(decoded["message"]);
           Get.to(() => ServiceReportScreen());
+          serviceReportController.repairServiceReportData.clear();
+          serviceReportController.currentPage = 1;
+          serviceReportController.getServiceReport(page: serviceReportController.currentPage);
+          serviceReportController.update(['service']);
           return newServiceReportModelFromJson(response.body);
         }
       } else {

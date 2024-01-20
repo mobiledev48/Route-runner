@@ -243,9 +243,9 @@ class CollectionDetailScreen extends StatelessWidget {
                 ).toString(), image: newCollectionController.downloadUrl).then((value) {
                   if(value == false)
                     {
-                      CollectionReportController controller = Get.put(CollectionReportController());
-                      controller.currentPage = 0;
-                      controller.getCollectionReport(page: controller.currentPage);
+                      // CollectionReportController controller = Get.put(CollectionReportController());
+                      // controller.currentPage = 0;
+                      // controller.getCollectionReport(page: controller.currentPage);
                       newCollectionController.locationId = "";
                       newCollectionController.image = null;
                       newCollectionController.locationController.clear();

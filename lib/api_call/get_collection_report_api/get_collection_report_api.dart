@@ -14,7 +14,7 @@ class CustomerGetCollectionReportApi {
         'Cookie': 'refreshToken=${PrefService.getString(PrefKeys.registerToken)}'
       };
 
-      var response = await HttpService.getApi(url:  "${EndPoints.getRepair}${PrefService.getString(PrefKeys.employeeId)}/report?searchLocation=${search ?? ""}&page=${page ?? ""}&limit=${limit ?? ""}",
+      var response = await HttpService.getApi(url:  "${EndPoints.getCollection}${PrefService.getString(PrefKeys.employeeId)}/report?searchLocation=${search ?? ""}&page=${page ?? ""}&limit=${limit ?? ""}",
       header: headers
       );
 

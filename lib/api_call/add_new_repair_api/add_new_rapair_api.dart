@@ -4,12 +4,13 @@ import 'package:http/http.dart' as http;
 import 'package:route_runner/api_call/add_new_repair_api/add_new_repair_model.dart';
 import 'package:route_runner/common/pop_up.dart';
 import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
+import 'package:route_runner/screens/repair/repair_controller.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
 import 'package:route_runner/service/http_services.dart';
 import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';
 import 'package:route_runner/utils/pref_keys.dart';
-
+RepairController repairController = Get.put(RepairController());
 class CustomerNewRepairApi {
   static Future<AddNewRepairModel> customerNewRepairApi({
     required String location,
@@ -55,6 +56,10 @@ class CustomerNewRepairApi {
         if (decoded["success"] == true) {
           flutterToast(decoded["message"]);
           Get.to(() => RepairScreen());
+          repairController.repairReportData.clear();
+          // repairController.currentPage = 1;
+          repairController.getRepair();
+          repairController.update(['location']);
           return addNewRepairModelFromJson(response.body);
         }
       } else {

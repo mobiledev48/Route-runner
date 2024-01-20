@@ -12,7 +12,8 @@ class EndPoints {
   static const addNewServiceReport = "$baseUrl/employee/servicereport/";
   static const getLocation = "$baseUrl/employee/location/";
   static const getMachine = "$baseUrl/employee/machine/";
-  static const getRepair = "$baseUrl/employee/collection/";
+  static const getCollection = "$baseUrl/employee/collection/";
+  static const getRepair = "$baseUrl/employee/employees/";
   static const getServiceReport = "$baseUrl/employee/service/";
   static const lastCollection = "$baseUrl/employee/last-collection/";
   static const locationApi = "$baseUrl/location";

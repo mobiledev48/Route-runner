@@ -33,6 +33,12 @@ class RepairController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    scrollController.dispose(); // Assuming 'controller' is your ScrollController
+    super.dispose();
+  }
+
   int currentPage = 1;
   int limitPerPage = 10;
 
