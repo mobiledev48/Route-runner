@@ -469,15 +469,17 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 ),
                                                                                               ),
                                                                                               Text(
-                                                                                                // '\$ ${controller.calculateAndFormatValue(index, i)}',
-                                                                                                '\$ ${controller.collectionReportData[index].collectionReports?[i].total ?? ""}',
+                                                                                                '\$ ${controller.collectionReportData[index].collectionReports?[i].total?.toString() ?? ""}',
                                                                                                 style: GoogleFonts.nunito(
                                                                                                   fontSize: width * 0.034,
                                                                                                   fontWeight: FontWeight.w500,
-                                                                                                  color: controller
-                                                                                                      .getTextColor(index, i),
+                                                                                                  color: double.parse(controller.collectionReportData[index].collectionReports?[i].total?.toString() ?? "") >= 0
+                                                                                                      ? ColorRes.color3A974C
+                                                                                                      : Colors.red,
                                                                                                 ),
                                                                                               ),
+
+
                                                                                               SizedBox(
                                                                                                 width: Get.width * 0.004,
                                                                                               ),

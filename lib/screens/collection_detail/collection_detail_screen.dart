@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
+import 'package:route_runner/screens/collection_report/collection_report_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
 import 'dart:io';
 import '../../utils/asset_res.dart';
@@ -242,6 +243,9 @@ class CollectionDetailScreen extends StatelessWidget {
                 ).toString(), image: newCollectionController.downloadUrl).then((value) {
                   if(value == false)
                     {
+                      CollectionReportController controller = Get.put(CollectionReportController());
+                      controller.currentPage = 0;
+                      controller.getCollectionReport(page: controller.currentPage);
                       newCollectionController.locationId = "";
                       newCollectionController.image = null;
                       newCollectionController.locationController.clear();
@@ -250,6 +254,7 @@ class CollectionDetailScreen extends StatelessWidget {
                       newCollectionController.auditNumberController.clear();
                       newCollectionController.currentNumberInController.clear();
                       newCollectionController.currentNumberOutController.clear();
+
                     }
             });
             // Get.offAll(CollectionReportScreen());

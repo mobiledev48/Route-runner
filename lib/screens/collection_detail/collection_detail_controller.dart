@@ -46,6 +46,7 @@ class CollectionDetailController extends GetxController {
     update(['collection']);
     update(['newRepair']);
     loader.value = false;
+
     return  loader.value;
   }
   AddNewCollectionModel addNewCollectionModel =AddNewCollectionModel();
