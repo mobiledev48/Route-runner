@@ -8,6 +8,7 @@ import 'package:route_runner/common/common_text_fild.dart';
 import 'package:route_runner/screens/profile_view/profile_controller.dart';
 import 'package:route_runner/utils/asset_res.dart';
 import 'package:route_runner/utils/color_res.dart';
+import 'package:route_runner/utils/pref_keys.dart';
 import 'package:route_runner/utils/strings.dart';
 
 import '../../service/pref_services.dart';
@@ -64,10 +65,16 @@ class ProfileScreen extends StatelessWidget {
                                   style: GoogleFonts.nunito(
                                       fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
                                 ),
-                                Text(
-                                  '',
-                                  style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600),
-                                )
+                                // Text(
+                                //   '',
+                                //   style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600),
+                                // ),
+                                //
+
+                                GestureDetector(onTap:  () {
+                                  profileController.isEditProfile = false;
+                                  profileController.update(['profile']);
+                                },child: Icon(Icons.edit,color: Colors.white,))
                               ]),
                             ),
                           ],
@@ -106,14 +113,30 @@ class ProfileScreen extends StatelessWidget {
                                       SizedBox(
                                         height: Get.height * 0.04,
                                       ),
-                                      CommonTextField(
-                                          color: ColorRes.tffGrey,
-                                          titleText: StringRes.employeeName,
-                                          controller: profileController.employeeController),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: CommonTextField(
+                                              readOnly: profileController.isEditProfile,
+                                                color: ColorRes.tffGrey,
+                                                titleText: StringRes.employeeName,
+                                                controller: profileController.employeeController),
+                                          ),
+                                          SizedBox(width: 5,),
+                                          Expanded(
+                                            child: CommonTextField(
+                                                readOnly: profileController.isEditProfile,
+                                                color: ColorRes.tffGrey,
+                                                titleText: StringRes.employeeLastName,
+                                                controller: profileController.employeeLastNameController),
+                                          ),
+                                        ],
+                                      ),
                                       const SizedBox(
                                         height: 15,
                                       ),
                                       CommonTextField(
+                                          readOnly: profileController.isEditProfile,
                                           color: ColorRes.tffGrey,
                                           titleText: StringRes.enterEmail,
                                           controller: profileController.enterEmailController),
@@ -121,52 +144,70 @@ class ProfileScreen extends StatelessWidget {
                                         height: 15,
                                       ),
                                       CommonTextField(
+                                          readOnly: profileController.isEditProfile,
                                           color: ColorRes.tffGrey,
                                           titleText: StringRes.enterMobile,
                                           controller: profileController.enterMobileController),
                                       SizedBox(
                                         height: Get.height * 0.04,
                                       ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              height: 40,
-                                              width: 180,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                  borderRadius: BorderRadius.all(Radius.circular(10))),
-                                              child: Text(
-                                                StringRes.close,
-                                                style: GoogleFonts.nunito(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorRes.color5B93FF),
+                                      Visibility(
+                                        visible:  !profileController.isEditProfile,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  profileController.isEditProfile = true;
+                                                  profileController.update(['profile']);
+                                                },
+                                                child: Container(
+                                                  height: 40,
+                                                  width: 180,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                  child: Text(
+                                                    StringRes.close,
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorRes.color5B93FF),
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 19,
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              height: 40,
-                                              width: 180,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                  color: ColorRes.color5B93FF,
-                                                  border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                  borderRadius: BorderRadius.all(Radius.circular(10))),
-                                              child: Text(
-                                                StringRes.save,
-                                                style: GoogleFonts.nunito(
-                                                    fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
-                                              ),
+                                            const SizedBox(
+                                              width: 19,
                                             ),
-                                          )
-                                        ],
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  profileController.editProfileApi(email: profileController.enterEmailController.text,
+                                                      firstName: profileController.employeeController.text, lastName: profileController.employeeLastNameController.text, phone: profileController.enterMobileController.text);
+                                                  profileController.isEditProfile = true;
+                                                  profileController.update(['profile']);
+                                                },
+                                                child: Container(
+                                                  height: 40,
+                                                  width: 180,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      color: ColorRes.color5B93FF,
+                                                      border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                  child: Text(
+                                                    StringRes.save,
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                       SizedBox(
                                         height: Get.height * 0.37,
@@ -192,7 +233,8 @@ class ProfileScreen extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   color: Colors.blue,
                                   image: con.image == null
-                                      ? DecorationImage(image: AssetImage(AssetRes.profilePhoto))
+                                      ? PrefService.getString(PrefKeys.userImage) != ""?
+                                  DecorationImage(fit: BoxFit.fill,image: NetworkImage(PrefService.getString(PrefKeys.userImage))):DecorationImage(image: AssetImage(AssetRes.profilePhoto))
                                       : DecorationImage(
                                           fit: BoxFit.fill,
                                           image: FileImage(
@@ -201,7 +243,11 @@ class ProfileScreen extends StatelessWidget {
                                 )),
                             GestureDetector(
                               onTap: () {
-                                profileController.getImageFromCamera();
+                                if(profileController.isEditProfile==false)
+                                  {
+                                    profileController.getImageFromCamera();
+                                  }
+
                                 con.update(['profile']);
                               },
                               child: Container(
@@ -219,6 +265,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Obx(()=> profileController.isLoading.value ? Center(child: CircularProgressIndicator(),):SizedBox())
                     // SizedBox(
                     //   height: 300,
                     // )

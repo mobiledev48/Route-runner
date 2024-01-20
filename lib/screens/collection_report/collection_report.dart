@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import '../../common/appbar.dart';
 import '../../common/common_text_fild.dart';
@@ -57,6 +58,8 @@ class CollectionReportScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () {
+                          NewCollectionController newCollectionController = Get.put(NewCollectionController());
+                          newCollectionController.getLocation();
                           Get.to(NewCollectionScreen());
                         },
                         child: Image.asset(

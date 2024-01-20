@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/utils/color_res.dart';
@@ -11,6 +12,7 @@ class CommonTextField extends StatelessWidget {
   String? titleText;
   String? hintText;
   String? suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
   double? suffixIconSize;
   int? maxLines;
   double? containerHeight;
@@ -34,6 +36,7 @@ class CommonTextField extends StatelessWidget {
       this.suffixIcon,
       this.titleText,
       this.controller,
+        this.inputFormatters,
       this.readOnly,
       this.type,
       this.onChanged,
@@ -81,6 +84,7 @@ class CommonTextField extends StatelessWidget {
           child: TextField(
               onChanged: onChanged,
               keyboardType: type,
+              inputFormatters: inputFormatters,
               maxLines: maxLines ?? 1,
               controller: controller,
               readOnly: readOnly ?? false,

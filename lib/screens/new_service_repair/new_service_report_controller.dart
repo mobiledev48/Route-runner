@@ -1,12 +1,15 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:route_runner/api_call/add_new_service_report_api/add_new_service_report_model.dart';
 import 'package:route_runner/model/location_model.dart';
 
+import '../../api_call/add_new_service_report_api/add_new_service_report_api.dart';
 import '../../utils/strings.dart';
 
 class NewServiceReportController extends GetxController {
@@ -15,7 +18,7 @@ class NewServiceReportController extends GetxController {
 
   List<Location>? filteredLocations = [];
   LocationModel? locationModel;
-
+  String data = "";
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController machineNumberController = TextEditingController();
@@ -36,6 +39,7 @@ class NewServiceReportController extends GetxController {
 
     if (picked != null && picked != DateTime.now()) {
       dateController.text = DateFormat('dd MMM, yyyy').format(picked);
+      data = DateFormat('yyyy-MM-dd').format(picked);
       // Handle the selected date, e.g., update a variable or display it
       print('Selected date: ${dateController.text}');
     }
@@ -58,14 +62,54 @@ class NewServiceReportController extends GetxController {
     }
     update(['newRepair']);
   }
+  NewServiceReportModel newServiceReportModel = NewServiceReportModel();
 
+
+  Future<bool> addNewServiceRepair({required String machineNumber,
+    required String serialNumber,
+    required String auditNumber,
+    required String date,
+    required String time,
+    required String employeeName,
+    required String serviceRequested,
+    required String image,
+  })
+  async {
+    loader.value = true;
+    newServiceReportModel =  await CustomerNewServiceReportApi.customerNewServiceReportApi(machineNumber: machineNumber,
+      serialNumber: serialNumber,
+      auditNumber: auditNumber,
+      date: date,
+      time: time, employeeName: employeeName, serviceRequested: serviceRequested, image: image,);
+
+    loader.value = false;
+    return  loader.value;
+  }
+
+  String  downloadUrl = "";
   File? image;
   final ImagePicker picker = ImagePicker();
+  final FirebaseStorage _storage = FirebaseStorage.instance;
   Future<void> getImageFromCamera() async {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
-
+    loader.value = true;
     if (photo != null) {
+
       image = File(photo.path);
+      if(image != null)
+      {
+        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+        Reference storageReference = _storage.ref().child('images/$fileName');
+
+        UploadTask uploadTask = storageReference.putFile(image!);
+
+        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+        downloadUrl = await taskSnapshot.ref.getDownloadURL();
+        print("downloadUrl ---------->$downloadUrl");
+        loader.value = false;
+      }
     }
     update(['newRepair']);
   }

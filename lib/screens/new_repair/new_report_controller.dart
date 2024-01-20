@@ -1,12 +1,17 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:route_runner/api_call/add_new_repair_api/add_new_repair_model.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
 import 'package:route_runner/model/location_model.dart';
 
+import '../../api_call/add_new_repair_api/add_new_rapair_api.dart';
 import '../../utils/strings.dart';
 
 class NewReportController extends GetxController {
@@ -15,8 +20,12 @@ class NewReportController extends GetxController {
 
   List<Location>? filteredLocations = [];
   LocationModel? locationModel;
+  String locationError = "";
+
+  String data = "";
 
   TextEditingController dateController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController machineNumberController = TextEditingController();
   TextEditingController auditNumberController = TextEditingController();
@@ -24,6 +33,59 @@ class NewReportController extends GetxController {
   TextEditingController issueController = TextEditingController();
   TextEditingController enterSerialNumberController = TextEditingController();
   TextEditingController enterCurrentNumberController = TextEditingController();
+  AddNewRepairModel  addNewRepairModel  = AddNewRepairModel();
+
+  Future<bool> addNewRepair({
+    required String location,
+    required String machineNumber,
+    required String serialNumber,
+    required String auditNumber,
+    required String date,
+    required String time,
+    required String reporterName,
+    required String issue,
+    required String image,
+  })
+  async {
+    loader.value = true;
+    addNewRepairModel =  await CustomerNewRepairApi.customerNewRepairApi(location: location,machineNumber: machineNumber,
+      serialNumber: serialNumber,
+      auditNumber: auditNumber,
+      date: date,
+      time: time, reporterName: reporterName, issue: issue, image: image,);
+
+    loader.value = false;
+    return  loader.value;
+  }
+  bool isClick = false;
+  String  locationId = "";
+  GetLocationModel getLocationModel= GetLocationModel();
+  List<LocationsData> locationsData = [];
+  getLocation({page,search})
+  async {
+    loader.value = true;
+    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page,search: search);
+
+
+    locationsData.addAll(getLocationModel.locations ?? []);
+    locationsData = locationsData.toSet().toList();
+
+
+
+    update(['collection']);
+    //  locationsData.addAll(getLocationModel.locations ?? []);
+    loader.value = false;
+  }
+
+  locationValidation() {
+    if (locationController.text.trim() == "") {
+      locationError = StringRes.pleaseSelectLocation;
+    } else {
+      locationError = '';
+    }
+    update(['collection']);
+  }
+
 
   /// select date function
   Future<void> selectDate(BuildContext context) async {
@@ -36,6 +98,7 @@ class NewReportController extends GetxController {
 
     if (picked != null && picked != DateTime.now()) {
       dateController.text = DateFormat('dd MMM, yyyy').format(picked);
+      data = DateFormat('yyyy-MM-dd').format(picked);
       // Handle the selected date, e.g., update a variable or display it
       print('Selected date: ${dateController.text}');
     }
@@ -58,14 +121,30 @@ class NewReportController extends GetxController {
     }
     update(['newRepair']);
   }
-
+  String  downloadUrl = "";
   File? image;
   final ImagePicker picker = ImagePicker();
+  final FirebaseStorage _storage = FirebaseStorage.instance;
   Future<void> getImageFromCamera() async {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
-
+    loader.value = true;
     if (photo != null) {
+
       image = File(photo.path);
+      if(image != null)
+      {
+        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+        Reference storageReference = _storage.ref().child('images/$fileName');
+
+        UploadTask uploadTask = storageReference.putFile(image!);
+
+        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+        downloadUrl = await taskSnapshot.ref.getDownloadURL();
+        print("downloadUrl ---------->$downloadUrl");
+        loader.value = false;
+      }
     }
     update(['newRepair']);
   }
@@ -164,7 +243,8 @@ class NewReportController extends GetxController {
 
   validation() {
     val();
-    if (machineError == '' &&
+    if ( locationError == '' &&
+        machineError == '' &&
         serialError == '' &&
         auditError == '' &&
         dateError == '' &&

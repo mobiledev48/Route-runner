@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:route_runner/api_call/auth/signIn_api/sign_in_api.dart';
+import 'package:route_runner/api_call/auth/signIn_api/sign_in_model.dart';
+import 'package:route_runner/service/pref_services.dart';
+import 'package:route_runner/utils/pref_keys.dart';
 import '../../common/common_text_fild.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
@@ -15,8 +19,27 @@ class AdminController extends GetxController {
   bool isClick = false;
   String emailError = "";
   String passwordError = "";
+  SignInModel signInModel = SignInModel();
+  RxBool isLoading = false.obs;
+
+
+ Future signInApi({email,password})
+  async {
+    isLoading.value = true;
+    signInModel =  await CustomerSignInApi.customerSignInApi(email: email,password: password);
+    PrefService.setValue(PrefKeys.registerToken, signInModel.token);
+    PrefService.setValue(PrefKeys.firstName, signInModel.firstname);
+    PrefService.setValue(PrefKeys.lastName, signInModel.lastname);
+    PrefService.setValue(PrefKeys.email, signInModel.email);
+    PrefService.setValue(PrefKeys.employeeId, signInModel.id);
+    PrefService.setValue(PrefKeys.mobileNumber, signInModel.phone);
+    PrefService.setValue(PrefKeys.userImage, signInModel.image);
+    isLoading.value = false;
+  }
+
 
   emailValidation() {
+    update(['logIn']);
     if (emailController.text.trim() == "") {
       // errorToast(StringRes.enterEmailError.tr);
       emailError = StringRes.enterEmailError.tr;
@@ -35,6 +58,7 @@ class AdminController extends GetxController {
         return false;
       }
     }
+
   }
 
   passwordValidation() {

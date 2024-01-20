@@ -23,49 +23,58 @@ class AdminScreen extends StatelessWidget {
           FocusScope.of(context).unfocus();
         },
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: GetBuilder<AdminController>(
-              id: 'admin',
-              builder: (controller) {
-                return Column(
-                  children: [
-                    const SizedBox(
-                      height: 60,
-                    ),
-                    Center(
-                      child: Image.asset(
-                        AssetRes.splashLogo,
-                        color: ColorRes.mainColor,
-                        scale: 5,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Text(StringRes.RRlogin, style: logoStyle()),
-                    ),
-                    adminController.formView(),
-                    CustomCheckbox(),
-                    const SizedBox(
-                      height: 27,
-                    ),
-                    Button(
-                      height: 50,
-                      width: 321,
-                      onpressed: () {
-                        FocusScope.of(context).unfocus();
-                        if (adminController.validator()) {
-                          Get.to(() => DashBoardScreen());
-                          PrefService.setValue(PrefKeys.login, true);
-                        }
-                      },
-                    )
-                  ],
-                );
-              },
-            ),
+          child: Stack(alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30),
+                child: GetBuilder<AdminController>(
+                  id: 'admin',
+                  builder: (controller) {
+                    return Column(
+                      children: [
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        Center(
+                          child: Image.asset(
+                            AssetRes.splashLogo,
+                            color: ColorRes.mainColor,
+                            scale: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: Text(StringRes.RRlogin, style: logoStyle()),
+                        ),
+                        adminController.formView(),
+                        CustomCheckbox(),
+                        const SizedBox(
+                          height: 27,
+                        ),
+                        Button(
+                          height: 50,
+                          width: 321,
+                          onpressed: () {
+                            FocusScope.of(context).unfocus();
+                            if (adminController.validator()) {
+                              controller.signInApi(email: controller.emailController.text,password:   controller.passwordController.text).then((value) {
+                                // controller.emailController.clear();
+                                // controller.passwordController.clear();
+                              });
+
+                              // PrefService.setValue(PrefKeys.login, true);
+                            }
+                          },
+                        )
+                      ],
+                    );
+                  },
+                ),
+              ),
+              Obx(()=> adminController.isLoading.value ? Center(child: CircularProgressIndicator(),):SizedBox())
+            ],
           ),
         ),
       ),

@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
 import 'package:route_runner/model/location_model.dart';
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 
@@ -24,6 +27,7 @@ class NewCollectionController extends GetxController {
 // =======
   TextEditingController machineNumberController = TextEditingController();
   TextEditingController auditNumberController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
   TextEditingController previousNumberInController = TextEditingController();
   TextEditingController previousNumberOutController = TextEditingController();
   TextEditingController currentNumberInController = TextEditingController();
@@ -31,22 +35,59 @@ class NewCollectionController extends GetxController {
   TextEditingController enterSerialNumberController = TextEditingController();
   TextEditingController totalController = TextEditingController();
 
+  String  downloadUrl = "";
+  String  locationId = "";
   File? image;
   final ImagePicker picker = ImagePicker();
+  final FirebaseStorage _storage = FirebaseStorage.instance;
   Future<void> getImageFromCamera() async {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
-
+    loader.value = true;
     if (photo != null) {
       image = File(photo.path);
+      if(image != null)
+      {
+        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+        Reference storageReference = _storage.ref().child('images/$fileName');
+
+        UploadTask uploadTask = storageReference.putFile(image!);
+
+        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+        downloadUrl = await taskSnapshot.ref.getDownloadURL();
+        print("downloadUrl ---------->$downloadUrl");
+        loader.value = false;
+      }
     }
     update(['collection']);
   }
+
+  GetLocationModel getLocationModel= GetLocationModel();
+  List<LocationsData> locationsData = [];
+  getLocation({page,search})
+  async {
+    loader.value = true;
+    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page,search: search);
+
+
+        locationsData.addAll(getLocationModel.locations ?? []);
+
+
+
+
+    update(['collection']);
+    //  locationsData.addAll(getLocationModel.locations ?? []);
+    loader.value = false;
+  }
+
 
   List machineType = ['4652387645', '876366756', '9576315760'];
 
   String machineError = "";
   String serialError = "";
   String auditError = "";
+  String locationError = "";
   String inPreviousError = "";
   String inCurrentError = "";
   String outPreviousError = "";
@@ -73,6 +114,16 @@ class NewCollectionController extends GetxController {
     }
     update(['collection']);
   }
+
+  locationValidation() {
+    if (locationController.text.trim() == "") {
+      locationError = StringRes.pleaseSelectLocation;
+    } else {
+      locationError = '';
+    }
+    update(['collection']);
+  }
+
 
   serialValidation() {
     if (enterSerialNumberController.text.trim() == "") {
@@ -138,6 +189,7 @@ class NewCollectionController extends GetxController {
   }
 
   val() async {
+    locationValidation();
     machineValidation();
     serialValidation();
     auditValidation();

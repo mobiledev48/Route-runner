@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
 import 'package:route_runner/model/location_model.dart';
 import 'package:route_runner/service/http_services.dart';
 import 'package:route_runner/service/pref_services.dart';
@@ -21,15 +23,39 @@ class LocationController extends GetxController {
   //---old
   RxBool loader = false.obs;
   ScrollController scrollController = ScrollController();
-
+  int currentPage = 1;
+  int limitPerPage = 10;
   List<Location>? filteredLocations = [];
   LocationModel? locationModel;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     locationApi(Get.context!);
     //debugPrint("$locationModel");
-
+    await getLocation(page: currentPage);
+    scrollController.addListener(() {
+      upcomingPagination();
+    });
     super.onInit();
+  }
+
+  GetLocationModel getLocationModel= GetLocationModel();
+  List<LocationsData> locationsData = [];
+  getLocation({page,search})
+  async {
+    loader.value = true;
+    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page,limit: limitPerPage,search: search);
+    if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
+      currentPage++;
+
+      for (int i = 0; i < getLocationModel.locations!.length; i++) {
+        locationsData.addAll(getLocationModel.locations ?? []);
+        print("=======================================${locationsData}");
+      }
+      locationsData.toSet().toList();
+    }
+    update(['location']);
+  //  locationsData.addAll(getLocationModel.locations ?? []);
+    loader.value = false;
   }
 
   String searchTerm = 'Moonlight'; // Change this to your desired search term
@@ -58,6 +84,18 @@ class LocationController extends GetxController {
     }).toList();
     update();
   }
+
+  upcomingPagination() async {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      if (loader.value != true) {
+        await getLocation(page: currentPage);
+      }
+    }
+    update(['location']);
+  }
+
+
 
   locationApi(BuildContext context) async {
     loader.value = true;

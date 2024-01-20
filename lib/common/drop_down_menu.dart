@@ -11,14 +11,14 @@ import '../utils/text_style.dart';
 
 Widget DropDownMenu() {
   return PopupMenuButton(
-    clipBehavior: Clip.none,
+    // clipBehavior: Clip.none,
 
     // enableFeedback: true,
     enabled: true,
     color: ColorRes.white,
     // splashRadius: 20,
     offset: Offset(0, 10),
-    surfaceTintColor: ColorRes.white,
+    // surfaceTintColor: ColorRes.white,
     padding: EdgeInsets.zero,
 
     constraints: BoxConstraints(

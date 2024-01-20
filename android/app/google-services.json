@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "770365062515",
+    "project_id": "route-runner-9fb1d",
+    "storage_bucket": "route-runner-9fb1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770365062515:android:0d213db9f6b276de5f1906",
+        "android_client_info": {
+          "package_name": "com.example.route_runner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt4xQpYoDogOiPDgisotAHFnkv6kx-3sk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -77,7 +77,8 @@ class StringRes {
   static const dashBoard = "DashBoard";
 
   ///-----------------------------------------Profile------------------------------------------------
-  static const employeeName = "Employee Name";
+  static const employeeName = "First Name";
+  static const employeeLastName = "Last Name";
   static const enterEmail = "Enter Email";
   static const enterMobile = "Enter Mobile";
   static const close = "Close";
@@ -94,6 +95,7 @@ class StringRes {
   static const enterCurrentNumber = "0";
   static const collect = "Collect";
   static const machineError = "Enter machine number";
+  static const pleaseSelectLocation = "Please select location";
   static const serialError = "Enter serial number";
   static const auditError = "Enter audit number";
   static const machineTypeError = "Enter Machine Type";
@@ -101,6 +103,7 @@ class StringRes {
   static const currentError = "Enter current number";
   static const totalError = "Enter total";
   static const machineType = "Machine Type";
+  static const enterCurrentAuditNumber = "Enter current Audit Number";
 
   ///---------------------------------------- New Service Report ----------------------------------------
 

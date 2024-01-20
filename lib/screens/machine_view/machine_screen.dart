@@ -56,6 +56,7 @@ class MachineScreen extends StatelessWidget {
                   controller.searchController.text.isEmpty
                       ? Expanded(
                           child: ListView.builder(
+                            controller: controller.scrollController,
                               itemCount: machineAllData.length,
                               itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.only(top: 10),

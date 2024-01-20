@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Row(
+                       const Row(
                         children: [
                           AppbarContainer(
                             bgColor: ColorRes.lightBlue,
@@ -177,9 +177,9 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10, top: 15),
-                              child: Expanded(
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10, top: 15),
                                 child: Text(
                                   StringRes.recentCollection,
                                   style: commonTitle().copyWith(fontWeight: FontWeight.w700, fontSize: width * 0.042),
@@ -190,12 +190,10 @@ class HomeScreen extends StatelessWidget {
                               width: Get.width * 0.34,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 15),
-                              child: Expanded(
-                                child: Image.asset(
-                                  AssetRes.menu,
-                                  scale: 3,
-                                ),
+                              padding: const EdgeInsets.only(left: 20, top: 15,right: 10),
+                              child: Image.asset(
+                                AssetRes.menu,
+                                scale: 3,
                               ),
                             ),
                           ],

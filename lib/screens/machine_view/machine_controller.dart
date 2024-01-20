@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:route_runner/api_call/get_machine_api/get_machine_api.dart';
+import 'package:route_runner/api_call/get_machine_api/get_machine_model.dart';
 import 'package:route_runner/utils/color_res.dart';
 
 import '../collection_report/collection_report_controller.dart';
 
 class MachineController extends GetxController {
   TextEditingController searchController = TextEditingController();
-
+  RxBool loader = false.obs;
+  ScrollController scrollController = ScrollController();
   String searchTerm = 'Moonlight'; // Change this to your desired search term
   List<allData> searchResults = [];
   List<allData> searchAllData(String query) {
@@ -17,6 +20,58 @@ class MachineController extends GetxController {
           allData.active.toLowerCase().contains(query);
     }).toList();
   }
+
+  int currentPage = 1;
+  int limitPerPage = 10;
+
+  @override
+  Future<void> onInit() async {
+    // TODO: implement onInit
+    super.onInit();
+    // getMachines();
+
+    await getMachines(page: currentPage);
+    scrollController.addListener(() {
+      upcomingPagination();
+    });
+  }
+
+
+  GetMachinesModel getMachinesModel= GetMachinesModel();
+  //List<LocationData> locationsData = [];
+  List<MachinesLocations> machinesLocationsData = [];
+  // List machinesLocationsData = [];
+  getMachines({page})
+  async {
+    loader.value = true;
+    getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(page: page,limit: limitPerPage);
+    if (getMachinesModel.locations != null && getMachinesModel.locations!.isNotEmpty) {
+      currentPage++;
+
+      for (int i = 0; i < getMachinesModel.locations!.length; i++) {
+        machinesLocationsData.addAll(getMachinesModel.locations ?? []);
+        print("=======================================${machinesLocationsData}");
+      }
+      machinesLocationsData.toSet().toList();
+    }
+      update(['location']);
+    loader.value = false;
+  }
+
+
+  upcomingPagination() async {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      if (loader.value != true) {
+        await getMachines(page: currentPage);
+      }
+    }
+    update(['location']);
+  }
+
+
+
+
 }
 
 class allData {
