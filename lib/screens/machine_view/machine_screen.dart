@@ -67,7 +67,8 @@ class MachineScreen extends StatelessWidget {
                                 // itemCount: machineAllData.length,
                                 physics: AlwaysScrollableScrollPhysics(),
                                 itemCount: controller.machinesLocationsData.length,
-                                itemBuilder: (context, index) => Padding(
+                                itemBuilder: (context, index) =>
+                                    Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: Container(
                                         width: Get.width,
@@ -96,19 +97,20 @@ class MachineScreen extends StatelessWidget {
                                                           SizedBox(
                                                             width: Get.width * 0.24,
                                                             child: Text(
-                                                               // controller.machinesLocationsData[index].machines?[0].employees?[0].firstname ?? '' ,
-                                                               machineAllData[index].subtitle,
+                                                               controller.machinesLocationsData[index].machines?[0].employees?[0].firstname ?? '' ,
+                                                               // machineAllData[index].subtitle,
                                                                 overflow: TextOverflow.ellipsis, style: subTitle()
                                                                 // GoogleFonts.nunito(
                                                                 //     fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
                                                                 ),
                                                           ),
                                                           const SizedBox(height: 5),
-                                                          // Text('SN: #${controller.machinesLocationsData[index].machines?[index].machineNumber?.substring(0,2) ?? ""}-${controller.machinesLocationsData[index].machines?[index].serialNumber ?? ""}')
-                                                          Text('SN: #${index + 1}-654184', style: subTitle()
-                                                              // GoogleFonts.nunito(
-                                                              //     fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
-                                                              )
+
+                                                          Text('SN: #${controller.machinesLocationsData[index].machines?[0].machineNumber?.substring(0,2) ?? ""}-${controller.machinesLocationsData[index].machines?[0].serialNumber ?? ""}')
+                                                          // Text('SN: #${index + 1}-654184', style: subTitle()
+                                                          //     // GoogleFonts.nunito(
+                                                          //     //     fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
+                                                          //     )
                                                         ,
                                                         ],
                                                       ),
@@ -165,14 +167,19 @@ class MachineScreen extends StatelessWidget {
                                               width: Get.width * 0.2,
                                               margin: EdgeInsets.only(top: 10),
                                               decoration: BoxDecoration(
-                                                color: machineAllData[index].color,
+                                                color: machineController.machinesLocationsData[index].activeStatus == "Active"? ColorRes.green.withOpacity(0.10) : machineController.machinesLocationsData[index].activeStatus == "In Service" ? ColorRes.yellow : ColorRes.red.withOpacity(0.10)
+,
+                                            //    color: machineAllData[index].color,
                                                 borderRadius: BorderRadius.circular(30),
                                               ),
                                               child: Center(
                                                   child: Text(
-                                                machineAllData[index].active,
+                                                    machineController.machinesLocationsData[index].activeStatus ?? "",
+                                               // machineAllData[index].active,
                                                 style: TextStyle(
-                                                    color: machineAllData[index].iconColor, fontSize: width * 0.034),
+                                                 // color: machineAllData[index].iconColor, fontSize: width * 0.034
+                                                  color: machineController.machinesLocationsData[index].activeStatus == "Active"? ColorRes.green : machineController.machinesLocationsData[index].activeStatus == "In Service" ? ColorRes.yellow : ColorRes.red.withOpacity(0.10)
+                                                ),
                                               )),
                                             ),
                                           ],
