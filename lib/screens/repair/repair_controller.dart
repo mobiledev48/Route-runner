@@ -64,7 +64,6 @@ class RepairController extends GetxController {
 
 
   List<RepairReports> repairReportData = [];
-
   upcomingPagination() async {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
