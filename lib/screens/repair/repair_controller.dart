@@ -17,7 +17,7 @@ class RepairController extends GetxController {
           allData.subtitle.toLowerCase().contains(query) ||
           allData.active.toLowerCase().contains(query);
     }).toList();
-  }
+}
 
   GetRepairsModel getRepairsModel= GetRepairsModel();
   //List<LocationData> locationsData = [];

@@ -5,7 +5,7 @@ import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';
 import 'package:route_runner/utils/pref_keys.dart';
 class CustomerGetMachineApi {
-  static customerGetMachineApi({page,limit}) async {
+  static customerGetMachineApi({page,limit,search}) async {
     try {
       var headers = {
         'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ class CustomerGetMachineApi {
         'Cookie': 'refreshToken=${PrefService.getString(PrefKeys.registerToken)}'
       };
 
-      var response = await HttpService.getApi(url:  "${EndPoints.getMachine}${PrefService.getString(PrefKeys.employeeId)}?page=$page&limit=$limit",
+      var response = await HttpService.getApi(url:  "${EndPoints.getMachine}${PrefService.getString(PrefKeys.employeeId)}?page=$page&limit=$limit&searchLocation= ${search ?? ''}",
       header: headers
       );
 

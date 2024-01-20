@@ -17,7 +17,10 @@ import 'package:route_runner/utils/strings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+
+    options: FirebaseOptions(apiKey: 'AIzaSyAt4xQpYoDogOiPDgisotAHFnkv6kx-3sk', appId: '1:770365062515:android:0d213db9f6b276de5f1906', messagingSenderId: '770365062515', projectId: 'route-runner-9fb1d')
+  );
   await PrefService.init();
   runApp(const MyApp());
 }
@@ -25,7 +28,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  //This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

@@ -13,7 +13,7 @@ class MachineController extends GetxController {
   String searchTerm = 'Moonlight'; // Change this to your desired search term
   List<allData> searchResults = [];
   List<allData> searchAllData(String query) {
-    query = query.toLowerCase();
+  query = query.toLowerCase();
     return machineAllData.where((allData) {
       return allData.title.toLowerCase().contains(query) ||
           allData.subtitle.toLowerCase().contains(query) ||
@@ -41,10 +41,10 @@ class MachineController extends GetxController {
   //List<LocationData> locationsData = [];
   List<MachinesLocations> machinesLocationsData = [];
   // List machinesLocationsData = [];
-  getMachines({page})
+  getMachines({page,search})
   async {
     loader.value = true;
-    getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(page: page,limit: limitPerPage);
+    getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(page: page,limit: limitPerPage,search: search);
     if (getMachinesModel.locations != null && getMachinesModel.locations!.isNotEmpty) {
       currentPage++;
 

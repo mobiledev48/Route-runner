@@ -48,7 +48,8 @@ class MachineScreen extends StatelessWidget {
                     controller: machineController.searchController,
                     onChanged: (value) {
                       machineController.searchTerm = 'Moonlight';
-                      machineController.searchResults = machineController.searchAllData(value);
+                      machineController.getMachines(page: 1, search: value);
+                      // machineController.searchResults = machineController.searchAllData(value);
                       print(machineController.searchResults);
                       machineController.update(['location']);
                     },
