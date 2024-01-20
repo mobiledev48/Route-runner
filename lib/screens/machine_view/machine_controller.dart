@@ -50,6 +50,8 @@ class MachineController extends GetxController {
 
       for (int i = 0; i < getMachinesModel.locations!.length; i++) {
         machinesLocationsData.addAll(getMachinesModel.locations ?? []);
+
+        // print("-------------------------------${machinesLocationsData[0].machines?[0].employees?[0].firstname}");
         print("=======================================${machinesLocationsData}");
       }
       machinesLocationsData.toSet().toList();

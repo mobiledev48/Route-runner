@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Nunito',
         primarySwatch: Colors.blue,
       ),
-      home: DashBoardScreen(),
+      home: const SplashScreen(),
     );
   }
 }
