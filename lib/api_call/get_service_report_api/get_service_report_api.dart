@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:route_runner/api_call/get_repairs_api/get_repairs_model.dart';
+import 'package:route_runner/api_call/get_service_report_api/get_service_report_model.dart';
 import 'package:route_runner/service/http_services.dart';
 import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';
 import 'package:route_runner/utils/pref_keys.dart';
 class CustomerGetServiceReportApi {
-  static customerGetServiceReportApi() async {
+  static customerGetServiceReportApi({search,page,limit}) async {
     try {
       var headers = {
         'Content-Type': 'application/json',
@@ -13,7 +14,7 @@ class CustomerGetServiceReportApi {
         'Cookie': 'refreshToken=${PrefService.getString(PrefKeys.registerToken)}'
       };
 
-      var response = await HttpService.getApi(url:  "${EndPoints.getRepair}${PrefService.getString(PrefKeys.employeeId)}/repairs",
+      var response = await HttpService.getApi(url:  "${EndPoints.getServiceReport}${PrefService.getString(PrefKeys.employeeId)}/report?searchService=${search ?? ""}&page=${page ?? ""}&limit=${limit ?? ""}",
       header: headers
       );
 
@@ -25,17 +26,17 @@ class CustomerGetServiceReportApi {
         if (decoded["success"] == true) {
 
 
-          return getRepairsModelFromJson(response.body);
+          return getServiceReportModelFromJson(response.body);
         }
       } else {
         // Handle other status codes if needed
         print("HTTP Status Code: ${response?.statusCode}");
       }
-      return GetRepairsModel();
+      return GetServiceReportModel();
     } catch (e, stackTrace) {
       print("Error: $e");
       print("Stack Trace: $stackTrace");
-      return GetRepairsModel();
+      return GetServiceReportModel();
     }
   }
 }

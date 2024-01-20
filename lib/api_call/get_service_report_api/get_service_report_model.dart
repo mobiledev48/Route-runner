@@ -4,91 +4,98 @@
 
 import 'dart:convert';
 
-GetRepairsModel getRepairsModelFromJson(String str) => GetRepairsModel.fromJson(json.decode(str));
+GetServiceReportModel getServiceReportModelFromJson(String str) => GetServiceReportModel.fromJson(json.decode(str));
 
-String getRepairsModelToJson(GetRepairsModel data) => json.encode(data.toJson());
+String getServiceReportModelToJson(GetServiceReportModel data) => json.encode(data.toJson());
 
-class GetRepairsModel {
+class GetServiceReportModel {
   bool? success;
   String? message;
-  List<RepairReports>? repairReports;
+  List<ServiceReports>? serviceReports;
+  int? totalPages;
+  int? currentPage;
 
-  GetRepairsModel({this.success, this.message, this.repairReports});
+  GetServiceReportModel(
+      {this.success,
+        this.message,
+        this.serviceReports,
+        this.totalPages,
+        this.currentPage});
 
-  GetRepairsModel.fromJson(Map<String, dynamic> json) {
+  GetServiceReportModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    if (json['repairReports'] != null) {
-      repairReports = <RepairReports>[];
-      json['repairReports'].forEach((v) {
-        repairReports!.add(new RepairReports.fromJson(v));
+    if (json['serviceReports'] != null) {
+      serviceReports = <ServiceReports>[];
+      json['serviceReports'].forEach((v) {
+        serviceReports!.add(new ServiceReports.fromJson(v));
       });
     }
+    totalPages = json['totalPages'];
+    currentPage = json['currentPage'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
     data['message'] = this.message;
-    if (this.repairReports != null) {
-      data['repairReports'] =
-          this.repairReports!.map((v) => v.toJson()).toList();
+    if (this.serviceReports != null) {
+      data['serviceReports'] =
+          this.serviceReports!.map((v) => v.toJson()).toList();
     }
+    data['totalPages'] = this.totalPages;
+    data['currentPage'] = this.currentPage;
     return data;
   }
 }
 
-class RepairReports {
-  String? statusOfRepair;
+class ServiceReports {
   String? sId;
   String? machineNumber;
   String? serialNumber;
   String? auditNumber;
   String? date;
   String? time;
-  String? reporterName;
-  String? issue;
+  String? employeeName;
+  String? serviceRequested;
   String? image;
   int? iV;
 
-  RepairReports(
-      {this.statusOfRepair,
-        this.sId,
+  ServiceReports(
+      {this.sId,
         this.machineNumber,
         this.serialNumber,
         this.auditNumber,
         this.date,
         this.time,
-        this.reporterName,
-        this.issue,
+        this.employeeName,
+        this.serviceRequested,
         this.image,
         this.iV});
 
-  RepairReports.fromJson(Map<String, dynamic> json) {
-    statusOfRepair = json['statusOfRepair'];
+  ServiceReports.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     machineNumber = json['machineNumber'];
     serialNumber = json['serialNumber'];
     auditNumber = json['auditNumber'];
     date = json['date'];
     time = json['time'];
-    reporterName = json['reporterName'];
-    issue = json['issue'];
+    employeeName = json['employeeName'];
+    serviceRequested = json['serviceRequested'];
     image = json['image'];
     iV = json['__v'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['statusOfRepair'] = this.statusOfRepair;
     data['_id'] = this.sId;
     data['machineNumber'] = this.machineNumber;
     data['serialNumber'] = this.serialNumber;
     data['auditNumber'] = this.auditNumber;
     data['date'] = this.date;
     data['time'] = this.time;
-    data['reporterName'] = this.reporterName;
-    data['issue'] = this.issue;
+    data['employeeName'] = this.employeeName;
+    data['serviceRequested'] = this.serviceRequested;
     data['image'] = this.image;
     data['__v'] = this.iV;
     return data;

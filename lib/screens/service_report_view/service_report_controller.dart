@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:route_runner/api_call/get_service_report_api/get_service_report_api.dart';
+import 'package:route_runner/api_call/get_service_report_api/get_service_report_model.dart';
 import 'package:route_runner/model/location_model.dart';
 import 'package:route_runner/service/http_services.dart';
 import 'package:route_runner/service/pref_services.dart';
@@ -24,8 +26,12 @@ class ServiceReportController extends GetxController {
   List<Location>? filteredLocations = [];
   LocationModel? locationModel;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     locationApi(Get.context!);
+    await getServiceReport(page: currentPage);
+    scrollController.addListener(() {
+      upcomingPagination();
+    });
     //debugPrint("$locationModel");
     super.onInit();
   }
@@ -45,58 +51,9 @@ class ServiceReportController extends GetxController {
 
   void clickableContainer() {
     isClick = !isClick;
-    update(['location']);
+    update(['service']);
   }
 
-  // Widget customDropDown() {
-  //   return Container(
-  //     height: Get.height * 0.13,
-  //     width: Get.width * 0.4,
-  //     decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightBlue),
-  //     child: Column(
-  //       children: [
-  //         SizedBox(height: 10),
-  //         Container(
-  //           height: 30,
-  //           width: 120,
-  //           decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightYellow),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //             children: [
-  //               Image.asset(
-  //                 AssetRes.pin,
-  //                 scale: 3,
-  //               ),
-  //               Text(
-  //                 'Change Status',
-  //                 style: commonSubtitle(),
-  //               )
-  //             ],
-  //           ),
-  //         ),
-  //         SizedBox(height: 10),
-  //         Container(
-  //           height: 30,
-  //           width: 120,
-  //           decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.grey),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //             children: [
-  //               Image.asset(
-  //                 AssetRes.list,
-  //                 scale: 3,
-  //               ),
-  //               Text(
-  //                 'List of machine',
-  //                 style: commonSubtitle(),
-  //               )
-  //             ],
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget customCheckbox() {
     return GestureDetector(
@@ -135,6 +92,56 @@ class ServiceReportController extends GetxController {
     }).toList();
     update();
   }
+
+  GetServiceReportModel getServiceReportModel= GetServiceReportModel();
+  //List<LocationData> locationsData = [];
+
+
+
+  int currentPage = 1;
+  int limitPerPage = 10;
+
+
+  getServiceReport({page, search}) async {
+    loader.value = true;
+    getServiceReportModel = await CustomerGetServiceReportApi.customerGetServiceReportApi(
+      page: page,
+      limit: limitPerPage,
+      search: search,
+    );
+
+    if (getServiceReportModel.serviceReports != null && getServiceReportModel.serviceReports!.isNotEmpty) {
+      // Remove duplicates before adding new service reports
+      Set<String?> existingIds = repairServiceReportData.map((report) => report.sId).toSet();
+      List<ServiceReports> newReports = getServiceReportModel.serviceReports!
+          .where((report) => !existingIds.contains(report.sId))
+          .toList();
+
+      // Add the new service reports to repairServiceReportData
+      repairServiceReportData.addAll(newReports);
+
+      print("=======================================${getServiceReportModel}");
+    }
+
+    update(['service']);
+    loader.value = false;
+  }
+
+
+
+  List<ServiceReports> repairServiceReportData = [];
+
+  upcomingPagination() async {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      if (loader.value != true) {
+        currentPage++;
+        await getServiceReport(page: currentPage);
+      }
+    }
+    update(['service']);
+  }
+
+
 
   locationApi(BuildContext context) async {
     loader.value = true;

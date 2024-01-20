@@ -13,7 +13,7 @@ class CustomerGetRepairsApi {
         'Cookie': 'refreshToken=${PrefService.getString(PrefKeys.registerToken)}'
       };
 
-      var response = await HttpService.getApi(url:  "${EndPoints.getRepair}${PrefService.getString(PrefKeys.employeeId)}/repairs?page=${page ?? ""}&limit=${limit ?? ""}&searchLocation=${search ?? ""}",
+      var response = await HttpService.getApi(url:  "${EndPoints.getRepair}${PrefService.getString(PrefKeys.employeeId)}/repairs?page=${page ?? ""}&limit=${limit ?? ""}&searchRepair=${search ?? ""}",
       header: headers
       );
 

@@ -42,6 +42,66 @@ class NewServiceRepairScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             children: [
+
+                              SizedBox(
+                                height: 20,
+                              ),
+
+                              CommonTextField(
+                                  readOnly: true,
+                                  type: TextInputType.number,
+                                  color: ColorRes.bgColor,
+                                  isRequired: true,
+                                  hintText: "Moonlight Bar",
+                                  titleText: StringRes.location,
+                                  suffixIcon: AssetRes.arrowDown,
+                                  suffixIconOnTap: () {
+                                    newServiceReportController.isClick = ! newServiceReportController.isClick;
+                                    controller.update(['newRepair']);
+                                  },
+                                  suffixIconSize: 3,
+                                  isSuffixIcon: true,
+                                  controller: controller.locationController),
+                              (newServiceReportController.locationError != "")
+                                  ? Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Text(newServiceReportController.locationError.tr,
+                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                ),
+                              )
+                                  : const SizedBox(),
+                              newServiceReportController.isClick == false
+                                  ? SizedBox()
+                                  : Container(
+                                // height: Get.height * 0.26,
+                                  width: Get.width * 0.9,
+                                  decoration: BoxDecoration(color: ColorRes.bgColor),
+                                  child: ListView.separated(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) => GestureDetector(
+                                        onTap: () {
+                                          newServiceReportController.locationController.text = newServiceReportController.locationsData[index].locationname ?? "";
+                                          newServiceReportController.locationId = newServiceReportController.locationsData[index].sId ?? "";
+                                          //  newReportController.machineType;
+                                          newServiceReportController.isClick = false;
+                                          newServiceReportController.update(['newRepair']);
+                                        },
+                                        child: ListTile(
+                                          title: Text( newServiceReportController.locationsData[index].locationname ?? "",
+                                              style: GoogleFonts.nunito(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorRes.color030229,
+                                              )),
+                                        ),
+                                      ),
+                                      separatorBuilder: (context, index) =>
+                                          Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                      itemCount: newServiceReportController.locationsData.length)),
+
                               SizedBox(
                                 height: 20,
                               ),
@@ -340,7 +400,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                         if (controller.validation()) {
 
                                           // Get.offAll(ServiceReportScreen());
-                                          controller.addNewServiceRepair(machineNumber: controller.machineNumberController.text,
+                                          controller.addNewServiceRepair(location: controller.locationId,machineNumber: controller.machineNumberController.text,
                                               serialNumber: controller.enterSerialNumberController.text, auditNumber: controller.auditNumberController.text, date:
                                               controller.data, time: controller.timeController.text,employeeName: controller.employeeController.text,
                                             serviceRequested: controller.serviceRequestedController.text,image: controller.downloadUrl
@@ -348,6 +408,8 @@ class NewServiceRepairScreen extends StatelessWidget {
                                           ).then((value) {
                                             if(value == false)
                                             {
+                                              controller.locationController.clear();
+                                              controller.locationId = "";
                                               controller.machineNumberController.clear();
                                               controller.enterSerialNumberController.clear();
                                               controller.auditNumberController.clear();

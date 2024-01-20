@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:route_runner/api_call/add_new_service_report_api/add_new_service_report_model.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
 import 'package:route_runner/model/location_model.dart';
 
 import '../../api_call/add_new_service_report_api/add_new_service_report_api.dart';
@@ -27,6 +29,41 @@ class NewServiceReportController extends GetxController {
   TextEditingController serviceRequestedController = TextEditingController();
   TextEditingController enterSerialNumberController = TextEditingController();
   TextEditingController enterCurrentNumberController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  String locationError = "";
+
+  bool isClick = false;
+  String  locationId = "";
+  GetLocationModel getLocationModel= GetLocationModel();
+  List<LocationsData> locationsData = [];
+
+  getLocation({page, search}) async {
+    loader.value = true;
+    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page, search: search);
+
+    if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
+      // Remove duplicates before adding new locations
+      Set<String?> existingIds = locationsData.map((location) => location.sId).toSet();
+      List<LocationsData> newLocations = getLocationModel.locations!
+          .where((location) => !existingIds.contains(location.sId))
+          .toList();
+
+      locationsData.addAll(newLocations);
+      update(['collection']);
+    }
+
+    loader.value = false;
+  }
+
+  locationValidation() {
+    if (locationController.text.trim() == "") {
+      locationError = StringRes.pleaseSelectLocation;
+    } else {
+      locationError = '';
+    }
+    update(['collection']);
+  }
+
 
   /// select date function
   Future<void> selectDate(BuildContext context) async {
@@ -65,7 +102,9 @@ class NewServiceReportController extends GetxController {
   NewServiceReportModel newServiceReportModel = NewServiceReportModel();
 
 
-  Future<bool> addNewServiceRepair({required String machineNumber,
+  Future<bool> addNewServiceRepair({
+    required String location,
+    required String machineNumber,
     required String serialNumber,
     required String auditNumber,
     required String date,
@@ -76,7 +115,10 @@ class NewServiceReportController extends GetxController {
   })
   async {
     loader.value = true;
-    newServiceReportModel =  await CustomerNewServiceReportApi.customerNewServiceReportApi(machineNumber: machineNumber,
+    newServiceReportModel =  await CustomerNewServiceReportApi.customerNewServiceReportApi(
+
+      location: location,
+      machineNumber: machineNumber,
       serialNumber: serialNumber,
       auditNumber: auditNumber,
       date: date,
