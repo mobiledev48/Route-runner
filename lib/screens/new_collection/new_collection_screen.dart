@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/common/common_text_fild.dart';
@@ -126,7 +127,12 @@ class NewCollectionScreen extends StatelessWidget {
                                             hintText: "#12",
                                             color: ColorRes.bgColor,
                                             titleText: StringRes.machineNumber,
-                                            controller: controller.machineNumberController),
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(2), // Limit input to 2 characters
+                                              FilteringTextInputFormatter.digitsOnly, // Allow only digits
+                                            ],
+                                            controller: controller.machineNumberController
+                                        ),
                                         (newCollectionController.machineError != "")
                                             ? Align(
                                                 alignment: Alignment.centerRight,
@@ -171,46 +177,8 @@ class NewCollectionScreen extends StatelessWidget {
                               SizedBox(
                                 height: 20,
                               ),
-                             /* Row(
-                                children: [
-                                  Text(StringRes.enterCurrentAuditNumber,
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorRes.color030229,
-                                      )),
-                                  Text(
-                                    ' *',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: Get.width * 0.27,
-                                  ),
-                                  Expanded(
-                                    child: IconButton(
-                                        onPressed: () {
-                                          newCollectionController.isClick = !newCollectionController.isClick;
-                                          newCollectionController.update(['collection']);
-                                        },
-                                        icon: newCollectionController.isClick == false
-                                            ? Icon(Icons.arrow_drop_down)
-                                            : Icon(Icons.arrow_drop_up)),
-                                  )
-                                ],
-                              ),*/
-
-                              // Container(
-                              //   height: Get.height * 0.08,
-                              //   width: Get.width * 0.9,
-                              //   decoration:
-                              //       BoxDecoration(color: ColorRes.lightYellow, borderRadius: BorderRadius.circular(10)),
-                              // )
                               CommonTextField(
-                                  readOnly: true,
+
                                   type: TextInputType.number,
                                   color: ColorRes.bgColor,
                                   isRequired: true,
@@ -265,7 +233,9 @@ class NewCollectionScreen extends StatelessWidget {
                                             color: ColorRes.bgColor,
                                             isRequired: true,
                                             hintText: "0",
+
                                             titleText: StringRes.previousNumber,
+                                            readOnly: true,
                                             controller: controller.previousNumberInController),
                                         (newCollectionController.inPreviousError != "")
                                             ? Align(
@@ -290,6 +260,9 @@ class NewCollectionScreen extends StatelessWidget {
                                             isRequired: true,
                                             hintText: "0",
                                             titleText: StringRes.currentNumber,
+                                            onChanged: (value) {
+                                              controller.calculateProfit(currentIn: double.parse(value ?? "0.0"));
+                                            },
                                             controller: controller.currentNumberInController),
                                         (newCollectionController.inCurrentError != "")
                                             ? Align(
@@ -343,6 +316,7 @@ class NewCollectionScreen extends StatelessWidget {
                                             isRequired: true,
                                             hintText: "0",
                                             titleText: StringRes.previousNumber,
+                                            readOnly: true,
                                             controller: controller.previousNumberOutController),
                                         (newCollectionController.outCurrentError != "")
                                             ? Align(
@@ -366,6 +340,9 @@ class NewCollectionScreen extends StatelessWidget {
                                             color: ColorRes.bgColor,
                                             isRequired: true,
                                             hintText: "0",
+                                            onChanged: (value) {
+                                              controller.calculateProfit(currentOut: double.parse(value ?? "0.0"));
+                                            },
                                             titleText: StringRes.currentNumber,
                                             controller: controller.currentNumberOutController),
                                         (newCollectionController.outCurrentError != "")
@@ -386,13 +363,57 @@ class NewCollectionScreen extends StatelessWidget {
                               SizedBox(
                                 height: 20,
                               ),
-                              CommonTextField(
-                                  type: TextInputType.number,
-                                  color: ColorRes.bgColor,
-                                  isRequired: true,
-                                  hintText: StringRes.enterCurrentNumber,
-                                  titleText: StringRes.total,
-                                  controller: controller.totalController),
+
+                              Row(
+                                children: [
+                                  Text("Total",
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorRes.color030229,
+                                      )),
+                                  const Text(
+                                    ' *',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 9,
+                              ),
+                              Container(height:  52,
+                                width: Get.width,
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color:ColorRes.bgColor,
+                                  borderRadius: BorderRadius.circular(
+                                    15,
+                                  ),
+                                ),
+                                child: Text(controller.calculateProfit(currentIn: double.parse(controller.currentNumberInController.text == ""? "0.0":controller.currentNumberInController.text)
+                                    ,currentOut: double.parse(controller.currentNumberOutController.text == ""?"0.0" :controller.currentNumberOutController.text),
+                                    previousIn: double.parse(controller.previousNumberInController.text == "" ? "0.0" :controller.previousNumberInController.text),
+                                    previousOut: double.parse(controller.previousNumberOutController.text == "" ? "0.0" :controller.previousNumberOutController.text)
+                                ).toString(),style: GoogleFonts.nunito(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorRes.color030229,
+                                ),),
+                              ),
+                              // CommonTextField(
+                              //   readOnly: true,
+                              //     type: TextInputType.number,
+                              //     color: ColorRes.bgColor,
+                              //     isRequired: true,
+                              //     hintText: StringRes.enterCurrentNumber,
+                              //     titleText: StringRes.total,
+                              //     controller: controller.totalController),
+
                               (newCollectionController.totalError != "")
                                   ? Align(
                                       alignment: Alignment.centerRight,
@@ -517,6 +538,7 @@ class NewCollectionScreen extends StatelessWidget {
                                             Iterable<CollectionReport> dynamicParameters = [
                                               CollectionReport(
                                                   serialNumber: newCollectionController.enterSerialNumberController.text,
+                                                  machineNumber:  newCollectionController.machineNumberController.text,
                                                   inCurrent: newCollectionController.currentNumberInController.text,
                                                   inPrevious: newCollectionController.previousNumberInController.text,
                                                   outCurrent: newCollectionController.currentNumberOutController.text,
@@ -565,6 +587,7 @@ class NewCollectionScreen extends StatelessWidget {
 
 class CollectionReport {
   String? serialNumber;
+  String? machineNumber;
   String? inPrevious;
   String? inCurrent;
   String? outPrevious;
@@ -575,6 +598,7 @@ class CollectionReport {
 
   CollectionReport({
     this.serialNumber,
+    this.machineNumber,
     this.inPrevious,
     this.inCurrent,
     this.outPrevious,
@@ -589,6 +613,9 @@ class CollectionReport {
       switch (key) {
         case 'serialNumber':
           serialNumber = value as String?;
+          break;
+        case 'machineNumber':
+          machineNumber = value as String?;
           break;
         case 'inPrevious':
           inPrevious = value as String?;

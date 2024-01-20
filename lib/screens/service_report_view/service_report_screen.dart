@@ -98,6 +98,7 @@ class ServiceReportScreen extends StatelessWidget {
                                           controller.update(['service']);
                                         },
                                         child: ListView.builder(
+                                              controller: controller.scrollController,
                                             itemCount: controller.repairServiceReportData.length,
                                             itemBuilder: (context, index) => Padding(
                                                   padding: const EdgeInsets.only(top: 10),

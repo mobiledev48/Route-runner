@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/common/appbar.dart';
@@ -116,6 +117,10 @@ class NewServiceRepairScreen extends StatelessWidget {
                                             isRequired: true,
                                             hintText: "#12",
                                             titleText: StringRes.machineNumber,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(2), // Limit input to 2 characters
+                                              FilteringTextInputFormatter.digitsOnly, // Allow only digits
+                                            ],
                                             controller: controller.machineNumberController),
                                         (controller.machineError != "")
                                             ? Align(

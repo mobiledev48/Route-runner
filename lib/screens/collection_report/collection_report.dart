@@ -56,25 +56,21 @@ class CollectionReportScreen extends StatelessWidget {
                       StringRes.collectionReport,
                       style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
                     ),
-                    GestureDetector(
-                        onTap: () {
-                          NewCollectionController newCollectionController = Get.put(NewCollectionController());
-                          newCollectionController.getLocation();
-                          Get.to(NewCollectionScreen());
-                        },
-                        child: Image.asset(
-                          AssetRes.addMenu,
-                          scale: 3,
-                        )),
                     Padding(
-                      padding: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(right: 10),
                       child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            NewCollectionController newCollectionController = Get.put(NewCollectionController());
+                            newCollectionController.getLocation();
+                            newCollectionController.getLastCollection();
+                            Get.to(NewCollectionScreen());
+                          },
                           child: Image.asset(
-                            AssetRes.print,
+                            AssetRes.addMenu,
                             scale: 3,
                           )),
-                    )
+                    ),
+
                   ]),
                 ),
                 Expanded(
@@ -177,24 +173,36 @@ class CollectionReportScreen extends StatelessWidget {
                                                           // SizedBox(height: Get.height * 0.02),
                                                           Row(
                                                             children: [
-                                                              Image.asset(
-                                                                AssetRes.calendar,
-                                                                scale: 2.5,
+                                                              Row(
+                                                                children: [
+                                                                  Image.asset(
+                                                                    AssetRes.calendar,
+                                                                    scale: 2.5,
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 4,
+                                                                  ),
+                                                                  Text(
+                                                                    '12 Dec, 2020',
+                                                                    style: TextStyle(
+                                                                      fontSize: width * 0.03,
+                                                                      fontWeight: FontWeight.w400,
+                                                                      color: ColorRes.grey2,
+                                                                    ),
+                                                                  ),
+
+                                                                ],
                                                               ),
-                                                              const SizedBox(
-                                                                width: 4,
-                                                              ),
-                                                              Text(
-                                                                '12 Dec, 2020',
-                                                                style: TextStyle(
-                                                                  fontSize: width * 0.03,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorRes.grey2,
-                                                                ),
-                                                              )
+                                                              GestureDetector(
+                                                                  onTap: () {},
+                                                                  child: Image.asset(
+                                                                    AssetRes.print,
+                                                                    scale: 3,
+                                                                  )),
                                                             ],
                                                           ),
                                                           SizedBox(height: Get.height * 0.05),
+
                                                           GestureDetector(
                                                             onTap: () {
                                                               if (controller.isViewData[index] == false) {

@@ -68,7 +68,7 @@ class ServiceReportController extends GetxController {
                     border: Border.all(color: ColorRes.mainColor),
                     color: ColorRes.mainColor,
                     borderRadius: const BorderRadius.all(Radius.circular(5))),
-                child: Icon(
+                child: const Icon(
                   size: 14,
                   Icons.check,
                   color: Colors.white,
