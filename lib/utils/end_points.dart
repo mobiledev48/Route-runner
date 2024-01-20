@@ -12,6 +12,7 @@ class EndPoints {
   static const getLocation = "$baseUrl/employee/location/";
   static const getMachine = "$baseUrl/employee/machine/";
   static const getRepair = "$baseUrl/employee/employees/";
+  static const getServiceReport = "$baseUrl/employee/service/";
   static const locationApi = "$baseUrl/location";
 
 }

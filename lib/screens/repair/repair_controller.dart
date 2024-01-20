@@ -26,7 +26,6 @@ class RepairController extends GetxController {
 
   @override
   Future<void> onInit() async {
-
     await getRepair(page: currentPage);
     scrollController.addListener(() {
       upcomingPagination();
@@ -37,23 +36,6 @@ class RepairController extends GetxController {
   int currentPage = 1;
   int limitPerPage = 10;
 
-  // getRepair({page,search})
-  // async {
-  //   loader.value = true;
-  //   getRepairsModel = await CustomerGetRepairsApi.customerGetRepairsApi(page: page,limit: limitPerPage,search: search);
-  //   if (getRepairsModel.repairReports != null && getRepairsModel.repairReports!.isNotEmpty) {
-  //     currentPage++;
-  //
-  //     for (int i = 0; i < getRepairsModel.repairReports!.length; i++) {
-  //       repairReportData.addAll(getRepairsModel.repairReports ?? []);
-  //       print("=======================================${getRepairsModel}");
-  //     }
-  //     repairReportData.toSet().toList();
-  //   }
-  //   update(['location']);
-  //   //  locationsData.addAll(getLocationModel.locations ?? []);
-  //   loader.value = false;
-  // }
 
   getRepair({page, search}) async {
     loader.value = true;
@@ -64,13 +46,14 @@ class RepairController extends GetxController {
     );
 
     if (getRepairsModel.repairReports != null && getRepairsModel.repairReports!.isNotEmpty) {
-      currentPage++;
+      // Remove duplicates before adding new repair reports
+      Set<String?> existingIds = repairReportData.map((report) => report.sId).toSet();
+      List<RepairReports> newReports = getRepairsModel.repairReports!
+          .where((report) => !existingIds.contains(report.sId))
+          .toList();
 
-      // Use addAll directly to add the repair reports to repairReportData
-      repairReportData.addAll(getRepairsModel.repairReports!);
-
-      // Remove duplicates using toSet().toList()
-      repairReportData = repairReportData.toSet().toList();
+      // Add the new repair reports to repairReportData
+      repairReportData.addAll(newReports);
 
       print("=======================================${getRepairsModel}");
     }
@@ -83,9 +66,9 @@ class RepairController extends GetxController {
   List<RepairReports> repairReportData = [];
 
   upcomingPagination() async {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
+        currentPage++;
         await getRepair(page: currentPage);
       }
     }

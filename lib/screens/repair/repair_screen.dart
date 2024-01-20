@@ -93,10 +93,9 @@ class RepairScreen extends StatelessWidget {
                                 hintText: StringRes.search,
                                 controller: controller.searchController,
                                 onChanged: (value) {
-                                  controller.searchTerm = 'Moonlight'; // Change this to your desired search term
-                                  // controller.searchResults = controller.searchAllData(value);
-
-                                  controller.getRepair(page: 1,search: value);
+                                  controller.repairReportData.clear();
+                                  controller.currentPage = 1;
+                                  controller.getRepair(page: controller.currentPage,search: value);
                                   print(controller.searchResults);
                                   controller.update(['location']);
                                 },
@@ -320,13 +319,13 @@ class RepairScreen extends StatelessWidget {
                                                 )),
                                       ),
                                     ):
-                              Padding(
+                              repairController.loader.value == false? Padding(
                                           padding: const EdgeInsets.symmetric(vertical: 30),
                                           child: Text(
                                             StringRes.notFound,
                                             style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                                           ),
-                                        ),
+                                        ):SizedBox(),
                             ],
                           ),
                         ),

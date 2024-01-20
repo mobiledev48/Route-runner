@@ -14,6 +14,7 @@ import 'package:route_runner/utils/pref_keys.dart';
 
 class CustomerNewServiceReportApi {
   static Future<NewServiceReportModel> customerNewServiceReportApi({
+    required String location,
     required String machineNumber,
     required String serialNumber,
     required String auditNumber,
@@ -31,6 +32,7 @@ class CustomerNewServiceReportApi {
       };
 
       var body = jsonEncode({
+        "location": location,
         "machineNumber": machineNumber,
         "serialNumber": serialNumber,
         "auditNumber": auditNumber,

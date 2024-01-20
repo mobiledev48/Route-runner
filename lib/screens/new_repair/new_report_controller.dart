@@ -61,19 +61,22 @@ class NewReportController extends GetxController {
   String  locationId = "";
   GetLocationModel getLocationModel= GetLocationModel();
   List<LocationsData> locationsData = [];
-  getLocation({page,search})
-  async {
+
+  getLocation({page, search}) async {
     loader.value = true;
-    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page,search: search);
+    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page, search: search);
 
+    if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
+      // Remove duplicates before adding new locations
+      Set<String?> existingIds = locationsData.map((location) => location.sId).toSet();
+      List<LocationsData> newLocations = getLocationModel.locations!
+          .where((location) => !existingIds.contains(location.sId))
+          .toList();
 
-    locationsData.addAll(getLocationModel.locations ?? []);
-    locationsData = locationsData.toSet().toList();
+      locationsData.addAll(newLocations);
+      update(['collection']);
+    }
 
-
-
-    update(['collection']);
-    //  locationsData.addAll(getLocationModel.locations ?? []);
     loader.value = false;
   }
 
