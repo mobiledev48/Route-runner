@@ -40,21 +40,21 @@ class LocationController extends GetxController {
 
   GetLocationModel getLocationModel= GetLocationModel();
   List<LocationsData> locationsData = [];
-  getLocation({page,search})
-  async {
+  getLocation({page, search}) async {
     loader.value = true;
-    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page,limit: limitPerPage,search: search);
-    if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
-      currentPage++;
+    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page, search: search);
 
-      for (int i = 0; i < getLocationModel.locations!.length; i++) {
-        locationsData.addAll(getLocationModel.locations ?? []);
-        print("=======================================${locationsData}");
-      }
-      locationsData.toSet().toList();
+    if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
+      // Remove duplicates before adding new locations
+      Set<String?> existingIds = locationsData.map((location) => location.sId).toSet();
+      List<LocationsData> newLocations = getLocationModel.locations!
+          .where((location) => !existingIds.contains(location.sId))
+          .toList();
+
+      locationsData.addAll(newLocations);
+      update(['location']);
     }
-    update(['location']);
-  //  locationsData.addAll(getLocationModel.locations ?? []);
+
     loader.value = false;
   }
 
@@ -85,15 +85,26 @@ class LocationController extends GetxController {
     update();
   }
 
+  // upcomingPagination() async {
+  //   if (scrollController.position.pixels ==
+  //       scrollController.position.maxScrollExtent) {
+  //     if (loader.value != true) {
+  //       await getLocation(page: currentPage);
+  //     }
+  //   }
+  //   update(['location']);
+  // }
+
   upcomingPagination() async {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
+        currentPage++;
         await getLocation(page: currentPage);
       }
     }
     update(['location']);
   }
+
 
 
 

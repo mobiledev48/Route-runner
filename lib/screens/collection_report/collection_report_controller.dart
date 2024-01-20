@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:route_runner/api_call/get_collection_report_api/get_collection_report_api.dart';
+import 'package:route_runner/api_call/get_collection_report_api/get_collection_report_model.dart';
 
 import '../../utils/color_res.dart';
 
@@ -8,22 +10,78 @@ class CollectionReportController extends GetxController {
 
   List<bool> onClick = [];
   List<bool> isClick = [];
-
+  RxBool loader = false.obs;
+  ScrollController scrollController = ScrollController();
   TextEditingController searchController = TextEditingController();
   void nextPage(index) {
     onClick = index;
     update(['collection']);
   }
 
-  List<bool> isViewData = [];
 
   @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
+  Future<void> onInit() async {
     isViewData = List.generate(allCollectionData.length, (index) => false);
     isClick = List.generate(allCollectionData.length, (index) => false);
+    await getCollectionReport(page: currentPage);
+    scrollController.addListener(() {
+      upcomingPagination();
+    });
+    super.onInit();
   }
+
+  int currentPage = 1;
+  int limitPerPage = 10;
+
+  GetCollectionReportModel getCollectionReportModel = GetCollectionReportModel();
+
+  getCollectionReport({page, search}) async {
+    loader.value = true;
+    getCollectionReportModel = await CustomerGetCollectionReportApi.customerGetCollectionReportApi(
+      page: page,
+      limit: limitPerPage,
+      search: search,
+    );
+
+    if (getCollectionReportModel.groupedReports != null && getCollectionReportModel.groupedReports!.isNotEmpty) {
+      // Remove duplicates before adding new reports
+      Set<String?> existingIds = collectionReportData.map((report) => report.location?.sId).toSet();
+
+      // Filter out existing reports
+      List<GroupedReports> newReports = getCollectionReportModel.groupedReports!
+          .where((report) => !existingIds.contains(report.location?.sId))
+          .toList();
+
+
+      // Add the new reports to collectionReportData
+      collectionReportData.addAll(newReports);
+      isViewData = List.generate(collectionReportData.length, (index) => false);
+      isClick = List.generate(collectionReportData.length, (index) => false);
+
+      print("=======================================${getCollectionReportModel}");
+    }
+
+    update(['collection']);
+    loader.value = false;
+  }
+
+  List<GroupedReports> collectionReportData = [];
+
+  upcomingPagination() async {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      if (loader.value != true) {
+        currentPage++;
+        await getCollectionReport(page: currentPage);
+      }
+    }
+    update(['location']);
+  }
+
+
+
+  List<bool> isViewData = [];
+
+
 
   String searchTerm = 'Moonlight'; // Change this to your desired search term
   List<allData> searchResults = [];
