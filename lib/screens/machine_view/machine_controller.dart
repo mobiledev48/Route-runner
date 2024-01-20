@@ -39,7 +39,7 @@ class MachineController extends GetxController {
 
   GetMachinesModel getMachinesModel= GetMachinesModel();
   //List<LocationData> locationsData = [];
-  List<MachinesLocations> machinesLocationsData = [];
+  List<Location> machinesLocationsData = [];
   // List machinesLocationsData = [];
   getMachines({page,search})
   async {

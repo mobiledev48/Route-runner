@@ -58,7 +58,8 @@ class MachineScreen extends StatelessWidget {
                       ? Expanded(
                           child: ListView.builder(
                             controller: controller.scrollController,
-                              itemCount: machineAllData.length,
+                              // itemCount: machineAllData.length,
+                              itemCount: controller.machinesLocationsData.length,
                               itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Container(
@@ -80,23 +81,28 @@ class MachineScreen extends StatelessWidget {
                                                       children: [
                                                         SizedBox(height: 10),
                                                         Text(
-                                                          machineAllData[index].title,
+                                                          controller.machinesLocationsData[index].locationname ?? "",
+                                                          // machineAllData[index].title,
                                                           style: title(),
                                                         ),
                                                         SizedBox(height: 5),
+
                                                         SizedBox(
                                                           width: Get.width * 0.24,
-                                                          child: Text(machineAllData[index].subtitle,
+                                                          child: Text(
+                                                            controller.machinesLocationsData[index].machines![index].employees![index].firstname ?? "",
+                                                            //  machineAllData[index].subtitle,
                                                               overflow: TextOverflow.ellipsis, style: subTitle()
                                                               // GoogleFonts.nunito(
                                                               //     fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
                                                               ),
                                                         ),
                                                         SizedBox(height: 5),
-                                                        Text('SN: #${index + 1}-654184', style: subTitle()
-                                                            // GoogleFonts.nunito(
-                                                            //     fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
-                                                            )
+                                                        Text('SN: #${controller.machinesLocationsData[index].machines?[index].machineNumber?.substring(0,2) ?? ""}')
+                                                        // Text('SN: #${index + 1}-654184', style: subTitle()
+                                                        //     // GoogleFonts.nunito(
+                                                        //     //     fontSize: width * 0.034, fontWeight: FontWeight.w400, color:  ColorRes.color030229),
+                                                        //     )
                                                       ],
                                                     ),
                                                     Column(
