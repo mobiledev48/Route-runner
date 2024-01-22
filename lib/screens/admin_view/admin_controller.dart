@@ -23,7 +23,7 @@ class AdminController extends GetxController {
   RxBool isLoading = false.obs;
 
 
- Future signInApi({email,password})
+ Future<bool> signInApi({email,password})
   async {
     isLoading.value = true;
     signInModel =  await CustomerSignInApi.customerSignInApi(email: email,password: password);
@@ -35,6 +35,7 @@ class AdminController extends GetxController {
     PrefService.setValue(PrefKeys.mobileNumber, signInModel.phone);
     PrefService.setValue(PrefKeys.userImage, signInModel.image);
     isLoading.value = false;
+    return  isLoading.value;
   }
 
 

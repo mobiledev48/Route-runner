@@ -257,6 +257,8 @@ class CollectionDetailScreen extends StatelessWidget {
 
                     }
             });
+            Get.back();
+            Get.back();
             // Get.offAll(CollectionReportScreen());
           },
           child: Container(

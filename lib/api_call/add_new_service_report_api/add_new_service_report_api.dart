@@ -60,7 +60,8 @@ class CustomerNewServiceReportApi {
 
         if (decoded["success"] == true) {
           flutterToast(decoded["message"]);
-          Get.to(() => ServiceReportScreen());
+          // Get.to(() => ServiceReportScreen());
+
           serviceReportController.repairServiceReportData.clear();
           serviceReportController.currentPage = 1;
           serviceReportController.getServiceReport(page: serviceReportController.currentPage);

@@ -42,7 +42,7 @@ class NewRepairScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
 
@@ -410,6 +410,7 @@ class NewRepairScreen extends StatelessWidget {
                                               , image: controller.downloadUrl).then((value) {
                                                 if(value == false)
                                                   {
+
                                                     controller.machineNumberController.clear();
                                                     controller.locationController.clear();
                                                     controller.locationId = "";
@@ -424,6 +425,7 @@ class NewRepairScreen extends StatelessWidget {
                                                     controller.image = null;
                                                   }
                                           });
+                                          Get.back();
                                           // Get.offAll(RepairScreen());
                                         }
                                       },

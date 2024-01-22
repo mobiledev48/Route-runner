@@ -48,26 +48,144 @@ class MachineController extends GetxController {
   //
   // ];
 
-  List<Location> machinesLocationsData = [];
+  // List<Location> machinesLocationsData = [];
   // List machinesLocationsData = [];
-  getMachines({page,search})
-  async {
+  // getMachines({page,search})
+  // async {
+  //   loader.value = true;
+  //   getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(page: page,limit: limitPerPage,search: search);
+  //   if (getMachinesModel.locations != null && getMachinesModel.locations!.isNotEmpty) {
+  //     currentPage++;
+  //
+  //     for (int i = 0; i < getMachinesModel.locations!.length; i++) {
+  //       machinesLocationsData.addAll(getMachinesModel.locations ?? []);
+  //
+  //       // print("-------------------------------${machinesLocationsData[0].machines?[0].employees?[0].firstname}");
+  //       print("=======================================${machinesLocationsData}");
+  //     }
+  //     machinesLocationsData.toSet().toList();
+  //   }
+  //     update(['location']);
+  //   loader.value = false;
+  // }
+
+  // Existing code for the model classes...
+
+  Map<String, List<Machine>> machinesLocationsData = {};
+
+ /* getMachines({page, search}) async {
     loader.value = true;
-    getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(page: page,limit: limitPerPage,search: search);
+    getMachinesModel =
+    await CustomerGetMachineApi.customerGetMachineApi(page: page, limit: limitPerPage, search: search);
+
     if (getMachinesModel.locations != null && getMachinesModel.locations!.isNotEmpty) {
       currentPage++;
 
       for (int i = 0; i < getMachinesModel.locations!.length; i++) {
-        machinesLocationsData.addAll(getMachinesModel.locations ?? []);
+        var locationData = getMachinesModel.locations![i];
 
-        // print("-------------------------------${machinesLocationsData[0].machines?[0].employees?[0].firstname}");
-        print("=======================================${machinesLocationsData}");
+        List<Machine> locationMachines = [];
+        for (int j = 0; j < locationData.machines!.length; j++) {
+          var machineData = locationData.machines![j];
+          Machine machine = Machine(
+            initialNumber: machineData.initialNumber ?? "",
+            currentNumber: machineData.currentNumber ?? "",
+            id: machineData.id ?? "",
+            machineNumber: machineData.machineNumber ?? "",
+            serialNumber: machineData.serialNumber ?? "",
+            activeMachineStatus: machineData.activeMachineStatus ?? "",
+            employees: machineData.employees ?? [],
+            createdAt: machineData.createdAt,
+            updatedAt: machineData.updatedAt,
+            v: machineData.v,
+          );
+          locationMachines.add(machine);
+        }
+
+        // Check if location name already exists in the map
+        if (machinesLocationsData.containsKey(locationData.locationname)) {
+          // If yes, add the machines to the existing list
+          machinesLocationsData[locationData.locationname]!.addAll(locationMachines);
+        } else {
+          // If no, create a new entry with the location name and machines
+          machinesLocationsData[locationData.locationname ?? ""] = locationMachines;
+        }
       }
-      machinesLocationsData.toSet().toList();
+
+      // Print the data for debugging or logging purposes
+      for (var entry in machinesLocationsData.entries) {
+        print("Location Name: ${entry.key}");
+        for (var machine in entry.value) {
+          print("Machine Number: ${machine.machineNumber}, Serial Number: ${machine.serialNumber}");
+        }
+      }
     }
-      update(['location']);
+
+    update(['location']);
+    loader.value = false;
+  }*/
+  getMachines({page, search}) async {
+    loader.value = true;
+    getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(page: page, limit: limitPerPage, search: search);
+
+    if (getMachinesModel.locations != null && getMachinesModel.locations!.isNotEmpty) {
+      currentPage++;
+
+      for (int i = 0; i < getMachinesModel.locations!.length; i++) {
+        var locationData = getMachinesModel.locations![i];
+
+        List<Machine> locationMachines = [];
+        for (int j = 0; j < locationData.machines!.length; j++) {
+          var machineData = locationData.machines![j];
+          Machine machine = Machine(
+            initialNumber: machineData.initialNumber ?? "",
+            currentNumber: machineData.currentNumber ?? "",
+            id: machineData.id ?? "",
+            machineNumber: machineData.machineNumber ?? "",
+            serialNumber: machineData.serialNumber ?? "",
+            activeMachineStatus: machineData.activeMachineStatus ?? "",
+            employees: machineData.employees ?? [],
+            createdAt: machineData.createdAt,
+            updatedAt: machineData.updatedAt,
+            v: machineData.v,
+          );
+
+          // Check if the machine with the same ID already exists in the list
+          bool machineExists = machinesLocationsData.values
+              .expand((machines) => machines)
+              .any((existingMachine) => existingMachine.id == machine.id);
+
+          // If the machine doesn't exist, add it to the list
+          if (!machineExists) {
+            locationMachines.add(machine);
+          }
+        }
+
+        // Check if location name already exists in the map
+        if (machinesLocationsData.containsKey(locationData.locationname)) {
+          // If yes, add the machines to the existing list
+          machinesLocationsData[locationData.locationname]!.addAll(locationMachines);
+        } else {
+          // If no, create a new entry with the location name and machines
+          machinesLocationsData[locationData.locationname ?? ""] = locationMachines;
+        }
+      }
+
+      // Print the data for debugging or logging purposes
+      for (var entry in machinesLocationsData.entries) {
+        print("Location Name: ${entry.key}");
+        for (var machine in entry.value) {
+          print("Machine Number: ${machine.machineNumber}, Serial Number: ${machine.serialNumber}");
+        }
+      }
+    }
+
+    update(['location']);
     loader.value = false;
   }
+
+
+
 
 
   upcomingPagination() async {

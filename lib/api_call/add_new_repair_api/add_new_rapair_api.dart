@@ -55,7 +55,8 @@ class CustomerNewRepairApi {
 
         if (decoded["success"] == true) {
           flutterToast(decoded["message"]);
-          Get.to(() => RepairScreen());
+          // Get.to(() => RepairScreen());
+
           repairController.repairReportData.clear();
           // repairController.currentPage = 1;
           repairController.getRepair();

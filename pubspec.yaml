@@ -52,6 +52,7 @@ dependencies:
   intl:
   firebase_core:
   firebase_storage: ^11.6.0
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

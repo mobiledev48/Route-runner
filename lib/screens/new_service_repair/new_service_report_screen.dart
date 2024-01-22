@@ -427,6 +427,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                               controller.image = null;
                                             }
                                           });
+                                          Get.back();
                                         }
                                       },
                                       child: Container(

@@ -5,13 +5,14 @@ import 'package:route_runner/api_call/add_new_collection_api/add_new_collection_
 import 'package:route_runner/api_call/add_new_repair_api/add_new_repair_model.dart';
 import 'package:route_runner/common/pop_up.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
+import 'package:route_runner/screens/collection_report/collection_report_controller.dart';
 import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
 import 'package:route_runner/service/http_services.dart';
 import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';
 import 'package:route_runner/utils/pref_keys.dart';
-
+CollectionReportController controller = Get.put(CollectionReportController());
 class CustomerNewCollectionApi {
   static Future<AddNewCollectionModel> customerNewCollectionApi({
     required String location,
@@ -61,7 +62,10 @@ class CustomerNewCollectionApi {
 
         if (decoded["success"] == true) {
           flutterToast(decoded["message"]);
-          Get.to(() => CollectionReportScreen());
+          controller.collectionReportData.clear();
+
+          controller.getCollectionReport();
+          // Get.to(() => CollectionReportScreen());
           return addNewCollectionModelFromJson(response.body);
         }
       } else {

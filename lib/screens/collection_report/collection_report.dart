@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import '../../common/appbar.dart';
+
 import '../../common/common_text_fild.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
@@ -333,20 +335,28 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                   horizontal: 10, vertical: 5),
                                                                               child: Row(
                                                                                 children: [
-                                                                                  Container(
+                                                                                  // Container(
+                                                                                  //   width: 80,
+                                                                                  //   decoration: BoxDecoration(
+                                                                                  //       image:
+                                                                                  //       controller.collectionReportData[index].collectionReports?[i].image ==""?const DecorationImage(
+                                                                                  //           fit: BoxFit.fill,
+                                                                                  //           image:
+                                                                                  //               AssetImage(AssetRes.photo)):DecorationImage(
+                                                                                  //           fit: BoxFit.fill,
+                                                                                  //           image:
+                                                                                  //           NetworkImage(controller.collectionReportData[index].collectionReports?[i].image ?? "")),
+                                                                                  //       borderRadius:
+                                                                                  //           BorderRadius.circular(3)),
+                                                                                  // ),
+                                                                                  CachedNetworkImage(
                                                                                     width: 80,
-                                                                                    decoration: BoxDecoration(
-                                                                                        image:
-                                                                                        controller.collectionReportData[index].collectionReports?[i].image ==""?const DecorationImage(
-                                                                                            fit: BoxFit.fill,
-                                                                                            image:
-                                                                                                AssetImage(AssetRes.photo)):DecorationImage(
-                                                                                            fit: BoxFit.fill,
-                                                                                            image:
-                                                                                            NetworkImage( controller.collectionReportData[index].collectionReports?[i].image ?? "")),
-                                                                                        borderRadius:
-                                                                                            BorderRadius.circular(3)),
+                                                                                    fit: BoxFit.fill,
+                                                                                    imageUrl: controller.collectionReportData[index].collectionReports?[i].image ?? "",
+                                                                                    placeholder: (context, url) => Image.asset(AssetRes.photo, fit: BoxFit.fill),
+                                                                                    errorWidget: (context, url, error) => Image.asset(AssetRes.photo, fit: BoxFit.fill),
                                                                                   ),
+
                                                                                   const SizedBox(
                                                                                     width: 10,
                                                                                   ),
