@@ -67,15 +67,31 @@ class CollectionReportController extends GetxController {
 
   List<GroupedReports> collectionReportData = [];
 
+  // upcomingPagination() async {
+  //   if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  //     if (loader.value != true) {
+  //       currentPage++;
+  //       await getCollectionReport(page: currentPage);
+  //     }
+  //   }
+  //   update(['location']);
+  // }
   upcomingPagination() async {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
-        currentPage++;
-        await getCollectionReport(page: currentPage);
+        // Add a check for more pages before making the API call
+        if (getCollectionReportModel != null &&
+            getCollectionReportModel.currentPage != null &&
+            getCollectionReportModel.totalPages != null &&
+            getCollectionReportModel.currentPage! < getCollectionReportModel.totalPages!) {
+          currentPage++;
+          await getCollectionReport(page: currentPage);
+        }
       }
     }
-    update(['location']);
+    update(['collection']);
   }
+
 
 
 

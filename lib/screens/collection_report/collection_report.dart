@@ -109,8 +109,9 @@ class CollectionReportScreen extends StatelessWidget {
                                     child: RefreshIndicator(
                                       onRefresh: () async {
                                         controller.collectionReportData.clear();
-                                        await controller.getCollectionReport(page: 1);
-                                        controller.update(['location']);
+                                        controller.currentPage = 1;
+                                        await controller.getCollectionReport(page:  controller.currentPage);
+                                        controller.update(['collection']);
                                       },
                                       child: ListView.builder(
                                         controller: controller.scrollController,

@@ -44,7 +44,7 @@ class LastThreeCollectionReports {
   InNumbers? inNumbers;
   InNumbers? outNumbers;
   String? sId;
-  String? location;
+  Location? location;
   String? machineNumber;
   String? serialNumber;
   String? auditNumber;
@@ -76,7 +76,9 @@ class LastThreeCollectionReports {
         ? new InNumbers.fromJson(json['outNumbers'])
         : null;
     sId = json['_id'];
-    location = json['location'];
+    location = json['location'] != null
+        ? new Location.fromJson(json['location'])
+        : null;
     machineNumber = json['machineNumber'];
     serialNumber = json['serialNumber'];
     auditNumber = json['auditNumber'];
@@ -96,7 +98,9 @@ class LastThreeCollectionReports {
       data['outNumbers'] = this.outNumbers!.toJson();
     }
     data['_id'] = this.sId;
-    data['location'] = this.location;
+    if (this.location != null) {
+      data['location'] = this.location!.toJson();
+    }
     data['machineNumber'] = this.machineNumber;
     data['serialNumber'] = this.serialNumber;
     data['auditNumber'] = this.auditNumber;
@@ -127,3 +131,37 @@ class InNumbers {
     return data;
   }
 }
+
+class Location {
+  String? sId;
+  String? locationname;
+  String? address;
+  int? numofmachines;
+  String? createdAt;
+
+  Location(
+      {this.sId,
+        this.locationname,
+        this.address,
+        this.numofmachines,
+        this.createdAt});
+
+  Location.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    locationname = json['locationname'];
+    address = json['address'];
+    numofmachines = json['numofmachines'];
+    createdAt = json['createdAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['locationname'] = this.locationname;
+    data['address'] = this.address;
+    data['numofmachines'] = this.numofmachines;
+    data['createdAt'] = this.createdAt;
+    return data;
+  }
+}
+

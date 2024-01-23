@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/home_view/home_controller.dart';
@@ -182,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 10, top: 15),
+                                    padding: const EdgeInsets.only(left: 5, top: 15),
                                     child: Text(
                                       StringRes.recentCollection,
                                       style: commonTitle().copyWith(fontWeight: FontWeight.w700, fontSize: width * 0.042),
@@ -222,14 +223,14 @@ class HomeScreen extends StatelessWidget {
                                   scale: 3,
                                 ),
                                 SizedBox(
-                                  width: Get.width * 0.1,
+                                  width: Get.width * 0.15,
                                 ),
                                 Text(
                                   StringRes.location,
                                   style: commonSubtitle().copyWith(fontSize: width * 0.04),
                                 ),
                                 SizedBox(
-                                  width: Get.width * 0.04,
+                                  width: Get.width * 0.06,
                                 ),
                                 Image.asset(
                                   AssetRes.arrowDown,
@@ -250,7 +251,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             homeController.dividers(5, 5),
-                            ListView.builder(
+                         /*   ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: homeController.recentCollectionList.length,
@@ -401,7 +402,164 @@ class HomeScreen extends StatelessWidget {
                                   ],
                                 );
                               },
+                            )*/
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: homeController.recentCollectionList.length,
+                              itemBuilder: (context, index) {
+
+                                return Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        // Display machine details
+                                        Expanded(
+                                          child: Text(
+                                            "#${homeController.recentCollectionList[index].machineNumber}-${homeController.recentCollectionList[index].serialNumber}", // Adjust based on your data structure
+                                            style: GoogleFonts.nunito(
+                                              fontSize: width * 0.034,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorRes.black,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: Get.width * 0.09),
+                                        Expanded(
+                                          // width: Get.width * 0.37,
+                                          child: Text(
+                                            "${homeController.recentCollectionList[index].location?.locationname ?? ""}", // Adjust based on your data structure
+                                            style: GoogleFonts.nunito(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorRes.black,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          "${homeController.recentCollectionList[index].total}",
+                                          style: GoogleFonts.nunito(
+                                            fontSize: width * 0.034,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorRes.black,
+                                          ),
+                                        ),
+                                        SizedBox(width: Get.width * 0.04),
+                                        GestureDetector(
+                                          onTap: () {
+                                            // Toggle the visibility of additional details
+                                            if (homeController.isViewData[index] == false) {
+                                              homeController.isViewData[index] = true;
+                                            } else {
+                                              homeController.isViewData[index] = false;
+                                            }
+                                            homeController.update(['home']);
+                                          },
+                                          child: homeController.isViewData[index]
+                                              ? const Icon(
+                                            Icons.keyboard_arrow_down_sharp,
+                                            color: ColorRes.grey3,
+                                            size: 22,
+                                          )
+                                              : const Icon(
+                                            Icons.keyboard_arrow_right,
+                                            color: ColorRes.grey3,
+                                            size: 22,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    // Display additional details if expanded
+                                    homeController.isViewData[index]
+                                        ? SizedBox(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                              child: Row(
+                                                children: [
+                                                  // Display additional details such as machine number, previous/current values
+                                                  // Adjust the details based on your requirements
+                                                  SizedBox(
+                                                    width: Get.width * 0.205,
+                                                  ),
+                                                  Expanded(
+                                                    child: SizedBox(
+                                                      child: Text(
+                                                        'Machine: ${homeController.recentCollectionList[index].location?.numofmachines ?? ""}', // Adjust based on your data structure
+                                                        style: GoogleFonts.nunito(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: ColorRes.grey,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        'Previous',
+                                                        style: GoogleFonts.nunito(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: ColorRes.grey,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Current',
+                                                        style: GoogleFonts.nunito(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: ColorRes.grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(width: Get.width * 0.03),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      // Display previous/current values
+                                                      Text(
+                                                        "\$${homeController.calculateSubtractedValue(In:homeController.recentCollectionList[index].inNumbers?.previous ?? 0, out: homeController.recentCollectionList[index].outNumbers?.current ?? 0)}",
+                                                        style: GoogleFonts.nunito(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: ColorRes.grey,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "\$${homeController.calculateSubtractedValue(In: homeController.recentCollectionList[index].inNumbers?.current ?? 0, out: homeController.recentCollectionList[index].outNumbers?.previous ?? 0)}",
+                                                        style: GoogleFonts.nunito(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: ColorRes.grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    width: Get.width * 0.04,
+                                                    height: Get.height * 0.05,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                        : SizedBox(),
+                                    SizedBox(height: 15),
+                                  ],
+                                );
+                              },
                             )
+
+
                           ],
                         ),
                       ),
@@ -441,7 +599,7 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(
                                 // height: Get.height * 0.6,
                                 child: ListView.builder(
-                                  itemCount: 4,
+                                  itemCount: homeController.lastTwoPendingRepairs?.length ?? 0,
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) => Column(
@@ -456,14 +614,14 @@ class HomeScreen extends StatelessWidget {
                                             child: Row(
                                               children: [
                                                 Text(
-                                                  "Serialno:  ${'#1-876364'}",
+                                                  "Serialno:  #${homeController.lastTwoPendingRepairs[index].machineNumber ?? ""}-${homeController.lastTwoPendingRepairs[index].serialNumber ?? ""}",
                                                   style: commonSubtitle().copyWith(fontSize: width * 0.038),
                                                 ),
                                               ],
                                             ),
                                           ),
                                           Text(
-                                            'Reporter: Steven',
+                                            'Reporter: ${homeController.lastTwoPendingRepairs[index].reporterName}',
                                             style: commonSubtitle().copyWith(fontSize: width * 0.038),
                                           ),
                                         ],
@@ -477,12 +635,12 @@ class HomeScreen extends StatelessWidget {
                                           SizedBox(
                                             width: Get.width * 0.52,
                                             child: Text(
-                                              'Location: Moonlight Bar',
+                                              'Location: ${homeController.lastTwoPendingRepairs[index].location}',
                                               style: commonSubtitle().copyWith(fontSize: width * 0.038),
                                             ),
                                           ),
                                           Text(
-                                            'Date: 15 Dec, 2023',
+                                            'Date:  ${ DateFormat('dd MMM, yyyy').format(DateTime.parse( homeController.lastTwoPendingRepairs[index].date ?? ""))}',
                                             style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                           )
                                         ],
@@ -496,12 +654,12 @@ class HomeScreen extends StatelessWidget {
                                           SizedBox(
                                             width: Get.width * 0.52,
                                             child: Text(
-                                              'Issue: Joy stick not working',
+                                              'Issue: ${homeController.lastTwoPendingRepairs[index].issue}',
                                               style: commonSubtitle().copyWith(fontSize: width * 0.038),
                                             ),
                                           ),
                                           Text(
-                                            'Time: 11:06 AM',
+                                            'Time: ${homeController.lastTwoPendingRepairs[index].time}',
                                             style: commonSubtitle().copyWith(fontSize: width * 0.034),
                                           )
                                         ],

@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:route_runner/api_call/get_pending_repairs_api/get_pending_repairs_model.dart';
 import 'package:route_runner/api_call/get_recent_collection_api/get_recent_collection_model.dart';
 import 'package:route_runner/utils/asset_res.dart';
 
+import '../../api_call/get_pending_repairs_api/get_pending_repairs_api.dart';
 import '../../api_call/get_recent_collection_api/get_recent_collection_api.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
@@ -58,16 +60,16 @@ class HomeController extends GetxController {
 
   List<bool> isViewData = [];
   List<bool> isClick = [];
-
-  GerRecentCollectionModel gerRecentCollectionModel = GerRecentCollectionModel();
-  List<LastThreeCollectionReports> recentCollectionList = [];
   num calculateSubtractedValue({num? In, num? out}) {
     num total = (In ?? 0) - (out ?? 0);
     return total;
   }
+  GerRecentCollectionModel gerRecentCollectionModel = GerRecentCollectionModel();
+  // List<GroupedReports> recentCollectionList = [];
+ List<LastThreeCollectionReports> recentCollectionList = [];
 
 
-  getRecentCollection() async {
+  Future<void> getRecentCollection() async {
     loader.value = true;
 
     // Assuming CustomerGetRecentCollectionApi.customerGetRecentCollectionApi()
@@ -75,29 +77,27 @@ class HomeController extends GetxController {
     gerRecentCollectionModel =
     await CustomerGetRecentCollectionApi.customerGetRecentCollectionApi();
 
-    // Assuming lastThreeCollectionReports is a List of LastThreeCollectionReports.
-    // recentCollectionList = gerRecentCollectionModel.lastThreeCollectionReports ?? [];
-    if (gerRecentCollectionModel.lastThreeCollectionReports != null &&
-        gerRecentCollectionModel.lastThreeCollectionReports!.isNotEmpty) {
-      // Remove duplicates before adding new reports
-      Set<String?> existingIds = recentCollectionList.map((report) => report.sId).toSet();
-      List<LastThreeCollectionReports> newReports = gerRecentCollectionModel.lastThreeCollectionReports!
-          .where((report) => !existingIds.contains(report.sId))
-          .toList();
-
-      recentCollectionList.addAll(newReports);
-
-      print("recentCollectionList------------>${recentCollectionList.length}");
-      update(['home']);
-
-    }
-
-
+    recentCollectionList.addAll(gerRecentCollectionModel.lastThreeCollectionReports ?? []);
     isViewData = List.generate(recentCollectionList.length, (index) => false);
     isClick = List.generate(recentCollectionList.length, (index) => false);
-    update(['home']);
     loader.value = false;
+    update(['home']);
   }
+
+  GetPendingRepairModel getPendingRepairModel=GetPendingRepairModel();
+  List<LastTwoPendingRepairs> lastTwoPendingRepairs = [];
+
+  getPendingRepairs() async {
+    loader.value = true;
+    getPendingRepairModel = await CustomerGetPendingRepairsApi.customerGetPendingRepairsApi();
+    lastTwoPendingRepairs.addAll(getPendingRepairModel.lastTwoPendingRepairs ?? []);
+
+    loader.value = false;
+    update(['home']);
+  }
+
+
+
 
   // List<collectionDetail> recentCollectionList = [
   //   collectionDetail(serialNo: '#1-876364', location: 'Moonlight Bar', total: '\$500', listData: [
@@ -115,9 +115,9 @@ class HomeController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    isViewData = List.generate(recentCollectionList.length, (index) => false);
-    isClick = List.generate(recentCollectionList.length, (index) => false);
     getRecentCollection();
+    getPendingRepairs();
+
   }
 }
 
