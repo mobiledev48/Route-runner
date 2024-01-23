@@ -59,14 +59,13 @@ class AdminScreen extends StatelessWidget {
                           onpressed: () {
                             FocusScope.of(context).unfocus();
                             if (adminController.validator()) {
-                              controller.signInApi(email: controller.emailController.text,password:   controller.passwordController.text).then((value) {
+                              controller.signInApi(email: controller. emailController.text,password: controller.passwordController.text).then((value) {
                              if(value == false)
                                {
                                  controller.emailController.clear();
                                  controller.passwordController.clear();
                                }
                               });
-
                               // PrefService.setValue(PrefKeys.login, true);
                             }
                           },

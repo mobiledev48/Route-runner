@@ -76,7 +76,10 @@ import '../repair/repair_screen.dart';
                                   : Container(
                                 // height: Get.height * 0.26,
                                   width: Get.width * 0.9,
-                                  decoration: BoxDecoration(color: ColorRes.bgColor),
+                                  decoration: BoxDecoration(
+                                      borderRadius: 
+                                      BorderRadius.circular(12),
+                                      color: ColorRes.bgColor),
                                   child: ListView.separated(
                                       physics: NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
