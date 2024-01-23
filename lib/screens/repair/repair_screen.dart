@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:route_runner/api_call/get_repairs_api/get_repairs_model.dart';
 import 'package:route_runner/common/appbar.dart';
 import 'package:route_runner/screens/location_view/location_controller.dart';
 import 'package:route_runner/screens/new_repair/new_report_controller.dart';
@@ -105,7 +106,8 @@ class RepairScreen extends StatelessWidget {
                                       child: RefreshIndicator(
                                         onRefresh: () async {
                                           controller.repairReportData.clear();
-                                          await controller.getRepair(page: 1);
+                                          controller.currentPage = 1;
+                                          await controller.getRepair(page:  controller.currentPage);
                                           controller.update(['location']);
                                         },
                                         child: ListView.builder(

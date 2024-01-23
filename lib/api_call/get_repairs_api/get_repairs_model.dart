@@ -13,9 +13,10 @@ class GetRepairsModel {
   String? message;
   List<RepairReports>? repairReports;
   int? currentPage;
+  int? totalPages;
 
   GetRepairsModel(
-      {this.success, this.message, this.repairReports, this.currentPage});
+      {this.success, this.message, this.repairReports, this.totalPages,this.currentPage});
 
   GetRepairsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -26,6 +27,7 @@ class GetRepairsModel {
         repairReports!.add(new RepairReports.fromJson(v));
       });
     }
+    totalPages = json['totalPages'];
     currentPage = json['currentPage'];
   }
 
@@ -37,6 +39,7 @@ class GetRepairsModel {
       data['repairReports'] =
           this.repairReports!.map((v) => v.toJson()).toList();
     }
+    data['totalPages'] = this.totalPages;
     data['currentPage'] = this.currentPage;
     return data;
   }

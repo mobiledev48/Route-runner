@@ -131,16 +131,46 @@ class ServiceReportController extends GetxController {
 
   List<ServiceReports> repairServiceReportData = [];
 
+  // upcomingPagination() async {
+  //   if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  //     if (loader.value != true) {
+  //       currentPage++;
+  //       await getServiceReport(page: currentPage);
+  //     }
+  //   }
+  //   update(['service']);
+  // }
   upcomingPagination() async {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
-        currentPage++;
-        await getServiceReport(page: currentPage);
+        // Add a check for more pages before making the API call
+        if (getServiceReportModel != null &&
+            getServiceReportModel.currentPage != null &&
+            getServiceReportModel.totalPages != null &&
+            getServiceReportModel.currentPage! < getServiceReportModel.totalPages!) {
+          currentPage++;
+          await getServiceReport(page: currentPage);
+        }
       }
     }
     update(['service']);
   }
 
+  // upcomingPagination() async {
+  //   if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  //     if (loader.value != true) {
+  //       // Add null checks before using currentPage and totalPages
+  //       if (
+  //       getRepairsModel.currentPage != null &&
+  //           getRepairsModel.totalPages != null &&
+  //           getRepairsModel.currentPage! < getRepairsModel.totalPages!) {
+  //         currentPage++;
+  //         await getRepair(page: currentPage);
+  //       }
+  //     }
+  //   }
+  //   update(['location']);
+  // }
 
 
   locationApi(BuildContext context) async {

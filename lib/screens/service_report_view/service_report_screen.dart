@@ -127,9 +127,11 @@ class ServiceReportScreen extends StatelessWidget {
                                                         Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: [
-                                                            Text(
-                                                              "Issue: ${controller.repairServiceReportData[index].serviceRequested ?? ""}",
-                                                              style: subTitle(),
+                                                            Expanded(
+                                                              child: Text(
+                                                                "Issue: ${controller.repairServiceReportData[index].serviceRequested ?? ""}",
+                                                                style: subTitle(),
+                                                              ),
                                                             ),
                                                             Text(
                                                               "Date: ${ DateFormat('dd MMM, yyyy').format(DateTime.parse( controller.repairServiceReportData[index].date ?? ""))}",

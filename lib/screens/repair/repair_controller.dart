@@ -70,15 +70,32 @@ class RepairController extends GetxController {
 
 
   List<RepairReports> repairReportData = [];
+  // upcomingPagination() async {
+  //   if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  //     if (loader.value != true) {
+  //       currentPage++;
+  //       await getRepair(page: currentPage);
+  //     }
+  //   }
+  //   update(['location']);
+  // }
   upcomingPagination() async {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
-        currentPage++;
-        await getRepair(page: currentPage);
+        // Add null checks before using currentPage and totalPages
+        if (
+            getRepairsModel.currentPage != null &&
+            getRepairsModel.totalPages != null &&
+            getRepairsModel.currentPage! < getRepairsModel.totalPages!) {
+          currentPage++;
+          await getRepair(page: currentPage);
+        }
       }
     }
     update(['location']);
   }
+
+
 
 
 }
