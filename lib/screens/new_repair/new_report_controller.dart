@@ -234,6 +234,7 @@ class NewReportController extends GetxController {
   }
 
   val() async {
+    locationValidation();
     machineValidation();
     serialValidation();
     auditValidation();

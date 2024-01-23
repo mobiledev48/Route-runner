@@ -238,6 +238,7 @@ class NewServiceReportController extends GetxController {
   }
 
   val() async {
+    locationValidation();
     machineValidation();
     serialValidation();
     auditValidation();
@@ -250,7 +251,8 @@ class NewServiceReportController extends GetxController {
 
   validation() {
     val();
-    if (machineError == '' &&
+    if (locationError == '' &&
+        serialError == '' &&
         serialError == '' &&
         auditError == '' &&
         dateError == '' &&
