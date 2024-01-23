@@ -82,7 +82,7 @@ class NewReportController extends GetxController {
 
   locationValidation() {
     if (locationController.text.trim() == "") {
-      locationError = StringRes.pleaseSelectLocation;
+      locationError = StringRes.selectLocation;
     } else {
       locationError = '';
     }
@@ -243,6 +243,7 @@ class NewReportController extends GetxController {
     reporterValidation();
     issueValidation();
     imageValidation();
+    locationValidation();
   }
 
   validation() {
