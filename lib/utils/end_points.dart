@@ -7,6 +7,7 @@ class EndPoints {
   ///---------------------------------------------- Keys ----------------------------------------------
   static const login = "$baseUrl/employee/login";
   static const editProfile = "$baseUrl/employee/edit-employee/";
+  static const employeeStatus = "$baseUrl/employee/employee/employeestatus/";
   static const addNewRepair = "$baseUrl/employee/repair/";
   static const addNewCollection = "$baseUrl/employee/collection/";
   static const addNewServiceReport = "$baseUrl/employee/servicereport/";
@@ -14,6 +15,7 @@ class EndPoints {
   static const getMachine = "$baseUrl/employee/machine/";
   static const getCollection = "$baseUrl/employee/collection/";
   static const getRepair = "$baseUrl/employee/employees/";
+  static const getRecentCollection = "$baseUrl/employee/recent-collection/";
   static const getServiceReport = "$baseUrl/employee/service/";
   static const lastCollection = "$baseUrl/employee/last-collection/";
   static const locationApi = "$baseUrl/location";
