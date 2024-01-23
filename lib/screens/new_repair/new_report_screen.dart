@@ -15,7 +15,7 @@ import 'package:route_runner/utils/strings.dart';
 import '../../utils/text_style.dart';
 import '../repair/repair_screen.dart';
 
-class NewRepairScreen extends StatelessWidget {
+  class NewRepairScreen extends StatelessWidget {
   const NewRepairScreen({super.key});
 
   @override

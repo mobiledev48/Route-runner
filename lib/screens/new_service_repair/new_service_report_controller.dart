@@ -30,7 +30,7 @@ class NewServiceReportController extends GetxController {
   TextEditingController enterSerialNumberController = TextEditingController();
   TextEditingController enterCurrentNumberController = TextEditingController();
   TextEditingController locationController = TextEditingController();
-  String locationError = "";
+
 
   bool isClick = false;
   String  locationId = "";
@@ -55,14 +55,7 @@ class NewServiceReportController extends GetxController {
     loader.value = false;
   }
 
-  locationValidation() {
-    if (locationController.text.trim() == "") {
-      locationError = StringRes.pleaseSelectLocation;
-    } else {
-      locationError = '';
-    }
-    update(['collection']);
-  }
+
 
 
   /// select date function
@@ -164,6 +157,15 @@ class NewServiceReportController extends GetxController {
   String reporterError = "";
   String issueError = "";
   String imageError = "";
+  String locationError = "";
+
+  locationValidation(){
+    if(locationController.text.trim() == ""){
+      locationError = StringRes.selectLocation;
+    }else {
+      locationError = "";
+    }update(['newRepair']);
+  }
 
   imageValidation() {
     if (image == null) {
@@ -246,11 +248,13 @@ class NewServiceReportController extends GetxController {
     reporterValidation();
     issueValidation();
     imageValidation();
+    locationValidation();
   }
 
   validation() {
     val();
-    if (machineError == '' &&
+    if (locationError == '' &&
+    machineError == '' &&
         serialError == '' &&
         auditError == '' &&
         dateError == '' &&

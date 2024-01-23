@@ -170,7 +170,7 @@ class NewCollectionController extends GetxController {
 
   locationValidation() {
     if (locationController.text.trim() == "") {
-      locationError = StringRes.pleaseSelectLocation;
+      locationError = StringRes.selectLocation;
     } else {
       locationError = '';
     }

@@ -95,7 +95,7 @@ class StringRes {
   static const enterCurrentNumber = "0";
   static const collect = "Collect";
   static const machineError = "Enter machine number";
-  static const pleaseSelectLocation = "Please select location";
+  // static const pleaseSelectLocation = "Please select location";
   static const serialError = "Enter serial number";
   static const auditError = "Enter audit number";
   static const machineTypeError = "Enter Machine Type";
@@ -104,6 +104,7 @@ class StringRes {
   static const totalError = "Enter total";
   static const machineType = "Machine Type";
   static const enterCurrentAuditNumber = "Enter current Audit Number";
+  static const selectLocation = "Select Location";
 
   ///---------------------------------------- New Service Report ----------------------------------------
 
