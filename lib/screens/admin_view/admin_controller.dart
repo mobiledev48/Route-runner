@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:route_runner/api_call/auth/signIn_api/sign_in_api.dart';
@@ -211,7 +212,7 @@ class AdminController extends GetxController {
             ? Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 3),
                   child: Text(emailError.tr, style: commonSubtitle().copyWith(color: ColorRes.red)),
                 ),
               )
@@ -229,20 +230,17 @@ class AdminController extends GetxController {
         const SizedBox(
           height: 10,
         ),
-        Container(
-          height: Get.height * 0.09,
-          child: PasswordField(
-            texts: StringRes.dots,
-            con: passwordController,
-            isprefix: false,
-            issufix: true,
-          ),
+        PasswordField(
+          texts: StringRes.dots,
+          con: passwordController,
+          isprefix: false,
+          issufix: true,
         ),
         (passwordError != "")
             ? Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 0),
+                  padding: const EdgeInsets.only(top: 3),
                   child: Text(passwordError, style: commonSubtitle().copyWith(color: ColorRes.red)),
                 ),
               )

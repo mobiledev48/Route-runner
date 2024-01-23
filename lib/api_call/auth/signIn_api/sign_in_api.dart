@@ -1,4 +1,7 @@
 import 'dart:convert';
+
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:route_runner/api_call/auth/signIn_api/sign_in_model.dart';
@@ -35,13 +38,25 @@ class CustomerSignInApi {
           print("Success is false: ${decoded["message"]}");
         }
       } else {
-        // Print details about the error
+
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text('Invalid credential'),
+          ),
+        );
+
+
+
         print("HTTP Status Code: ${response?.statusCode}");
         print("Response Body: ${response?.body}");
+
       }
-      return SignInModel();
+     return SignInModel();
     } catch (e) {
+
+      SnackBar(content: Text('Wrong email and password'));
       print("Error: $e");
+
       return SignInModel();
     }
   }

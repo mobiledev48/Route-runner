@@ -18,7 +18,7 @@ Widget DropDownMenu() {
     color: ColorRes.white,
     // splashRadius: 20,
     offset: Offset(0, 10),
-    // surfaceTintColor: ColorRes.white,
+     surfaceTintColor: ColorRes.white,
     padding: EdgeInsets.zero,
 
     constraints: BoxConstraints(
@@ -39,7 +39,9 @@ Widget DropDownMenu() {
           child: Container(
             height: Get.height * 0.04,
             width: Get.width * 0.6,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightOrange),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
+              //  color: ColorRes.lightOrange
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -61,7 +63,9 @@ Widget DropDownMenu() {
           child: Container(
             height: Get.height * 0.04,
             width: Get.width * 0.6,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: ColorRes.lightYellow),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
+              //  color: ColorRes.lightYellow
+            ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -90,7 +94,9 @@ Widget DropDownMenu() {
             child: Container(
               height: Get.height * 0.04,
               width: Get.width * 0.5,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: Colors.grey.shade100),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
+                //  color: Colors.grey.shade100
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
