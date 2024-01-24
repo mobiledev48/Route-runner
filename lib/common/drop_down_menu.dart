@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
+import 'package:route_runner/common/common_dialod_list_of_machine.dart';
 
 import '../utils/asset_res.dart';
 import '../utils/color_res.dart';
 import '../utils/strings.dart';
 import '../utils/text_style.dart';
 
-Widget DropDownMenu() {
+Widget DropDownMenu({List<Machines>? machines}) {
   return PopupMenuButton(
     // clipBehavior: Clip.none,
 
@@ -89,6 +91,9 @@ Widget DropDownMenu() {
           ),
         ),
         PopupMenuItem(
+          onTap: () {
+            showMyDialog(context,machines);
+          },
             height: Get.height * 0.04,
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Container(

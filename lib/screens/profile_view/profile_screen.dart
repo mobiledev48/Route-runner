@@ -267,7 +267,8 @@ class ProfileScreen extends StatelessWidget {
                                     child: Image.asset(
                                       AssetRes.camera,
                                       scale: 4,
-                                    )),
+                                    ),
+                                ),
                               ),
                             ],
                           ),

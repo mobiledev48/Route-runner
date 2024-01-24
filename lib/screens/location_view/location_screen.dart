@@ -152,7 +152,7 @@ class LocationScreen extends StatelessWidget {
                                                                   SizedBox(
                                                                     height: Get.height * 0.02,
                                                                   ),
-                                                                  SizedBox(height: Get.height * 0.025, child: DropDownMenu()),
+                                                                  SizedBox(height: Get.height * 0.025, child: DropDownMenu(machines: controller.locationsData[index].machines)),
                                                                   SizedBox(height: Get.height * 0.02),
                                                                   Row(
                                                                     children: [
@@ -183,7 +183,7 @@ class LocationScreen extends StatelessWidget {
                                                       margin: EdgeInsets.only(top: 10, left: Get.width * 0.05),
                                                       decoration: BoxDecoration(
                                                         color:controller.locationsData[index].activeStatus == "Active"?
-                                                        Colors.green.withOpacity(0.10):controller.locationsData[index].activeStatus == "Pending"? ColorRes.yellow: Colors.pink.withOpacity(0.10),
+                                                        Colors.green.withOpacity(0.10):controller.locationsData[index].activeStatus == "Pending"? ColorRes.yellow.withOpacity(0.10): Colors.pink.withOpacity(0.10),
                                                         borderRadius: BorderRadius.circular(30),
                                                       ),
                                                       child: Center(
@@ -357,8 +357,6 @@ class LocationScreen extends StatelessWidget {
           )),
     );
   }
-
-
 
 
 }

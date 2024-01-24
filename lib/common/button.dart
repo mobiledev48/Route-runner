@@ -8,11 +8,13 @@ class Button extends StatelessWidget {
   final Function()? onpressed;
   final double height;
   final double width;
+  final String? title;
   const Button({
     super.key,
     required this.height,
     required this.width,
     this.onpressed,
+    this.title,
   });
 
   @override
@@ -25,7 +27,7 @@ class Button extends StatelessWidget {
         decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(15)),
         child: Center(
             child: Text(
-          StringRes.login,
+              title ??  StringRes.login,
           style: GoogleFonts.nunito(textStyle: TextStyle(color: ColorRes.white, fontSize: 16)),
         )),
       ),

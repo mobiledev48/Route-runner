@@ -18,9 +18,9 @@ class CustomerUpdateStatusApi {
       };
 
       var response = await HttpService.putApi(
-        url: "${EndPoints.employeeStatus}${PrefService.getString(PrefKeys.employeeId)}/$locationId",
+        url: "${EndPoints.employeeStatus}$locationId/activestatus",
         body: {
-          "activeEmployeeStatus": status ?? "",
+          "activeStatus": status ?? "",
         },
         header: headers,
       );

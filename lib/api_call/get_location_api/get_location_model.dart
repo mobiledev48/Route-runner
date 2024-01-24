@@ -48,7 +48,7 @@ class LocationsData {
   String? address;
   String? percentage;
   List<Machines>? machines;
-  List<Admin>? employees;
+  List<Machines>? employees;
   int? numofmachines;
   String? activeStatus;
   String? createdAt;
@@ -84,9 +84,9 @@ class LocationsData {
       });
     }
     if (json['employees'] != null) {
-      employees = <Admin>[];
+      employees = <Machines>[];
       json['employees'].forEach((v) {
-        employees!.add(new Admin.fromJson(v));
+        employees!.add(new Machines.fromJson(v));
       });
     }
     numofmachines = json['numofmachines'];
@@ -146,16 +146,23 @@ class Admin {
 
 class Machines {
   String? sId;
+  String? machineNumber;
+  String? serialNumber;
 
-  Machines({this.sId});
+  Machines({this.sId, this.machineNumber, this.serialNumber});
 
   Machines.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
+    machineNumber = json['machineNumber'];
+    serialNumber = json['serialNumber'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
+    data['machineNumber'] = this.machineNumber;
+    data['serialNumber'] = this.serialNumber;
     return data;
   }
 }
+

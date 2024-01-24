@@ -7,7 +7,7 @@ class EndPoints {
   ///---------------------------------------------- Keys ----------------------------------------------
   static const login = "$baseUrl/employee/login";
   static const editProfile = "$baseUrl/employee/edit-employee/";
-  static const employeeStatus = "$baseUrl/employee/employee/employeestatus/";
+  static const employeeStatus = "$baseUrl/";
   static const addNewRepair = "$baseUrl/employee/repair/";
   static const addNewCollection = "$baseUrl/employee/collection/";
   static const addNewServiceReport = "$baseUrl/employee/servicereport/";
