@@ -48,7 +48,7 @@ class MachineController extends GetxController {
     getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(page: page, limit: limitPerPage, search: search);
 
     if (getMachinesModel.locations != null && getMachinesModel.locations!.isNotEmpty) {
-      currentPage++;
+
 
       for (int i = 0; i < getMachinesModel.locations!.length; i++) {
         var locationData = getMachinesModel.locations![i];
@@ -107,14 +107,31 @@ class MachineController extends GetxController {
 
 
 
+  // upcomingPagination() async {
+  //   if (scrollController.position.pixels ==
+  //       scrollController.position.maxScrollExtent) {
+  //     if (loader.value != true) {
+  //       await getMachines(page: currentPage);
+  //     }
+  //   }
+  //   update(['location']);
+  // }
+
+
   upcomingPagination() async {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
-        await getMachines(page: currentPage);
+        // Add a check for more pages before making the API call
+        if (getMachinesModel != null &&
+            getMachinesModel.currentPage != null &&
+            getMachinesModel.totalLocationPages != null &&
+            getMachinesModel.currentPage! < getMachinesModel.totalLocationPages!) {
+          currentPage++;
+          await getMachines(page: currentPage);
+        }
       }
     }
-    update(['location']);
+    update(['collection']);
   }
   // upcomingPagination() async {
   //   if (scrollController.position.pixels == scrollController.position.maxScrollExtent &&

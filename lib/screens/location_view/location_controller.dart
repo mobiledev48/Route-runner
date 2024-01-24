@@ -95,14 +95,30 @@ class LocationController extends GetxController {
   //   update(['location']);
   // }
 
+  // upcomingPagination() async {
+  //   if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  //     if (loader.value != true) {
+  //       currentPage++;
+  //       await getLocation(page: currentPage);
+  //     }
+  //   }
+  //   update(['location']);
+  // }
+
   upcomingPagination() async {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
-        currentPage++;
-        await getLocation(page: currentPage);
+        // Add a check for more pages before making the API call
+        if (getLocationModel != null &&
+            getLocationModel.currentPage != null &&
+            getLocationModel.totalPages != null &&
+            getLocationModel.currentPage! < getLocationModel.totalPages!) {
+          currentPage++;
+          await getLocation(page: currentPage);
+        }
       }
     }
-    update(['location']);
+    update(['collection']);
   }
 
 

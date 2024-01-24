@@ -30,6 +30,7 @@ class HomeScreen extends StatelessWidget {
       key: homeController.scaffoldKey,
       body: Stack(
         children: [
+
           SingleChildScrollView(
             child: GetBuilder<HomeController>(
                 id: 'home',
@@ -80,26 +81,29 @@ class HomeScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                           const Row(
+                          Row(
                             children: [
                               AppbarContainer(
                                 bgColor: ColorRes.lightBlue,
                                 iconColor: ColorRes.mainColor,
                                 image: AssetRes.location,
-                                number: StringRes.num1,
+                                number: homeController.calculateTotalNumberOfLocation() ?? "",
                                 text: StringRes.locations,
                               ),
                               AppbarContainer(
                                 bgColor: ColorRes.lightYellow,
                                 iconColor: ColorRes.yellow,
                                 image: AssetRes.machine,
-                                number: StringRes.num2,
+                                number: homeController.calculateTotalNumberOfMachines() ?? "",
                                 text: StringRes.machines,
                               )
+
                             ],
                           )
                         ],
                       ),
+
+                    Column(children: [
                       SizedBox(
                         height: Get.height * 0.03,
                       ),
@@ -115,7 +119,7 @@ class HomeScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(right: 180),
                               child:
-                                  Text(StringRes.newCollection, style: commonTitle().copyWith(fontWeight: FontWeight.w700)),
+                              Text(StringRes.newCollection, style: commonTitle().copyWith(fontWeight: FontWeight.w700)),
                             ),
                             const SizedBox(height: 7),
                             Row(
@@ -251,7 +255,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             homeController.dividers(5, 5),
-                         /*   ListView.builder(
+                            /*   ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: homeController.recentCollectionList.length,
@@ -424,7 +428,7 @@ class HomeScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: Get.width * 0.09),
+                                        // SizedBox(width: Get.width * 0.09),
                                         Expanded(
                                           // width: Get.width * 0.37,
                                           child: Text(
@@ -483,8 +487,9 @@ class HomeScreen extends StatelessWidget {
                                                   // Display additional details such as machine number, previous/current values
                                                   // Adjust the details based on your requirements
                                                   SizedBox(
-                                                    width: Get.width * 0.205,
+                                                    width: Get.width * 0.06,
                                                   ),
+                                                  Spacer(),
                                                   Expanded(
                                                     child: SizedBox(
                                                       child: Text(
@@ -542,7 +547,7 @@ class HomeScreen extends StatelessWidget {
                                                     ],
                                                   ),
                                                   SizedBox(
-                                                    width: Get.width * 0.04,
+                                                    width: Get.width * 0.02,
                                                     height: Get.height * 0.05,
                                                   )
                                                 ],
@@ -626,7 +631,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 15),
+                                      SizedBox(height: 12),
                                       Row(
                                         children: [
                                           SizedBox(
@@ -645,7 +650,7 @@ class HomeScreen extends StatelessWidget {
                                           )
                                         ],
                                       ),
-                                      SizedBox(height: 15),
+                                      SizedBox(height: 12),
                                       Row(
                                         children: [
                                           SizedBox(
@@ -689,6 +694,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: Get.height * 0.05,
                       ),
+                    ],)
                     ],
                   );
                 }),

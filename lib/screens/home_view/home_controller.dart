@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:route_runner/api_call/get_pending_repairs_api/get_pending_repairs_model.dart';
 import 'package:route_runner/api_call/get_recent_collection_api/get_recent_collection_model.dart';
@@ -68,7 +65,12 @@ class HomeController extends GetxController {
   // List<GroupedReports> recentCollectionList = [];
  List<LastThreeCollectionReports> recentCollectionList = [];
 
-
+  //       homeController.lastTwoPendingRepairs.clear();
+  //     homeController.recentCollectionList.clear();
+  //
+  // await homeController.getPendingRepairs();
+  // await homeController.getRecentCollection();
+  // homeController.update(['home']);
   Future<void> getRecentCollection() async {
     loader.value = true;
 
@@ -97,19 +99,34 @@ class HomeController extends GetxController {
   }
 
 
+  String calculateTotalNumberOfMachines() {
+    int totalNumberOfMachines = 0;
 
+    if (recentCollectionList != null) {
+      for (var repair in recentCollectionList!) {
+        int numberOfMachines = repair.location?.numofmachines ?? 0;
+        totalNumberOfMachines += numberOfMachines;
+      }
+    }
 
-  // List<collectionDetail> recentCollectionList = [
-  //   collectionDetail(serialNo: '#1-876364', location: 'Moonlight Bar', total: '\$500', listData: [
-  //     ListData(machine: 'Machine: 7', current: [Current(cur: 2000, pre: 2500)])
-  //   ]),
-  //   collectionDetail(serialNo: '#3-876368', location: 'Black Sleep Bar', total: '\$400', listData: [
-  //     ListData(machine: 'Machine: 4', current: [Current(cur: 2000, pre: 2500)])
-  //   ]),
-  //   collectionDetail(serialNo: '#4-876621', location: 'GameClub', total: '\$600', listData: [
-  //     ListData(machine: 'Machine: 9', current: [Current(cur: 2000, pre: 2500)])
-  //   ])
-  // ];
+    return totalNumberOfMachines.toString();
+  }
+
+  String calculateTotalNumberOfLocation() {
+    int totalNumberOfLocation = 0;
+
+    if (recentCollectionList != null) {
+      for (var repair in recentCollectionList!) {
+        String? locationName = repair.location?.locationname;
+        if (locationName != null) {
+          totalNumberOfLocation++;
+        }
+      }
+    }
+
+    return totalNumberOfLocation.toString();
+  }
+
 
   @override
   void onInit() {

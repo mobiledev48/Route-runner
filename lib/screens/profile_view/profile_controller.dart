@@ -50,7 +50,7 @@ class ProfileController extends GetxController {
   final FirebaseStorage _storage = FirebaseStorage.instance;
   Future<void> getImageFromCamera() async {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
-
+    isLoading.value = true;
     if (photo != null) {
       image = File(photo.path);
       if(image != null)
@@ -65,6 +65,7 @@ class ProfileController extends GetxController {
 
            downloadUrl = await taskSnapshot.ref.getDownloadURL();
            print("downloadUrl ---------->$downloadUrl");
+          isLoading.value = false;
         }
 
 

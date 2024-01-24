@@ -19,7 +19,7 @@ class NewCollectionController extends GetxController {
   RxBool loader = false.obs;
   ScrollController scrollController = ScrollController();
 
-  List<Location>? filteredLocations = [];
+  // List<Location>? filteredLocations = [];
   LocationModel? locationModel;
   List<CollectionReport> addCampaignData = [];
 
@@ -119,14 +119,14 @@ class NewCollectionController extends GetxController {
     lastCollectionModel = await CustomerGetLastCollectionApi.customerGetLastCollectionApi();
 
     // Check if the properties are not null before assigning them to controllers
-    if (lastCollectionModel.lastCollectionReport?.inNumbers?.previous != null) {
+    if (lastCollectionModel.lastCollection?.lastCollectionReport?.inNumbers?.previous != null) {
       previousNumberInController.text =
-          lastCollectionModel.lastCollectionReport!.inNumbers!.previous.toString();
+          lastCollectionModel.lastCollection!.lastCollectionReport!.inNumbers!.previous.toString();
     }
 
-    if (lastCollectionModel.lastCollectionReport?.outNumbers?.previous != null) {
+    if (lastCollectionModel.lastCollection?.lastCollectionReport?.outNumbers?.previous != null) {
       previousNumberOutController.text =
-          lastCollectionModel.lastCollectionReport!.outNumbers!.previous.toString();
+          lastCollectionModel.lastCollection!.lastCollectionReport!.outNumbers!.previous.toString();
     }
 
     update(['collection']);
