@@ -10,7 +10,7 @@ String getMachinesModelToJson(GetMachinesModel data) => json.encode(data.toJson(
 
 class GetMachinesModel {
   bool? success;
-  List<Location>? locations;
+  List<LocationDataMachine>? locations;
   int? currentPage;
   int? totalLocationPages;
 
@@ -23,7 +23,7 @@ class GetMachinesModel {
 
   factory GetMachinesModel.fromJson(Map<String, dynamic> json) => GetMachinesModel(
     success: json["success"],
-    locations: json["locations"] == null ? [] : List<Location>.from(json["locations"]!.map((x) => Location.fromJson(x))),
+    locations: json["locations"] == null ? [] : List<LocationDataMachine>.from(json["locations"]!.map((x) => LocationDataMachine.fromJson(x))),
     currentPage: json["currentPage"],
     totalLocationPages: json["totalLocationPages"],
   );
@@ -36,7 +36,7 @@ class GetMachinesModel {
   };
 }
 
-class Location {
+class LocationDataMachine {
   String? id;
   String? admin;
   String? locationname;
@@ -51,7 +51,7 @@ class Location {
   int? v;
   bool? statusOfPayment;
 
-  Location({
+  LocationDataMachine({
     this.id,
     this.admin,
     this.locationname,
@@ -67,7 +67,7 @@ class Location {
     this.statusOfPayment,
   });
 
-  factory Location.fromJson(Map<String, dynamic> json) => Location(
+  factory LocationDataMachine.fromJson(Map<String, dynamic> json) => LocationDataMachine(
     id: json["_id"],
     admin: json["admin"],
     locationname: json["locationname"],
@@ -101,11 +101,12 @@ class Location {
 }
 
 class Machine {
-  String? initialNumber;
-  String? currentNumber;
   String? id;
   String? machineNumber;
   String? serialNumber;
+  String? initialNumber;
+  String? currentNumber;
+  String? gameName;
   String? activeMachineStatus;
   List<Employee>? employees;
   DateTime? createdAt;
@@ -113,11 +114,12 @@ class Machine {
   int? v;
 
   Machine({
-    this.initialNumber,
-    this.currentNumber,
     this.id,
     this.machineNumber,
     this.serialNumber,
+    this.initialNumber,
+    this.currentNumber,
+    this.gameName,
     this.activeMachineStatus,
     this.employees,
     this.createdAt,
@@ -126,11 +128,12 @@ class Machine {
   });
 
   factory Machine.fromJson(Map<String, dynamic> json) => Machine(
-    initialNumber: json["initialNumber"],
-    currentNumber: json["currentNumber"],
     id: json["_id"],
     machineNumber: json["machineNumber"],
     serialNumber: json["serialNumber"],
+    initialNumber: json["initialNumber"],
+    currentNumber: json["currentNumber"],
+    gameName: json["gameName"],
     activeMachineStatus: json["activeMachineStatus"],
     employees: json["employees"] == null ? [] : List<Employee>.from(json["employees"]!.map((x) => Employee.fromJson(x))),
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
@@ -139,11 +142,12 @@ class Machine {
   );
 
   Map<String, dynamic> toJson() => {
-    "initialNumber": initialNumber,
-    "currentNumber": currentNumber,
     "_id": id,
     "machineNumber": machineNumber,
     "serialNumber": serialNumber,
+    "initialNumber": initialNumber,
+    "currentNumber": currentNumber,
+    "gameName": gameName,
     "activeMachineStatus": activeMachineStatus,
     "employees": employees == null ? [] : List<dynamic>.from(employees!.map((x) => x.toJson())),
     "createdAt": createdAt?.toIso8601String(),

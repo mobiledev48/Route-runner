@@ -96,6 +96,7 @@ class NewCollectionScreen extends StatelessWidget {
                                         onTap: () {
                                           controller.locationController.text = controller.locationsData[index].locationname ?? "";
                                           controller.locationId = controller.locationsData[index].sId ?? "";
+                                          controller.locationIndex =index;
                                           newCollectionController.machineType;
                                           newCollectionController.isClick = false;
                                           newCollectionController.update(['collection']);
@@ -110,21 +111,30 @@ class NewCollectionScreen extends StatelessWidget {
                                         ),
                                       ),
                                       separatorBuilder: (context, index) =>
-                                          Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                          const Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
                                       itemCount: controller.locationsData.length)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
 
                               Row(
+                                crossAxisAlignment:CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
                                     child: Column(
                                       children: [
                                         CommonTextField(
+                                          readOnly: true,
                                             type: TextInputType.number,
                                             isRequired: true,
                                             hintText: "#12",
+                                            suffixIcon: AssetRes.arrowDown,
+                                            suffixIconOnTap: () {
+                                              newCollectionController.isClickMachine = ! newCollectionController.isClickMachine;
+                                              controller.update(['collection']);
+                                            },
+                                            suffixIconSize: 3,
+                                            isSuffixIcon: true,
                                             color: ColorRes.bgColor,
                                             titleText: StringRes.machineNumber,
                                             inputFormatters: [
@@ -133,6 +143,46 @@ class NewCollectionScreen extends StatelessWidget {
                                             ],
                                             controller: controller.machineNumberController
                                         ),
+                                        newCollectionController.isClickMachine == false
+                                            ? const SizedBox()
+                                            : (controller.locationIndex != null)?Container(
+
+                                            width: Get.width * 0.9,
+                                            decoration: const BoxDecoration(color: ColorRes.bgColor),
+                                            child: ListView.builder(
+                                                physics: NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) =>
+                                                (controller.machineData[index].id == controller.locationId)?
+                                                    ListView.separated(
+                                                      physics: NeverScrollableScrollPhysics(),
+                                                      shrinkWrap: true,
+                                                      separatorBuilder: (context, index) =>
+                                                          Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                                  itemBuilder: (context,i){
+                                                    return  GestureDetector(
+                                                      onTap: () {
+                                                        controller.machineNumberController.text = controller.machineData[index].machines?[i].machineNumber ?? "";
+                                                        controller.enterSerialNumberController.text = controller.machineData[index].machines?[i].serialNumber ?? "";
+                                                        controller.auditNumberController.text = controller.machineData[index].machines?[i].gameName ?? "";
+
+                                                        newCollectionController.isClickMachine = false;
+                                                        newCollectionController.update(['collection']);
+                                                      },
+                                                      child: ListTile(
+                                                        title: Text( controller.machineData[index].machines![i].machineNumber ?? "",
+                                                            style: GoogleFonts.nunito(
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.w400,
+                                                              color: ColorRes.color030229,
+                                                            )),
+                                                      ),
+                                                    );
+                                                  },
+                                                  itemCount:  controller.machineData[index].machines!.length,
+                                                ):const SizedBox(),
+
+                                                itemCount: controller.machineData.length)):const SizedBox(),
                                         (newCollectionController.machineError != "")
                                             ? Align(
                                                 alignment: Alignment.centerRight,
@@ -153,12 +203,60 @@ class NewCollectionScreen extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         CommonTextField(
+                                          readOnly: true,
+                                            suffixIcon: AssetRes.arrowDown,
+                                            suffixIconOnTap: () {
+                                              newCollectionController.isClickSerial = ! newCollectionController.isClickSerial;
+                                              controller.update(['collection']);
+                                            },
+                                            suffixIconSize: 3,
+                                            isSuffixIcon: true,
                                             type: TextInputType.number,
                                             color: ColorRes.bgColor,
                                             isRequired: true,
                                             hintText: StringRes.num3,
                                             titleText: StringRes.serialNumber,
                                             controller: controller.enterSerialNumberController),
+
+                                        newCollectionController.isClickSerial== false
+                                            ? SizedBox()
+                                            : (controller.locationIndex != null)?Container(
+                                          // height: Get.height * 0.26,
+                                            width: Get.width * 0.9,
+                                            decoration: BoxDecoration(color: ColorRes.bgColor),
+                                            child: ListView.builder(
+                                                physics: NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) =>
+                                                (controller.machineData[index].id == controller.locationId)?
+                                                ListView.separated(
+                                                  physics: NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  separatorBuilder: (context, index) =>
+                                                      Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                                  itemBuilder: (context,i){
+                                                    return  GestureDetector(
+                                                      onTap: () {
+                                                        controller.enterSerialNumberController.text = controller.machineData[index].machines?[i].serialNumber ?? "";
+                                                        controller.machineNumberController.text = controller.machineData[index].machines?[i].machineNumber ?? "";
+                                                        controller.auditNumberController.text = controller.machineData[index].machines?[i].gameName ?? "";
+                                                        newCollectionController.isClickSerial = false;
+                                                        newCollectionController.update(['collection']);
+                                                      },
+                                                      child: ListTile(
+                                                        title: Text( controller.machineData[index].machines![i].serialNumber ?? "",
+                                                            style: GoogleFonts.nunito(
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.w400,
+                                                              color: ColorRes.color030229,
+                                                            )),
+                                                      ),
+                                                    );
+                                                  },
+                                                  itemCount:  controller.machineData[index].machines!.length,
+                                                ):const SizedBox(),
+
+                                                itemCount: controller.machineData.length)):const SizedBox(),
                                         (newCollectionController.serialError != "")
                                             ? Align(
                                                 alignment: Alignment.centerRight,
@@ -178,12 +276,12 @@ class NewCollectionScreen extends StatelessWidget {
                                 height: 20,
                               ),
                               CommonTextField(
-
-                                  type: TextInputType.number,
+readOnly: true,
+                                  type: TextInputType.text,
                                   color: ColorRes.bgColor,
                                   isRequired: true,
-                                  hintText: "4652387645",
-                                  titleText: StringRes.enterCurrentAuditNumber,
+                                  hintText: "Game name ",
+                                  titleText: StringRes.enterGameName,
 
                                   controller: controller.auditNumberController),
                               (newCollectionController.auditError != "")
@@ -233,9 +331,8 @@ class NewCollectionScreen extends StatelessWidget {
                                             color: ColorRes.bgColor,
                                             isRequired: true,
                                             hintText: "0",
-
+readOnly: true,
                                             titleText: StringRes.previousNumber,
-                                            readOnly: true,
                                             controller: controller.previousNumberInController),
                                         (newCollectionController.inPreviousError != "")
                                             ? Align(
@@ -314,9 +411,9 @@ class NewCollectionScreen extends StatelessWidget {
                                             type: TextInputType.number,
                                             color: ColorRes.bgColor,
                                             isRequired: true,
+                                            readOnly: true,
                                             hintText: "0",
                                             titleText: StringRes.previousNumber,
-                                            readOnly: true,
                                             controller: controller.previousNumberOutController),
                                         (newCollectionController.outCurrentError != "")
                                             ? Align(
@@ -435,6 +532,7 @@ class NewCollectionScreen extends StatelessWidget {
                                       children: [
                                         GestureDetector(
                                           onTap: () async {
+                                            FocusScope.of(context).unfocus();
                                             await controller.getImageFromCamera();
                                           },
                                           child: Container(
