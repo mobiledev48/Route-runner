@@ -9,17 +9,18 @@ import 'package:route_runner/api_call/get_last_collection_api/get_last_collectio
 import 'package:route_runner/api_call/get_last_collection_api/get_last_collection_model.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
+import 'package:route_runner/api_call/get_machine_api/get_machine_model.dart';
 import 'package:route_runner/model/location_model.dart';
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 
 import '../../api_call/add_new_collection_api/add_new_collection_api.dart';
+import '../../api_call/get_machine_api/get_machine_api.dart';
 import '../../utils/strings.dart';
 
 class NewCollectionController extends GetxController {
   RxBool loader = false.obs;
   ScrollController scrollController = ScrollController();
 
-  List<Location>? filteredLocations = [];
   LocationModel? locationModel;
   List<CollectionReport> addCampaignData = [];
 
@@ -41,6 +42,7 @@ class NewCollectionController extends GetxController {
 
   String  downloadUrl = "";
   String  locationId = "";
+  int?  locationIndex;
   File? image;
   final ImagePicker picker = ImagePicker();
   final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -94,7 +96,12 @@ class NewCollectionController extends GetxController {
   }
 
   GetLocationModel getLocationModel= GetLocationModel();
+  GetMachinesModel getMachinesModel= GetMachinesModel();
   List<LocationsData> locationsData = [];
+  List<LocationDataMachine> machineData = [];
+
+  int currentPage =1;
+  int limitPerPage =10;
   getLocation({page, search}) async {
     loader.value = true;
     getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page, search: search);
@@ -113,20 +120,219 @@ class NewCollectionController extends GetxController {
     loader.value = false;
   }
   LastCollectionModel lastCollectionModel= LastCollectionModel();
+  getMachines({page, search}) async {
+    loader.value = true;
+    getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(
+        page: page, limit: limitPerPage, search: search);
 
+    if (getMachinesModel.locations != null &&
+        getMachinesModel.locations!.isNotEmpty) {
+      currentPage++;
+      if (getMachinesModel.locations != null) {
+        for (int i = 0; i < getMachinesModel.locations!.length; i++) {
+          Set<String?> existingIds = machineData.map((machine) => machine.id)
+              .toSet();
+          List<LocationDataMachine> newLocations = getMachinesModel.locations!
+              .where((location) => !existingIds.contains(location.id))
+              .toList();
+
+          machineData.addAll(newLocations);
+          update(['collection']);
+        }
+      }
+
+      update(['location']);
+      loader.value = false;
+    }
+    LastCollectionModel lastCollectionModel = LastCollectionModel();
+
+    getLastCollection() async {
+      loader.value = true;
+      lastCollectionModel =
+      await CustomerGetLastCollectionApi.customerGetLastCollectionApi();
+
+      // Check if the properties are not null before assigning them to controllers
+      if (lastCollectionModel.lastCollection?.lastCollectionReport?.inNumbers?.previous !=
+          null) {
+        previousNumberInController.text =
+            lastCollectionModel.lastCollection!.lastCollectionReport!.inNumbers!.previous
+                .toString();
+      }
+
+      if (lastCollectionModel.lastCollection?.lastCollectionReport?.outNumbers?.previous !=
+          null) {
+        previousNumberOutController.text =
+            lastCollectionModel.lastCollection!.lastCollectionReport!.outNumbers!.previous
+                .toString();
+      }
+
+      update(['collection']);
+      loader.value = false;
+    }
+
+
+    List machineType = ['4652387645', '876366756', '9576315760'];
+
+    String machineError = "";
+    String serialError = "";
+    String auditError = "";
+    String locationError = "";
+    String inPreviousError = "";
+    String inCurrentError = "";
+    String outPreviousError = "";
+    String outCurrentError = "";
+    String totalError = "";
+    String imageError = "";
+
+    bool isClick = false;
+    bool isClickMachine = false;
+    bool isClickSerial = false;
+
+    imageValidation() {
+      if (image == null) {
+        imageError = StringRes.addImage;
+      } else {
+        imageError = "";
+      }
+      update(['newRepair']);
+    }
+
+    machineValidation() {
+      if (machineNumberController.text.trim() == "") {
+        machineError = StringRes.machineError;
+      } else {
+        machineError = '';
+      }
+      update(['collection']);
+    }
+
+    locationValidation() {
+      if (locationController.text.trim() == "") {
+        locationError = StringRes.selectLocation;
+      } else {
+        locationError = '';
+      }
+      update(['collection']);
+    }
+
+
+    serialValidation() {
+      if (enterSerialNumberController.text.trim() == "") {
+        serialError = StringRes.serialError;
+      } else {
+        serialError = '';
+      }
+      update(['collection']);
+    }
+
+    auditValidation() {
+      if (auditNumberController.text.trim() == "") {
+        auditError = StringRes.machineTypeError;
+      } else {
+        auditError = '';
+      }
+      update(['collection']);
+    }
+
+    inPreValidation() {
+      if (previousNumberInController.text.trim() == "") {
+        inPreviousError = StringRes.previousError;
+      } else {
+        inPreviousError = '';
+      }
+      update(['collection']);
+    }
+
+    inCurValidation() {
+      if (currentNumberInController.text.trim() == "") {
+        inCurrentError = StringRes.currentError;
+      } else {
+        inCurrentError = '';
+      }
+      update(['collection']);
+    }
+
+    outPreValidation() {
+      if (previousNumberOutController.text.trim() == "") {
+        outPreviousError = StringRes.previousError;
+      } else {
+        outPreviousError = '';
+      }
+      update(['collection']);
+    }
+
+    outCurValidation() {
+      if (currentNumberOutController.text.trim() == "") {
+        outCurrentError = StringRes.currentError;
+      } else {
+        outCurrentError = '';
+      }
+      update(['collection']);
+    }
+
+    totalValidation() {
+      if (totalController.text.trim() == "") {
+        totalError = StringRes.totalError;
+      } else {
+        totalError = '';
+      }
+      update(['collection']);
+    }
+
+    val() async {
+      locationValidation();
+      machineValidation();
+      serialValidation();
+      auditValidation();
+      inCurValidation();
+      inPreValidation();
+      outCurValidation();
+      outPreValidation();
+      imageValidation();
+    }
+
+    validation() {
+      val();
+      if (machineError == '' &&
+          serialError == '' &&
+          auditError == '' &&
+          inCurrentError == '' &&
+          inPreviousError == '' &&
+          outCurrentError == '' &&
+          outPreviousError == '' &&
+          imageError == '') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    //
+    // File? image;
+    // final ImagePicker picker = ImagePicker();
+    // Future<void> getImageFromCamera() async {
+    //   final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+    //
+    //   if (photo != null) {
+    //
+    //       image = File(photo.path);
+    //   }
+    //   update(['collection']);
+    // }
+  }
   getLastCollection() async {
     loader.value = true;
     lastCollectionModel = await CustomerGetLastCollectionApi.customerGetLastCollectionApi();
 
     // Check if the properties are not null before assigning them to controllers
-    if (lastCollectionModel.lastCollectionReport?.inNumbers?.previous != null) {
+    if (lastCollectionModel.lastCollection?.lastCollectionReport?.inNumbers?.previous != null) {
       previousNumberInController.text =
-          lastCollectionModel.lastCollectionReport!.inNumbers!.previous.toString();
+          lastCollectionModel.lastCollection!.lastCollectionReport!.inNumbers!.previous.toString();
     }
 
-    if (lastCollectionModel.lastCollectionReport?.outNumbers?.previous != null) {
+    if (lastCollectionModel.lastCollection?.lastCollectionReport?.outNumbers?.previous != null) {
       previousNumberOutController.text =
-          lastCollectionModel.lastCollectionReport!.outNumbers!.previous.toString();
+          lastCollectionModel.lastCollection!.lastCollectionReport!.outNumbers!.previous.toString();
     }
 
     update(['collection']);
@@ -149,6 +355,8 @@ class NewCollectionController extends GetxController {
   String imageError = "";
 
   bool isClick = false;
+  bool isClickMachine = false;
+  bool isClickSerial= false;
 
   imageValidation() {
     if (image == null) {

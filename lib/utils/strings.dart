@@ -105,6 +105,7 @@ class StringRes {
   static const totalError = "Enter total";
   static const machineType = "Machine Type";
   static const enterCurrentAuditNumber = "Enter current Audit Number";
+  static const enterGameName = "Enter game name";
   static const selectLocation = "Select Location";
 
   ///---------------------------------------- New Service Report ----------------------------------------

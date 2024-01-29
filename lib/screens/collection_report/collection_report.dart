@@ -64,10 +64,23 @@ class CollectionReportScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
                           child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
+                                controller.loader.value = true;
                                 NewCollectionController newCollectionController = Get.put(NewCollectionController());
-                                newCollectionController.getLocation();
-                                newCollectionController.getLastCollection();
+                                newCollectionController.machineNumberController.clear();
+                                newCollectionController.auditNumberController.clear();
+                                newCollectionController.locationController.clear();
+                                newCollectionController.previousNumberInController.clear();
+                                newCollectionController.previousNumberOutController.clear();
+                                newCollectionController.currentNumberInController.clear();
+                                newCollectionController.currentNumberOutController.clear();
+                                newCollectionController.enterSerialNumberController.clear();
+                                newCollectionController.totalController.clear();
+                                await newCollectionController.getLocation();
+                                await newCollectionController.getMachines();
+                                await newCollectionController.getLastCollection();
+                                controller.loader.value = false;
+
                                 Get.to(NewCollectionScreen());
                               },
                               child: Image.asset(

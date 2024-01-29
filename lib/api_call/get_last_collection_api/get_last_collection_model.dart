@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final getMachinesModel = getMachinesModelFromJson(jsonString);
+//     final lastCollectionModel = lastCollectionModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -11,105 +11,179 @@ String lastCollectionModelToJson(LastCollectionModel data) => json.encode(data.t
 class LastCollectionModel {
   bool? success;
   String? message;
+  LastCollection? lastCollection;
+
+  LastCollectionModel({
+    this.success,
+    this.message,
+    this.lastCollection,
+  });
+
+  factory LastCollectionModel.fromJson(Map<String, dynamic> json) => LastCollectionModel(
+    success: json["success"],
+    message: json["message"],
+    lastCollection: json["lastCollection"] == null ? null : LastCollection.fromJson(json["lastCollection"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "success": success,
+    "message": message,
+    "lastCollection": lastCollection?.toJson(),
+  };
+}
+
+class LastCollection {
+  Location? location;
+  Employee? employee;
   LastCollectionReport? lastCollectionReport;
 
-  LastCollectionModel({this.success, this.message, this.lastCollectionReport});
+  LastCollection({
+    this.location,
+    this.employee,
+    this.lastCollectionReport,
+  });
 
-  LastCollectionModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    message = json['message'];
-    lastCollectionReport = json['lastCollectionReport'] != null
-        ? new LastCollectionReport.fromJson(json['lastCollectionReport'])
-        : null;
-  }
+  factory LastCollection.fromJson(Map<String, dynamic> json) => LastCollection(
+    location: json["location"] == null ? null : Location.fromJson(json["location"]),
+    employee: json["employee"] == null ? null : Employee.fromJson(json["employee"]),
+    lastCollectionReport: json["lastCollectionReport"] == null ? null : LastCollectionReport.fromJson(json["lastCollectionReport"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.lastCollectionReport != null) {
-      data['lastCollectionReport'] = this.lastCollectionReport!.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "location": location?.toJson(),
+    "employee": employee?.toJson(),
+    "lastCollectionReport": lastCollectionReport?.toJson(),
+  };
+}
+
+class Employee {
+  String? firstname;
+  String? lastname;
+
+  Employee({
+    this.firstname,
+    this.lastname,
+  });
+
+  factory Employee.fromJson(Map<String, dynamic> json) => Employee(
+    firstname: json["firstname"],
+    lastname: json["lastname"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "firstname": firstname,
+    "lastname": lastname,
+  };
 }
 
 class LastCollectionReport {
-  InNumbers? inNumbers;
-  InNumbers? outNumbers;
-  String? sId;
-  String? location;
+  Numbers? inNumbers;
+  Numbers? outNumbers;
+  String? id;
+  Location? location;
   String? machineNumber;
   String? serialNumber;
   String? auditNumber;
   int? total;
   String? image;
-  int? iV;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
 
-  LastCollectionReport(
-      {this.inNumbers,
-        this.outNumbers,
-        this.sId,
-        this.location,
-        this.machineNumber,
-        this.serialNumber,
-        this.auditNumber,
-        this.total,
-        this.image,
-        this.iV});
+  LastCollectionReport({
+    this.inNumbers,
+    this.outNumbers,
+    this.id,
+    this.location,
+    this.machineNumber,
+    this.serialNumber,
+    this.auditNumber,
+    this.total,
+    this.image,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
 
-  LastCollectionReport.fromJson(Map<String, dynamic> json) {
-    inNumbers = json['inNumbers'] != null
-        ? new InNumbers.fromJson(json['inNumbers'])
-        : null;
-    outNumbers = json['outNumbers'] != null
-        ? new InNumbers.fromJson(json['outNumbers'])
-        : null;
-    sId = json['_id'];
-    location = json['location'];
-    machineNumber = json['machineNumber'];
-    serialNumber = json['serialNumber'];
-    auditNumber = json['auditNumber'];
-    total = json['total'];
-    image = json['image'];
-    iV = json['__v'];
-  }
+  factory LastCollectionReport.fromJson(Map<String, dynamic> json) => LastCollectionReport(
+    inNumbers: json["inNumbers"] == null ? null : Numbers.fromJson(json["inNumbers"]),
+    outNumbers: json["outNumbers"] == null ? null : Numbers.fromJson(json["outNumbers"]),
+    id: json["_id"],
+    location: json["location"] == null ? null : Location.fromJson(json["location"]),
+    machineNumber: json["machineNumber"],
+    serialNumber: json["serialNumber"],
+    auditNumber: json["auditNumber"],
+    total: json["total"],
+    image: json["image"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.inNumbers != null) {
-      data['inNumbers'] = this.inNumbers!.toJson();
-    }
-    if (this.outNumbers != null) {
-      data['outNumbers'] = this.outNumbers!.toJson();
-    }
-    data['_id'] = this.sId;
-    data['location'] = this.location;
-    data['machineNumber'] = this.machineNumber;
-    data['serialNumber'] = this.serialNumber;
-    data['auditNumber'] = this.auditNumber;
-    data['total'] = this.total;
-    data['image'] = this.image;
-    data['__v'] = this.iV;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "inNumbers": inNumbers?.toJson(),
+    "outNumbers": outNumbers?.toJson(),
+    "_id": id,
+    "location": location?.toJson(),
+    "machineNumber": machineNumber,
+    "serialNumber": serialNumber,
+    "auditNumber": auditNumber,
+    "total": total,
+    "image": image,
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+    "__v": v,
+  };
 }
 
-class InNumbers {
+class Numbers {
   int? previous;
   int? current;
 
-  InNumbers({this.previous, this.current});
+  Numbers({
+    this.previous,
+    this.current,
+  });
 
-  InNumbers.fromJson(Map<String, dynamic> json) {
-    previous = json['previous'];
-    current = json['current'];
-  }
+  factory Numbers.fromJson(Map<String, dynamic> json) => Numbers(
+    previous: json["previous"],
+    current: json["current"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['previous'] = this.previous;
-    data['current'] = this.current;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "previous": previous,
+    "current": current,
+  };
+}
+
+class Location {
+  String? id;
+  String? locationname;
+  String? address;
+  int? numofmachines;
+  DateTime? createdAt;
+
+  Location({
+    this.id,
+    this.locationname,
+    this.address,
+    this.numofmachines,
+    this.createdAt,
+  });
+
+  factory Location.fromJson(Map<String, dynamic> json) => Location(
+    id: json["_id"],
+    locationname: json["locationname"],
+    address: json["address"],
+    numofmachines: json["numofmachines"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "locationname": locationname,
+    "address": address,
+    "numofmachines": numofmachines,
+    "createdAt": createdAt?.toIso8601String(),
+  };
 }

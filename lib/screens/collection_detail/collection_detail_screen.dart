@@ -229,7 +229,7 @@ class CollectionDetailScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
         child: GestureDetector(
-          onTap: () {
+          onTap: () async {
 
             controller.addNewRepair(location: newCollectionController.locationId, machineNumber: newCollectionController.machineNumberController.text,
                 serialNumber: newCollectionController.enterSerialNumberController.text, auditNumber: newCollectionController.auditNumberController.text,
@@ -257,8 +257,10 @@ class CollectionDetailScreen extends StatelessWidget {
 
                     }
             });
+
             Get.back();
             Get.back();
+
             // Get.offAll(CollectionReportScreen());
           },
           child: Container(
