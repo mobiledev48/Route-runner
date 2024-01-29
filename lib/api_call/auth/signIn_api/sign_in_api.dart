@@ -45,8 +45,6 @@ class CustomerSignInApi {
           ),
         );
 
-
-
         print("HTTP Status Code: ${response?.statusCode}");
         print("Response Body: ${response?.body}");
 

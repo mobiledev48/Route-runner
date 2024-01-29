@@ -298,7 +298,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Row(
+                           /*   Row(
                                 children: [
                                   Expanded(
                                     flex: 3,
@@ -351,7 +351,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                   ),
                                   Spacer()
                                 ],
-                              ),
+                              ),*/
                               const SizedBox(
                                 height: 20,
                               ),

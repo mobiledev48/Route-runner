@@ -11,7 +11,7 @@ import '../../utils/strings.dart';
 import '../../utils/text_style.dart';
 
 class AdminController extends GetxController {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController  emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   // Rx<TextEditingController> email = TextEditingController(text: "user12@gmail.com").obs;
   // Rx<TextEditingController> passwordC = TextEditingController(text: "user123").obs;
@@ -60,7 +60,6 @@ class AdminController extends GetxController {
         return false;
       }
     }
-
   }
 
   passwordValidation() {

@@ -298,7 +298,7 @@ import '../repair/repair_screen.dart';
                               const SizedBox(
                                 height: 20,
                               ),
-                              Row(
+                            /*  Row(
                                 children: [
                                   Expanded(
                                     flex: 3,
@@ -351,7 +351,7 @@ import '../repair/repair_screen.dart';
                                   ),
                                   const Spacer()
                                 ],
-                              ),
+                              ),*/
                               const SizedBox(
                                 height: 20,
                               ),

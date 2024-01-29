@@ -46,6 +46,7 @@ class StringRes {
   static const logout = 'Logout';
   static const serialno = 'Serial No: ';
   static const Reporter = 'Reporter: ';
+  static const addNewCollection = 'Add New Collection';
   // static const logout = 'Logout';
   // static const logout = 'Logout';
 

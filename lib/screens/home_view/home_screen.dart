@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/home_view/home_controller.dart';
 import 'package:route_runner/screens/home_view/widget/appbar_container.dart';
+import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
 import '../../common/common_text_fild.dart';
@@ -45,7 +47,8 @@ class HomeScreen extends StatelessWidget {
                             Container(
                               height: Get.height * 0.27,
                               width: Get.width,
-                              decoration: BoxDecoration(color: ColorRes.mainColor),
+                              decoration:
+                                  BoxDecoration(color: ColorRes.mainColor),
                               child: Row(
                                 children: [
                                   SizedBox(
@@ -74,7 +77,8 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      homeController.scaffoldKey.currentState?.openEndDrawer();
+                                      homeController.scaffoldKey.currentState
+                                          ?.openEndDrawer();
                                     },
                                     child: Image.asset(
                                       AssetRes.drawer,
@@ -84,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                             const Row(
+                            const Row(
                               children: [
                                 AppbarContainer(
                                   bgColor: ColorRes.lightBlue,
@@ -110,7 +114,9 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           height: Get.height * 0.17,
                           width: Get.width * 0.9,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: ColorRes.white),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: ColorRes.white),
                           child: Column(
                             children: [
                               SizedBox(
@@ -118,11 +124,25 @@ class HomeScreen extends StatelessWidget {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(right: 180),
-                                child:
-                                    Text(StringRes.newCollection, style: commonTitle().copyWith(fontWeight: FontWeight.w700)),
+                                child: Text(StringRes.newCollection,
+                                    style: commonTitle()
+                                        .copyWith(fontWeight: FontWeight.w700)),
                               ),
-                              const SizedBox(height: 7),
-                              Row(
+                              const SizedBox(height: 17),
+                              SizedBox(
+                                width: Get.width*0.8,
+                                child: CupertinoButton(
+                                  color: ColorRes.mainColor,
+                                  borderRadius: BorderRadius.circular(15),
+                                    child: Text(StringRes.addNewCollection
+                                      ,  style: commonTitle().copyWith(fontSize: 15, color: ColorRes.white, fontWeight: FontWeight.w500),
+
+                                    ),
+                                    onPressed: () {
+                                    Get.to(()=> NewCollectionScreen());
+                                    }),
+                              )
+                              /* Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(
@@ -136,7 +156,7 @@ class HomeScreen extends StatelessWidget {
                                         controller: homeController.auditController,
                                         hintText: StringRes.auditNumber,
                                       )),
-                                  /*Container(
+                                  */ /*Container(
                                       height: Get.height * 0.055,
                                       width: Get.width * 0.125,
                                       decoration:
@@ -146,7 +166,7 @@ class HomeScreen extends StatelessWidget {
                                           StringRes.go,
                                           style: commonTitle().copyWith(fontSize: 14, color: ColorRes.white),
                                         ),
-                                      ))*/
+                                      ))*/ /*
                                   Column(
                                     children: [
                                       Container(
@@ -166,7 +186,7 @@ class HomeScreen extends StatelessWidget {
                                     ],
                                   )
                                 ],
-                              )
+                              )*/
                             ],
                           ),
                         ),
@@ -180,17 +200,22 @@ class HomeScreen extends StatelessWidget {
                             right: 10,
                           ),
                           width: Get.width * 0.9,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: ColorRes.white),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: ColorRes.white),
                           child: Column(
                             children: [
                               Row(
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 10, top: 15),
+                                      padding: const EdgeInsets.only(
+                                          left: 10, top: 15),
                                       child: Text(
                                         StringRes.recentCollection,
-                                        style: commonTitle().copyWith(fontWeight: FontWeight.w700, fontSize: width * 0.042),
+                                        style: commonTitle().copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: width * 0.042),
                                       ),
                                     ),
                                   ),
@@ -198,7 +223,8 @@ class HomeScreen extends StatelessWidget {
                                     width: Get.width * 0.34,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 20, top: 15,right: 10),
+                                    padding: const EdgeInsets.only(
+                                        left: 20, top: 15, right: 10),
                                     child: Image.asset(
                                       AssetRes.menu,
                                       scale: 3,
@@ -216,7 +242,8 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     StringRes.serialNo,
-                                    style: commonSubtitle().copyWith(fontSize: width * 0.04),
+                                    style: commonSubtitle()
+                                        .copyWith(fontSize: width * 0.04),
                                   ),
                                   const SizedBox(
                                     width: 5,
@@ -231,7 +258,8 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     StringRes.location,
-                                    style: commonSubtitle().copyWith(fontSize: width * 0.04),
+                                    style: commonSubtitle()
+                                        .copyWith(fontSize: width * 0.04),
                                   ),
                                   SizedBox(
                                     width: Get.width * 0.04,
@@ -246,7 +274,8 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     StringRes.total,
-                                    style: commonSubtitle().copyWith(fontSize: width * 0.04),
+                                    style: commonSubtitle()
+                                        .copyWith(fontSize: width * 0.04),
                                   ),
                                   const SizedBox(
                                     width: 6,
@@ -258,7 +287,8 @@ class HomeScreen extends StatelessWidget {
                               ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: homeController.recentCollectionList.length,
+                                itemCount:
+                                    homeController.recentCollectionList.length,
                                 itemBuilder: (context, index) {
                                   return Column(
                                     children: [
@@ -268,7 +298,9 @@ class HomeScreen extends StatelessWidget {
                                             "#${homeController.recentCollectionList[index].machineNumber}-${homeController.recentCollectionList[index].serialNumber}",
                                             // 'Moonlight Bar',
                                             style: GoogleFonts.nunito(
-                                                fontSize: width * 0.034, fontWeight: FontWeight.w400, color: ColorRes.black),
+                                                fontSize: width * 0.034,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorRes.black),
                                           ),
                                           SizedBox(
                                             width: Get.width * 0.09,
@@ -278,29 +310,39 @@ class HomeScreen extends StatelessWidget {
                                             child: Text(
                                               "${homeController.recentCollectionList[index].location}",
                                               style: GoogleFonts.nunito(
-                                                  fontSize: 12, fontWeight: FontWeight.w400, color: ColorRes.black),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorRes.black),
                                             ),
                                           ),
                                           Text(
                                             "${homeController.recentCollectionList[index].total}",
                                             style: GoogleFonts.nunito(
-                                                fontSize: width * 0.034, fontWeight: FontWeight.w400, color: ColorRes.black),
+                                                fontSize: width * 0.034,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorRes.black),
                                           ),
                                           SizedBox(
                                             width: Get.width * 0.04,
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              if (homeController.isViewData[index] == false) {
-                                                homeController.isViewData[index] = true;
+                                              if (homeController
+                                                      .isViewData[index] ==
+                                                  false) {
+                                                homeController
+                                                    .isViewData[index] = true;
                                               } else {
-                                                homeController.isViewData[index] = false;
+                                                homeController
+                                                    .isViewData[index] = false;
                                               }
                                               homeController.update(['home']);
                                             },
-                                            child: homeController.isViewData[index]
+                                            child: homeController
+                                                    .isViewData[index]
                                                 ? const Icon(
-                                                    Icons.keyboard_arrow_down_sharp,
+                                                    Icons
+                                                        .keyboard_arrow_down_sharp,
                                                     color: ColorRes.grey3,
                                                     size: 22,
                                                   )
@@ -315,15 +357,21 @@ class HomeScreen extends StatelessWidget {
                                       homeController.isViewData[index]
                                           ? SizedBox(
                                               child: Padding(
-                                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 15),
                                                   child: Column(
                                                     children: [
                                                       Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 10),
                                                         child: Row(
                                                           children: [
                                                             SizedBox(
-                                                              width: Get.width * 0.205,
+                                                              width: Get.width *
+                                                                  0.205,
                                                             ),
                                                             Expanded(
                                                               child: SizedBox(
@@ -337,61 +385,85 @@ class HomeScreen extends StatelessWidget {
                                                                   //     .locationDetails?[i].current![0].pre as String,
                                                                   'Machine: 7',
                                                                   style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color: ColorRes
+                                                                          .grey),
                                                                 ),
                                                               ),
                                                             ),
                                                             Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                               children: [
                                                                 Text(
                                                                   'Previous',
                                                                   style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color: ColorRes
+                                                                          .grey),
                                                                 ),
                                                                 Text(
                                                                   'Current',
                                                                   style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color: ColorRes
+                                                                          .grey),
                                                                 ),
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              width: Get.width * 0.03,
+                                                              width: Get.width *
+                                                                  0.03,
                                                             ),
                                                             Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                               children: [
                                                                 Text(
                                                                   // '\$${homeController.recentCollectionList[index].inNumbers?.previous ?? 0}',
-                                                                  "\$${homeController.calculateSubtractedValue(In:homeController.recentCollectionList[index].inNumbers?.previous ?? 0,
-                                                                      out: homeController.recentCollectionList[index].outNumbers?.current ?? 0
-                                                                  )}",
+                                                                  "\$${homeController.calculateSubtractedValue(In: homeController.recentCollectionList[index].inNumbers?.previous ?? 0, out: homeController.recentCollectionList[index].outNumbers?.current ?? 0)}",
                                                                   style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color: ColorRes
+                                                                          .grey),
                                                                 ),
                                                                 Text(
-                                                                  "\$${homeController.calculateSubtractedValue(In:homeController.recentCollectionList[index].inNumbers?.current ?? 0,
-                                                                      out: homeController.recentCollectionList[index].outNumbers?.previous ?? 0
-                                                                  )}",
+                                                                  "\$${homeController.calculateSubtractedValue(In: homeController.recentCollectionList[index].inNumbers?.current ?? 0, out: homeController.recentCollectionList[index].outNumbers?.previous ?? 0)}",
                                                                   style: GoogleFonts.nunito(
-                                                                      fontSize: 10,
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: ColorRes.grey),
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color: ColorRes
+                                                                          .grey),
                                                                 ),
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              width: Get.width * 0.04,
-                                                              height: Get.height * 0.05,
+                                                              width: Get.width *
+                                                                  0.04,
+                                                              height:
+                                                                  Get.height *
+                                                                      0.05,
                                                             )
                                                           ],
                                                         ),
@@ -416,23 +488,29 @@ class HomeScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Container(
-                            decoration: BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
+                            decoration: BoxDecoration(
+                                color: ColorRes.white,
+                                borderRadius: BorderRadius.circular(10)),
                             child: Column(
                               children: [
                                 Row(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 20, top: 20),
+                                      padding: const EdgeInsets.only(
+                                          left: 20, top: 20),
                                       child: SizedBox(
                                         width: Get.width * 0.35,
                                         child: Text(
                                           StringRes.pendingRepairs,
-                                          style: commonTitle().copyWith(fontWeight: FontWeight.w700, fontSize: width * 0.042),
+                                          style: commonTitle().copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: width * 0.042),
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 140, top: 20),
+                                      padding: const EdgeInsets.only(
+                                          left: 140, top: 20),
                                       child: Image.asset(
                                         AssetRes.menu,
                                         scale: 3,
@@ -462,14 +540,18 @@ class HomeScreen extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                     "Serialno:  ${'#1-876364'}",
-                                                    style: commonSubtitle().copyWith(fontSize: width * 0.038),
+                                                    style: commonSubtitle()
+                                                        .copyWith(
+                                                            fontSize:
+                                                                width * 0.038),
                                                   ),
                                                 ],
                                               ),
                                             ),
                                             Text(
                                               'Reporter: Steven',
-                                              style: commonSubtitle().copyWith(fontSize: width * 0.038),
+                                              style: commonSubtitle().copyWith(
+                                                  fontSize: width * 0.038),
                                             ),
                                           ],
                                         ),
@@ -483,12 +565,16 @@ class HomeScreen extends StatelessWidget {
                                               width: Get.width * 0.52,
                                               child: Text(
                                                 'Location: Moonlight Bar',
-                                                style: commonSubtitle().copyWith(fontSize: width * 0.038),
+                                                style: commonSubtitle()
+                                                    .copyWith(
+                                                        fontSize:
+                                                            width * 0.038),
                                               ),
                                             ),
                                             Text(
                                               'Date: 15 Dec, 2023',
-                                              style: commonSubtitle().copyWith(fontSize: width * 0.034),
+                                              style: commonSubtitle().copyWith(
+                                                  fontSize: width * 0.034),
                                             )
                                           ],
                                         ),
@@ -502,12 +588,16 @@ class HomeScreen extends StatelessWidget {
                                               width: Get.width * 0.52,
                                               child: Text(
                                                 'Issue: Joy stick not working',
-                                                style: commonSubtitle().copyWith(fontSize: width * 0.038),
+                                                style: commonSubtitle()
+                                                    .copyWith(
+                                                        fontSize:
+                                                            width * 0.038),
                                               ),
                                             ),
                                             Text(
                                               'Time: 11:06 AM',
-                                              style: commonSubtitle().copyWith(fontSize: width * 0.034),
+                                              style: commonSubtitle().copyWith(
+                                                  fontSize: width * 0.034),
                                             )
                                           ],
                                         ),
@@ -540,7 +630,11 @@ class HomeScreen extends StatelessWidget {
                     );
                   }),
             ),
-            Obx(()=> homeController.loader.value ? Center(child: CircularProgressIndicator(),):SizedBox())
+            Obx(() => homeController.loader.value
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SizedBox())
           ],
         ),
         endDrawer: GetBuilder<HomeController>(
@@ -551,15 +645,23 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 30, right: 30, top: Get.height * 0.1, bottom: 30),
+                      padding: EdgeInsets.only(
+                          left: 30,
+                          right: 30,
+                          top: Get.height * 0.1,
+                          bottom: 30),
                       child: Row(
                         children: [
                           Container(
                             height: 43,
                             width: 45,
                             decoration: const BoxDecoration(
-                                image: DecorationImage(fit: BoxFit.fill, image: AssetImage(AssetRes.profilePhotoDrawer)),
-                                borderRadius: BorderRadius.all(Radius.circular(12))),
+                                image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage(
+                                        AssetRes.profilePhotoDrawer)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12))),
                           ),
                           SizedBox(
                             width: 10,
@@ -569,13 +671,17 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               Text("Jim Gallagher",
                                   style: GoogleFonts.nunito(
-                                      fontSize: 14, fontWeight: FontWeight.w600, color: ColorRes.black)),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorRes.black)),
                               SizedBox(
                                 height: 2,
                               ),
                               Text("Employee",
                                   style: GoogleFonts.nunito(
-                                      fontSize: 10, fontWeight: FontWeight.w400, color: ColorRes.grey)),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                      color: ColorRes.grey)),
                             ],
                           )
                         ],
@@ -610,9 +716,12 @@ class HomeScreen extends StatelessWidget {
                                 homeController.imageList[index],
                                 scale: 4,
                               ),
-                              title: Text(homeController.drawerTitle[index].toString(),
+                              title: Text(
+                                  homeController.drawerTitle[index].toString(),
                                   style: GoogleFonts.nunito(
-                                      fontSize: 16, fontWeight: FontWeight.w600, color: ColorRes.color9A9AA9)),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorRes.color9A9AA9)),
                             ));
                       },
                     ))
