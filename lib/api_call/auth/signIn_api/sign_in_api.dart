@@ -30,8 +30,16 @@ class CustomerSignInApi {
 
         if (decoded["success"] == true) {
           PrefService.setValue(PrefKeys.login, true);
-          Get.to(() => DashBoardScreen());
           flutterToast(decoded["message"]);
+          PrefService.setValue(PrefKeys.firstName, decoded['firstname']);
+          PrefService.setValue(PrefKeys.lastName, decoded['lastname']);
+          PrefService.setValue(PrefKeys.email, decoded['email']);
+          PrefService.setValue(PrefKeys.employeeId, decoded['_id']);
+          print("==============================${PrefService.setValue(PrefKeys.email, decoded['email'])}");
+          PrefService.setValue(PrefKeys.mobileNumber, decoded['phone']);
+          PrefService.setValue(PrefKeys.registerToken, decoded['token']);
+          print("======================${PrefService.setValue(PrefKeys.registerToken, decoded['token'])}");
+          PrefService.setValue(PrefKeys.userImage, decoded['image'][0]);
           return signInModelFromJson(response.body);
         } else {
           // Handle other success scenarios if needed

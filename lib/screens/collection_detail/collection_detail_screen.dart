@@ -14,7 +14,8 @@ import '../../utils/text_style.dart';
 import 'collection_detail_controller.dart';
 
 class CollectionDetailScreen extends StatelessWidget {
-  CollectionDetailScreen({super.key});
+  final List<File> imageList;
+  CollectionDetailScreen({super.key,required this.imageList});
   CollectionDetailController controller = Get.put(CollectionDetailController());
   NewCollectionController newCollectionController = Get.put(NewCollectionController());
 
@@ -64,18 +65,33 @@ class CollectionDetailScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        // image: DecorationImage(
-                        //   image: FileImage(File(newCollectionController.image!.path)),
-                        //   fit: BoxFit.cover, // Choose the BoxFit that suits your needs
-                        // ),
-                      ),
-                      child: newCollectionController.addCampaignData[0].image != ""?
-                          Image.file(File(newCollectionController.addCampaignData[0].image ?? ""),height: 180,)
-                          :Image.asset(
-                        AssetRes.photo,
-                      ),
+                   SizedBox(
+                     height: 200,width: 250,
+                     child: PageView.builder(
+                       controller: controller.pageController,
+                       scrollDirection: Axis.horizontal,
+                       itemCount: imageList.length,
+                       itemBuilder: (context, index) =>
+                  Container(
+                    height: 200,width: 250,
+                          decoration:  BoxDecoration(
+                  image: DecorationImage(
+                  image: FileImage(
+                    imageList[index]
+                  ),
+                  fit: BoxFit.cover, // Choose the BoxFit that suits your needs
+                ),
+              ),
+                         /*child:
+
+                          newCollectionController.addCampaignData[0].image != ""?
+                              //Image.file(File(newCollectionController.selectImage[index].toString()),height: 180)
+                             Image.file(File(newCollectionController.addCampaignData[0].image ?? ""),height: 180)
+                              :Image.asset(
+                            AssetRes.photo,
+                          ),*/
+                       ),
+                     ),
                     ),
                     SizedBox(
                       height: 20,

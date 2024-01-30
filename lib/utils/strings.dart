@@ -95,6 +95,7 @@ class StringRes {
   static const currentNumber = "Current Number";
   static const enterCurrentNumber = "0";
   static const collect = "Collect";
+  static const next = "Next";
   static const machineError = "Enter machine number";
   // static const pleaseSelectLocation = "Please select location";
   static const serialError = "Enter serial number";

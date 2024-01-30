@@ -9,6 +9,7 @@ import '../../common/common_text_fild.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
 import '../../utils/text_style.dart';
+import '../dash_board/dash_board_screen.dart';
 
 class AdminController extends GetxController {
   TextEditingController  emailController = TextEditingController();
@@ -28,13 +29,11 @@ class AdminController extends GetxController {
   async {
     isLoading.value = true;
     signInModel =  await CustomerSignInApi.customerSignInApi(email: email,password: password);
-    PrefService.setValue(PrefKeys.registerToken, signInModel.token);
-    PrefService.setValue(PrefKeys.firstName, signInModel.firstname);
-    PrefService.setValue(PrefKeys.lastName, signInModel.lastname);
-    PrefService.setValue(PrefKeys.email, signInModel.email);
-    PrefService.setValue(PrefKeys.employeeId, signInModel.id);
-    PrefService.setValue(PrefKeys.mobileNumber, signInModel.phone);
-    PrefService.setValue(PrefKeys.userImage, signInModel.image);
+    Get.to(() => DashBoardScreen());
+
+   // PrefService.setValue(PrefKeys.registerToken, signInModel.token);
+    print("===================================-----------------========${PrefService.setValue(PrefKeys.registerToken, signInModel.token)}");
+
     isLoading.value = false;
     return  isLoading.value;
   }

@@ -16,21 +16,21 @@ class SignInModel {
   String? lastname;
   int? phone;
   String? email;
-  String? image;
+  List<String>? image;
   String? token;
   int? statusCode;
 
   SignInModel({
-     this.success,
-     this.message,
-     this.id,
-     this.firstname,
-     this.lastname,
-     this.phone,
-     this.email,
-     this.image,
-     this.token,
-     this.statusCode,
+    this.success,
+    this.message,
+    this.id,
+    this.firstname,
+    this.lastname,
+    this.phone,
+    this.email,
+    this.image,
+    this.token,
+    this.statusCode,
   });
 
   factory SignInModel.fromJson(Map<String, dynamic> json) => SignInModel(
@@ -41,7 +41,7 @@ class SignInModel {
     lastname: json["lastname"],
     phone: json["phone"],
     email: json["email"],
-    image: json["image"],
+    image: json["image"] == null ? [] : List<String>.from(json["image"]!.map((x) => x)),
     token: json["token"],
     statusCode: json["statusCode"],
   );
@@ -54,7 +54,7 @@ class SignInModel {
     "lastname": lastname,
     "phone": phone,
     "email": email,
-    "image": image,
+    "image": image == null ? [] : List<dynamic>.from(image!.map((x) => x)),
     "token": token,
     "statusCode": statusCode,
   };

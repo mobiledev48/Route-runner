@@ -212,7 +212,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                           width: 4,
                                                                         ),
                                                                         Text(
-                                                                          "${ DateFormat('dd MMM, yyyy').format(DateTime.parse( controller.collectionReportData[index].location?.createdAt ?? ""))}",
+                                                                          DateFormat('dd MMM, yyyy').format(controller.collectionReportData[index].location?.createdAt ?? DateTime.now()),
                                                                           style: TextStyle(
                                                                             fontSize: width * 0.03,
                                                                             fontWeight: FontWeight.w400,
@@ -365,7 +365,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                   CachedNetworkImage(
                                                                                     width: 80,
                                                                                     fit: BoxFit.fill,
-                                                                                    imageUrl: controller.collectionReportData[index].collectionReports?[i].image ?? "",
+                                                                                    imageUrl: controller.collectionReportData[index].collectionReports?[i].image?[0] ?? "",
                                                                                     placeholder: (context, url) => Image.asset(AssetRes.photo, fit: BoxFit.fill),
                                                                                     errorWidget: (context, url, error) => Image.asset(AssetRes.photo, fit: BoxFit.fill),
                                                                                   ),

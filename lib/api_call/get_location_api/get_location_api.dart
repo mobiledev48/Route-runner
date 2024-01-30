@@ -19,7 +19,7 @@ class CustomerGetLocationApi {
       };
 
       var response = await HttpService.getApi(url:  "${EndPoints.getLocation}${PrefService.getString(PrefKeys.employeeId)}?page=${page ?? ""}&limit=${limit ?? ""}&searchLocation=${search ?? ""}",
-      header: headers
+          header: headers
       );
 
       if (response?.statusCode == 200) {
@@ -35,8 +35,8 @@ class CustomerGetLocationApi {
       } else {
         // Handle other status codes if needed
         print("HTTP Status Code: ${response?.statusCode}");
+        return GetLocationModel();
       }
-      return GetLocationModel();
     } catch (e, stackTrace) {
       print("Error: $e");
       print("Stack Trace: $stackTrace");

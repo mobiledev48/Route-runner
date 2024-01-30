@@ -41,9 +41,10 @@ class CollectionReportController extends GetxController {
       page: page,
       limit: limitPerPage,
       search: search,
+
     );
 
-    if (getCollectionReportModel.groupedReports != null && getCollectionReportModel.groupedReports!.isNotEmpty) {
+   /* if (getCollectionReportModel.groupedReports != null && getCollectionReportModel.groupedReports!.isNotEmpty) {
       // Remove duplicates before adding new reports
       Set<String?> existingIds = collectionReportData.map((report) => report.location?.sId).toSet();
 
@@ -59,7 +60,7 @@ class CollectionReportController extends GetxController {
       isClick = List.generate(collectionReportData.length, (index) => false);
 
       print("=======================================${getCollectionReportModel}");
-    }
+    }*/
 
     update(['collection']);
     loader.value = false;

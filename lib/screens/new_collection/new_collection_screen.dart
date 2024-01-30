@@ -67,7 +67,7 @@ class NewCollectionScreen extends StatelessWidget {
                                   titleText: StringRes.location,
                                   suffixIcon: AssetRes.arrowDown,
                                   suffixIconOnTap: () {
-                                    newCollectionController.isClick = ! newCollectionController.isClick;
+                                    newCollectionController.isClick = !newCollectionController.isClick;
                                     controller.update(['collection']);
                                   },
                                   suffixIconSize: 3,
@@ -130,7 +130,7 @@ class NewCollectionScreen extends StatelessWidget {
                                             hintText: "#12",
                                             suffixIcon: AssetRes.arrowDown,
                                             suffixIconOnTap: () {
-                                              newCollectionController.isClickMachine = ! newCollectionController.isClickMachine;
+                                              newCollectionController.isClickMachine = !newCollectionController.isClickMachine;
                                               controller.update(['collection']);
                                             },
                                             suffixIconSize: 3,
@@ -585,16 +585,39 @@ readOnly: true,
                               Align(
                                 alignment: Alignment.center,
                                 child: controller.image != null
-                                    ? Container(
-                                        height: 150,
-                                        width: 200,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: FileImage(File(controller.image!.path)),
-                                            fit: BoxFit.cover, // Choose the BoxFit that suits your needs
-                                          ),
+                                    ? 
+                                Expanded(
+                                  child: Container(
+                                    height: 200, width: 400, color: Colors.transparent,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                          itemCount: controller.selectImage.length,
+                                          itemBuilder: (context, index) {
+                                            return
+                                              Column(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Container(
+                                                    height: 150,
+                                                    width: 200,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: FileImage(
+                                                            controller.selectImage[index]
+                                                           ),
+                                                        fit: BoxFit.cover, // Choose the BoxFit that suits your needs
+                                                      ),
+                                                    ),
+                                            ),
+                                                  ),
+                                                ],
+                                              );
+                                          },
+
                                         ),
-                                      )
+                                  ),
+                                )
                                     : SizedBox(),
                               ),
                               SizedBox(
@@ -630,8 +653,12 @@ readOnly: true,
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () {
-                                          if (newCollectionController.validation()) {
-                                            Get.to(() => CollectionDetailScreen());
+                                          if (newCollectionController.validation())
+                                          {
+                                            Get.to(() => CollectionDetailScreen(
+                                              imageList: controller.selectImage
+                                            )
+                                            );
 
                                             Iterable<CollectionReport> dynamicParameters = [
                                               CollectionReport(
@@ -646,7 +673,8 @@ readOnly: true,
                                             newCollectionController.addCampaignData.addAll(dynamicParameters);
                                           }
                                         },
-                                        child: Container(
+                                        child:
+                                        Container(
                                           height: 40,
                                           width: 180,
                                           alignment: Alignment.center,
@@ -660,6 +688,20 @@ readOnly: true,
                                                 fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                           ),
                                         ),
+                                       /* Container(
+                                          height: 40,
+                                          width: 180,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              color: ColorRes.color5B93FF,
+                                              border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                              borderRadius: BorderRadius.all(Radius.circular(10))),
+                                          child: Text(
+                                            StringRes.next,
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
+                                          ),
+                                        ),*/
                                       ),
                                     )
                                   ],

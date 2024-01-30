@@ -46,6 +46,7 @@ class NewCollectionController extends GetxController {
   File? image;
   final ImagePicker picker = ImagePicker();
   final FirebaseStorage _storage = FirebaseStorage.instance;
+  List<File> selectImage = [];
 
   double calculateProfit({
     double? previousIn,
@@ -78,6 +79,7 @@ class NewCollectionController extends GetxController {
     if (photo != null) {
       image = File(photo.path);
       if(image != null)
+      selectImage.add(File(photo.path));
       {
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -100,6 +102,7 @@ class NewCollectionController extends GetxController {
   List<LocationsData> locationsData = [];
   List<LocationDataMachine> machineData = [];
 
+
   int currentPage =1;
   int limitPerPage =10;
   getLocation({page, search}) async {
@@ -112,8 +115,8 @@ class NewCollectionController extends GetxController {
       List<LocationsData> newLocations = getLocationModel.locations!
           .where((location) => !existingIds.contains(location.sId))
           .toList();
-
       locationsData.addAll(newLocations);
+print("===========================================$locationsData");
       update(['collection']);
     }
 

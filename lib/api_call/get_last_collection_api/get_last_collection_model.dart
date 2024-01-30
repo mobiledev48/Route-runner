@@ -85,7 +85,7 @@ class LastCollectionReport {
   String? serialNumber;
   String? auditNumber;
   int? total;
-  String? image;
+  List<String>? image;
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;
@@ -114,7 +114,7 @@ class LastCollectionReport {
     serialNumber: json["serialNumber"],
     auditNumber: json["auditNumber"],
     total: json["total"],
-    image: json["image"],
+    image: json["image"] == null ? [] : List<String>.from(json["image"]!.map((x) => x)),
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
     updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
     v: json["__v"],
@@ -129,7 +129,7 @@ class LastCollectionReport {
     "serialNumber": serialNumber,
     "auditNumber": auditNumber,
     "total": total,
-    "image": image,
+    "image": image == null ? [] : List<dynamic>.from(image!.map((x) => x)),
     "createdAt": createdAt?.toIso8601String(),
     "updatedAt": updatedAt?.toIso8601String(),
     "__v": v,

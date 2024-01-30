@@ -9,4 +9,5 @@ class PrefKeys {
   static const mobileNumber = "mobileNumber";
   static const userImage = "userImage";
   static const loginId = "loginId";
+  static const locationId = "locationId";
 }
