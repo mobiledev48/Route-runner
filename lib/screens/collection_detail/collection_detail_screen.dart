@@ -168,16 +168,16 @@ class CollectionDetailScreen extends StatelessWidget {
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              "\$${newCollectionController.currentNumberInController.text}",
+                              "\$${newCollectionController.currentNumberInController[0].text}",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              "\$${newCollectionController.previousNumberInController.text}",
+                              "\$${newCollectionController.previousNumberInController[0].text}",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              "\$${controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberInController.text),
-                                  int.parse(newCollectionController.previousNumberInController.text))}",
+                              "\$${controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberInController[0].text),
+                                  int.parse(newCollectionController.previousNumberInController[0].text))}",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                           ],),
@@ -188,16 +188,16 @@ class CollectionDetailScreen extends StatelessWidget {
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              "\$${newCollectionController.currentNumberOutController.text}",
+                              "\$${newCollectionController.currentNumberOutController[0].text}",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              "\$${newCollectionController.previousNumberOutController.text}",
+                              "\$${newCollectionController.previousNumberOutController[0].text}",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              "\$${controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberOutController.text),
-                                  int.parse(newCollectionController.previousNumberOutController.text))}",
+                              "\$${controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberOutController[0].text),
+                                  int.parse(newCollectionController.previousNumberOutController[0].text))}",
                               style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                             ),
                           ],),
@@ -213,16 +213,16 @@ class CollectionDetailScreen extends StatelessWidget {
                                   Text('Profit: ', style: title().copyWith(fontSize: 15, fontWeight: FontWeight.w500)),
                                   Text(
                                     "\$ ${controller.calculateTotalValue(
-                                        controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberInController.text),
-                                            int.parse(newCollectionController.previousNumberInController.text)),
-                                        controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberOutController.text),
-                                            int.parse(newCollectionController.previousNumberOutController.text))
+                                        controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberInController[0].text),
+                                            int.parse(newCollectionController.previousNumberInController[0].text)),
+                                        controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberOutController[0].text),
+                                            int.parse(newCollectionController.previousNumberOutController[0].text))
                                     )}",
                                     style: TextStyle(color:  (controller.calculateTotalValue(
-                                        controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberInController.text),
-                                            int.parse(newCollectionController.previousNumberInController.text)),
-                                        controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberOutController.text),
-                                            int.parse(newCollectionController.previousNumberOutController.text))
+                                        controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberInController[0].text),
+                                            int.parse(newCollectionController.previousNumberInController[0].text)),
+                                        controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberOutController[0].text),
+                                            int.parse(newCollectionController.previousNumberOutController[0].text))
                                     ) < 0)
                                 ? ColorRes.red
                                 : ColorRes.green,),
@@ -247,15 +247,15 @@ class CollectionDetailScreen extends StatelessWidget {
         child: GestureDetector(
           onTap: () async {
 
-            controller.addNewRepair(location: newCollectionController.locationId, machineNumber: newCollectionController.machineNumberController.text,
-                serialNumber: newCollectionController.enterSerialNumberController.text, auditNumber: newCollectionController.auditNumberController.text,
-                inNumbersPrevious:  newCollectionController.previousNumberInController.text, inNumbersCurrent: newCollectionController.currentNumberInController.text,
-                outNumbersPrevious: newCollectionController.previousNumberOutController.text, outNumbersCurrent: newCollectionController.currentNumberOutController.text,
+            controller.addNewRepair(location: newCollectionController.locationId, machineNumber: newCollectionController.machineNumberController[0].text,
+                serialNumber: newCollectionController.enterSerialNumberController[0].text, auditNumber: newCollectionController.auditNumberController[0].text,
+                inNumbersPrevious:  newCollectionController.previousNumberInController[0].text, inNumbersCurrent: newCollectionController.currentNumberInController[0].text,
+                outNumbersPrevious: newCollectionController.previousNumberOutController[0].text, outNumbersCurrent: newCollectionController.currentNumberOutController[0].text,
                 total: controller.calculateTotalValue(
-                    controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberInController.text),
-                        int.parse(newCollectionController.previousNumberInController.text)),
-                    controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberOutController.text),
-                        int.parse(newCollectionController.previousNumberOutController.text))
+                    controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberInController[0].text),
+                        int.parse(newCollectionController.previousNumberInController[0].text)),
+                    controller.calculateSubtractedValue(int.parse(newCollectionController.currentNumberOutController[0].text),
+                        int.parse(newCollectionController.previousNumberOutController[0].text))
                 ).toString(), image: newCollectionController.downloadUrl).then((value) {
                   if(value == false)
                     {
@@ -263,7 +263,7 @@ class CollectionDetailScreen extends StatelessWidget {
                       // controller.currentPage = 0;
                       // controller.getCollectionReport(page: controller.currentPage);
                       newCollectionController.locationId = "";
-                      newCollectionController.image = null;
+                      newCollectionController.image = [];
                       newCollectionController.locationController.clear();
                       newCollectionController.machineNumberController.clear();
                       newCollectionController.enterSerialNumberController.clear();

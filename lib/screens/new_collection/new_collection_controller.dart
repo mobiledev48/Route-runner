@@ -30,20 +30,21 @@ class NewCollectionController extends GetxController {
 //   TextEditingController enterSerialNumberController = TextEditingController();
 //   TextEditingController enterCurrentNumberController = TextEditingController();
 // =======
-  TextEditingController machineNumberController = TextEditingController();
-  TextEditingController auditNumberController = TextEditingController();
+
+  List machineNumberController  =[];
+  List enterSerialNumberController  =[];
+  List auditNumberController  =[];
+  List previousNumberInController  =[];
+  List previousNumberOutController  =[];
+  List currentNumberInController  =[];
+  List currentNumberOutController  =[];
+  List totalController  =[];
   TextEditingController locationController = TextEditingController();
-  TextEditingController previousNumberInController = TextEditingController();
-  TextEditingController previousNumberOutController = TextEditingController();
-  TextEditingController currentNumberInController = TextEditingController();
-  TextEditingController currentNumberOutController = TextEditingController();
-  TextEditingController enterSerialNumberController = TextEditingController();
-  TextEditingController totalController = TextEditingController();
 
   String  downloadUrl = "";
   String  locationId = "";
   int?  locationIndex;
-  File? image;
+  List<File?> image =[];
   final ImagePicker picker = ImagePicker();
   final FirebaseStorage _storage = FirebaseStorage.instance;
   List<File> selectImage = [];
@@ -61,31 +62,31 @@ class NewCollectionController extends GetxController {
         double totalOut = (currentOut ?? 0.0) - (previousOut ?? 0.0);
 
         double profit = totalIn + totalOut;
-        update(['collection']);
+
         return profit;
       }
     else
       {
-        update(['collection']);
+
         return 0.0;
       }
 
   }
 
 
-  Future<void> getImageFromCamera() async {
+  Future<void> getImageFromCamera(index) async {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
     loader.value = true;
     if (photo != null) {
-      image = File(photo.path);
-      if(image != null)
+      image[index] = File(photo.path);
+      if(image[index] != null)
       selectImage.add(File(photo.path));
       {
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();
 
         Reference storageReference = _storage.ref().child('images/$fileName');
 
-        UploadTask uploadTask = storageReference.putFile(image!);
+        UploadTask uploadTask = storageReference.putFile(image[index]!);
 
         TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
 
@@ -101,6 +102,8 @@ class NewCollectionController extends GetxController {
   GetMachinesModel getMachinesModel= GetMachinesModel();
   List<LocationsData> locationsData = [];
   List<LocationDataMachine> machineData = [];
+  PageController pageController =PageController(initialPage: 0);
+  int pageIndex = 0;
 
 
   int currentPage =1;
@@ -124,14 +127,15 @@ print("===========================================$locationsData");
   }
   LastCollectionModel lastCollectionModel= LastCollectionModel();
   getMachines({page, search}) async {
+    machineData =[];
     loader.value = true;
     getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(
         page: page, limit: limitPerPage, search: search);
 
     if (getMachinesModel.locations != null &&
         getMachinesModel.locations!.isNotEmpty) {
-      currentPage++;
       if (getMachinesModel.locations != null) {
+      currentPage++;
         for (int i = 0; i < getMachinesModel.locations!.length; i++) {
           Set<String?> existingIds = machineData.map((machine) => machine.id)
               .toSet();
@@ -139,7 +143,45 @@ print("===========================================$locationsData");
               .where((location) => !existingIds.contains(location.id))
               .toList();
 
-          machineData.addAll(newLocations);
+          newLocations.forEach((element) {
+            if(element.id == locationId)
+              {
+if(element.machines!.length !=0) {
+  machineData.add(element);
+}
+              }
+          });
+print(machineData);
+
+if(machineData.length !=0 && machineData[0].machines!.length !=0) {
+  machineNumberController =
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
+  enterSerialNumberController = List.generate(
+      machineData[0].machines!.length, (index) => TextEditingController());
+  auditNumberController =
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
+  previousNumberInController =
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController(text: "1"));
+  previousNumberOutController =
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController(text: "1"));
+  currentNumberInController =
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
+  currentNumberOutController =
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
+  totalController =
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
+
+  machineError = List.generate(machineData[0].machines!.length, (index) => '');
+  serialError = List.generate(machineData[0].machines!.length, (index) => '');
+  auditError = List.generate(machineData[0].machines!.length, (index) => '');
+  inPreviousError = List.generate(machineData[0].machines!.length, (index) => '');
+  inCurrentError = List.generate(machineData[0].machines!.length, (index) => '');
+  outPreviousError = List.generate(machineData[0].machines!.length, (index) => '');
+  outCurrentError = List.generate(machineData[0].machines!.length, (index) => '');
+  totalError = List.generate(machineData[0].machines!.length, (index) => '');
+  imageError = List.generate(machineData[0].machines!.length, (index) => '');
+  image = List.generate(machineData[0].machines!.length, (index) => null);
+}
           update(['collection']);
         }
       }
@@ -149,166 +191,12 @@ print("===========================================$locationsData");
     }
     LastCollectionModel lastCollectionModel = LastCollectionModel();
 
-    getLastCollection() async {
-      loader.value = true;
-      lastCollectionModel =
-      await CustomerGetLastCollectionApi.customerGetLastCollectionApi();
-
-      // Check if the properties are not null before assigning them to controllers
-      if (lastCollectionModel.lastCollection?.lastCollectionReport?.inNumbers?.previous !=
-          null) {
-        previousNumberInController.text =
-            lastCollectionModel.lastCollection!.lastCollectionReport!.inNumbers!.previous
-                .toString();
-      }
-
-      if (lastCollectionModel.lastCollection?.lastCollectionReport?.outNumbers?.previous !=
-          null) {
-        previousNumberOutController.text =
-            lastCollectionModel.lastCollection!.lastCollectionReport!.outNumbers!.previous
-                .toString();
-      }
-
-      update(['collection']);
-      loader.value = false;
-    }
 
 
-    List machineType = ['4652387645', '876366756', '9576315760'];
-
-    String machineError = "";
-    String serialError = "";
-    String auditError = "";
-    String locationError = "";
-    String inPreviousError = "";
-    String inCurrentError = "";
-    String outPreviousError = "";
-    String outCurrentError = "";
-    String totalError = "";
-    String imageError = "";
-
-    bool isClick = false;
-    bool isClickMachine = false;
-    bool isClickSerial = false;
-
-    imageValidation() {
-      if (image == null) {
-        imageError = StringRes.addImage;
-      } else {
-        imageError = "";
-      }
-      update(['newRepair']);
-    }
-
-    machineValidation() {
-      if (machineNumberController.text.trim() == "") {
-        machineError = StringRes.machineError;
-      } else {
-        machineError = '';
-      }
-      update(['collection']);
-    }
-
-    locationValidation() {
-      if (locationController.text.trim() == "") {
-        locationError = StringRes.selectLocation;
-      } else {
-        locationError = '';
-      }
-      update(['collection']);
-    }
 
 
-    serialValidation() {
-      if (enterSerialNumberController.text.trim() == "") {
-        serialError = StringRes.serialError;
-      } else {
-        serialError = '';
-      }
-      update(['collection']);
-    }
 
-    auditValidation() {
-      if (auditNumberController.text.trim() == "") {
-        auditError = StringRes.machineTypeError;
-      } else {
-        auditError = '';
-      }
-      update(['collection']);
-    }
 
-    inPreValidation() {
-      if (previousNumberInController.text.trim() == "") {
-        inPreviousError = StringRes.previousError;
-      } else {
-        inPreviousError = '';
-      }
-      update(['collection']);
-    }
-
-    inCurValidation() {
-      if (currentNumberInController.text.trim() == "") {
-        inCurrentError = StringRes.currentError;
-      } else {
-        inCurrentError = '';
-      }
-      update(['collection']);
-    }
-
-    outPreValidation() {
-      if (previousNumberOutController.text.trim() == "") {
-        outPreviousError = StringRes.previousError;
-      } else {
-        outPreviousError = '';
-      }
-      update(['collection']);
-    }
-
-    outCurValidation() {
-      if (currentNumberOutController.text.trim() == "") {
-        outCurrentError = StringRes.currentError;
-      } else {
-        outCurrentError = '';
-      }
-      update(['collection']);
-    }
-
-    totalValidation() {
-      if (totalController.text.trim() == "") {
-        totalError = StringRes.totalError;
-      } else {
-        totalError = '';
-      }
-      update(['collection']);
-    }
-
-    val() async {
-      locationValidation();
-      machineValidation();
-      serialValidation();
-      auditValidation();
-      inCurValidation();
-      inPreValidation();
-      outCurValidation();
-      outPreValidation();
-      imageValidation();
-    }
-
-    validation() {
-      val();
-      if (machineError == '' &&
-          serialError == '' &&
-          auditError == '' &&
-          inCurrentError == '' &&
-          inPreviousError == '' &&
-          outCurrentError == '' &&
-          outPreviousError == '' &&
-          imageError == '') {
-        return true;
-      } else {
-        return false;
-      }
-    }
 
     //
     // File? image;
@@ -329,12 +217,12 @@ print("===========================================$locationsData");
 
     // Check if the properties are not null before assigning them to controllers
     if (lastCollectionModel.lastCollection?.lastCollectionReport?.inNumbers?.previous != null) {
-      previousNumberInController.text =
+      previousNumberInController[0].text =
           lastCollectionModel.lastCollection!.lastCollectionReport!.inNumbers!.previous.toString();
     }
 
     if (lastCollectionModel.lastCollection?.lastCollectionReport?.outNumbers?.previous != null) {
-      previousNumberOutController.text =
+      previousNumberOutController[0].text =
           lastCollectionModel.lastCollection!.lastCollectionReport!.outNumbers!.previous.toString();
     }
 
@@ -346,40 +234,48 @@ print("===========================================$locationsData");
 
   List machineType = ['4652387645', '876366756', '9576315760'];
 
-  String machineError = "";
-  String serialError = "";
-  String auditError = "";
-  String locationError = "";
-  String inPreviousError = "";
-  String inCurrentError = "";
-  String outPreviousError = "";
-  String outCurrentError = "";
-  String totalError = "";
-  String imageError = "";
+  List  machineError = [];
+  List serialError = [];
+  List auditError = [];
+  String locationError = '';
+  List inPreviousError = [];
+  List inCurrentError = [];
+  List outPreviousError = [];
+  List outCurrentError = [];
+  List totalError = [];
+  List imageError =[];
 
   bool isClick = false;
   bool isClickMachine = false;
   bool isClickSerial= false;
 
   imageValidation() {
-    if (image == null) {
-      imageError = StringRes.addImage;
-    } else {
-      imageError = "";
-    }
+
+      if (image[pageIndex] == null) {
+        imageError[pageIndex] = StringRes.addImage;
+      } else {
+        imageError[pageIndex] = "";
+      }
+
+
     update(['newRepair']);
   }
 
   machineValidation() {
-    if (machineNumberController.text.trim() == "") {
-      machineError = StringRes.machineError;
-    } else {
-      machineError = '';
-    }
+
+      if (machineNumberController[pageIndex].text.trim() == "") {
+        machineError[pageIndex] = StringRes.machineError;
+      } else {
+        machineError[pageIndex] = '';
+      }
+
+
+
     update(['collection']);
   }
 
   locationValidation() {
+
     if (locationController.text.trim() == "") {
       locationError = StringRes.selectLocation;
     } else {
@@ -390,65 +286,83 @@ print("===========================================$locationsData");
 
 
   serialValidation() {
-    if (enterSerialNumberController.text.trim() == "") {
-      serialError = StringRes.serialError;
-    } else {
-      serialError = '';
-    }
+      if (enterSerialNumberController[pageIndex].text.trim() == "") {
+        serialError[pageIndex] = StringRes.serialError;
+      } else {
+        serialError[pageIndex] = '';
+      }
+
+
     update(['collection']);
   }
 
   auditValidation() {
-    if (auditNumberController.text.trim() == "") {
-      auditError = StringRes.machineTypeError;
-    } else {
-      auditError = '';
-    }
+
+      if (auditNumberController[pageIndex].text.trim() == "") {
+        auditError[pageIndex] = StringRes.machineTypeError;
+      } else {
+        auditError[pageIndex] = '';
+      }
+
+
     update(['collection']);
   }
 
   inPreValidation() {
-    if (previousNumberInController.text.trim() == "") {
-      inPreviousError = StringRes.previousError;
-    } else {
-      inPreviousError = '';
-    }
+
+      if (previousNumberInController[pageIndex].text.trim() == "") {
+        inPreviousError[pageIndex] = StringRes.previousError;
+      } else {
+        inPreviousError[pageIndex] = '';
+      }
+
+
     update(['collection']);
   }
 
   inCurValidation() {
-    if (currentNumberInController.text.trim() == "") {
-      inCurrentError = StringRes.currentError;
-    } else {
-      inCurrentError = '';
-    }
+
+      if (currentNumberInController[pageIndex].text.trim() == "") {
+        inCurrentError[pageIndex] = StringRes.currentError;
+      } else {
+        inCurrentError[pageIndex] = '';
+      }
+
+
     update(['collection']);
   }
 
   outPreValidation() {
-    if (previousNumberOutController.text.trim() == "") {
-      outPreviousError = StringRes.previousError;
-    } else {
-      outPreviousError = '';
-    }
+      if (previousNumberOutController[pageIndex].text.trim() == "") {
+        outPreviousError[pageIndex] = StringRes.previousError;
+      } else {
+        outPreviousError[pageIndex] = '';
+      }
+
+
     update(['collection']);
   }
 
   outCurValidation() {
-    if (currentNumberOutController.text.trim() == "") {
-      outCurrentError = StringRes.currentError;
-    } else {
-      outCurrentError = '';
-    }
+
+      if (currentNumberOutController[pageIndex].text.trim() == "") {
+        outCurrentError[pageIndex] = StringRes.currentError;
+      } else {
+        outCurrentError[pageIndex] = '';
+      }
+
+
     update(['collection']);
   }
 
   totalValidation() {
-    if (totalController.text.trim() == "") {
-      totalError = StringRes.totalError;
-    } else {
-      totalError = '';
-    }
+      if (totalController[pageIndex].text.trim() == "") {
+        totalError[pageIndex] = StringRes.totalError;
+      } else {
+        totalError[pageIndex] = '';
+      }
+
+
     update(['collection']);
   }
 
@@ -466,14 +380,14 @@ print("===========================================$locationsData");
 
   validation() {
     val();
-    if (machineError == '' &&
-        serialError == '' &&
-        auditError == '' &&
-        inCurrentError == '' &&
-        inPreviousError == '' &&
-        outCurrentError == '' &&
-        outPreviousError == '' &&
-        imageError == '') {
+    if (machineError[pageIndex] == '' &&
+        serialError[pageIndex] == '' &&
+        auditError[pageIndex] == '' &&
+        inCurrentError[pageIndex] == '' &&
+        inPreviousError[pageIndex] == '' &&
+        outCurrentError [pageIndex]== '' &&
+        outPreviousError[pageIndex] == '' &&
+        imageError[pageIndex] == '') {
       return true;
     } else {
       return false;

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -18,710 +19,1141 @@ class NewCollectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NewCollectionController newCollectionController = Get.put(NewCollectionController());
-    return Scaffold(
-        backgroundColor: ColorRes.white,
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-                // Get.to(HomeScreen());
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_sharp,
-                color: ColorRes.white,
-                size: 20,
-              )),
-          centerTitle: true,
-          backgroundColor: ColorRes.mainColor,
-          title: Text(
-            'New Collection',
-            style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
-          ),
+    NewCollectionController newCollectionController =
+        Get.put(NewCollectionController());
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Scaffold(
+          backgroundColor: ColorRes.white,
+          appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Get.back();
+                  // Get.to(HomeScreen());
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_sharp,
+                  color: ColorRes.white,
+                  size: 20,
+                )),
+            centerTitle: true,
+            backgroundColor: ColorRes.mainColor,
+            title: Text(
+              'New Collection',
+              style: GoogleFonts.nunito(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: ColorRes.white),
+            ),
 
-          // automaticallyImplyLeading: false,
-        ),
-        body: Stack(
-          children: [
-            GetBuilder<NewCollectionController>(
-              id: 'collection',
-              builder: (controller) {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
+            // automaticallyImplyLeading: false,
+          ),
+          body: Stack(
+            children: [
+              GetBuilder<NewCollectionController>(
+                id: 'collection',
+                builder: (controller) {
+                  return Column(
+                    children: [
+                      Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-
-                              CommonTextField(
-                                  readOnly: true,
-                                  type: TextInputType.number,
-                                  color: ColorRes.bgColor,
-                                  isRequired: true,
-                                  hintText: "Moonlight Bar",
-                                  titleText: StringRes.location,
-                                  suffixIcon: AssetRes.arrowDown,
-                                  suffixIconOnTap: () {
-                                    newCollectionController.isClick = !newCollectionController.isClick;
-                                    controller.update(['collection']);
-                                  },
-                                  suffixIconSize: 3,
-                                  isSuffixIcon: true,
-                                  controller: controller.locationController),
-                              (newCollectionController.locationError != "")
-                                  ? Align(
-                                alignment: Alignment.centerRight,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 3),
-                                  child: Text(newCollectionController.locationError.tr,
-                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                              )
-                                  : const SizedBox(),
-                              newCollectionController.isClick == false
-                                  ? SizedBox()
-                                  : Container(
-                                // height: Get.height * 0.26,
-                                  width: Get.width * 0.9,
-                                  decoration: BoxDecoration(color: ColorRes.bgColor),
-                                  child: ListView.separated(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemBuilder: (context, index) => GestureDetector(
-                                        onTap: () {
-                                          controller.locationController.text = controller.locationsData[index].locationname ?? "";
-                                          controller.locationId = controller.locationsData[index].sId ?? "";
-                                          controller.locationIndex =index;
-                                          newCollectionController.machineType;
-                                          newCollectionController.isClick = false;
-                                          newCollectionController.update(['collection']);
-                                        },
-                                        child: ListTile(
-                                          title: Text( controller.locationsData[index].locationname ?? "",
-                                              style: GoogleFonts.nunito(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorRes.color030229,
-                                              )),
-                                        ),
-                                      ),
-                                      separatorBuilder: (context, index) =>
-                                          const Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
-                                      itemCount: controller.locationsData.length)),
-                              const SizedBox(
-                                height: 20,
-                              ),
 
-                              Row(
-                                crossAxisAlignment:CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        CommonTextField(
-                                          readOnly: true,
-                                            type: TextInputType.number,
-                                            isRequired: true,
-                                            hintText: "#12",
-                                            suffixIcon: AssetRes.arrowDown,
-                                            suffixIconOnTap: () {
-                                              newCollectionController.isClickMachine = !newCollectionController.isClickMachine;
+                                CommonTextField(
+                                    readOnly: true,
+                                    type: TextInputType.number,
+                                    color: ColorRes.bgColor,
+                                    isRequired: true,
+                                    hintText: "Moonlight Bar",
+                                    titleText: StringRes.location,
+                                    suffixIcon: AssetRes.arrowDown,
+                                    suffixIconOnTap: () {
+                                      newCollectionController.isClick =
+                                          !newCollectionController.isClick;
+                                      controller.update(['collection']);
+                                    },
+                                    suffixIconSize: 3,
+                                    isSuffixIcon: true,
+                                    controller: controller.locationController),
+                                (newCollectionController.locationError != "")
+                                    ? Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 3),
+                                          child: Text(
+                                              newCollectionController
+                                                  .locationError.tr,
+                                              style: commonSubtitle().copyWith(
+                                                  color: ColorRes.red)),
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                                newCollectionController.isClick == false
+                                    ? const SizedBox()
+                                    : Container(
+                                        // height: Get.height * 0.26,
+                                        width: Get.width * 0.9,
+                                        decoration: const BoxDecoration(
+                                            color: ColorRes.bgColor),
+                                        child: ListView.separated(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) =>
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    controller
+                                                        .locationController
+                                                        .text = controller
+                                                            .locationsData[
+                                                                index]
+                                                            .locationname ??
+                                                        "";
+                                                    controller.locationId =
+                                                        controller
+                                                                .locationsData[
+                                                                    index]
+                                                                .sId ??
+                                                            "";
+                                                    controller.locationIndex =
+                                                        index;
+                                                    newCollectionController
+                                                        .machineType;
+                                                    newCollectionController
+                                                        .isClick = false;
+                                                    controller
+                                                        .machineNumberController = [];
+                                                    controller
+                                                        .enterSerialNumberController = [];
+                                                    controller
+                                                        .auditNumberController = [];
+                                                    controller.getMachines();
+                                                    newCollectionController
+                                                        .update(['collection']);
+                                                  },
+                                                  child: ListTile(
+                                                    title: Text(
+                                                        controller
+                                                                .locationsData[
+                                                                    index]
+                                                                .locationname ??
+                                                            "",
+                                                        style:
+                                                            GoogleFonts.nunito(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: ColorRes
+                                                              .color030229,
+                                                        )),
+                                                  ),
+                                                ),
+                                            separatorBuilder:
+                                                (context, index) =>
+                                                    const Divider(
+                                                        color: ColorRes.grey3,
+                                                        endIndent: 10,
+                                                        indent: 10,
+                                                        height: 1),
+                                            itemCount: controller
+                                                .locationsData.length)),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+
+                                /// --- new flow
+                                (controller.machineData.length != 0)
+                                    ? SizedBox(
+                                        height: Get.height * 0.55,
+                                        child: PageView.builder(
+                                          physics:const NeverScrollableScrollPhysics(),
+
+                                            onPageChanged: (v) {
+                                              controller.pageIndex = v;
                                               controller.update(['collection']);
                                             },
-                                            suffixIconSize: 3,
-                                            isSuffixIcon: true,
-                                            color: ColorRes.bgColor,
-                                            titleText: StringRes.machineNumber,
-                                            inputFormatters: [
-                                              LengthLimitingTextInputFormatter(2), // Limit input to 2 characters
-                                              FilteringTextInputFormatter.digitsOnly, // Allow only digits
-                                            ],
-                                            controller: controller.machineNumberController
-                                        ),
-                                        newCollectionController.isClickMachine == false
-                                            ? const SizedBox()
-                                            : (controller.locationIndex != null)?Container(
+                                            itemCount: controller.machineData[0]
+                                                .machines!.length,
+                                            controller:
+                                                controller.pageController,
+                                            itemBuilder: (context, i) {
+                                              return SingleChildScrollView(
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Column(
+                                                            children: [
+                                                              CommonTextField(
+                                                                  readOnly:
+                                                                      true,
+                                                                  type: TextInputType
+                                                                      .number,
+                                                                  isRequired:
+                                                                      true,
+                                                                  hintText:
+                                                                      "#12",
+                                                                  suffixIcon:
+                                                                      AssetRes
+                                                                          .arrowDown,
+                                                                  suffixIconOnTap:
+                                                                      () {
+                                                                    newCollectionController
+                                                                            .isClickMachine =
+                                                                        !newCollectionController
+                                                                            .isClickMachine;
 
-                                            width: Get.width * 0.9,
-                                            decoration: const BoxDecoration(color: ColorRes.bgColor),
-                                            child: ListView.builder(
-                                                physics: NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemBuilder: (context, index) =>
-                                                (controller.machineData[index].id == controller.locationId)?
-                                                    ListView.separated(
-                                                      physics: NeverScrollableScrollPhysics(),
-                                                      shrinkWrap: true,
-                                                      separatorBuilder: (context, index) =>
-                                                          Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
-                                                  itemBuilder: (context,i){
-                                                    return  GestureDetector(
-                                                      onTap: () {
-                                                        controller.machineNumberController.text = controller.machineData[index].machines?[i].machineNumber ?? "";
-                                                        controller.enterSerialNumberController.text = controller.machineData[index].machines?[i].serialNumber ?? "";
-                                                        controller.auditNumberController.text = controller.machineData[index].machines?[i].gameName ?? "";
+                                                                    controller
+                                                                        .update([
+                                                                      'collection'
+                                                                    ]);
+                                                                  },
+                                                                  suffixIconSize:
+                                                                      3,
+                                                                  isSuffixIcon:
+                                                                      true,
+                                                                  color: ColorRes
+                                                                      .bgColor,
+                                                                  titleText:
+                                                                      StringRes
+                                                                          .machineNumber,
+                                                                  inputFormatters: [
+                                                                    LengthLimitingTextInputFormatter(
+                                                                        2), // Limit input to 2 characters
+                                                                    FilteringTextInputFormatter
+                                                                        .digitsOnly, // Allow only digits
+                                                                  ],
+                                                                  controller:
+                                                                      controller
+                                                                          .machineNumberController[i]),
+                                                              newCollectionController
+                                                                          .isClickMachine ==
+                                                                      false
+                                                                  ? const SizedBox()
+                                                                  : (controller
+                                                                              .locationIndex !=
+                                                                          null)
+                                                                      ? Container(
+                                                                          width: Get.width *
+                                                                              0.9,
+                                                                          decoration:
+                                                                              const BoxDecoration(color: ColorRes.bgColor),
+                                                                          child: ListView.separated(
+                                                                            physics:
+                                                                                const NeverScrollableScrollPhysics(),
+                                                                            shrinkWrap:
+                                                                                true,
+                                                                            separatorBuilder: (context, index) => const Divider(
+                                                                                color: ColorRes.grey3,
+                                                                                endIndent: 10,
+                                                                                indent: 10,
+                                                                                height: 1),
+                                                                            itemBuilder:
+                                                                                (context, index) {
+                                                                              return GestureDetector(
+                                                                                onTap: () {
+                                                                                  controller.machineNumberController[i].text = controller.machineData[0].machines?[index].machineNumber ?? "";
+                                                                                  controller.enterSerialNumberController[i].text = controller.machineData[0].machines?[index].serialNumber ?? "";
+                                                                                  controller.auditNumberController[i].text = controller.machineData[0].machines?[index].gameName ?? "";
 
-                                                        newCollectionController.isClickMachine = false;
-                                                        newCollectionController.update(['collection']);
-                                                      },
-                                                      child: ListTile(
-                                                        title: Text( controller.machineData[index].machines![i].machineNumber ?? "",
-                                                            style: GoogleFonts.nunito(
+                                                                                  newCollectionController.isClickMachine = false;
+                                                                                  newCollectionController.update([
+                                                                                    'collection'
+                                                                                  ]);
+                                                                                },
+                                                                                child: ListTile(
+                                                                                  title: Text(controller.machineData[0].machines![index].machineNumber ?? "",
+                                                                                      style: GoogleFonts.nunito(
+                                                                                        fontSize: 14,
+                                                                                        fontWeight: FontWeight.w400,
+                                                                                        color: ColorRes.color030229,
+                                                                                      )),
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                            itemCount:
+                                                                                controller.machineData[0].machines!.length,
+                                                                          ))
+                                                                      : const SizedBox(),
+                                                              (newCollectionController
+                                                                              .machineError[
+                                                                          i] !=
+                                                                      "")
+                                                                  ? Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerRight,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            top:
+                                                                                3),
+                                                                        child: Text(
+                                                                            newCollectionController.machineError[i],
+                                                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                      ),
+                                                                    )
+                                                                  : const SizedBox(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 20,
+                                                        ),
+                                                        Expanded(
+                                                          child: Column(
+                                                            children: [
+                                                              CommonTextField(
+                                                                  readOnly:
+                                                                      true,
+                                                                  suffixIcon:
+                                                                      AssetRes
+                                                                          .arrowDown,
+                                                                  suffixIconOnTap:
+                                                                      () {
+                                                                    newCollectionController
+                                                                            .isClickSerial =
+                                                                        !newCollectionController
+                                                                            .isClickSerial;
+                                                                    controller
+                                                                        .update([
+                                                                      'collection'
+                                                                    ]);
+                                                                  },
+                                                                  suffixIconSize:
+                                                                      3,
+                                                                  isSuffixIcon:
+                                                                      true,
+                                                                  type: TextInputType
+                                                                      .number,
+                                                                  color: ColorRes
+                                                                      .bgColor,
+                                                                  isRequired:
+                                                                      true,
+                                                                  hintText:
+                                                                      StringRes
+                                                                          .num3,
+                                                                  titleText:
+                                                                      StringRes
+                                                                          .serialNumber,
+                                                                  controller:
+                                                                      controller
+                                                                          .enterSerialNumberController[i]),
+                                                              newCollectionController
+                                                                          .isClickSerial ==
+                                                                      false
+                                                                  ? const SizedBox()
+                                                                  : (controller
+                                                                              .locationIndex !=
+                                                                          null)
+                                                                      ? Container(
+                                                                          // height: Get.height * 0.26,
+                                                                          width: Get.width *
+                                                                              0.9,
+                                                                          decoration:
+                                                                              const BoxDecoration(color: ColorRes.bgColor),
+                                                                          child: ListView.builder(
+                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                              shrinkWrap: true,
+                                                                              itemBuilder: (context, index) => (controller.machineData[index].id == controller.locationId)
+                                                                                  ? ListView.separated(
+                                                                                      physics: const NeverScrollableScrollPhysics(),
+                                                                                      shrinkWrap: true,
+                                                                                      separatorBuilder: (context, index) => const Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                                                                      itemBuilder: (context, i) {
+                                                                                        return GestureDetector(
+                                                                                          onTap: () {
+                                                                                            controller.enterSerialNumberController[i].text = controller.machineData[index].machines?[i].serialNumber ?? "";
+                                                                                            controller.machineNumberController[i].text = controller.machineData[index].machines?[i].machineNumber ?? "";
+                                                                                            controller.auditNumberController[i].text = controller.machineData[index].machines?[i].gameName ?? "";
+                                                                                            newCollectionController.isClickSerial = false;
+                                                                                            newCollectionController.update(['collection']);
+                                                                                          },
+                                                                                          child: ListTile(
+                                                                                            title: Text(controller.machineData[index].machines![i].serialNumber ?? "",
+                                                                                                style: GoogleFonts.nunito(
+                                                                                                  fontSize: 14,
+                                                                                                  fontWeight: FontWeight.w400,
+                                                                                                  color: ColorRes.color030229,
+                                                                                                )),
+                                                                                          ),
+                                                                                        );
+                                                                                      },
+                                                                                      itemCount: controller.machineData[index].machines!.length,
+                                                                                    )
+                                                                                  : const SizedBox(),
+                                                                              itemCount: controller.machineData.length))
+                                                                      : const SizedBox(),
+                                                              (newCollectionController
+                                                                              .serialError[
+                                                                          i] !=
+                                                                      "")
+                                                                  ? Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerRight,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            top:
+                                                                                3),
+                                                                        child: Text(
+                                                                            newCollectionController.serialError[i],
+                                                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                      ),
+                                                                    )
+                                                                  : const SizedBox(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    CommonTextField(
+                                                        readOnly: true,
+                                                        type:
+                                                            TextInputType.text,
+                                                        color: ColorRes.bgColor,
+                                                        isRequired: true,
+                                                        hintText: "Game name ",
+                                                        titleText: StringRes
+                                                            .enterGameName,
+                                                        controller: controller
+                                                            .auditNumberController[i]),
+                                                    (newCollectionController
+                                                                    .auditError[
+                                                                i] !=
+                                                            "")
+                                                        ? Align(
+                                                            alignment: Alignment
+                                                                .centerRight,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      top: 3),
+                                                              child: Text(
+                                                                  newCollectionController
+                                                                      .auditError[
+                                                                          i]
+                                                                      ,
+                                                                  style: commonSubtitle()
+                                                                      .copyWith(
+                                                                          color:
+                                                                              ColorRes.red)),
+                                                            ),
+                                                          )
+                                                        : const SizedBox(),
+
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
+
+                                                    /// in
+                                                    Row(
+                                                      children: [
+                                                        Text("In",
+                                                            style: GoogleFonts
+                                                                .nunito(
                                                               fontSize: 14,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.color030229,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: ColorRes
+                                                                  .color030229,
                                                             )),
-                                                      ),
-                                                    );
-                                                  },
-                                                  itemCount:  controller.machineData[index].machines!.length,
-                                                ):const SizedBox(),
+                                                        const Text(
+                                                          ' *',
+                                                          style: TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.red,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 9,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Column(
+                                                            children: [
+                                                              CommonTextField(
+                                                                  type: TextInputType
+                                                                      .number,
+                                                                  color: ColorRes
+                                                                      .bgColor,
+                                                                  isRequired:
+                                                                      true,
+                                                                  hintText: "0",
+                                                                  readOnly:
+                                                                      true,
+                                                                  titleText:
+                                                                      StringRes
+                                                                          .previousNumber,
+                                                                  controller:
+                                                                      controller
+                                                                          .previousNumberInController[i]),
+                                                              (newCollectionController
+                                                                              .inPreviousError[
+                                                                          i] !=
+                                                                      "")
+                                                                  ? Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerRight,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            top:
+                                                                                3),
+                                                                        child: Text(
+                                                                            newCollectionController.inPreviousError[i],
+                                                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                      ),
+                                                                    )
+                                                                  : const SizedBox(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                            width: Get.width *
+                                                                0.05),
+                                                        Expanded(
+                                                          child: Column(
+                                                            children: [
+                                                              CommonTextField(
+                                                                  type: TextInputType
+                                                                      .number,
+                                                                  color: ColorRes
+                                                                      .bgColor,
+                                                                  isRequired:
+                                                                      true,
+                                                                  hintText: "0",
+                                                                  titleText:
+                                                                      StringRes
+                                                                          .currentNumber,
+                                                                  onChanged:
+                                                                      (value) {
+                                                                    controller.calculateProfit(
+                                                                        currentIn:
+                                                                            double.parse(value ??
+                                                                                "0.0"));
+                                                                  },
+                                                                  controller:
+                                                                      controller
+                                                                          .currentNumberInController[i]),
+                                                              (newCollectionController
+                                                                              .inCurrentError[
+                                                                          i] !=
+                                                                      "")
+                                                                  ? Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerRight,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            top:
+                                                                                3),
+                                                                        child: Text(
+                                                                            newCollectionController.inCurrentError[i],
+                                                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                      ),
+                                                                    )
+                                                                  : const SizedBox(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
 
-                                                itemCount: controller.machineData.length)):const SizedBox(),
-                                        (newCollectionController.machineError != "")
-                                            ? Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 3),
-                                                  child: Text(newCollectionController.machineError.tr,
-                                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
-                                                ),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        CommonTextField(
-                                          readOnly: true,
-                                            suffixIcon: AssetRes.arrowDown,
-                                            suffixIconOnTap: () {
-                                              newCollectionController.isClickSerial = ! newCollectionController.isClickSerial;
-                                              controller.update(['collection']);
-                                            },
-                                            suffixIconSize: 3,
-                                            isSuffixIcon: true,
-                                            type: TextInputType.number,
-                                            color: ColorRes.bgColor,
-                                            isRequired: true,
-                                            hintText: StringRes.num3,
-                                            titleText: StringRes.serialNumber,
-                                            controller: controller.enterSerialNumberController),
-
-                                        newCollectionController.isClickSerial== false
-                                            ? SizedBox()
-                                            : (controller.locationIndex != null)?Container(
-                                          // height: Get.height * 0.26,
-                                            width: Get.width * 0.9,
-                                            decoration: BoxDecoration(color: ColorRes.bgColor),
-                                            child: ListView.builder(
-                                                physics: NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemBuilder: (context, index) =>
-                                                (controller.machineData[index].id == controller.locationId)?
-                                                ListView.separated(
-                                                  physics: NeverScrollableScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  separatorBuilder: (context, index) =>
-                                                      Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
-                                                  itemBuilder: (context,i){
-                                                    return  GestureDetector(
-                                                      onTap: () {
-                                                        controller.enterSerialNumberController.text = controller.machineData[index].machines?[i].serialNumber ?? "";
-                                                        controller.machineNumberController.text = controller.machineData[index].machines?[i].machineNumber ?? "";
-                                                        controller.auditNumberController.text = controller.machineData[index].machines?[i].gameName ?? "";
-                                                        newCollectionController.isClickSerial = false;
-                                                        newCollectionController.update(['collection']);
-                                                      },
-                                                      child: ListTile(
-                                                        title: Text( controller.machineData[index].machines![i].serialNumber ?? "",
-                                                            style: GoogleFonts.nunito(
+                                                    /// out
+                                                    Row(
+                                                      children: [
+                                                        Text("Out",
+                                                            style: GoogleFonts
+                                                                .nunito(
                                                               fontSize: 14,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorRes.color030229,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: ColorRes
+                                                                  .color030229,
                                                             )),
+                                                        const Text(
+                                                          ' *',
+                                                          style: TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.red,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 9,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Column(
+                                                            children: [
+                                                              CommonTextField(
+                                                                  type: TextInputType
+                                                                      .number,
+                                                                  color: ColorRes
+                                                                      .bgColor,
+                                                                  isRequired:
+                                                                      true,
+                                                                  readOnly:
+                                                                      true,
+                                                                  hintText: "0",
+                                                                  titleText:
+                                                                      StringRes
+                                                                          .previousNumber,
+                                                                  controller:
+                                                                      controller
+                                                                          .previousNumberOutController[i]),
+                                                              (newCollectionController
+                                                                              .outCurrentError[
+                                                                          i] !=
+                                                                      "")
+                                                                  ? Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerRight,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            top:
+                                                                                3),
+                                                                        child: Text(
+                                                                            newCollectionController.outCurrentError[i],
+                                                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                      ),
+                                                                    )
+                                                                  : const SizedBox(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                            width: Get.width *
+                                                                0.05),
+                                                        Expanded(
+                                                          child: Column(
+                                                            children: [
+                                                              CommonTextField(
+                                                                  type: TextInputType
+                                                                      .number,
+                                                                  color: ColorRes
+                                                                      .bgColor,
+                                                                  isRequired:
+                                                                      true,
+                                                                  hintText: "0",
+                                                                  onChanged:
+                                                                      (value) {
+                                                                    controller.calculateProfit(
+                                                                        currentOut:
+                                                                            double.parse(value ??
+                                                                                "0.0"));
+                                                                  },
+                                                                  titleText:
+                                                                      StringRes
+                                                                          .currentNumber,
+                                                                  controller:
+                                                                      controller
+                                                                          .currentNumberOutController[i]),
+                                                              (newCollectionController
+                                                                              .outCurrentError[
+                                                                          i] !=
+                                                                      "")
+                                                                  ? Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerRight,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            top:
+                                                                                3),
+                                                                        child: Text(
+                                                                            newCollectionController.outCurrentError[i],
+                                                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                      ),
+                                                                    )
+                                                                  : const SizedBox(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
+
+                                                    Row(
+                                                      children: [
+                                                        Text("Total",
+                                                            style: GoogleFonts
+                                                                .nunito(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: ColorRes
+                                                                  .color030229,
+                                                            )),
+                                                        const Text(
+                                                          ' *',
+                                                          style: TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.red,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 9,
+                                                    ),
+                                                    Container(
+                                                      height: 52,
+                                                      width: Get.width,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      padding:
+                                                          const EdgeInsets.symmetric(
+                                                              horizontal: 10),
+                                                      decoration: BoxDecoration(
+                                                        color: ColorRes.bgColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                          15,
+                                                        ),
                                                       ),
-                                                    );
-                                                  },
-                                                  itemCount:  controller.machineData[index].machines!.length,
-                                                ):const SizedBox(),
+                                                      child: Text(
+                                                        controller
+                                                            .calculateProfit(
+                                                                currentIn: double.parse(controller.currentNumberInController[i].text == ""
+                                                                    ? "0.0"
+                                                                    : controller
+                                                                        .currentNumberInController[
+                                                                            i]
+                                                                        .text),
+                                                                currentOut: double.parse(controller.currentNumberOutController[i].text == ""
+                                                                    ? "0.0"
+                                                                    : controller
+                                                                        .currentNumberOutController[
+                                                                            i]
+                                                                        .text),
+                                                                previousIn: double.parse(controller.previousNumberInController[i].text ==
+                                                                        ""
+                                                                    ? "0.0"
+                                                                    : controller
+                                                                        .previousNumberInController[
+                                                                            i]
+                                                                        .text),
+                                                                previousOut:
+                                                                    double.parse(controller.previousNumberOutController[i].text == "" ? "0.0" : controller.previousNumberOutController[i].text))
+                                                            .toString(),
+                                                        style:
+                                                            GoogleFonts.nunito(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: ColorRes
+                                                              .color030229,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // CommonTextField(
+                                                    //   readOnly: true,
+                                                    //     type: TextInputType.number,
+                                                    //     color: ColorRes.bgColor,
+                                                    //     isRequired: true,
+                                                    //     hintText: StringRes.enterCurrentNumber,
+                                                    //     titleText: StringRes.total,
+                                                    //     controller: controller.totalController),
 
-                                                itemCount: controller.machineData.length)):const SizedBox(),
-                                        (newCollectionController.serialError != "")
-                                            ? Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 3),
-                                                  child: Text(newCollectionController.serialError.tr,
-                                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                    (newCollectionController
+                                                                    .totalError[
+                                                                i] !=
+                                                            "")
+                                                        ? Align(
+                                                            alignment: Alignment
+                                                                .centerRight,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      top: 3),
+                                                              child: Text(
+                                                                  newCollectionController
+                                                                      .totalError[
+                                                                          i]
+                                                                      .tr,
+                                                                  style: commonSubtitle()
+                                                                      .copyWith(
+                                                                          color:
+                                                                              ColorRes.red)),
+                                                            ),
+                                                          )
+                                                        : const SizedBox(),
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          flex: 3,
+                                                          child: Column(
+                                                            children: [
+                                                              GestureDetector(
+                                                                onTap:
+                                                                    () async {
+                                                                  FocusScope.of(
+                                                                          context)
+                                                                      .unfocus();
+                                                                  await controller
+                                                                      .getImageFromCamera(
+                                                                          i);
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  height: 40,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  decoration: BoxDecoration(
+                                                                      color: ColorRes
+                                                                          .color5B93FF,
+                                                                      border: Border.all(
+                                                                          width:
+                                                                              1,
+                                                                          color: ColorRes
+                                                                              .color5B93FF),
+                                                                      borderRadius:
+                                                                          const BorderRadius.all(
+                                                                              Radius.circular(10))),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      SizedBox(
+                                                                        width: Get.width *
+                                                                            0.06,
+                                                                      ),
+                                                                      Image
+                                                                          .asset(
+                                                                        AssetRes
+                                                                            .camera,
+                                                                        scale:
+                                                                            5,
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        width:
+                                                                            10,
+                                                                      ),
+                                                                      Text(
+                                                                        StringRes
+                                                                            .captureMachineReading,
+                                                                        style: GoogleFonts.nunito(
+                                                                            fontSize:
+                                                                                14,
+                                                                            fontWeight:
+                                                                                FontWeight.w400,
+                                                                            color: ColorRes.white),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              (controller.imageError[
+                                                                          i] !=
+                                                                      "")
+                                                                  ? Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerRight,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            top:
+                                                                                3),
+                                                                        child: Text(
+                                                                            controller.imageError[i].tr,
+                                                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                      ),
+                                                                    )
+                                                                  : const SizedBox(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        const Spacer()
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child:
+                                                          controller.image !=
+                                                                  null
+                                                              ? Expanded(
+                                                                  child:
+                                                                      Container(
+                                                                    height: 200,
+                                                                    width: 400,
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    child: ListView
+                                                                        .builder(
+                                                                      scrollDirection:
+                                                                          Axis.horizontal,
+                                                                      itemCount: controller
+                                                                          .selectImage
+                                                                          .length,
+                                                                      itemBuilder:
+                                                                          (context,
+                                                                              index) {
+                                                                        return Column(
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: Container(
+                                                                                height: 150,
+                                                                                width: 200,
+                                                                                decoration: BoxDecoration(
+                                                                                  image: DecorationImage(
+                                                                                    image: FileImage(controller.selectImage[index]),
+                                                                                    fit: BoxFit.cover, // Choose the BoxFit that suits your needs
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              : const SizedBox(),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                  ],
                                                 ),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              CommonTextField(
-readOnly: true,
-                                  type: TextInputType.text,
-                                  color: ColorRes.bgColor,
-                                  isRequired: true,
-                                  hintText: "Game name ",
-                                  titleText: StringRes.enterGameName,
-
-                                  controller: controller.auditNumberController),
-                              (newCollectionController.auditError != "")
-                                  ? Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 3),
-                                        child: Text(newCollectionController.auditError.tr,
-                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                              );
+                                            }),
+                                      )
+                                    : SizedBox(
+                                        height: Get.height * 0.55,
                                       ),
-                                    )
-                                  : const SizedBox(),
 
-                              SizedBox(
-                                height: 20,
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: () {
 
-                              /// in
-                              Row(
-                                children: [
-                                  Text("In",
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorRes.color030229,
-                                      )),
-                                  const Text(
-                                    ' *',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 9,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        CommonTextField(
-                                            type: TextInputType.number,
-                                            color: ColorRes.bgColor,
-                                            isRequired: true,
-                                            hintText: "0",
-readOnly: true,
-                                            titleText: StringRes.previousNumber,
-                                            controller: controller.previousNumberInController),
-                                        (newCollectionController.inPreviousError != "")
-                                            ? Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 3),
-                                                  child: Text(newCollectionController.inPreviousError.tr,
-                                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
-                                                ),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: Get.width * 0.05),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        CommonTextField(
-                                            type: TextInputType.number,
-                                            color: ColorRes.bgColor,
-                                            isRequired: true,
-                                            hintText: "0",
-                                            titleText: StringRes.currentNumber,
-                                            onChanged: (value) {
-                                              controller.calculateProfit(currentIn: double.parse(value ?? "0.0"));
-                                            },
-                                            controller: controller.currentNumberInController),
-                                        (newCollectionController.inCurrentError != "")
-                                            ? Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 3),
-                                                  child: Text(newCollectionController.inCurrentError.tr,
-                                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
-                                                ),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-
-                              /// out
-                              Row(
-                                children: [
-                                  Text("Out",
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorRes.color030229,
-                                      )),
-                                  const Text(
-                                    ' *',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 9,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        CommonTextField(
-                                            type: TextInputType.number,
-                                            color: ColorRes.bgColor,
-                                            isRequired: true,
-                                            readOnly: true,
-                                            hintText: "0",
-                                            titleText: StringRes.previousNumber,
-                                            controller: controller.previousNumberOutController),
-                                        (newCollectionController.outCurrentError != "")
-                                            ? Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 3),
-                                                  child: Text(newCollectionController.outCurrentError.tr,
-                                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
-                                                ),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: Get.width * 0.05),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        CommonTextField(
-                                            type: TextInputType.number,
-                                            color: ColorRes.bgColor,
-                                            isRequired: true,
-                                            hintText: "0",
-                                            onChanged: (value) {
-                                              controller.calculateProfit(currentOut: double.parse(value ?? "0.0"));
-                                            },
-                                            titleText: StringRes.currentNumber,
-                                            controller: controller.currentNumberOutController),
-                                        (newCollectionController.outCurrentError != "")
-                                            ? Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 3),
-                                                  child: Text(newCollectionController.outCurrentError.tr,
-                                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
-                                                ),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-
-                              Row(
-                                children: [
-                                  Text("Total",
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        color: ColorRes.color030229,
-                                      )),
-                                  const Text(
-                                    ' *',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 9,
-                              ),
-                              Container(height:  52,
-                                width: Get.width,
-                                alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color:ColorRes.bgColor,
-                                  borderRadius: BorderRadius.circular(
-                                    15,
-                                  ),
-                                ),
-                                child: Text(controller.calculateProfit(currentIn: double.parse(controller.currentNumberInController.text == ""? "0.0":controller.currentNumberInController.text)
-                                    ,currentOut: double.parse(controller.currentNumberOutController.text == ""?"0.0" :controller.currentNumberOutController.text),
-                                    previousIn: double.parse(controller.previousNumberInController.text == "" ? "0.0" :controller.previousNumberInController.text),
-                                    previousOut: double.parse(controller.previousNumberOutController.text == "" ? "0.0" :controller.previousNumberOutController.text)
-                                ).toString(),style: GoogleFonts.nunito(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorRes.color030229,
-                                ),),
-                              ),
-                              // CommonTextField(
-                              //   readOnly: true,
-                              //     type: TextInputType.number,
-                              //     color: ColorRes.bgColor,
-                              //     isRequired: true,
-                              //     hintText: StringRes.enterCurrentNumber,
-                              //     titleText: StringRes.total,
-                              //     controller: controller.totalController),
-
-                              (newCollectionController.totalError != "")
-                                  ? Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 3),
-                                        child: Text(newCollectionController.totalError.tr,
-                                            style: commonSubtitle().copyWith(color: ColorRes.red)),
-                                      ),
-                                    )
-                                  : const SizedBox(),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () async {
-                                            FocusScope.of(context).unfocus();
-                                            await controller.getImageFromCamera();
+                                            if (controller.pageIndex != 0) {
+                                              controller.pageController.jumpTo(
+                                                  controller.pageIndex - 1);
+                                            }
                                           },
                                           child: Container(
                                             height: 40,
+                                            width: 180,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color:
+                                                        ColorRes.color5B93FF),
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                            child: Text(
+                                              "Back",
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorRes.color5B93FF),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            if (newCollectionController
+                                                .validation()) {
+                                              newCollectionController
+                                                  .addCampaignData = [];
+                                              for (int i = 0;
+                                                  i <
+                                                      newCollectionController
+                                                          .machineNumberController
+                                                          .length;
+                                                  i++) {
+                                                newCollectionController.addCampaignData.add(CollectionReport(
+                                                    serialNumber:
+                                                        newCollectionController
+                                                            .enterSerialNumberController[
+                                                                i]
+                                                            .text,
+                                                    machineNumber:
+                                                        newCollectionController
+                                                            .machineNumberController[
+                                                                i]
+                                                            .text,
+                                                    inCurrent:
+                                                        newCollectionController
+                                                            .currentNumberInController[
+                                                                i]
+                                                            .text,
+                                                    inPrevious:
+                                                        newCollectionController
+                                                            .previousNumberInController[
+                                                                i]
+                                                            .text,
+                                                    outCurrent:
+                                                        newCollectionController
+                                                            .currentNumberOutController[
+                                                                i]
+                                                            .text,
+                                                    outPrevious:
+                                                        newCollectionController
+                                                            .previousNumberOutController[
+                                                                i]
+                                                            .text,
+                                                    image: controller
+                                                        .selectImage));
+                                              };
+
+                                              if(controller.machineData.length !=0) {
+                                                if (controller.pageIndex ==
+                                                    controller
+                                                        .machineData[0]
+                                                        .machines!.length -
+                                                        1) {
+                                                  Get.to(() =>
+                                                      CollectionDetailScreen(
+                                                          imageList: controller
+                                                              .selectImage));
+                                                } else {
+                                                  double i = controller.pageIndex +
+                                                      1;
+                                                  controller.pageController
+                                                      .jumpTo(
+                                                     i);
+                                                }
+                                              }
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 40,
+                                            width: 180,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                color: ColorRes.color5B93FF,
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color:
+                                                        ColorRes.color5B93FF),
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                            child: Text(
+                                              (controller.machineData.length !=0)?
+                                              (controller.pageIndex ==
+                                                      controller.machineData[0].machines!
+                                                              .length -
+                                                          1)
+                                                  ? StringRes.collect
+                                                  : "Next":StringRes.collect,
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorRes.white),
+                                            ),
+                                          ),
+                                          /* Container(
+                                            height: 40,
+                                            width: 180,
                                             alignment: Alignment.center,
                                             decoration: BoxDecoration(
                                                 color: ColorRes.color5B93FF,
                                                 border: Border.all(width: 1, color: ColorRes.color5B93FF),
                                                 borderRadius: BorderRadius.all(Radius.circular(10))),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: Get.width * 0.06,
-                                                ),
-                                                Image.asset(
-                                                  AssetRes.camera,
-                                                  scale: 5,
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  StringRes.captureMachineReading,
-                                                  style: GoogleFonts.nunito(
-                                                      fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
-                                                ),
-                                              ],
+                                            child: Text(
+                                              StringRes.next,
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                             ),
-                                          ),
+                                          ),*/
                                         ),
-                                        (controller.imageError != "")
-                                            ? Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 3),
-                                                  child: Text(controller.imageError.tr,
-                                                      style: commonSubtitle().copyWith(color: ColorRes.red)),
-                                                ),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
+                                      )
+                                    ],
                                   ),
-                                  Spacer()
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: controller.image != null
-                                    ? 
-                                Expanded(
-                                  child: Container(
-                                    height: 200, width: 400, color: Colors.transparent,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                          itemCount: controller.selectImage.length,
-                                          itemBuilder: (context, index) {
-                                            return
-                                              Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: Container(
-                                                    height: 150,
-                                                    width: 200,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: FileImage(
-                                                            controller.selectImage[index]
-                                                           ),
-                                                        fit: BoxFit.cover, // Choose the BoxFit that suits your needs
-                                                      ),
-                                                    ),
-                                            ),
-                                                  ),
-                                                ],
-                                              );
-                                          },
-
-                                        ),
-                                  ),
-                                )
-                                    : SizedBox(),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.back();
-                                        },
-                                        child: Container(
-                                          height: 40,
-                                          width: 180,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                              borderRadius: BorderRadius.all(Radius.circular(10))),
-                                          child: Text(
-                                            StringRes.close,
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.color5B93FF),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (newCollectionController.validation())
-                                          {
-                                            Get.to(() => CollectionDetailScreen(
-                                              imageList: controller.selectImage
-                                            )
-                                            );
-
-                                            Iterable<CollectionReport> dynamicParameters = [
-                                              CollectionReport(
-                                                  serialNumber: newCollectionController.enterSerialNumberController.text,
-                                                  machineNumber:  newCollectionController.machineNumberController.text,
-                                                  inCurrent: newCollectionController.currentNumberInController.text,
-                                                  inPrevious: newCollectionController.previousNumberInController.text,
-                                                  outCurrent: newCollectionController.currentNumberOutController.text,
-                                                  outPrevious: newCollectionController.previousNumberOutController.text,
-                                                  image: controller.image!.path),
-                                            ];
-                                            newCollectionController.addCampaignData.addAll(dynamicParameters);
-                                          }
-                                        },
-                                        child:
-                                        Container(
-                                          height: 40,
-                                          width: 180,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                              color: ColorRes.color5B93FF,
-                                              border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                              borderRadius: BorderRadius.all(Radius.circular(10))),
-                                          child: Text(
-                                            StringRes.collect,
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
-                                          ),
-                                        ),
-                                       /* Container(
-                                          height: 40,
-                                          width: 180,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                              color: ColorRes.color5B93FF,
-                                              border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                              borderRadius: BorderRadius.all(Radius.circular(10))),
-                                          child: Text(
-                                            StringRes.next,
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
-                                          ),
-                                        ),*/
-                                      ),
-                                    )
-                                  ],
                                 ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                      )
+                    ],
+                  );
+                },
+              ),
+              Obx(() => newCollectionController.loader.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
                     )
-                  ],
-                );
-              },
-            ),
-            Obx(()=> newCollectionController.loader.value ? Center(child: CircularProgressIndicator(),):SizedBox())
-          ],
-        ));
+                  : const SizedBox())
+            ],
+          )),
+    );
   }
 }
 
@@ -732,7 +1164,7 @@ class CollectionReport {
   String? inCurrent;
   String? outPrevious;
   String? outCurrent;
-  String? image;
+  List? image;
   String? data;
   String? time;
 
@@ -770,13 +1202,13 @@ class CollectionReport {
           outCurrent = value as String?;
           break;
         case 'image':
-          image = value as String?;
+          image = value as List?;
           break;
         case 'data':
-          image = value as String?;
+          data = value as String?;
           break;
         case 'time':
-          image = value as String?;
+          time = value as String?;
           break;
         default:
           // Handle unknown parameter

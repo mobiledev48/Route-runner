@@ -76,8 +76,11 @@ class CollectionReportScreen extends StatelessWidget {
                                 newCollectionController.currentNumberOutController.clear();
                                 newCollectionController.enterSerialNumberController.clear();
                                 newCollectionController.totalController.clear();
+                                newCollectionController.locationsData = [];
+                                 newCollectionController.machineData = [];
+                                newCollectionController.locationIndex = null;
+                               newCollectionController.image =[];
                                 await newCollectionController.getLocation();
-                                await newCollectionController.getMachines();
                                 await newCollectionController.getLastCollection();
                                 controller.loader.value = false;
 
