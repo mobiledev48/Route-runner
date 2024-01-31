@@ -23,6 +23,48 @@ class NewCollectionScreen extends StatelessWidget {
         Get.put(NewCollectionController());
     return WillPopScope(
       onWillPop: () async {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Theme(
+                data: ThemeData(dialogBackgroundColor: ColorRes.white),
+                child: AlertDialog(
+                  title: const Text(
+                    'If you will be back from this screen, all your changes will be discarded.',
+                    style: TextStyle(fontSize: 22, color: ColorRes.mainColor),
+                  ),
+
+                  actions: <Widget>[
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                        MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text(
+                        'No',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+                        Get.back();
+
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                        MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                      ),
+                      child: const Text('Yes',style:  TextStyle(color: Colors.white),),
+                    ),
+                    const SizedBox(width: 2),
+                  ],
+                ),
+              );
+            });
         return true;
       },
       child: Scaffold(
@@ -30,7 +72,50 @@ class NewCollectionScreen extends StatelessWidget {
           appBar: AppBar(
             leading: IconButton(
                 onPressed: () {
-                  Get.back();
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Theme(
+                          data: ThemeData(dialogBackgroundColor: ColorRes.white),
+                          child: AlertDialog(
+                            title: const Text(
+                              'If you will be back from this screen, all your changes will be discarded.',
+                              style: TextStyle(fontSize: 22, color: ColorRes.mainColor),
+                            ),
+
+                            actions: <Widget>[
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                  MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                                ),
+                                onPressed: () {
+                                 Get.back();
+                                },
+                                child: const Text(
+                                  'No',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Get.back();
+                                  Get.back();
+
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                  MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                                ),
+                                child: const Text('Yes',style:  TextStyle(color: Colors.white),),
+                              ),
+                              const SizedBox(width: 2),
+                            ],
+                          ),
+                        );
+                      });
+
+
                   // Get.to(HomeScreen());
                 },
                 icon: const Icon(
@@ -108,6 +193,9 @@ class NewCollectionScreen extends StatelessWidget {
                                       itemBuilder: (context, index) =>
                                           GestureDetector(
                                             onTap: () {
+
+
+
                                               controller
                                                   .locationController
                                                   .text = controller
@@ -119,12 +207,11 @@ class NewCollectionScreen extends StatelessWidget {
                                                   controller
                                                           .locationsData[
                                                               index]
-                                                          .sId ??
+                                                          .id ??
                                                       "";
                                               controller.locationIndex =
                                                   index;
-                                              newCollectionController
-                                                  .machineType;
+
                                               newCollectionController
                                                   .isClick = false;
                                               controller
@@ -133,6 +220,16 @@ class NewCollectionScreen extends StatelessWidget {
                                                   .enterSerialNumberController = [];
                                               controller
                                                   .auditNumberController = [];
+                                               controller.previousNumberInController  =[];
+                                               controller.previousNumberOutController  =[];
+                                               controller.currentNumberInController  =[];
+                                               controller.currentNumberOutController  =[];
+                                              controller.pageIndex =0;
+                                               controller.totalController  =[];
+                                                controller.selectImage = [];
+                                                controller.selectImageUrl = [];
+                                                controller.selectImageTemp = [];
+                                              controller.selectImageTempUrl = [];
                                               controller.getMachines();
                                               newCollectionController
                                                   .update(['collection']);
@@ -172,7 +269,7 @@ class NewCollectionScreen extends StatelessWidget {
                               ? SizedBox(
                                   height: Get.height * 0.55,
                                   child: PageView.builder(
-physics: NeverScrollableScrollPhysics(),
+physics: const NeverScrollableScrollPhysics(),
                                       onPageChanged: (v) {
                                         controller.pageIndex = v;
                                         controller.update(['collection']);
@@ -205,25 +302,25 @@ physics: NeverScrollableScrollPhysics(),
                                                                   true,
                                                               hintText:
                                                                   "#12",
-                                                              suffixIcon:
-                                                                  AssetRes
-                                                                      .arrowDown,
-                                                              suffixIconOnTap:
-                                                                  () {
-                                                                newCollectionController
-                                                                        .isClickMachine =
-                                                                    !newCollectionController
-                                                                        .isClickMachine;
-
-                                                                controller
-                                                                    .update([
-                                                                  'collection'
-                                                                ]);
-                                                              },
-                                                              suffixIconSize:
-                                                                  3,
-                                                              isSuffixIcon:
-                                                                  true,
+                                                              // suffixIcon:
+                                                              //     AssetRes
+                                                              //         .arrowDown,
+                                                              // suffixIconOnTap:
+                                                              //     () {
+                                                              //   // newCollectionController
+                                                              //   //         .isClickMachine =
+                                                              //   //     !newCollectionController
+                                                              //   //         .isClickMachine;
+                                                              //   //
+                                                              //   // controller
+                                                              //   //     .update([
+                                                              //   //   'collection'
+                                                              //   // ]);
+                                                              // },
+                                                              // suffixIconSize:
+                                                              //     3,
+                                                              // isSuffixIcon:
+                                                              //     true,
                                                               color: ColorRes
                                                                   .bgColor,
                                                               titleText:
@@ -238,7 +335,7 @@ physics: NeverScrollableScrollPhysics(),
                                                               controller:
                                                                   controller
                                                                       .machineNumberController[i]),
-                                                          newCollectionController
+                                                /*          newCollectionController
                                                                       .isClickMachine ==
                                                                   false
                                                               ? const SizedBox()
@@ -267,8 +364,7 @@ physics: NeverScrollableScrollPhysics(),
                                                                               controller.machineNumberController[i].text = controller.machineData[0].machines?[index].machineNumber ?? "";
                                                                               controller.enterSerialNumberController[i].text = controller.machineData[0].machines?[index].serialNumber ?? "";
                                                                               controller.auditNumberController[i].text = controller.machineData[0].machines?[index].gameName ?? "";
-                                                                              controller.machineId[i] = controller.machineData[0].machines?[index].id ?? "";
-                                                                              controller.previousNumberSetUp(i);
+
                                                                               newCollectionController.isClickMachine = false;
                                                                               newCollectionController.update([
                                                                                 'collection'
@@ -287,7 +383,7 @@ physics: NeverScrollableScrollPhysics(),
                                                                         itemCount:
                                                                             controller.machineData[0].machines!.length,
                                                                       ))
-                                                                  : const SizedBox(),
+                                                                  : const SizedBox(),*/
                                                           (newCollectionController
                                                                           .machineError[
                                                                       i] !=
@@ -324,21 +420,21 @@ physics: NeverScrollableScrollPhysics(),
                                                               suffixIcon:
                                                                   AssetRes
                                                                       .arrowDown,
-                                                              suffixIconOnTap:
-                                                                  () {
-                                                                newCollectionController
-                                                                        .isClickSerial =
-                                                                    !newCollectionController
-                                                                        .isClickSerial;
-                                                                controller
-                                                                    .update([
-                                                                  'collection'
-                                                                ]);
-                                                              },
-                                                              suffixIconSize:
-                                                                  3,
-                                                              isSuffixIcon:
-                                                                  true,
+                                                              // suffixIconOnTap:
+                                                              //     () {
+                                                              //   // newCollectionController
+                                                              //   //         .isClickSerial =
+                                                              //   //     !newCollectionController
+                                                              //   //         .isClickSerial;
+                                                              //   // controller
+                                                              //   //     .update([
+                                                              //   //   'collection'
+                                                              //   // ]);
+                                                              // },
+                                                              // suffixIconSize:
+                                                              //     3,
+                                                              // isSuffixIcon:
+                                                              //     true,
                                                               type: TextInputType
                                                                   .number,
                                                               color: ColorRes
@@ -354,7 +450,7 @@ physics: NeverScrollableScrollPhysics(),
                                                               controller:
                                                                   controller
                                                                       .enterSerialNumberController[i]),
-                                                          newCollectionController
+                                                      /*    newCollectionController
                                                                       .isClickSerial ==
                                                                   false
                                                               ? const SizedBox()
@@ -398,7 +494,7 @@ physics: NeverScrollableScrollPhysics(),
                                                                                 )
                                                                               : const SizedBox(),
                                                                           itemCount: controller.machineData.length))
-                                                                  : const SizedBox(),
+                                                                  : const SizedBox(),*/
                                                           (newCollectionController
                                                                           .serialError[
                                                                       i] !=
@@ -989,7 +1085,7 @@ mainAxisAlignment: MainAxisAlignment.center,
 
                                         if (controller.pageIndex != 0) {
                                           controller.pageController.previousPage(
-                                              duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
+                                              duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                                         }
                                       },
                                       child: Container(
@@ -1095,7 +1191,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                                               } else {
                                                 controller.pageController
                                                     .nextPage(
-                                                    duration: Duration(
+                                                    duration: const Duration(
                                                         milliseconds: 400),
                                                     curve: Curves.easeInOut);
                                                 controller.update(

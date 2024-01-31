@@ -35,12 +35,13 @@ class ProfileController extends GetxController {
   async {
     isLoading.value = true;
 
-    updateProfileModel =  await CustomerUpdateProfileApi.customerUpdateProfileApi(email: email, firstName: firstName, lastName: lastName, phone: phone, image: downloadUrl);
+    updateProfileModel =  await CustomerUpdateProfileApi.customerUpdateProfileApi(email: email, firstName: firstName, lastName: lastName, phone: phone, image:
+    (downloadUrl !='')?downloadUrl:PrefService.getString(PrefKeys.userImage));
     PrefService.setValue(PrefKeys.firstName, updateProfileModel.updatedFields?.firstname ?? "");
     PrefService.setValue(PrefKeys.lastName, updateProfileModel.updatedFields?.lastname ?? "");
     PrefService.setValue(PrefKeys.email, updateProfileModel.updatedFields?.email ?? "");
     PrefService.setValue(PrefKeys.mobileNumber, updateProfileModel.updatedFields?.phone ?? "");
-    PrefService.setValue(PrefKeys.userImage, updateProfileModel.updatedFields?.image ?? "");
+    PrefService.setValue(PrefKeys.userImage, updateProfileModel.updatedFields?.image?[0] ?? "");
 
     isLoading.value = false;
   }
@@ -53,6 +54,7 @@ class ProfileController extends GetxController {
 
     if (photo != null) {
       image = File(photo.path);
+      isLoading.value =true;
       if(image != null)
         {
           String fileName = DateTime.now().millisecondsSinceEpoch.toString();
@@ -67,6 +69,7 @@ class ProfileController extends GetxController {
            print("downloadUrl ---------->$downloadUrl");
         }
 
+      isLoading.value =false;
 
     //  String imageUrl = await uploadImage(image);
   //    print('Image URL: $imageUrl');

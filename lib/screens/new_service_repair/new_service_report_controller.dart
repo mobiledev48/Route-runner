@@ -43,9 +43,9 @@ class NewServiceReportController extends GetxController {
 
     if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
       // Remove duplicates before adding new locations
-      Set<String?> existingIds = locationsData.map((location) => location.sId).toSet();
+      Set<String?> existingIds = locationsData.map((location) => location.id).toSet();
       List<LocationsData> newLocations = getLocationModel.locations!
-          .where((location) => !existingIds.contains(location.sId))
+          .where((location) => !existingIds.contains(location.id))
           .toList();
 
       locationsData.addAll(newLocations);

@@ -164,7 +164,7 @@ class LocationScreen extends StatelessWidget {
                                                                         width: 2,
                                                                       ),
                                                                       Text(
-                                                                        DateFormat('dd MMM, yyyy').format(DateTime.parse(controller.locationsData[index].createdAt ?? "")),
+                                                                        DateFormat('dd MMM, yyyy').format(controller.locationsData[index].createdAt ?? DateTime.now()),
                                                                         style: subTitle().copyWith(fontSize: 12),
                                                                       )
 
@@ -297,7 +297,7 @@ class LocationScreen extends StatelessWidget {
                                                               width: 2,
                                                             ),
                                                             Text(
-                                                              DateFormat('dd MMM, yyyy').format(DateTime.parse(controller.locationsData[index].createdAt ?? "")),
+                                                              DateFormat('dd MMM, yyyy').format(controller.locationsData[index].createdAt ?? DateTime.now()),
                                                               style: subTitle().copyWith(fontSize: 12),
                                                             )
 

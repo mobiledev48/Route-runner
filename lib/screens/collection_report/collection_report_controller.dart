@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:route_runner/api_call/get_collection_report_api/get_collection_report_api.dart';
 import 'package:route_runner/api_call/get_collection_report_api/get_collection_report_model.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
+import 'package:route_runner/service/pref_services.dart';
+import 'package:route_runner/utils/pref_keys.dart';
 
 import '../../utils/color_res.dart';
 
@@ -23,7 +27,7 @@ class CollectionReportController extends GetxController {
   Future<void> onInit() async {
     isViewData = List.generate(allCollectionData.length, (index) => false);
     isClick = List.generate(allCollectionData.length, (index) => false);
-    await getCollectionReport(page: currentPage);
+    await getLocation(page: currentPage);
     scrollController.addListener(() {
       upcomingPagination();
     });
@@ -32,10 +36,46 @@ class CollectionReportController extends GetxController {
 
   int currentPage = 1;
   int limitPerPage = 10;
+  List firstName =[];
+  List  lastName =[];
 
   GetCollectionReportModel getCollectionReportModel = GetCollectionReportModel();
+  GetLocationModel getLocationModel= GetLocationModel();
+  List<LocationsData> locationsData = [];
+  getLocation({page, search}) async {
+    loader.value = true;
+    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page, search: search);
 
-  getCollectionReport({page, search}) async {
+    if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
+      // Remove duplicates before adding new locations
+      Set<String?> existingIds = locationsData.map((location) => location.id).toSet();
+      List<LocationsData> newLocations = getLocationModel.locations!
+          .where((location) => !existingIds.contains(location.id))
+          .toList();
+
+      locationsData.addAll(newLocations);
+      firstName = List.generate(locationsData.length, (index) => '');
+      lastName = List.generate(locationsData.length, (index) => '');
+
+      locationsData.forEach((element) {
+        if(element.employees!=null){
+        element.employees!.forEach((e) {
+      if(PrefService.getString(PrefKeys.firstName) == e.firstname &&PrefService.getString(PrefKeys.lastName) == e.lastname)
+        {
+          firstName[locationsData.indexOf(element)] = e.firstname ?? '';
+          lastName[locationsData.indexOf(element)] = e.lastname ?? '';
+        }
+
+        });
+        }
+      });
+
+      update(['collection']);
+    }
+
+    loader.value = false;
+  }
+ /* getCollectionReport({page, search}) async {
     loader.value = true;
     getCollectionReportModel = await CustomerGetCollectionReportApi.customerGetCollectionReportApi(
       page: page,
@@ -64,15 +104,15 @@ class CollectionReportController extends GetxController {
 
     update(['collection']);
     loader.value = false;
-  }
+  }*/
 
-  List<GroupedReports> collectionReportData = [];
+ // List<GroupedReports> collectionReportData = [];
 
   upcomingPagination() async {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
         currentPage++;
-        await getCollectionReport(page: currentPage);
+        await getLocation(page: currentPage);
       }
     }
     update(['location']);

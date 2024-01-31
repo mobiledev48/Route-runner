@@ -43,9 +43,9 @@ class CustomerNewCollectionApi {
         print(decoded);
 
         if (decoded["success"] == true) {
-          controller.collectionReportData.clear();
+          controller.locationsData.clear();
 
-          controller.getCollectionReport();
+          controller.getLocation();
 
           Get.back();
           Get.back();

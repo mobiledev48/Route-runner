@@ -120,7 +120,13 @@ class MachineScreen extends StatelessWidget {
                                                             ),
                                                           ),
                                                           const SizedBox(height: 5),
-                                                          Text('SN: ${machine.machineNumber ?? ""}-${machine.serialNumber ?? ""}'),
+                                                          SizedBox(
+                                                              width: Get.width * 0.5,
+                                                              child: Text(
+                                                                'SN: ${machine.machineNumber ?? ""}-${machine.serialNumber ?? ""}',
+                                                                overflow: TextOverflow.ellipsis,
+                                                              ),
+                                                          ),
                                                         ],
                                                       ),
                                                       Column(

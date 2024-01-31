@@ -86,7 +86,7 @@ import '../repair/repair_screen.dart';
                                       itemBuilder: (context, index) => GestureDetector(
                                         onTap: () {
                                           newReportController.locationController.text = newReportController.locationsData[index].locationname ?? "";
-                                          newReportController.locationId = newReportController.locationsData[index].sId ?? "";
+                                          newReportController.locationId = newReportController.locationsData[index].id ?? "";
                                         //  newReportController.machineType;
                                           newReportController.isClick = false;
                                           newReportController.update(['newRepair']);
@@ -298,7 +298,7 @@ import '../repair/repair_screen.dart';
                               const SizedBox(
                                 height: 20,
                               ),
-                            /*  Row(
+                             Row(
                                 children: [
                                   Expanded(
                                     flex: 3,
@@ -351,7 +351,7 @@ import '../repair/repair_screen.dart';
                                   ),
                                   const Spacer()
                                 ],
-                              ),*/
+                              ),
                               const SizedBox(
                                 height: 20,
                               ),

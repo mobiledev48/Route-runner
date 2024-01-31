@@ -191,7 +191,7 @@ class RepairScreen extends StatelessWidget {
                                                                   SizedBox(width: width * 0.04,),
                                                                   Expanded(flex: 2,
                                                                     child: Text(
-                                                                     'SN: #${controller.repairReportData[index].machineNumber?.substring(0,2) ?? ""}-${controller.repairReportData[index].serialNumber ?? ""}',
+                                                                     'SN: #${controller.repairReportData[index].machineNumber?? ""}-${controller.repairReportData[index].serialNumber ?? ""}',
 
                                                                       style: GoogleFonts.nunito(
                                                                           fontSize: width * 0.031,

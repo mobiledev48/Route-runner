@@ -163,9 +163,9 @@ GetAllCollectionModel getAllCollectionModel = GetAllCollectionModel();
 
     if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
       // Remove duplicates before adding new locations
-      Set<String?> existingIds = locationsData.map((location) => location.sId).toSet();
+      Set<String?> existingIds = locationsData.map((location) => location.id).toSet();
       List<LocationsData> newLocations = getLocationModel.locations!
-          .where((location) => !existingIds.contains(location.sId))
+          .where((location) => !existingIds.contains(location.id))
           .toList();
       locationsData.addAll(newLocations);
 print("===========================================$locationsData");
@@ -203,11 +203,13 @@ print(machineData);
 
 if(machineData.length !=0 && machineData[0].machines!.length !=0) {
   machineNumberController =
-      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController(text:machineData[0].machines![index].machineNumber ));
   enterSerialNumberController = List.generate(
-      machineData[0].machines!.length, (index) => TextEditingController());
+      machineData[0].machines!.length, (index) => TextEditingController(text:machineData[0].machines![index].serialNumber ));
   auditNumberController =
-      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController(text:machineData[0].machines![index].gameName ));
+
+
   previousNumberInController =
       List.generate(machineData[0].machines!.length, (index) => TextEditingController());
   previousNumberOutController =
@@ -228,11 +230,18 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
   outCurrentError = List.generate(machineData[0].machines!.length, (index) => '');
   totalError = List.generate(machineData[0].machines!.length, (index) => '');
   imageError = List.generate(machineData[0].machines!.length, (index) => '');
-  machineId = List.generate(machineData[0].machines!.length, (index) => '');
+  machineId = List.generate(machineData[0].machines!.length, (index) => machineData[0].machines![index].id );
   image = List.generate(machineData[0].machines!.length, (index) => null);
   selectImage = List.generate(machineData[0].machines!.length, (index) =>null);
   selectImageUrl = List.generate(machineData[0].machines!.length, (index) =>null);
+
 }
+          if(machineData.length !=0 && machineData[0].machines!.length !=0) {
+            for (int index = 0; index <
+                machineData[0].machines!.length; index++) {
+              previousNumberSetUp(index);
+            }
+          }
           update(['collection']);
         }
       }

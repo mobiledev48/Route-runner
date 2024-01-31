@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
+import 'package:route_runner/service/pref_services.dart';
+import 'package:route_runner/utils/pref_keys.dart';
 import '../../common/appbar.dart';
 
 import '../../common/common_text_fild.dart';
@@ -79,6 +81,7 @@ class CollectionReportScreen extends StatelessWidget {
                                 newCollectionController.locationsData = [];
                                  newCollectionController.machineData = [];
                                 newCollectionController.locationIndex = null;
+                                newCollectionController.pageIndex = 0;
                                newCollectionController.image =[];
                                newCollectionController.selectImage =[];
                                newCollectionController.selectImageTempUrl =[];
@@ -111,9 +114,9 @@ class CollectionReportScreen extends StatelessWidget {
                               hintText: StringRes.search,
                               controller: controller.searchController,
                               onChanged: (value) {
-                                controller.collectionReportData.clear();
+                                controller.locationsData.clear();
                                 controller.currentPage = 1;
-                                controller.getCollectionReport(page: controller.currentPage,search: value);
+                                controller.getLocation(page: controller.currentPage,search: value);
                                 controller.searchTerm = 'Moonlight'; // Change this to your desired search term
                                 controller.searchResults = controller.searchAllData(controller.allCollectionData, value);
                                 print(controller.searchResults);
@@ -123,18 +126,18 @@ class CollectionReportScreen extends StatelessWidget {
                             SizedBox(
                               height: 0,
                             ),
-                            controller.collectionReportData.isNotEmpty?
+                            controller.locationsData.isNotEmpty?
                              Expanded(
                                     child: RefreshIndicator(
                                       onRefresh: () async {
-                                        controller.collectionReportData.clear();
-                                        await controller.getCollectionReport(page: 1);
+                                        controller.locationsData.clear();
+                                        await controller.getLocation(page: 1);
                                         controller.update(['location']);
                                       },
                                       child: ListView.builder(
                                         controller: controller.scrollController,
                                           scrollDirection: Axis.vertical,
-                                          itemCount: controller.collectionReportData.length,
+                                          itemCount: controller.locationsData.length,
                                           itemBuilder: (context, index) => Padding(
                                                 padding: const EdgeInsets.only(top: 10),
                                                 child: Container(
@@ -157,22 +160,25 @@ class CollectionReportScreen extends StatelessWidget {
                                                                 children: [
                                                                   const SizedBox(height: 20),
                                                                   Text(
-                                                                    "${controller.collectionReportData[index].location?.locationname ?? ""}",
+                                                                    "${controller.locationsData[index].locationname?? ""}",
                                                                     // 'Moonlight Bar',
                                                                     style: title(),
                                                                   ),
                                                                   const SizedBox(height: 2),
-                                                                  Text(
-                                                                    "Employee: ${controller.collectionReportData[index].employee?.firstname ?? ""} ${controller.collectionReportData[index].employee?.
-                                                                    lastname ?? ""}",
-                                                                    // 'Admin: Arrora gaur',
-                                                                    style: subTitle(),
-                                                                  ),
+
+                                                                    Text(
+                                                                          "Employee: ${controller.firstName[index] ?? ""} ${controller.lastName[index] ?? ""}",
+                                                                          // 'Admin: Arrora gaur',
+                                                                          style: subTitle(),
+                                                                        ),
+
+
+
                                                                   const SizedBox(height: 2),
                                                                   Row(
                                                                     children: [
                                                                       Text(
-                                                                        'Machine: ${controller.collectionReportData[index].collectionReports?.length ?? 0}',
+                                                                        'Machine: ${controller.locationsData[index].machines?.length ?? 0}',
                                                                         style: subTitle(),
                                                                       ),
                                                                       const SizedBox(
@@ -193,7 +199,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                   ),
                                                                   SizedBox(height: 2),
                                                                   Text(
-                                                                    "Address: ${controller.collectionReportData[index].location?.address ?? ""}",
+                                                                    "Address: ${controller.locationsData[index].address ?? ""}",
                                                                     // 'Admin: Arrora gaur',
                                                                     style: subTitle(),
                                                                   ),
@@ -218,7 +224,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                           width: 4,
                                                                         ),
                                                                         Text(
-                                                                          DateFormat('dd MMM, yyyy').format(controller.collectionReportData[index].location?.createdAt ?? DateTime.now()),
+                                                                          DateFormat('dd MMM, yyyy').format(controller.locationsData[index].createdAt ?? DateTime.now()),
                                                                           style: TextStyle(
                                                                             fontSize: width * 0.03,
                                                                             fontWeight: FontWeight.w400,
@@ -264,12 +270,12 @@ class CollectionReportScreen extends StatelessWidget {
                                                           ],
                                                         ),
                                                       ),
-                                                      controller.isViewData[index]
+                                                   controller.isViewData[index]
                                                           ? SizedBox(
                                                               child: ListView.separated(
                                                                 physics: NeverScrollableScrollPhysics(),
                                                                 shrinkWrap: true,
-                                                                itemCount: controller.collectionReportData[index].collectionReports?.length ??
+                                                                itemCount: controller.locationsData[index].machines?.length ??
                                                                     0,
                                                                 itemBuilder: (context, i) {
                                                                   return Padding(
@@ -295,7 +301,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                   Expanded(
                                                                                     flex: 3,
                                                                                     child: Text(
-                                                                                      'Machine- #${controller.collectionReportData[index].collectionReports?[i].machineNumber}-${controller.collectionReportData[index].collectionReports?[i].serialNumber}',
+                                                                                      'Machine- #${controller.locationsData[index].machines?[i].machineNumber}-${controller.locationsData[index].machines?[i].serialNumber}',
                                                                                       style: GoogleFonts.nunito(
                                                                                           fontSize: 12,
                                                                                           fontWeight: FontWeight.w500,
@@ -358,20 +364,20 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                   //   width: 80,
                                                                                   //   decoration: BoxDecoration(
                                                                                   //       image:
-                                                                                  //       controller.collectionReportData[index].collectionReports?[i].image ==""?const DecorationImage(
+                                                                                  //       controller.locationsData[index].collectionReports?[i].image ==""?const DecorationImage(
                                                                                   //           fit: BoxFit.fill,
                                                                                   //           image:
                                                                                   //               AssetImage(AssetRes.photo)):DecorationImage(
                                                                                   //           fit: BoxFit.fill,
                                                                                   //           image:
-                                                                                  //           NetworkImage(controller.collectionReportData[index].collectionReports?[i].image ?? "")),
+                                                                                  //           NetworkImage(controller.locationsData[index].collectionReports?[i].image ?? "")),
                                                                                   //       borderRadius:
                                                                                   //           BorderRadius.circular(3)),
                                                                                   // ),
                                                                                   CachedNetworkImage(
                                                                                     width: 80,
                                                                                     fit: BoxFit.fill,
-                                                                                    imageUrl: controller.collectionReportData[index].collectionReports?[i].image?[0] ?? "",
+                                                                                    imageUrl: controller.locationsData[index].machines?[i].image?[0] ?? "",
                                                                                     placeholder: (context, url) => Image.asset(AssetRes.photo, fit: BoxFit.fill),
                                                                                     errorWidget: (context, url, error) => Image.asset(AssetRes.photo, fit: BoxFit.fill),
                                                                                   ),
@@ -399,7 +405,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 ),
                                                                                               ),
                                                                                               Text(
-                                                                                                "\$ ${controller.collectionReportData[index].collectionReports?[i].inNumbers?.current}",
+                                                                                                "\$ ${controller.locationsData[index].machines?[i].inNumbers?.current}",
                                                                                                 style: GoogleFonts.nunito(
                                                                                                     fontSize: width * 0.034,
                                                                                                     fontWeight:
@@ -411,7 +417,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 width: Get.width * 0.07,
                                                                                               ),
                                                                                               Text(
-                                                                                                "\$ ${controller.collectionReportData[index].collectionReports?[i].inNumbers?.previous}",
+                                                                                                "\$ ${controller.locationsData[index].machines?[i].inNumbers?.previous}",
                                                                                                 style: GoogleFonts.nunito(
                                                                                                     fontSize: width * 0.034,
                                                                                                     fontWeight:
@@ -423,7 +429,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 width: Get.width * 0.05,
                                                                                               ),
                                                                                               Text(
-                                                                                                "\$ ${controller.calculateSubtractedValue(controller.collectionReportData[index].collectionReports?[i].inNumbers?.current,controller.collectionReportData[index].collectionReports?[i].inNumbers?.previous)}",
+                                                                                                "\$ ${controller.calculateSubtractedValue(controller.locationsData[index].machines?[i].inNumbers?.current,controller.locationsData[index].machines?[i].inNumbers?.previous)}",
                                                                                                 style: GoogleFonts.nunito(
                                                                                                     fontSize: width * 0.034,
                                                                                                     fontWeight:
@@ -448,7 +454,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 ),
                                                                                               ),
                                                                                               Text(
-                                                                                                "\$ ${controller.collectionReportData[index].collectionReports?[i].outNumbers?.current}",
+                                                                                                "\$ ${controller.locationsData[index].machines?[i].outNumbers?.current}",
                                                                                                 style: GoogleFonts.nunito(
                                                                                                     fontSize: width * 0.034,
                                                                                                     fontWeight:
@@ -460,7 +466,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 width: Get.width * 0.07,
                                                                                               ),
                                                                                               Text(
-                                                                                                "\$ ${controller.collectionReportData[index].collectionReports?[i].outNumbers?.previous}",
+                                                                                                "\$ ${controller.locationsData[index].machines?[i].outNumbers?.previous}",
                                                                                                 style: GoogleFonts.nunito(
                                                                                                     fontSize: width * 0.034,
                                                                                                     fontWeight:
@@ -473,7 +479,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                               ),
                                                                                               Text(
                                                                                                 // "\$ ${ controller.allCollectionData[index].machineDetails?[i].previous?[0].out}",
-                                                                                                "\$ ${controller.calculateSubtractedValue(controller.collectionReportData[index].collectionReports?[i].outNumbers?.current,controller.collectionReportData[index].collectionReports?[i].outNumbers?.previous)}",
+                                                                                                "\$ ${controller.calculateSubtractedValue(controller.locationsData[index].machines?[i].outNumbers?.current,controller.locationsData[index].machines?[i].outNumbers?.previous)}",
                                                                                                 style: GoogleFonts.nunito(
                                                                                                     fontSize: width * 0.034,
                                                                                                     fontWeight:
@@ -498,11 +504,11 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 ),
                                                                                               ),
                                                                                               Text(
-                                                                                                '\$ ${controller.collectionReportData[index].collectionReports?[i].total?.toString() ?? ""}',
+                                                                                                '\$ ${controller.locationsData[index].machines?[i].total?.toString() ?? ""}',
                                                                                                 style: GoogleFonts.nunito(
                                                                                                   fontSize: width * 0.034,
                                                                                                   fontWeight: FontWeight.w500,
-                                                                                                  color: double.parse(controller.collectionReportData[index].collectionReports?[i].total?.toString() ?? "") >= 0
+                                                                                                  color: double.parse(controller.locationsData[index].machines?[i].total?.toString() ?? "") >= 0
                                                                                                       ? ColorRes.color3A974C
                                                                                                       : Colors.red,
                                                                                                 ),

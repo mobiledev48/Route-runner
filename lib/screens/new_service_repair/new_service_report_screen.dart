@@ -85,7 +85,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                       itemBuilder: (context, index) => GestureDetector(
                                         onTap: () {
                                           newServiceReportController.locationController.text = newServiceReportController.locationsData[index].locationname ?? "";
-                                          newServiceReportController.locationId = newServiceReportController.locationsData[index].sId ?? "";
+                                          newServiceReportController.locationId = newServiceReportController.locationsData[index].id ?? "";
                                           //  newReportController.machineType;
                                           newServiceReportController.isClick = false;
                                           newServiceReportController.update(['newRepair']);
@@ -298,7 +298,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                           /*   Row(
+                             Row(
                                 children: [
                                   Expanded(
                                     flex: 3,
@@ -351,7 +351,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                   ),
                                   Spacer()
                                 ],
-                              ),*/
+                              ),
                               const SizedBox(
                                 height: 20,
                               ),

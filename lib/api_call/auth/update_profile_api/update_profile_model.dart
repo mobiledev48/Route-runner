@@ -15,16 +15,16 @@ class UpdateProfileModel {
   int? statusCode;
 
   UpdateProfileModel({
-     this.success,
-     this.message,
-     this.updatedFields,
-     this.statusCode,
+    this.success,
+    this.message,
+    this.updatedFields,
+    this.statusCode,
   });
 
   factory UpdateProfileModel.fromJson(Map<String, dynamic> json) => UpdateProfileModel(
     success: json["success"],
     message: json["message"],
-    updatedFields: UpdatedFields.fromJson(json["updatedFields"]),
+    updatedFields: json["updatedFields"] == null ? null : UpdatedFields.fromJson(json["updatedFields"]),
     statusCode: json["statusCode"],
   );
 
@@ -43,16 +43,16 @@ class UpdatedFields {
   String? email;
   int? phone;
   String? password;
-  String? image;
+  List<String>? image;
 
   UpdatedFields({
-     this.firstname,
-     this.lastname,
-     this.address,
-     this.email,
-     this.phone,
-     this.password,
-     this.image,
+    this.firstname,
+    this.lastname,
+    this.address,
+    this.email,
+    this.phone,
+    this.password,
+    this.image,
   });
 
   factory UpdatedFields.fromJson(Map<String, dynamic> json) => UpdatedFields(
@@ -62,7 +62,7 @@ class UpdatedFields {
     email: json["email"],
     phone: json["phone"],
     password: json["password"],
-    image: json["image"],
+    image: json["image"] == null ? [] : List<String>.from(json["image"]!.map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
@@ -72,6 +72,6 @@ class UpdatedFields {
     "email": email,
     "phone": phone,
     "password": password,
-    "image": image,
+    "image": image == null ? [] : List<dynamic>.from(image!.map((x) => x)),
   };
 }

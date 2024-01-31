@@ -7,6 +7,7 @@ import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/home_view/home_controller.dart';
 import 'package:route_runner/screens/home_view/widget/appbar_container.dart';
+import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
@@ -138,7 +139,32 @@ class HomeScreen extends StatelessWidget {
                                       ,  style: commonTitle().copyWith(fontSize: 15, color: ColorRes.white, fontWeight: FontWeight.w500),
 
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
+                                    homeController.loader.value =true;
+                                      NewCollectionController newCollectionController = Get.put(NewCollectionController());
+                                      newCollectionController.machineNumberController.clear();
+                                      newCollectionController.auditNumberController.clear();
+                                      newCollectionController.locationController.clear();
+                                      newCollectionController.previousNumberInController.clear();
+                                      newCollectionController.previousNumberOutController.clear();
+                                      newCollectionController.currentNumberInController.clear();
+                                      newCollectionController.currentNumberOutController.clear();
+                                      newCollectionController.enterSerialNumberController.clear();
+                                      newCollectionController.totalController.clear();
+                                      newCollectionController.locationsData = [];
+                                      newCollectionController.machineData = [];
+                                      newCollectionController.locationIndex = null;
+                                      newCollectionController.pageIndex = 0;
+                                      newCollectionController.image =[];
+                                      newCollectionController.selectImage =[];
+                                      newCollectionController.selectImageTempUrl =[];
+                                      newCollectionController.selectImageTemp =[];
+                                      newCollectionController.selectImageUrl =[];
+                                      await newCollectionController.getLocation();
+                                    homeController.loader.value =false;
+
+
+
                                     Get.to(()=> NewCollectionScreen());
                                     }),
                               )
@@ -707,8 +733,49 @@ class HomeScreen extends StatelessWidget {
                               } else if (homeController.currentIndex == 2) {
                                 Get.to(() => const ServiceReportScreen());
                               } else if (homeController.currentIndex == 3) {
-                                Get.to(() => const AdminScreen());
-                                PrefService.clear();
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Theme(
+                                        data: ThemeData(dialogBackgroundColor: ColorRes.white),
+                                        child: AlertDialog(
+                                          title: const Text(
+                                            'Are you sure to want to exit?.',
+                                            style: TextStyle(fontSize: 22, color: ColorRes.mainColor),
+                                          ),
+
+                                          actions: <Widget>[
+                                            ElevatedButton(
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                                              ),
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              child: const Text(
+                                                'No',
+                                                style: TextStyle(color: Colors.white),
+                                              ),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+
+                                                Get.offAll(() => const AdminScreen());
+                                                PrefService.clear();
+                                              },
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                                              ),
+                                              child: const Text('Yes',style:  TextStyle(color: Colors.white),),
+                                            ),
+                                            const SizedBox(width: 2),
+                                          ],
+                                        ),
+                                      );
+                                    });
+
                               }
                             },
                             child: ListTile(
