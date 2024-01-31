@@ -22,29 +22,13 @@ class CollectionDetailController extends GetxController {
 
   Future<bool> addNewRepair({
     required String location,
-    required String machineNumber,
-    required String serialNumber,
-    required String auditNumber,
-    required String inNumbersPrevious,
-    required String inNumbersCurrent,
-    required String outNumbersPrevious,
-    required String outNumbersCurrent,
-    required String total,
-    required String image,
+    required List machines,
   })
   async {
     loader.value = true;
     addNewCollectionModel =  await CustomerNewCollectionApi.customerNewCollectionApi(
       location: location,
-      machineNumber: machineNumber,
-      serialNumber: serialNumber,
-      auditNumber: auditNumber,
-      inNumbersPrevious: inNumbersPrevious,
-      inNumbersCurrent: inNumbersCurrent,
-      outNumbersPrevious: outNumbersPrevious,
-      outNumbersCurrent: outNumbersCurrent,
-      total: total,
-      image: image,
+      machines: machines,
     );
     update(['collection']);
     update(['newRepair']);

@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:route_runner/api_call/add_new_collection_api/add_new_collection_model.dart';
+import 'package:route_runner/api_call/getAllCollection/get_all_Collection_api.dart';
+import 'package:route_runner/api_call/getAllCollection/get_all_collection_model.dart';
 import 'package:route_runner/api_call/get_last_collection_api/get_last_collection_api.dart';
 import 'package:route_runner/api_call/get_last_collection_api/get_last_collection_model.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
@@ -30,7 +32,7 @@ class NewCollectionController extends GetxController {
 //   TextEditingController enterSerialNumberController = TextEditingController();
 //   TextEditingController enterCurrentNumberController = TextEditingController();
 // =======
-
+List machineId =[];
   List machineNumberController  =[];
   List enterSerialNumberController  =[];
   List auditNumberController  =[];
@@ -47,7 +49,10 @@ class NewCollectionController extends GetxController {
   List<File?> image =[];
   final ImagePicker picker = ImagePicker();
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  List<File> selectImage = [];
+  List<List<File>?> selectImage = [];
+  List<List<String>?> selectImageUrl = [];
+  List<Map<String,List<File>>> selectImageTemp = [];
+  List<Map<String,List<String>>> selectImageTempUrl = [];
 
   double calculateProfit({
     double? previousIn,
@@ -55,7 +60,6 @@ class NewCollectionController extends GetxController {
     double? previousOut,
     double? currentOut,
   }) {
-
     if(previousIn != 0.0 && currentIn != 0.0 && previousOut != 0.0 && currentOut != 0.0)
       {
         double totalIn = (currentIn ?? 0.0) - (previousIn ?? 0.0);
@@ -63,10 +67,15 @@ class NewCollectionController extends GetxController {
 
         double profit = totalIn + totalOut;
 
+        update(['collection']);
         return profit;
       }
     else
       {
+
+
+        update(['collection']);
+
 
         return 0.0;
       }
@@ -77,10 +86,33 @@ class NewCollectionController extends GetxController {
   Future<void> getImageFromCamera(index) async {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
     loader.value = true;
+
+        List<String> imagesAllIndexUrl =[];
+List<File> imagesAllIndex = [];
     if (photo != null) {
       image[index] = File(photo.path);
       if(image[index] != null)
-      selectImage.add(File(photo.path));
+
+
+      selectImageTemp.forEach((element) {
+        imagesAllIndex = (element['$index']) ?? [];
+      });
+
+      imagesAllIndex.add(File(photo.path));
+
+      selectImageTemp.add({
+        "$index" :imagesAllIndex
+      });
+
+      List<File> data =[];
+      selectImageTemp.forEach((element) {
+     data = (element['$index']) ??[];
+
+      });
+
+
+      print(selectImageTemp);
+      selectImage[index] = data;
       {
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -92,12 +124,29 @@ class NewCollectionController extends GetxController {
 
         downloadUrl = await taskSnapshot.ref.getDownloadURL();
         print("downloadUrl ---------->$downloadUrl");
+        selectImageTempUrl.forEach((element) {
+          imagesAllIndexUrl = (element['$index']) ??[];
+        });
+        imagesAllIndexUrl.add(downloadUrl);
+
+
+        selectImageTempUrl.add(
+          {
+            "$index":imagesAllIndexUrl,
+          }
+        );
+
         loader.value = false;
+        List<String> dataUrl =[];
+        selectImageTempUrl.forEach((element) {
+          dataUrl = (element['$index'])??[];
+        });
+        selectImageUrl[index] = dataUrl;
       }
     }
     update(['collection']);
   }
-
+GetAllCollectionModel getAllCollectionModel = GetAllCollectionModel();
   GetLocationModel getLocationModel= GetLocationModel();
   GetMachinesModel getMachinesModel= GetMachinesModel();
   List<LocationsData> locationsData = [];
@@ -125,7 +174,6 @@ print("===========================================$locationsData");
 
     loader.value = false;
   }
-  LastCollectionModel lastCollectionModel= LastCollectionModel();
   getMachines({page, search}) async {
     machineData =[];
     loader.value = true;
@@ -161,9 +209,9 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
   auditNumberController =
       List.generate(machineData[0].machines!.length, (index) => TextEditingController());
   previousNumberInController =
-      List.generate(machineData[0].machines!.length, (index) => TextEditingController(text: "1"));
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
   previousNumberOutController =
-      List.generate(machineData[0].machines!.length, (index) => TextEditingController(text: "1"));
+      List.generate(machineData[0].machines!.length, (index) => TextEditingController());
   currentNumberInController =
       List.generate(machineData[0].machines!.length, (index) => TextEditingController());
   currentNumberOutController =
@@ -180,7 +228,10 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
   outCurrentError = List.generate(machineData[0].machines!.length, (index) => '');
   totalError = List.generate(machineData[0].machines!.length, (index) => '');
   imageError = List.generate(machineData[0].machines!.length, (index) => '');
+  machineId = List.generate(machineData[0].machines!.length, (index) => '');
   image = List.generate(machineData[0].machines!.length, (index) => null);
+  selectImage = List.generate(machineData[0].machines!.length, (index) =>null);
+  selectImageUrl = List.generate(machineData[0].machines!.length, (index) =>null);
 }
           update(['collection']);
         }
@@ -211,25 +262,32 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
     //   update(['collection']);
     // }
   }
-  getLastCollection() async {
+
+
+
+
+  previousNumberSetUp(index) async {
     loader.value = true;
-    lastCollectionModel = await CustomerGetLastCollectionApi.customerGetLastCollectionApi();
+    getAllCollectionModel = await GetAllCollectionApi.getAllCollectionApi();
+    if (getAllCollectionModel.data != null) {
+      getAllCollectionModel.data!.forEach((element) {
+        if (element.machines != null && element.machines!.length != 0) {
+          element.machines!.forEach((e) {
+            if (e.id.toString() == machineId[index].toString()) {
+              previousNumberInController[index].text =
+                  e.inNumbers!.current.toString();
+              previousNumberOutController[index].text =
+                  e.outNumbers!.current.toString();
 
-    // Check if the properties are not null before assigning them to controllers
-    if (lastCollectionModel.lastCollection?.lastCollectionReport?.inNumbers?.previous != null) {
-      previousNumberInController[0].text =
-          lastCollectionModel.lastCollection!.lastCollectionReport!.inNumbers!.previous.toString();
+            }
+          });
+        }
+      });
     }
-
-    if (lastCollectionModel.lastCollection?.lastCollectionReport?.outNumbers?.previous != null) {
-      previousNumberOutController[0].text =
-          lastCollectionModel.lastCollection!.lastCollectionReport!.outNumbers!.previous.toString();
-    }
-
-    update(['collection']);
     loader.value = false;
-  }
+    update(['collection']);
 
+  }
 
 
   List machineType = ['4652387645', '876366756', '9576315760'];

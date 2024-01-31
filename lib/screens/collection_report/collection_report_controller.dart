@@ -44,23 +44,23 @@ class CollectionReportController extends GetxController {
 
     );
 
-   /* if (getCollectionReportModel.groupedReports != null && getCollectionReportModel.groupedReports!.isNotEmpty) {
+    if (getCollectionReportModel.groupedReports != null && getCollectionReportModel.groupedReports!.isNotEmpty) {
       // Remove duplicates before adding new reports
-      Set<String?> existingIds = collectionReportData.map((report) => report.location?.sId).toSet();
-
-      // Filter out existing reports
-      List<GroupedReports> newReports = getCollectionReportModel.groupedReports!
-          .where((report) => !existingIds.contains(report.location?.sId))
-          .toList();
+      // Set<String?> existingIds = collectionReportData.map((report) => report.location?.id).toSet();
+      //
+      // // Filter out existing reports
+      // List<GroupedReports> newReports = getCollectionReportModel.groupedReports!
+      //     .where((report) => !existingIds.contains(report.location?.id))
+      //     .toList();
 
 
       // Add the new reports to collectionReportData
-      collectionReportData.addAll(newReports);
+      collectionReportData =getCollectionReportModel.groupedReports ??[] ;
       isViewData = List.generate(collectionReportData.length, (index) => false);
       isClick = List.generate(collectionReportData.length, (index) => false);
 
       print("=======================================${getCollectionReportModel}");
-    }*/
+    }
 
     update(['collection']);
     loader.value = false;

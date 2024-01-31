@@ -80,8 +80,11 @@ class CollectionReportScreen extends StatelessWidget {
                                  newCollectionController.machineData = [];
                                 newCollectionController.locationIndex = null;
                                newCollectionController.image =[];
+                               newCollectionController.selectImage =[];
+                               newCollectionController.selectImageTempUrl =[];
+                               newCollectionController.selectImageTemp =[];
+                               newCollectionController.selectImageUrl =[];
                                 await newCollectionController.getLocation();
-                                await newCollectionController.getLastCollection();
                                 controller.loader.value = false;
 
                                 Get.to(NewCollectionScreen());

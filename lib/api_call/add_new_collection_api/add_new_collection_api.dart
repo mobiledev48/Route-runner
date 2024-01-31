@@ -16,15 +16,7 @@ CollectionReportController controller = Get.put(CollectionReportController());
 class CustomerNewCollectionApi {
   static Future<AddNewCollectionModel> customerNewCollectionApi({
     required String location,
-    required String machineNumber,
-    required String serialNumber,
-    required String auditNumber,
-    required String inNumbersPrevious,
-    required String inNumbersCurrent,
-    required String outNumbersPrevious,
-    required String outNumbersCurrent,
-    required String total,
-    required String image,
+    required List machines
   }) async {
     try {
       var headers = {
@@ -33,20 +25,10 @@ class CustomerNewCollectionApi {
         'Cookie': 'refreshToken=${PrefService.getString(PrefKeys.registerToken)}'
       };
 
-      var body = jsonEncode({
-        "machineNumber": machineNumber,
-        "serialNumber": serialNumber,
-        "auditNumber": auditNumber,
-        "inNumbers": {
-          "previous": inNumbersPrevious,
-          "current": inNumbersCurrent
-        },
-        "outNumbers": {
-          "previous": outNumbersPrevious,
-          "current": outNumbersCurrent
-        },
-        "total": total,
-        "image": image
+      var body = json.encode({
+        "employeeId": PrefService.getString(PrefKeys.employeeId),
+        "locationId": location,
+        "machines": machines
       });
 
       var response = await HttpService.postApi(
@@ -55,16 +37,18 @@ class CustomerNewCollectionApi {
         header: headers,
       );
 
-      if (response?.statusCode == 201) {
+      if (response?.statusCode == 201 || response?.statusCode ==200) {
         var decoded = jsonDecode(response!.body);
 
         print(decoded);
 
         if (decoded["success"] == true) {
-          flutterToast(decoded["message"]);
           controller.collectionReportData.clear();
 
           controller.getCollectionReport();
+
+          Get.back();
+          Get.back();
           // Get.to(() => CollectionReportScreen());
           return addNewCollectionModelFromJson(response.body);
         }

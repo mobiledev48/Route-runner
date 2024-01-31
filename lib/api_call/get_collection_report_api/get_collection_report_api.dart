@@ -45,7 +45,6 @@ class CustomerGetCollectionReportApi {
       if (response!.statusCode == 200) {
         print("========================${response.statusCode}");
         var decoded = jsonDecode(response.body);
-        PrefService.setValue(PrefKeys.locationId, decoded['groupedReports'][0]['location']['_id']);
 
         print(decoded);
 
