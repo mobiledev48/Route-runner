@@ -87,6 +87,8 @@ class NewServiceRepairScreen extends StatelessWidget {
                                           newServiceReportController.locationController.text = newServiceReportController.locationsData[index].locationname ?? "";
                                           newServiceReportController.locationId = newServiceReportController.locationsData[index].id ?? "";
                                           //  newReportController.machineType;
+                                          newServiceReportController.getMachines();
+                                          newServiceReportController.locationIndex = index;
                                           newServiceReportController.isClick = false;
                                           newServiceReportController.update(['newRepair']);
                                         },
@@ -112,16 +114,87 @@ class NewServiceRepairScreen extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         CommonTextField(
+                                          readOnly: true,
                                             color: ColorRes.tffGrey,
                                             type: TextInputType.number,
                                             isRequired: true,
                                             hintText: "#12",
+                suffixIcon:
+                    AssetRes
+                        .arrowDown,
+                                            suffixIconOnTap:
+                                                () {
+                                              newServiceReportController
+                                                  .isClickMachine =
+                                              !newServiceReportController
+                                                  .isClickMachine;
+
+                                              controller
+                                                  .update([
+                                                'newRepair'
+                                              ]);
+                                            },
+                                            suffixIconSize:
+                                            3,
+                                            isSuffixIcon:
+                                            true,
                                             titleText: StringRes.machineNumber,
                                             inputFormatters: [
                                               LengthLimitingTextInputFormatter(2), // Limit input to 2 characters
                                               FilteringTextInputFormatter.digitsOnly, // Allow only digits
                                             ],
                                             controller: controller.machineNumberController),
+
+                                        newServiceReportController
+                                            .isClickMachine ==
+                                            false
+                                            ? const SizedBox()
+                                            : (controller
+                                            .locationIndex !=
+                                            null && controller.machineData.length!=0)
+                                            ? Container(
+                                            width: Get.width *
+                                                0.9,
+                                            decoration:
+                                            const BoxDecoration(color: ColorRes.bgColor),
+                                            child: ListView.separated(
+                                              physics:
+                                              const NeverScrollableScrollPhysics(),
+                                              shrinkWrap:
+                                              true,
+                                              separatorBuilder: (context, index) => const Divider(
+                                                  color: ColorRes.grey3,
+                                                  endIndent: 10,
+                                                  indent: 10,
+                                                  height: 1),
+                                              itemBuilder:
+                                                  (context, index) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    controller.machineNumberController.text = controller.machineData[0].machines?[index].machineNumber ?? "";
+                                                    controller.enterSerialNumberController.text = controller.machineData[0].machines?[index].serialNumber ?? "";
+                                                    controller.auditNumberController.text = controller.machineData[0].machines?[index].gameName ?? "";
+
+                                                    newServiceReportController.isClickMachine = false;
+                                                    newServiceReportController.update([
+                                                      'newRepair'
+                                                    ]);
+                                                  },
+                                                  child: ListTile(
+                                                    title: Text(controller.machineData[0].machines![index].machineNumber ?? "",
+                                                        style: GoogleFonts.nunito(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: ColorRes.color030229,
+                                                        )),
+                                                  ),
+                                                );
+                                              },
+                                              itemCount:
+                                              controller.machineData[0].machines!.length,
+                                            ))
+                                            : const SizedBox(),
+
                                         (controller.machineError != "")
                                             ? Align(
                                                 alignment: Alignment.centerRight,
@@ -132,6 +205,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                                 ),
                                               )
                                             : const SizedBox(),
+
                                       ],
                                     ),
                                   ),
@@ -142,12 +216,80 @@ class NewServiceRepairScreen extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         CommonTextField(
+                                          readOnly: true,
                                             color: ColorRes.tffGrey,
                                             type: TextInputType.number,
                                             isRequired: true,
+
                                             hintText: StringRes.entersSerialNumber,
+
+                                            suffixIcon:
+                                            AssetRes
+                                                .arrowDown,
+                                            suffixIconOnTap:
+                                                () {
+                                              newServiceReportController
+                                                  .isClickSerial =
+                                              !newServiceReportController
+                                                  .isClickSerial;
+
+                                              controller
+                                                  .update([
+                                                'newRepair'
+                                              ]);
+                                            },
+                                            suffixIconSize:
+                                            3,
+                                            isSuffixIcon:
+                                            true,
                                             titleText: StringRes.serialNumber,
                                             controller: controller.enterSerialNumberController),
+
+                                        newServiceReportController
+                                            .isClickSerial ==
+                                            false
+                                            ? const SizedBox()
+                                            : (controller
+                                            .locationIndex !=
+                                            null)
+                                            ? Container(
+                                          // height: Get.height * 0.26,
+                                            width: Get.width *
+                                                0.9,
+                                            decoration:
+                                            const BoxDecoration(color: ColorRes.bgColor),
+                                            child: ListView.builder(
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) => (controller.machineData[index].id == controller.locationId)
+                                                    ? ListView.separated(
+                                                  physics: const NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  separatorBuilder: (context, index) => const Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                                  itemBuilder: (context, i) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        controller.enterSerialNumberController.text = controller.machineData[index].machines?[i].serialNumber ?? "";
+                                                        controller.machineNumberController.text = controller.machineData[index].machines?[i].machineNumber ?? "";
+                                                        controller.auditNumberController.text = controller.machineData[index].machines?[i].gameName ?? "";
+                                                        newServiceReportController.isClickSerial = false;
+                                                        newServiceReportController.update(['newRepair']);
+                                                      },
+                                                      child: ListTile(
+                                                        title: Text(controller.machineData[index].machines![i].serialNumber ?? "",
+                                                            style: GoogleFonts.nunito(
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.w400,
+                                                              color: ColorRes.color030229,
+                                                            )),
+                                                      ),
+                                                    );
+                                                  },
+                                                  itemCount: controller.machineData[index].machines!.length,
+                                                )
+                                                    : const SizedBox(),
+                                                itemCount: controller.machineData.length))
+                                            : const SizedBox(),
                                         (controller.serialError != "")
                                             ? Align(
                                                 alignment: Alignment.centerRight,
@@ -167,6 +309,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                 height: 20,
                               ),
                               CommonTextField(
+                                readOnly: true,
                                   color: ColorRes.tffGrey,
                                   type: TextInputType.number,
                                   isRequired: true,

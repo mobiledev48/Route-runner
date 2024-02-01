@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/screens/Forgot_password/ForgotPasswordScreen.dart';
 
 import '../screens/admin_view/admin_controller.dart';
 import '../utils/color_res.dart';
@@ -54,9 +55,14 @@ class CustomCheckbox extends StatelessWidget {
           width: Get.width * 0.1,
         ),
         Expanded(
-          child: Text(
-            StringRes.resetPassword,
-            style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: 14, color: ColorRes.mainColor)),
+          child: InkWell(
+            onTap: (){
+              Get.to(ForgotPasswordScreen());
+            },
+            child: Text(
+              StringRes.resetPassword,
+              style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: 14, color: ColorRes.mainColor)),
+            ),
           ),
         ),
       ],

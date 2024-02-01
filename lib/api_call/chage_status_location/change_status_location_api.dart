@@ -9,7 +9,7 @@ import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';
 import 'package:route_runner/utils/pref_keys.dart';
 class ChangeLocationStatusApi {
-  static ChangeL({status,locationId}) async {
+  static changeLocationStatusApi({status}) async {
     try {
       var headers = {
         'Content-Type': 'application/json',
@@ -18,9 +18,9 @@ class ChangeLocationStatusApi {
       };
 
       var response = await HttpService.putApi(
-        url: "${EndPoints.employeeStatus}${PrefService.getString(PrefKeys.employeeId)}/$locationId",
+        url: "${EndPoints.locationApi}${PrefService.getString(PrefKeys.employeeId)}/activestatus",
         body: {
-          "activeEmployeeStatus": status ?? "",
+          "activestatus": status ?? "",
         },
         header: headers,
       );
@@ -32,17 +32,16 @@ class ChangeLocationStatusApi {
 
         if (decoded["success"] == true) {
           flutterToast(decoded["message"]);
-          return updateProfileModelFromJson(response.body);
+
         }
       } else {
         // Handle other status codes if needed
         print("HTTP Status Code: ${response?.statusCode}");
       }
-      return UpdateProfileModel();
+
     } catch (e, stackTrace) {
       print("Error: $e");
       print("Stack Trace: $stackTrace");
-      return UpdateProfileModel();
     }
   }
 }

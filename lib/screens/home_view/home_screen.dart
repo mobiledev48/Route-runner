@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/api_call/add_new_collection_api/add_new_collection_api.dart';
 import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
+import 'package:route_runner/screens/dash_board/dash_board_controller.dart';
 import 'package:route_runner/screens/home_view/home_controller.dart';
 import 'package:route_runner/screens/home_view/widget/appbar_container.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
@@ -29,8 +33,52 @@ class HomeScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
-        SystemNavigator.pop();
-        return false;
+        DashBoardController dashBoardController = Get.put(DashBoardController());
+
+        if(  dashBoardController.currentIndex ==0) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Theme(
+                  data: ThemeData(dialogBackgroundColor: ColorRes.white),
+                  child: AlertDialog(
+                    title: const Text(
+                      'Are you sure you want to exit?',
+                      style: TextStyle(fontSize: 22, color: ColorRes.mainColor),
+                    ),
+
+                    actions: <Widget>[
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                        ),
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: const Text(
+                          'No',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          exit(0);
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                        ),
+                        child: const Text('Yes', style: TextStyle(color: Colors
+                            .white),),
+                      ),
+                      const SizedBox(width: 2),
+                    ],
+                  ),
+                );
+              });
+        }
+        return true;
       },
       child: Scaffold(
         backgroundColor: ColorRes.bgColor,
@@ -89,20 +137,20 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const Row(
+                             Row(
                               children: [
                                 AppbarContainer(
                                   bgColor: ColorRes.lightBlue,
                                   iconColor: ColorRes.mainColor,
                                   image: AssetRes.location,
-                                  number: StringRes.num1,
+                                  number: homeController.locationLength,
                                   text: StringRes.locations,
                                 ),
                                 AppbarContainer(
                                   bgColor: ColorRes.lightYellow,
                                   iconColor: ColorRes.yellow,
                                   image: AssetRes.machine,
-                                  number: StringRes.num2,
+                                  number: homeController.machineLength,
                                   text: StringRes.machines,
                                 )
                               ],
@@ -320,33 +368,41 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Text(
-                                            "#${homeController.recentCollectionList[index].machineNumber}-${homeController.recentCollectionList[index].serialNumber}",
-                                            // 'Moonlight Bar',
-                                            style: GoogleFonts.nunito(
-                                                fontSize: width * 0.034,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorRes.black),
+                                          SizedBox(
+                                            width:Get.width *0.3,
+                                            child: Text(
+                                              "#${homeController.recentCollectionList[index].machineNumber}-${homeController.recentCollectionList[index].serialNumber}",
+                                              // 'Moonlight Bar',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: width * 0.034,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorRes.black),
+                                            ),
                                           ),
                                           SizedBox(
                                             width: Get.width * 0.09,
                                           ),
                                           SizedBox(
-                                            width: Get.width * 0.37,
+                                            width: Get.width * 0.25,
                                             child: Text(
-                                              "${homeController.recentCollectionList[index].location}",
+                                              "${homeController.locationName}",
+                                              overflow: TextOverflow.ellipsis,
                                               style: GoogleFonts.nunito(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
                                                   color: ColorRes.black),
                                             ),
                                           ),
-                                          Text(
-                                            "${homeController.recentCollectionList[index].total}",
-                                            style: GoogleFonts.nunito(
-                                                fontSize: width * 0.034,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorRes.black),
+                                          SizedBox(
+                                            width: Get.width * 0.1,
+                                            child: Text(
+                                              "${homeController.recentCollectionList[index].total}",
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: width * 0.034,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorRes.black),
+                                            ),
                                           ),
                                           SizedBox(
                                             width: Get.width * 0.04,
@@ -397,30 +453,29 @@ class HomeScreen extends StatelessWidget {
                                                           children: [
                                                             SizedBox(
                                                               width: Get.width *
-                                                                  0.205,
+                                                                  0.32,
                                                             ),
-                                                            Expanded(
-                                                              child: SizedBox(
-                                                                // width: Get.width * 0.1,
-                                                                child: Text(
-                                                                  // homeController.recentCollectionList[index]
-                                                                  //     .listData![index].machine
-                                                                  //     .toString(),
-                                                                  //   "\$ ${controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In)}",
-                                                                  // homeController.recentCollectionList[index]
-                                                                  //     .locationDetails?[i].current![0].pre as String,
-                                                                  'Machine: 7',
-                                                                  style: GoogleFonts.nunito(
-                                                                      fontSize:
-                                                                          10,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      color: ColorRes
-                                                                          .grey),
-                                                                ),
+
+                                                            SizedBox(
+                                                              child: Text(
+                                                                // homeController.recentCollectionList[index]
+                                                                //     .listData![index].machine
+                                                                //     .toString(),
+                                                                //   "\$ ${controller.calculateTotalValue(controller.allCollectionData[index].machineDetails?[i].current![0].In, controller.allCollectionData[index].machineDetails?[i].previous?[0].In)}",
+                                                                // homeController.recentCollectionList[index]
+                                                                //     .locationDetails?[i].current![0].pre as String,
+                                                                'Machine: ${homeController.recentCollectionList.length}',
+                                                                style: GoogleFonts.nunito(
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: ColorRes
+                                                                        .grey),
                                                               ),
                                                             ),
+                                                            const SizedBox(width: 10,),
                                                             Column(
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment

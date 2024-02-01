@@ -175,6 +175,8 @@ class RepairScreen extends StatelessWidget {
                                                       ),
                                                       SizedBox(height: 10),
                                                       Row(
+                                                        crossAxisAlignment:CrossAxisAlignment.start,
+
                                                         children: [
                                                           SizedBox(
                                                             //width: Get.width * 0.4,

@@ -139,7 +139,7 @@ class MachineScreen extends StatelessWidget {
                                                             padding: const EdgeInsets.only(right: 6),
                                                             child: SizedBox(
                                                               height: Get.height * 0.05,
-                                                              child: DropDownMenu(),
+                                                              child: DropDownMenu(isLocation: false),
                                                             ),
                                                           ),
                                                           SizedBox(

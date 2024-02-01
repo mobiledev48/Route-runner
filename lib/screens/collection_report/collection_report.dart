@@ -234,12 +234,15 @@ class CollectionReportScreen extends StatelessWidget {
 
                                                                       ],
                                                                     ),
-                                                                    GestureDetector(
-                                                                        onTap: () {},
-                                                                        child: Image.asset(
-                                                                          AssetRes.print,
-                                                                          scale: 3,
-                                                                        )),
+                                                                    Visibility(
+                                                                      visible:false,
+                                                                      child: GestureDetector(
+                                                                          onTap: () {},
+                                                                          child: Image.asset(
+                                                                            AssetRes.print,
+                                                                            scale: 3,
+                                                                          )),
+                                                                    ),
                                                                   ],
                                                                 ),
                                                                 SizedBox(height: Get.height * 0.05),

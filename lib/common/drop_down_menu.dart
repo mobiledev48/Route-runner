@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:route_runner/api_call/chage_status_location/change_status_location_api.dart';
+import 'package:route_runner/screens/dash_board/dash_board_controller.dart';
+import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
+import 'package:route_runner/screens/machine_view/machine_screen.dart';
 
 import '../utils/asset_res.dart';
 import '../utils/color_res.dart';
 import '../utils/strings.dart';
 import '../utils/text_style.dart';
 
-Widget DropDownMenu() {
+Widget DropDownMenu({required bool isLocation}) {
   return PopupMenuButton(
     // clipBehavior: Clip.none,
 
@@ -33,7 +37,7 @@ Widget DropDownMenu() {
 
     itemBuilder: (context) {
       return [
-        PopupMenuItem(
+    /*    PopupMenuItem(
           height: Get.height * 0.04,
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
           child: Container(
@@ -43,7 +47,7 @@ Widget DropDownMenu() {
               //  color: ColorRes.lightOrange
             ),
             child: InkWell(
-              onTap: (){
+              onTap: () async {
 
               },
               child: Row(
@@ -61,7 +65,7 @@ Widget DropDownMenu() {
               ),
             ),
           ),
-        ),
+        ),*/
         PopupMenuItem(
           height: Get.height * 0.04,
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
@@ -96,24 +100,38 @@ Widget DropDownMenu() {
         PopupMenuItem(
             height: Get.height * 0.04,
             padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Container(
-              height: Get.height * 0.04,
-              width: Get.width * 0.5,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
-                //  color: Colors.grey.shade100
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Image.asset(
-                    AssetRes.list,
-                    scale: 2.5,
-                  ),
-                  Text(
-                    StringRes.listOfMachine,
-                    style: commonSubtitle().copyWith(color: ColorRes.grey2, fontSize: 11),
-                  )
-                ],
+            child: InkWell(
+              onTap: (){
+                  DashBoardController dashBoardController = Get.put(DashBoardController());
+                if(isLocation){
+                  Get.offAll(DashBoardScreen());
+                  dashBoardController.nextPage(2);
+                }
+                else
+                  {
+                    Get.offAll(DashBoardScreen());
+                    dashBoardController.nextPage(1);
+                  }
+              },
+              child: Container(
+                height: Get.height * 0.04,
+                width: Get.width * 0.5,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
+                  //  color: Colors.grey.shade100
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset(
+                      AssetRes.list,
+                      scale: 2.5,
+                    ),
+                    Text(
+                      (isLocation)? StringRes.listOfMachine:StringRes.listOfLocations,
+                      style: commonSubtitle().copyWith(color: ColorRes.grey2, fontSize: 11),
+                    )
+                  ],
+                ),
               ),
             ))
       ];

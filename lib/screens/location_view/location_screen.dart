@@ -152,7 +152,7 @@ class LocationScreen extends StatelessWidget {
                                                                   SizedBox(
                                                                     height: Get.height * 0.02,
                                                                   ),
-                                                                  SizedBox(height: Get.height * 0.025, child: DropDownMenu()),
+                                                                  SizedBox(height: Get.height * 0.025, child: DropDownMenu(isLocation: true)),
                                                                   SizedBox(height: Get.height * 0.02),
                                                                   Row(
                                                                     children: [
@@ -285,7 +285,7 @@ class LocationScreen extends StatelessWidget {
                                                         SizedBox(
                                                           height: Get.height * 0.02,
                                                         ),
-                                                        SizedBox(height: Get.height * 0.035, child: DropDownMenu()),
+                                                        SizedBox(height: Get.height * 0.035, child: DropDownMenu(isLocation: true)),
                                                         SizedBox(height: Get.height * 0.02),
                                                         Row(
                                                           children: [

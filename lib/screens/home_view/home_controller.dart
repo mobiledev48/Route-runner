@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:route_runner/api_call/get_location_api/get_location_model.dart' as getLoc;
 import 'package:route_runner/api_call/get_recent_collection_api/get_recent_collection_model.dart';
 import 'package:route_runner/utils/asset_res.dart';
 
+import '../../api_call/get_location_api/get_location_api.dart';
 import '../../api_call/get_recent_collection_api/get_recent_collection_api.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
@@ -15,12 +17,11 @@ class HomeController extends GetxController {
   TextEditingController auditController = TextEditingController();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   RxBool loader = false.obs;
+
   void Currentindex(index) {
     currentIndex = index;
     update(['home']);
   }
-
-
 
 
   int currentIndex = 0;
@@ -43,7 +44,12 @@ class HomeController extends GetxController {
     StringRes.total,
   ];
 
-  List imageList = [AssetRes.ticketVoucher, AssetRes.settingsFuture, AssetRes.fileDocument, AssetRes.logOut];
+  List imageList = [
+    AssetRes.ticketVoucher,
+    AssetRes.settingsFuture,
+    AssetRes.fileDocument,
+    AssetRes.logOut
+  ];
 
   List drawerTitle = [
     StringRes.collectionReport,
@@ -52,20 +58,31 @@ class HomeController extends GetxController {
     StringRes.logout,
   ];
 
-  List pendingRepair1 = ['Serial No: #1-876364', 'Location: Moonlight Bar', 'Issue: Joy stick not working'];
+  List pendingRepair1 = [
+    'Serial No: #1-876364',
+    'Location: Moonlight Bar',
+    'Issue: Joy stick not working'
+  ];
 
-  List pendingRepair2 = ['Reporter: Steven', 'Date: 15 Dec, 2023', 'Time: 11:06 AM'];
+  List pendingRepair2 = [
+    'Reporter: Steven',
+    'Date: 15 Dec, 2023',
+    'Time: 11:06 AM'
+  ];
 
   List<bool> isViewData = [];
   List<bool> isClick = [];
 
   GerRecentCollectionModel gerRecentCollectionModel = GerRecentCollectionModel();
-  List<LastThreeCollectionReports> recentCollectionList = [];
+  getLoc.GetLocationModel getLocationModel = getLoc.GetLocationModel();
+  List<Machine> recentCollectionList = [];
+
   num calculateSubtractedValue({num? In, num? out}) {
     num total = (In ?? 0) - (out ?? 0);
     return total;
   }
 
+  String locationName = '';
 
   getRecentCollection() async {
     loader.value = true;
@@ -77,25 +94,54 @@ class HomeController extends GetxController {
 
     // Assuming lastThreeCollectionReports is a List of LastThreeCollectionReports.
     // recentCollectionList = gerRecentCollectionModel.lastThreeCollectionReports ?? [];
-    if (gerRecentCollectionModel.lastThreeCollectionReports != null &&
-        gerRecentCollectionModel.lastThreeCollectionReports!.isNotEmpty) {
+    if (gerRecentCollectionModel.data != null) {
       // Remove duplicates before adding new reports
-      Set<String?> existingIds = recentCollectionList.map((report) => report.sId).toSet();
-      List<LastThreeCollectionReports> newReports = gerRecentCollectionModel.lastThreeCollectionReports!
-          .where((report) => !existingIds.contains(report.sId))
+      Set<String?> existingIds = recentCollectionList.map((report) => report.id)
+          .toSet();
+      List<Machine> newReports = gerRecentCollectionModel.data!.machines!
+          .where((report) => !existingIds.contains(report.id))
           .toList();
 
       recentCollectionList.addAll(newReports);
+      locationName =
+          gerRecentCollectionModel.data?.location?.locationname.toString() ??
+              '';
 
       print("recentCollectionList------------>${recentCollectionList.length}");
       update(['home']);
-
     }
 
 
     isViewData = List.generate(recentCollectionList.length, (index) => false);
     isClick = List.generate(recentCollectionList.length, (index) => false);
     update(['home']);
+    loader.value = false;
+  }
+List<getLoc.LocationsData> locationsData =[];
+  String locationLength ="0";
+  String machineLength ="0";
+  getLocation({page, search}) async {
+    loader.value = true;
+    getLocationModel = await CustomerGetLocationApi.customerGetLocationApi(page: page, search: search);
+
+    if (getLocationModel.locations != null && getLocationModel.locations!.isNotEmpty) {
+      // Remove duplicates before adding new locations
+      Set<String?> existingIds = locationsData.map((location) => location.id).toSet();
+      List<getLoc.LocationsData> newLocations = getLocationModel.locations!
+          .where((location) => !existingIds.contains(location.id))
+          .toList();
+
+      locationsData.addAll(newLocations);
+      locationLength = locationsData.length.toString();
+      int machines =0;
+      locationsData.forEach((element) {
+        machines = machines + element.numofmachines!.toInt();
+      });
+
+      machineLength = machines.toString();
+      update(['home']);
+    }
+
     loader.value = false;
   }
 
@@ -115,9 +161,15 @@ class HomeController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    init();
+  }
+
+
+  init() async {
     isViewData = List.generate(recentCollectionList.length, (index) => false);
     isClick = List.generate(recentCollectionList.length, (index) => false);
-    getRecentCollection();
+    await getRecentCollection();
+    await getLocation();
   }
 }
 

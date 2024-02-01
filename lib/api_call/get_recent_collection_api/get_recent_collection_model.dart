@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final getMachinesModel = getMachinesModelFromJson(jsonString);
+//     final gerRecentCollectionModel = gerRecentCollectionModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -11,119 +11,187 @@ String gerRecentCollectionModelToJson(GerRecentCollectionModel data) => json.enc
 class GerRecentCollectionModel {
   bool? success;
   String? message;
-  List<LastThreeCollectionReports>? lastThreeCollectionReports;
+  Data? data;
 
-  GerRecentCollectionModel(
-      {this.success, this.message, this.lastThreeCollectionReports});
+  GerRecentCollectionModel({
+    this.success,
+    this.message,
+    this.data,
+  });
 
-  GerRecentCollectionModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    message = json['message'];
-    if (json['lastThreeCollectionReports'] != null) {
-      lastThreeCollectionReports = <LastThreeCollectionReports>[];
-      json['lastThreeCollectionReports'].forEach((v) {
-        lastThreeCollectionReports!
-            .add(new LastThreeCollectionReports.fromJson(v));
-      });
-    }
-  }
+  factory GerRecentCollectionModel.fromJson(Map<String, dynamic> json) => GerRecentCollectionModel(
+    success: json["success"],
+    message: json["message"],
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.lastThreeCollectionReports != null) {
-      data['lastThreeCollectionReports'] =
-          this.lastThreeCollectionReports!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "success": success,
+    "message": message,
+    "data": data?.toJson(),
+  };
 }
 
-class LastThreeCollectionReports {
-  InNumbers? inNumbers;
-  InNumbers? outNumbers;
-  String? sId;
-  String? location;
+class Data {
+  String? id;
+  String? employee;
+  Location? location;
+  int? v;
+  DateTime? createdAt;
+  List<Machine>? machines;
+  DateTime? updatedAt;
+
+  Data({
+    this.id,
+    this.employee,
+    this.location,
+    this.v,
+    this.createdAt,
+    this.machines,
+    this.updatedAt,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    id: json["_id"],
+    employee: json["employee"],
+    location: json["location"] == null ? null : Location.fromJson(json["location"]),
+    v: json["__v"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    machines: json["machines"] == null ? [] : List<Machine>.from(json["machines"]!.map((x) => Machine.fromJson(x))),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "employee": employee,
+    "location": location?.toJson(),
+    "__v": v,
+    "createdAt": createdAt?.toIso8601String(),
+    "machines": machines == null ? [] : List<dynamic>.from(machines!.map((x) => x.toJson())),
+    "updatedAt": updatedAt?.toIso8601String(),
+  };
+}
+
+class Location {
+  String? id;
+  String? locationname;
+  String? address;
+  int? numofmachines;
+
+  Location({
+    this.id,
+    this.locationname,
+    this.address,
+    this.numofmachines,
+  });
+
+  factory Location.fromJson(Map<String, dynamic> json) => Location(
+    id: json["_id"],
+    locationname: json["locationname"],
+    address: json["address"],
+    numofmachines: json["numofmachines"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "locationname": locationname,
+    "address": address,
+    "numofmachines": numofmachines,
+  };
+}
+
+class Machine {
+  Numbers? inNumbers;
+  Numbers? outNumbers;
+  String? id;
   String? machineNumber;
   String? serialNumber;
-  String? auditNumber;
-  int? total;
-  String? image;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
+  String? initialNumber;
+  String? currentNumber;
+  String? gameName;
+  String? activeMachineStatus;
+  List<String>? employees;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
+  List<String>? image;
+  String? location;
+  String? total;
 
-  LastThreeCollectionReports(
-      {this.inNumbers,
-        this.outNumbers,
-        this.sId,
-        this.location,
-        this.machineNumber,
-        this.serialNumber,
-        this.auditNumber,
-        this.total,
-        this.image,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+  Machine({
+    this.inNumbers,
+    this.outNumbers,
+    this.id,
+    this.machineNumber,
+    this.serialNumber,
+    this.initialNumber,
+    this.currentNumber,
+    this.gameName,
+    this.activeMachineStatus,
+    this.employees,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.image,
+    this.location,
+    this.total,
+  });
 
-  LastThreeCollectionReports.fromJson(Map<String, dynamic> json) {
-    inNumbers = json['inNumbers'] != null
-        ? new InNumbers.fromJson(json['inNumbers'])
-        : null;
-    outNumbers = json['outNumbers'] != null
-        ? new InNumbers.fromJson(json['outNumbers'])
-        : null;
-    sId = json['_id'];
-    location = json['location'];
-    machineNumber = json['machineNumber'];
-    serialNumber = json['serialNumber'];
-    auditNumber = json['auditNumber'];
-    total = json['total'];
-    image = json['image'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
-  }
+  factory Machine.fromJson(Map<String, dynamic> json) => Machine(
+    inNumbers: json["inNumbers"] == null ? null : Numbers.fromJson(json["inNumbers"]),
+    outNumbers: json["outNumbers"] == null ? null : Numbers.fromJson(json["outNumbers"]),
+    id: json["_id"],
+    machineNumber: json["machineNumber"],
+    serialNumber: json["serialNumber"],
+    initialNumber: json["initialNumber"],
+    currentNumber: json["currentNumber"],
+    gameName: json["gameName"],
+    activeMachineStatus: json["activeMachineStatus"],
+    employees: json["employees"] == null ? [] : List<String>.from(json["employees"]!.map((x) => x)),
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+    image: json["image"] == null ? [] : List<String>.from(json["image"]!.map((x) => x)),
+    location: json["location"],
+    total: json["total"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.inNumbers != null) {
-      data['inNumbers'] = this.inNumbers!.toJson();
-    }
-    if (this.outNumbers != null) {
-      data['outNumbers'] = this.outNumbers!.toJson();
-    }
-    data['_id'] = this.sId;
-    data['location'] = this.location;
-    data['machineNumber'] = this.machineNumber;
-    data['serialNumber'] = this.serialNumber;
-    data['auditNumber'] = this.auditNumber;
-    data['total'] = this.total;
-    data['image'] = this.image;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "inNumbers": inNumbers?.toJson(),
+    "outNumbers": outNumbers?.toJson(),
+    "_id": id,
+    "machineNumber": machineNumber,
+    "serialNumber": serialNumber,
+    "initialNumber": initialNumber,
+    "currentNumber": currentNumber,
+    "gameName": gameName,
+    "activeMachineStatus": activeMachineStatus,
+    "employees": employees == null ? [] : List<dynamic>.from(employees!.map((x) => x)),
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+    "__v": v,
+    "image": image == null ? [] : List<dynamic>.from(image!.map((x) => x)),
+    "location": location,
+    "total": total,
+  };
 }
 
-class InNumbers {
-  int? previous;
+class Numbers {
   int? current;
+  int? previous;
 
-  InNumbers({this.previous, this.current});
+  Numbers({
+    this.current,
+    this.previous,
+  });
 
-  InNumbers.fromJson(Map<String, dynamic> json) {
-    previous = json['previous'];
-    current = json['current'];
-  }
+  factory Numbers.fromJson(Map<String, dynamic> json) => Numbers(
+    current: json["current"],
+    previous: json["previous"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['previous'] = this.previous;
-    data['current'] = this.current;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "current": current,
+    "previous": previous,
+  };
 }

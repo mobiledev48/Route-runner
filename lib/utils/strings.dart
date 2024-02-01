@@ -57,6 +57,7 @@ class StringRes {
   static const pay = 'Pay';
   static const changeStatus = 'Change Status';
   static const listOfMachine = 'List of machine';
+  static const listOfLocations= 'List of locations';
   static const viewMore = 'View more';
   static const notFound = 'Not Found';
 
@@ -129,4 +130,11 @@ class StringRes {
   static const reporterError = "Enter reporter";
   static const issueError = "Enter issue";
   static const addImage = "Add image";
+
+
+  /// ---------------------------- forgot password ---------
+  static const forgotPass = "Forgot Password";
+  static const email = "Email";
+  static const submit = "Submit";
+
 }

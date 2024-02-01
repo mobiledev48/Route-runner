@@ -53,12 +53,15 @@ class CollectionDetailScreen extends StatelessWidget {
                        style: appbarStyle().copyWith(fontSize: 20),
                      ),
                      const SizedBox(width: 20),
-                     GestureDetector(
-                         onTap: () {},
-                         child: Image.asset(
-                           AssetRes.print,
-                           scale: 3,
-                         ))
+                     Visibility(
+                       visible: false,
+                       child: GestureDetector(
+                           onTap: () {},
+                           child: Image.asset(
+                             AssetRes.print,
+                             scale: 3,
+                           )),
+                     )
                    ],
                  ),
                ),

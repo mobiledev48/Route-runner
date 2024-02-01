@@ -32,3 +32,32 @@ class Button extends StatelessWidget {
     );
   }
 }
+
+class ForgotButton extends StatelessWidget {
+  final Function()? onpressed;
+  final double height;
+  final double width;
+  const ForgotButton({
+    super.key,
+    required this.height,
+    required this.width,
+    this.onpressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onpressed,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(color: ColorRes.mainColor, borderRadius: BorderRadius.circular(15)),
+        child: Center(
+            child: Text(
+          StringRes.submit,
+          style: GoogleFonts.nunito(textStyle: TextStyle(color: ColorRes.white, fontSize: 16)),
+        )),
+      ),
+    );
+  }
+}

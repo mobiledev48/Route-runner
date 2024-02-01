@@ -9,6 +9,8 @@ import 'package:intl/intl.dart';
 import 'package:route_runner/api_call/add_new_service_report_api/add_new_service_report_model.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
+import 'package:route_runner/api_call/get_machine_api/get_machine_api.dart';
+import 'package:route_runner/api_call/get_machine_api/get_machine_model.dart';
 import 'package:route_runner/model/location_model.dart';
 
 import '../../api_call/add_new_service_report_api/add_new_service_report_api.dart';
@@ -17,7 +19,9 @@ import '../../utils/strings.dart';
 class NewServiceReportController extends GetxController {
   RxBool loader = false.obs;
   ScrollController scrollController = ScrollController();
-
+  int? locationIndex;
+  bool isClickMachine = false;
+  bool isClickSerial= false;
   List<Location>? filteredLocations = [];
   LocationModel? locationModel;
   String data = "";
@@ -57,6 +61,56 @@ class NewServiceReportController extends GetxController {
 
 
 
+  GetMachinesModel getMachinesModel = GetMachinesModel();
+  List<LocationDataMachine> machineData = [];
+  int limitPerPage = 10;
+  int currentPage = 1;
+
+  getMachines({page, search}) async {
+    machineData = [];
+    loader.value = true;
+    getMachinesModel = await CustomerGetMachineApi.customerGetMachineApi(
+        page: page, limit: limitPerPage, search: search);
+
+    if (getMachinesModel.locations != null &&
+        getMachinesModel.locations!.isNotEmpty) {
+      if (getMachinesModel.locations != null) {
+        currentPage++;
+        for (int i = 0; i < getMachinesModel.locations!.length; i++) {
+          Set<String?> existingIds = machineData.map((machine) => machine.id)
+              .toSet();
+          List<LocationDataMachine> newLocations = getMachinesModel.locations!
+              .where((location) => !existingIds.contains(location.id))
+              .toList();
+
+          newLocations.forEach((element) {
+            if (element.id == locationId) {
+              if (element.machines!.length != 0) {
+                machineData.add(element);
+              }
+            }
+          });
+          print(machineData);
+        }
+
+        update(['location']);
+        loader.value = false;
+      }
+    }
+
+    //
+    // File? image;
+    // final ImagePicker picker = ImagePicker();
+    // Future<void> getImageFromCamera() async {
+    //   final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+    //
+    //   if (photo != null) {
+    //
+    //       image = File(photo.path);
+    //   }
+    //   update(['collection']);
+    // }
+  }
 
   /// select date function
   Future<void> selectDate(BuildContext context) async {
