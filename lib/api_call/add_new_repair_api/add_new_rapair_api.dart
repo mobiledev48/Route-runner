@@ -21,7 +21,8 @@ class CustomerNewRepairApi {
     required String time,
     required String reporterName,
     required String issue,
-    required String image,
+    required List image,
+    required String machineId,
   }) async {
     try {
       var headers = {
@@ -30,36 +31,45 @@ class CustomerNewRepairApi {
         'Cookie': 'refreshToken=${PrefService.getString(PrefKeys.registerToken)}'
       };
 
-      var body = jsonEncode({
-        "location": location,
-        "machineNumber": machineNumber,
-        "serialNumber": serialNumber,
-        "auditNumber": auditNumber,
-        "date": date,
-        "time": time,
-        "reporterName": reporterName,
-        "issue": issue,
-        "image": image
-      });
+      // var body = jsonEncode({
+      //   "location": location,
+      //   "machineNumber": machineNumber,
+      //   "serialNumber": serialNumber,
+      //   "auditNumber": auditNumber,
+      //   "date": date,
+      //   "time": time,
+      //   "reporterName": reporterName,
+      //   "issue": issue,
+      //   "image": image
+      // });
+      var body = {
 
-      var response = await HttpService.postApi(
-        url: "${EndPoints.addNewRepair}${PrefService.getString(PrefKeys.employeeId)}",
+          "date": date,
+          "time": time,
+          "reporterName": reporterName,
+          "issue": issue,
+          "imageOfRepair": jsonEncode(image)
+
+      };
+
+      var response = await HttpService.putApi(
+        url: "${EndPoints.addNewRepair}$location/$machineId/${PrefService.getString(PrefKeys.employeeId)}",
         body: body,
         header: headers,
       );
 
-      if (response?.statusCode == 201) {
+      if (response?.statusCode == 201 || response?.statusCode ==200) {
         var decoded = jsonDecode(response!.body);
 
         print(decoded);
 
         if (decoded["success"] == true) {
-          flutterToast(decoded["message"]);
           // Get.to(() => RepairScreen());
 
           repairController.repairReportData.clear();
           // repairController.currentPage = 1;
           repairController.getRepair();
+          Get.back();
           repairController.update(['location']);
           return addNewRepairModelFromJson(response.body);
         }

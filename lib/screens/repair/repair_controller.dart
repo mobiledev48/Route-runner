@@ -51,11 +51,11 @@ class RepairController extends GetxController {
       search: search,
     );
 
-    if (getRepairsModel.repairReports != null && getRepairsModel.repairReports!.isNotEmpty) {
+    if (getRepairsModel.data != null && getRepairsModel.data!.isNotEmpty) {
       // Remove duplicates before adding new repair reports
-      Set<String?> existingIds = repairReportData.map((report) => report.sId).toSet();
-      List<RepairReports> newReports = getRepairsModel.repairReports!
-          .where((report) => !existingIds.contains(report.sId))
+      Set<String?> existingIds = repairReportData.map((report) => report.id).toSet();
+      List<Datum> newReports = getRepairsModel.data!
+          .where((report) => !existingIds.contains(report.id))
           .toList();
 
       // Add the new repair reports to repairReportData
@@ -69,7 +69,7 @@ class RepairController extends GetxController {
   }
 
 
-  List<RepairReports> repairReportData = [];
+  List<Datum> repairReportData = [];
   // upcomingPagination() async {
   //   if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
   //     if (loader.value != true) {
@@ -83,13 +83,10 @@ class RepairController extends GetxController {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
         // Add null checks before using currentPage and totalPages
-        if (
-            getRepairsModel.currentPage != null &&
-            getRepairsModel.totalPages != null &&
-            getRepairsModel.currentPage! < getRepairsModel.totalPages!) {
+
           currentPage++;
           await getRepair(page: currentPage);
-        }
+
       }
     }
     update(['location']);

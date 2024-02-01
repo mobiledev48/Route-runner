@@ -47,7 +47,9 @@ class RepairScreen extends StatelessWidget {
                 onTap: () {
                   NewReportController newReportController = Get.put(NewReportController());
                   newReportController.getLocation();
-                  Get.to(NewRepairScreen());
+                  newReportController.selectedImage =[];
+                  newReportController.selectedImageUrl =[];
+                  Get.to(const NewRepairScreen());
 
                 },
                 child: Padding(
@@ -133,108 +135,132 @@ class RepairScreen extends StatelessWidget {
                                         controller.update(['location']);
                                       },
                                       child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
                                         controller: controller.scrollController,
                                           itemCount: controller.repairReportData.length,
                                           itemBuilder: (context, index) => Padding(
                                                 padding: const EdgeInsets.only(top: 10),
                                                 child: Container(
-                                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                                  padding: const EdgeInsets.symmetric(horizontal: 10),
                                                   // height: 85,
                                                   width: Get.width,
                                                   decoration: BoxDecoration(
                                                       color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
                                                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      SizedBox(height: 10),
+                                                      const SizedBox(height: 10),
                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
                                                           Text(
-                                                            controller.repairReportData[index].location ?? "",
+                                                            controller.repairReportData[index].location?.locationname ?? "",
                                                             style: title(),
                                                           ),
-                                                          Container(
-                                                            height: Get.height * 0.04,
-                                                            width: Get.width * 0.2,
-                                                            decoration: BoxDecoration(
-                                                              color: controller.repairReportData[index].statusOfRepair == "Done"?
-                                                              ColorRes.color3A974C.withOpacity(0.10):controller.repairReportData[index].statusOfRepair == "Pending"?
-                                                              ColorRes.colorF29339.withOpacity(0.10): ColorRes.color5B93FF.withOpacity(0.10),
-                                                              borderRadius: BorderRadius.circular(30),
-                                                            ),
-                                                            child: Center(
-                                                                child: Text(
-                                                                  controller.repairReportData[index].statusOfRepair ?? "",
-                                                                  style: TextStyle(
-                                                                      color: controller.repairReportData[index].statusOfRepair == "Done"?
-                                                                      ColorRes.color3A974C:controller.repairReportData[index].statusOfRepair == "Pending"?
-                                                                      ColorRes.colorF29339: ColorRes.color5B93FF,
-                                                                      fontSize: 12),
-                                                                )),
-                                                          ),
+
                                                         ],
                                                       ),
-                                                      SizedBox(height: 10),
-                                                      Row(
-                                                        crossAxisAlignment:CrossAxisAlignment.start,
+                                                      (controller.repairReportData[index].machines != null)?    ListView.builder(
+                                                          itemCount: controller.repairReportData[index].machines!.length,
+                                                          shrinkWrap:true,
+                                                          physics:const NeverScrollableScrollPhysics(),
+                                                          itemBuilder: (context,i){
+                                                            return   Column(
+                                                              children: [
+                                                                Column(
 
-                                                        children: [
-                                                          SizedBox(
-                                                            //width: Get.width * 0.4,
-                                                            child: Text(
-                                                              "Reporter: ${controller.repairReportData[index].reporterName ?? ""}",
-                                                              overflow: TextOverflow.ellipsis,
-                                                              // style: subTitle(),
-                                                              style: GoogleFonts.nunito(
-                                                                  fontSize: width * 0.031,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorRes.color030229),
-                                                            ),
-                                                          ),
-                                                                  SizedBox(width: width * 0.04,),
-                                                                  Expanded(flex: 2,
-                                                                    child: Text(
-                                                                     'SN: #${controller.repairReportData[index].machineNumber?? ""}-${controller.repairReportData[index].serialNumber ?? ""}',
-
-                                                                      style: GoogleFonts.nunito(
-                                                                          fontSize: width * 0.031,
-                                                                          fontWeight: FontWeight.w400,
-                                                                          color: ColorRes.color030229),
-                                                                    ),
-                                                                  ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                      Row(children: [
-                                                        SizedBox(height: 5),
-                                                        Expanded(
-                                                          // width: width * 0.37,
-                                                          child: Text(
-                                                            'Issue: ${ controller.repairReportData[index].issue ?? ""}',
-                                                            overflow: TextOverflow.ellipsis,
-                                                            maxLines: 2,
-                                                            style: GoogleFonts.nunito(
-                                                                fontSize: width * 0.031,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorRes.color030229),
-                                                          ),
-                                                        ),
-                                                                Row(
                                                                   children: [
-                                                                    Text(
-                                                                   "Date: ${ DateFormat('dd MMM, yyyy').format(DateTime.parse( controller.repairReportData[index].date ?? ""))}",
-                                                                      style: subTitle().copyWith(fontSize: 9),
+                                                                    Align(
+                                                                      alignment: Alignment.centerRight,
+                                                                      child: Container(
+                                                                        height: Get.height * 0.04,
+                                                                        width: Get.width * 0.2,
+                                                                        decoration: BoxDecoration(
+                                                                          color:  controller.repairReportData[index].machines![i].statusOfRepair == "Done"?
+                                                                          ColorRes.color3A974C.withOpacity(0.10): controller.repairReportData[index].machines![i].statusOfRepair == "Pending"?
+                                                                          ColorRes.colorF29339.withOpacity(0.10): ColorRes.color5B93FF.withOpacity(0.10),
+                                                                          borderRadius: BorderRadius.circular(30),
+                                                                        ),
+                                                                        child: Center(
+                                                                            child: Text(
+                                                                              controller.repairReportData[index].machines![i].statusOfRepair ?? "",
+                                                                              style: TextStyle(
+                                                                                  color:  controller.repairReportData[index].machines![i].statusOfRepair == "Done"?
+                                                                                  ColorRes.color3A974C: controller.repairReportData[index].machines![i].statusOfRepair == "Pending"?
+                                                                                  ColorRes.colorF29339: ColorRes.color5B93FF,
+                                                                                  fontSize: 12),
+                                                                            )),
+                                                                      ),
                                                                     ),
-                                                                    SizedBox(width: Get.width * 0.02),
-                                                                    Text(
-                                                                      'Time: ${controller.repairReportData[index].time ?? ""}',
-                                                                      style: subTitle().copyWith(fontSize: 9),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                        SizedBox(height: 10),
+                                                                    const SizedBox(height: 10),
+                                                                    Row(
+                                                                      crossAxisAlignment:CrossAxisAlignment.start,
 
-                                                      ],),
-                                                      SizedBox(height: 10),
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          //width: Get.width * 0.4,
+                                                                          child: Text(
+                                                                            "Reporter: ${ controller.repairReportData[index].machines![i].reporterName ?? ""}",
+                                                                            overflow: TextOverflow.ellipsis,
+                                                                            // style: subTitle(),
+                                                                            style: GoogleFonts.nunito(
+                                                                                fontSize: width * 0.031,
+                                                                                fontWeight: FontWeight.w400,
+                                                                                color: ColorRes.color030229),
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(width: width * 0.04,),
+                                                                        Expanded(flex: 2,
+                                                                          child: Text(
+                                                                            'SN: #${ controller.repairReportData[index].machines![i].machineNumber?? ""}-${ controller.repairReportData[index].machines![i].serialNumber ?? ""}',
+
+                                                                            style: GoogleFonts.nunito(
+                                                                                fontSize: width * 0.031,
+                                                                                fontWeight: FontWeight.w400,
+                                                                                color: ColorRes.color030229),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    const SizedBox(height: 10),
+                                                                    Row(children: [
+                                                                      const SizedBox(height: 5),
+                                                                      Expanded(
+                                                                        // width: width * 0.37,
+                                                                        child: Text(
+                                                                          'Issue: ${ controller.repairReportData[index].machines![i].issue ?? ""}',
+                                                                          overflow: TextOverflow.ellipsis,
+                                                                          maxLines: 2,
+                                                                          style: GoogleFonts.nunito(
+                                                                              fontSize: width * 0.031,
+                                                                              fontWeight: FontWeight.w400,
+                                                                              color: ColorRes.color030229),
+                                                                        ),
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Text(
+                                                                            "Date: ${ DateFormat('dd MMM, yyyy').format(controller.repairReportData[index].machines![i].date ?? DateTime.now())}",
+                                                                            style: subTitle().copyWith(fontSize: 9),
+                                                                          ),
+                                                                          SizedBox(width: Get.width * 0.02),
+                                                                          Text(
+                                                                            'Time: ${ controller.repairReportData[index].machines![i].time ?? ""}',
+                                                                            style: subTitle().copyWith(fontSize: 9),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                      const SizedBox(height: 10),
+
+                                                                    ],),
+                                                                    const SizedBox(height: 10),
+                                                                  ],                                             ),
+                                                                const SizedBox(height: 10,),
+                                                                const Divider(),
+                                                                const SizedBox(height: 10,),
+                                                              ],
+                                                            );
+                                                          }):const SizedBox(),
+
                                                       // Row(
                                                       //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                       //   children: [
@@ -351,7 +377,7 @@ class RepairScreen extends StatelessWidget {
                                           StringRes.notFound,
                                           style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                                         ),
-                                      ):SizedBox(),
+                                      ):const SizedBox(),
                           ],
                         ),
                       ),
@@ -360,7 +386,7 @@ class RepairScreen extends StatelessWidget {
                 );
               },
             ),
-            Obx(()=> repairController.loader.value ? Center(child: CircularProgressIndicator(),):SizedBox())
+            Obx(()=> repairController.loader.value ? const Center(child: CircularProgressIndicator(),):const SizedBox())
           ],
         ));
   }

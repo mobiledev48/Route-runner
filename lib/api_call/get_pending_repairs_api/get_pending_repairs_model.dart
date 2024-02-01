@@ -1,25 +1,25 @@
 // To parse this JSON data, do
 //
-//     final getRepairsModel = getRepairsModelFromJson(jsonString);
+//     final getPendingRepairsModel = getPendingRepairsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-GetRepairsModel getRepairsModelFromJson(String str) => GetRepairsModel.fromJson(json.decode(str));
+GetPendingRepairsModel getPendingRepairsModelFromJson(String str) => GetPendingRepairsModel.fromJson(json.decode(str));
 
-String getRepairsModelToJson(GetRepairsModel data) => json.encode(data.toJson());
+String getPendingRepairsModelToJson(GetPendingRepairsModel data) => json.encode(data.toJson());
 
-class GetRepairsModel {
+class GetPendingRepairsModel {
   bool? success;
   String? message;
   List<Datum>? data;
 
-  GetRepairsModel({
+  GetPendingRepairsModel({
     this.success,
     this.message,
     this.data,
   });
 
-  factory GetRepairsModel.fromJson(Map<String, dynamic> json) => GetRepairsModel(
+  factory GetPendingRepairsModel.fromJson(Map<String, dynamic> json) => GetPendingRepairsModel(
     success: json["success"],
     message: json["message"],
     data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),

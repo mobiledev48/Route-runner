@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_model.dart' as getLoc;
+import 'package:route_runner/api_call/get_pending_repairs_api/get_pending_repairs_api.dart';
+import 'package:route_runner/api_call/get_pending_repairs_api/get_pending_repairs_model.dart' as getPending;
 import 'package:route_runner/api_call/get_recent_collection_api/get_recent_collection_model.dart';
 import 'package:route_runner/utils/asset_res.dart';
 
@@ -145,6 +147,14 @@ List<getLoc.LocationsData> locationsData =[];
     loader.value = false;
   }
 
+  getPending.GetPendingRepairsModel getPendingRepairsModel = getPending.GetPendingRepairsModel();
+  getPendingReport() async {
+    loader.value = true;
+   getPendingRepairsModel =  await GetPendingRepairsApi.getPendingReportApi();
+    loader.value = false;
+    update(['home']);
+  }
+
   // List<collectionDetail> recentCollectionList = [
   //   collectionDetail(serialNo: '#1-876364', location: 'Moonlight Bar', total: '\$500', listData: [
   //     ListData(machine: 'Machine: 7', current: [Current(cur: 2000, pre: 2500)])
@@ -170,6 +180,7 @@ List<getLoc.LocationsData> locationsData =[];
     isClick = List.generate(recentCollectionList.length, (index) => false);
     await getRecentCollection();
     await getLocation();
+    await getPendingReport();
   }
 }
 

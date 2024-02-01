@@ -20,5 +20,6 @@ class EndPoints {
   static const lastCollection = "$baseUrl/employee/last-collection/";
   static const locationApi = "$baseUrl/location";
   static const allCollection = "$baseUrl/employee/collection/";
+  static const pendingRepairs = "$baseUrl/employee/pending/";
 
 }

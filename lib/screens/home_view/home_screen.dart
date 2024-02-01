@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:route_runner/api_call/add_new_collection_api/add_new_collection_api.dart';
 import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
@@ -97,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                               height: Get.height * 0.27,
                               width: Get.width,
                               decoration:
-                                  BoxDecoration(color: ColorRes.mainColor),
+                                  const BoxDecoration(color: ColorRes.mainColor),
                               child: Row(
                                 children: [
                                   SizedBox(
@@ -213,7 +214,7 @@ class HomeScreen extends StatelessWidget {
 
 
 
-                                    Get.to(()=> NewCollectionScreen());
+                                    Get.to(()=> const NewCollectionScreen());
                                     }),
                               )
                               /* Row(
@@ -552,8 +553,8 @@ class HomeScreen extends StatelessWidget {
                                                     ],
                                                   )),
                                             )
-                                          : SizedBox(),
-                                      SizedBox(
+                                          : const SizedBox(),
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                     ],
@@ -602,104 +603,119 @@ class HomeScreen extends StatelessWidget {
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                SizedBox(
+                                (homeController.getPendingRepairsModel.data != null)?SizedBox(
                                   // height: Get.height * 0.6,
                                   child: ListView.builder(
-                                    itemCount: 4,
+                                    itemCount: homeController.getPendingRepairsModel.data!.length,
                                     shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) => Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: Get.width * 0.03,
-                                            ),
-                                            SizedBox(
-                                              width: Get.width * 0.53,
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    "Serialno:  ${'#1-876364'}",
-                                                    style: commonSubtitle()
-                                                        .copyWith(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return ( homeController.getPendingRepairsModel.data![index].machines != null)?ListView.builder(
+                                          shrinkWrap: true,
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          itemCount: homeController.getPendingRepairsModel.data![index].machines!.length,
+                                          itemBuilder: (context,i){
+                                            return Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: Get.width * 0.03,
+                                                    ),
+                                                    SizedBox(
+                                                      width: Get.width * 0.53,
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width:Get.width *0.4,
+                                                            child: Text(
+                                                              "Serial No:  ${homeController.getPendingRepairsModel.data![index].machines![i].serialNumber}",
+                                                              overflow:TextOverflow.ellipsis,
+                                                              style: commonSubtitle()
+                                                                  .copyWith(
+                                                                  fontSize:
+                                                                  width * 0.038),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width:Get.width*0.2,
+                                                      child: Text(
+                                                        'Reporter: ${homeController.getPendingRepairsModel.data![index].machines![i].reporterName}',
+                                                        style: commonSubtitle().copyWith(
+                                                            fontSize: width * 0.038),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 15),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: width * 0.03,
+                                                    ),
+                                                    SizedBox(
+                                                      width: Get.width * 0.52,
+                                                      child: Text(
+                                                        'Location: ${homeController.getPendingRepairsModel.data![index].location!.locationname}',
+                                                        style: commonSubtitle()
+                                                            .copyWith(
                                                             fontSize:
-                                                                width * 0.038),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Text(
-                                              'Reporter: Steven',
-                                              style: commonSubtitle().copyWith(
-                                                  fontSize: width * 0.038),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 15),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: width * 0.03,
-                                            ),
-                                            SizedBox(
-                                              width: Get.width * 0.52,
-                                              child: Text(
-                                                'Location: Moonlight Bar',
-                                                style: commonSubtitle()
-                                                    .copyWith(
-                                                        fontSize:
                                                             width * 0.038),
-                                              ),
-                                            ),
-                                            Text(
-                                              'Date: 15 Dec, 2023',
-                                              style: commonSubtitle().copyWith(
-                                                  fontSize: width * 0.034),
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(height: 15),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: width * 0.03,
-                                            ),
-                                            SizedBox(
-                                              width: Get.width * 0.52,
-                                              child: Text(
-                                                'Issue: Joy stick not working',
-                                                style: commonSubtitle()
-                                                    .copyWith(
-                                                        fontSize:
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Date: ${DateFormat('dd MMM, yyyy').format(homeController.getPendingRepairsModel.data![index].machines![i].date ?? DateTime.now())}',
+                                                      style: commonSubtitle().copyWith(
+                                                          fontSize: width * 0.034),
+                                                    )
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 15),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: width * 0.03,
+                                                    ),
+                                                    SizedBox(
+                                                      width: Get.width * 0.52,
+                                                      child: Text(
+                                                        'Issue: ${homeController.getPendingRepairsModel.data![index].machines![i].issue}',
+                                                        style: commonSubtitle()
+                                                            .copyWith(
+                                                            fontSize:
                                                             width * 0.038),
-                                              ),
-                                            ),
-                                            Text(
-                                              'Time: 11:06 AM',
-                                              style: commonSubtitle().copyWith(
-                                                  fontSize: width * 0.034),
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        const Divider(
-                                          height: 1,
-                                          color: ColorRes.grey,
-                                          thickness: 0.1,
-                                          endIndent: 15,
-                                          indent: 15,
-                                        ),
-                                        // homeController.dividers(12, 7),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                      ],
-                                    ),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Time: ${DateFormat('h:mm a').format(homeController.getPendingRepairsModel.data![index].machines![i].date ?? DateTime.now())}',
+                                                      style: commonSubtitle().copyWith(
+                                                          fontSize: width * 0.034),
+                                                    )
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                const Divider(
+                                                  height: 1,
+                                                  color: ColorRes.grey,
+                                                  thickness: 0.1,
+                                                  endIndent: 15,
+                                                  indent: 15,
+                                                ),
+                                                // homeController.dividers(12, 7),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                              ],
+                                            );
+                                          }):const SizedBox();
+                                    }
                                   ),
-                                ),
+                                ):const SizedBox(),
                               ],
                             ),
                           ),
@@ -712,10 +728,10 @@ class HomeScreen extends StatelessWidget {
                   }),
             ),
             Obx(() => homeController.loader.value
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : SizedBox())
+                : const SizedBox())
           ],
         ),
         endDrawer: GetBuilder<HomeController>(
@@ -744,7 +760,7 @@ class HomeScreen extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Column(
@@ -755,7 +771,7 @@ class HomeScreen extends StatelessWidget {
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: ColorRes.black)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 2,
                               ),
                               Text("Employee",

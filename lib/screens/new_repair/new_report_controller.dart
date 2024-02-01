@@ -25,7 +25,8 @@ class NewReportController extends GetxController {
   LocationModel? locationModel;
   String locationError = "";
   int? locationIndex;
-
+List selectedImage =[];
+List selectedImageUrl =[];
   String data = "";
 
   TextEditingController dateController = TextEditingController();
@@ -48,7 +49,8 @@ class NewReportController extends GetxController {
     required String time,
     required String reporterName,
     required String issue,
-    required String image,
+    required List image,
+    required String machineId,
   }) async {
     loader.value = true;
     addNewRepairModel = await CustomerNewRepairApi.customerNewRepairApi(
@@ -60,7 +62,8 @@ class NewReportController extends GetxController {
       time: time,
       reporterName: reporterName,
       issue: issue,
-      image: image,);
+      image: image,
+    machineId:machineId);
 
     loader.value = false;
     return loader.value;
@@ -68,6 +71,7 @@ class NewReportController extends GetxController {
 
   bool isClick = false;
   String locationId = "";
+  String machineId = "";
   GetLocationModel getLocationModel = GetLocationModel();
   List<LocationsData> locationsData = [];
 
@@ -197,6 +201,7 @@ class NewReportController extends GetxController {
       loader.value = true;
       if (photo != null) {
         image = File(photo.path);
+        selectedImage.add(image);
         if (image != null) {
           String fileName = DateTime
               .now()
@@ -211,6 +216,8 @@ class NewReportController extends GetxController {
 
           downloadUrl = await taskSnapshot.ref.getDownloadURL();
           print("downloadUrl ---------->$downloadUrl");
+          selectedImageUrl.add(downloadUrl);
+
           loader.value = false;
         }
       }
