@@ -29,7 +29,7 @@ class AdminController extends GetxController {
   async {
     isLoading.value = true;
     signInModel =  await CustomerSignInApi.customerSignInApi(email: email,password: password);
-    Get.to(() => DashBoardScreen());
+   // Get.to(() => DashBoardScreen());
 
    // PrefService.setValue(PrefKeys.registerToken, signInModel.token);
     print("===================================-----------------========${PrefService.setValue(PrefKeys.registerToken, signInModel.token)}");
