@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -16,6 +17,7 @@ import 'package:route_runner/screens/new_collection/new_collection_controller.da
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
+import 'package:route_runner/utils/pref_keys.dart';
 import '../../common/common_text_fild.dart';
 import '../../service/pref_services.dart';
 import '../../utils/asset_res.dart';
@@ -833,7 +835,13 @@ class HomeScreen extends StatelessWidget {
                                               onPressed: () {
 
                                                 Get.offAll(() => const AdminScreen());
+                                                var rememberData  =  PrefService.getString(PrefKeys.remember);
+
                                                 PrefService.clear();
+
+                                                  PrefService.setValue(PrefKeys.remember, rememberData);
+
+
                                               },
                                               style: ButtonStyle(
                                                 backgroundColor:

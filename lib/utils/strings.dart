@@ -10,6 +10,8 @@ class StringRes {
   static const enterEmailError = "Please enter email";
   static const enterPasswordError = "Please enter password";
   static const enterValidEmail = "Enter valid email";
+  static const confirmPassword = "Confirm password must be same with password";
+
   static const passwordMustBe = "Must be at least 8 characters";
   static const dots = "●●●●●●●●";
   static const rememberMe = "Remember me";
@@ -136,5 +138,14 @@ class StringRes {
   static const forgotPass = "Forgot Password";
   static const email = "Email";
   static const submit = "Submit";
+
+  /// ------------------ otp screen ------------------
+  static const otpVerification = "Otp Verification";
+  static const enterOtp = "Enter Otp";
+  static const enterValidOtp = "Enter valid Otp";
+
+  /// --------------- reset password ------------
+  static const resetPass = "Reset Password";
+
 
 }

@@ -10,4 +10,5 @@ class PrefKeys {
   static const userImage = "userImage";
   static const loginId = "loginId";
   static const locationId = "locationId";
+  static const remember = "remember";
 }

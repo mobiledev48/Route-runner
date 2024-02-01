@@ -2,6 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:route_runner/api_call/forgot_password_api/forgot_password_api.dart';
+import 'package:route_runner/api_call/forgot_password_api/forgot_password_model.dart';
+import 'package:route_runner/screens/Otp_screen/otp_screen.dart';
 import 'package:route_runner/utils/strings.dart';
 
 
@@ -11,7 +14,7 @@ class ForgotPasswordController extends GetxController {
   TextEditingController emailController = TextEditingController();
 
   String emailError = "";
-
+ForgotPasswordModel forgotPasswordModel =ForgotPasswordModel();
   emailValidation() {
     if (emailController.text.trim() == "") {
       emailTextActive = false;
@@ -31,11 +34,13 @@ class ForgotPasswordController extends GetxController {
     }
   }
 
-  onTapSubmit() {
+  onTapSubmit() async {
     if (validation()) {
-
+    forgotPasswordModel = await  ForgotPasswordApi.forgotPasswordApi(email: emailController.text,);
+    if(forgotPasswordModel.success ?? false) {
+      Get.to(OtpScreen(email: emailController.text));
+    }
       emailController.clear();
-      Get.back();
     }
     update(['reset']);
   }

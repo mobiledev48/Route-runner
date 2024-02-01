@@ -59,6 +59,7 @@ class AdminScreen extends StatelessWidget {
                           onpressed: () {
                             FocusScope.of(context).unfocus();
                             if (adminController.validator()) {
+                              controller.remeber();
                               controller.signInApi(email: controller. emailController.text,password: controller.passwordController.text).then((value) {
                              if(value == false)
                                {

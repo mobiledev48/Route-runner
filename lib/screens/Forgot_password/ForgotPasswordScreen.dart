@@ -32,7 +32,28 @@ class ForgotPasswordScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 60,
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: const Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: ColorRes.themeColor,
+                                  size: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 50,
                         ),
                         Center(
                           child: Image.asset(

@@ -53,6 +53,7 @@ dependencies:
   firebase_core:
   firebase_storage: ^11.6.0
   cached_network_image:
+  pin_code_fields: ^7.3.0
 
 dev_dependencies:
   flutter_test:

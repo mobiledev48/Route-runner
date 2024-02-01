@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:route_runner/api_call/auth/signIn_api/sign_in_api.dart';
@@ -29,7 +31,7 @@ class AdminController extends GetxController {
   async {
     isLoading.value = true;
     signInModel =  await CustomerSignInApi.customerSignInApi(email: email,password: password);
-    Get.to(() => DashBoardScreen());
+
 
    // PrefService.setValue(PrefKeys.registerToken, signInModel.token);
     print("===================================-----------------========${PrefService.setValue(PrefKeys.registerToken, signInModel.token)}");
@@ -131,8 +133,45 @@ class AdminController extends GetxController {
 
   void clickableContainer() {
     isClick = !isClick;
+   remeber();
+
     update(['admin']);
   }
+
+
+  remeber(){
+
+
+   Map data  = {
+     'isRemember':isClick,
+     "email":emailController.text,
+     "password":passwordController.text,
+   };
+    PrefService.setValue(PrefKeys.remember, jsonEncode(data));
+  }
+
+  @override
+  void onInit() {
+    init();
+    super.onInit();
+  }
+
+  init(){
+    var rememberData  =  PrefService.getString(PrefKeys.remember);
+
+    if(rememberData != '')
+      {
+        var setData  = jsonDecode(rememberData);
+        if(setData['isRemember'])
+          {
+            emailController.text =  setData['email'];
+            passwordController.text =  setData['password'];
+          }
+        isClick  = setData['isRemember'];
+      }
+    update(['admin']);
+  }
+
 
 /* loginApi(BuildContext context) async {
     loader.value = true;

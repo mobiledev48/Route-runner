@@ -21,5 +21,7 @@ class EndPoints {
   static const locationApi = "$baseUrl/location";
   static const allCollection = "$baseUrl/employee/collection/";
   static const pendingRepairs = "$baseUrl/employee/pending/";
+  static const forgotPassword = "$baseUrl/employee/forgot-password";
+  static const otp = "$baseUrl/employee/verify-otp/";
 
 }
