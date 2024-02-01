@@ -42,18 +42,23 @@ Widget DropDownMenu() {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
               //  color: ColorRes.lightOrange
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  AssetRes.pin,
-                  scale: 2.5,
-                ),
-                Text(
-                  StringRes.changeStatus,
-                  style: commonSubtitle().copyWith(color: ColorRes.orange, fontSize: 11),
-                )
-              ],
+            child: InkWell(
+              onTap: (){
+
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(
+                    AssetRes.pin,
+                    scale: 2.5,
+                  ),
+                  Text(
+                    StringRes.changeStatus,
+                    style: commonSubtitle().copyWith(color: ColorRes.orange, fontSize: 11),
+                  )
+                ],
+              ),
             ),
           ),
         ),
