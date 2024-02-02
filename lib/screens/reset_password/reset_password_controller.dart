@@ -75,7 +75,10 @@ ResetPasswordModel resetPasswordModel = ResetPasswordModel();
    resetPasswordModel  = await ResetPasswordApi.resetPasswordApi(password: passwordController.text, employeeId: employeeId);
    if(resetPasswordModel.success ?? false)
      {
+       await Future.delayed(const Duration(seconds: 5),(){
+
        Get.offAll(const AdminScreen());
+       });
      }
     loader.value = false;
 

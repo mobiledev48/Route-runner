@@ -19,7 +19,7 @@ class ForgotPasswordApi {
       var response = await HttpService.postApi(
         url: EndPoints.forgotPassword,
         body: {
-          "email": email,
+          "email": email.toString().removeAllWhitespace,
         },
       );
 
