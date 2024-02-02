@@ -15,10 +15,10 @@ import 'package:route_runner/utils/end_points.dart';
 import 'package:route_runner/utils/pref_keys.dart';
 
 class OtpApi {
-  static optApi({required String otp,}) async {
+  static optApi({required String otp,required String employeeId}) async {
     try {
       var response = await HttpService.postApi(
-        url: EndPoints.otp,
+        url: EndPoints.otp + employeeId,
         body: {
           "otp": otp,
         },
@@ -38,8 +38,8 @@ class OtpApi {
         }
       } else {
 
-
-
+        var decoded = jsonDecode(response!.body);
+errorToast(decoded["message"]);
         print("HTTP Status Code: ${response?.statusCode}");
         print("Response Body: ${response?.body}");
 

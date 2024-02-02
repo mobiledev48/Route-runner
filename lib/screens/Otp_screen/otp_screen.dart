@@ -11,8 +11,9 @@ import 'package:route_runner/utils/strings.dart';
 import 'package:route_runner/utils/text_style.dart';
 
 class OtpScreen extends StatelessWidget {
-  OtpScreen({Key? key, required this.email}) : super(key: key);
+  OtpScreen({Key? key, required this.email,required this.employeeId}) : super(key: key);
   final String email;
+  final String employeeId;
   final OtpController otpController = Get.put(OtpController());
 
   @override
@@ -27,6 +28,8 @@ class OtpScreen extends StatelessWidget {
           builder: (con) {
             return Scaffold(
               body: Stack(
+                alignment: Alignment.center,
+
                 children: [
                   Container(
                     height: Get.height,
@@ -133,7 +136,7 @@ class OtpScreen extends StatelessWidget {
                                 otpController.onTapSubmit();
                                 if(otpController.otpError =="")
                                   {
-                                    otpController.verifyOtp();
+                                    otpController.verifyOtp(employeeId);
                                   }
 
                             },

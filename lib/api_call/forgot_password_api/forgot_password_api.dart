@@ -38,7 +38,8 @@ class ForgotPasswordApi {
       } else {
 
 
-
+        var decoded = jsonDecode(response!.body);
+        errorToast(decoded["message"]);
         print("HTTP Status Code: ${response?.statusCode}");
         print("Response Body: ${response?.body}");
 

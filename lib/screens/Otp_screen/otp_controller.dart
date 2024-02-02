@@ -10,11 +10,11 @@ class OtpController extends GetxController{
   String otpError = "";
   RxBool loader = false.obs;
 OtpModel otpModel = OtpModel();
-  verifyOtp () async {
+  verifyOtp (employeeId) async {
     loader.value = true;
-   otpModel =  await OtpApi.optApi(otp: otpController.text);
+   otpModel =  await OtpApi.optApi(otp: otpController.text,employeeId: employeeId);
     if(otpModel.success ?? false) {
-      Get.offAll(ResetScreen());
+      Get.offAll(ResetScreen(employeeId : employeeId));
     }
     loader.value = false;
   }

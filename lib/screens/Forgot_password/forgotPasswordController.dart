@@ -10,7 +10,7 @@ import 'package:route_runner/utils/strings.dart';
 
 class ForgotPasswordController extends GetxController {
   bool emailTextActive = false;
-
+RxBool loader = false.obs;
   TextEditingController emailController = TextEditingController();
 
   String emailError = "";
@@ -36,10 +36,14 @@ ForgotPasswordModel forgotPasswordModel =ForgotPasswordModel();
 
   onTapSubmit() async {
     if (validation()) {
+      loader.value  = true;
     forgotPasswordModel = await  ForgotPasswordApi.forgotPasswordApi(email: emailController.text,);
     if(forgotPasswordModel.success ?? false) {
-      Get.to(OtpScreen(email: emailController.text));
+      Get.to(OtpScreen(email: emailController.text,employeeId:forgotPasswordModel.user?.id.toString() ?? ''));
+
     }
+      loader.value  = false;
+
       emailController.clear();
     }
     update(['reset']);

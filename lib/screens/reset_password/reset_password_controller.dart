@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:route_runner/api_call/reset_password/reset_password_api.dart';
+import 'package:route_runner/api_call/reset_password/reset_password_model.dart';
+import 'package:route_runner/screens/admin_view/admin_screen.dart';
 
 import '../../utils/strings.dart';
 
@@ -8,6 +11,7 @@ class ResetPasswordController extends GetxController{
   TextEditingController conPasswordController = TextEditingController();
 String passwordError ='';
 String conPasswordError ='';
+RxBool loader = false.obs;
   passwordValidation() {
     if (passwordController.text.trim() == "") {
       // errorToast(StringRes.enterPasswordError.tr);
@@ -65,4 +69,16 @@ String conPasswordError ='';
 
 
   }
+ResetPasswordModel resetPasswordModel = ResetPasswordModel();
+  resetPassword(employeeId)async{
+    loader.value = true;
+   resetPasswordModel  = await ResetPasswordApi.resetPasswordApi(password: passwordController.text, employeeId: employeeId);
+   if(resetPasswordModel.success ?? false)
+     {
+       Get.offAll(const AdminScreen());
+     }
+    loader.value = false;
+
+  }
+
 }

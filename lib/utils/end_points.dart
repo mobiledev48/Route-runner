@@ -23,5 +23,6 @@ class EndPoints {
   static const pendingRepairs = "$baseUrl/employee/pending/";
   static const forgotPassword = "$baseUrl/employee/forgot-password";
   static const otp = "$baseUrl/employee/verify-otp/";
+  static const resetPassword = "$baseUrl/employee/reset-password/";
 
 }
