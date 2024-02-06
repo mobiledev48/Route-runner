@@ -18,7 +18,7 @@ class CustomerSignInApi {
       var response = await HttpService.postApi(
         url: EndPoints.login,
         body: {
-          "email": email,
+          "email": email.removeAllWhitespace,
           "password": password,
         },
       );

@@ -146,6 +146,23 @@ List<File> imagesAllIndex = [];
     }
     update(['collection']);
   }
+
+
+  removeImage(i,index){
+    selectImage[i]?.removeAt(index);
+    selectImageUrl[i]?.removeAt(index);
+
+selectImageTemp.forEach((element) {
+  element['$index']?.remove(selectImage[index]);
+});
+    selectImageTempUrl.forEach((element) {
+      element['$index']?.remove(selectImageUrl[index]);
+    });
+
+    update(['collection']);
+
+  }
+
 GetAllCollectionModel getAllCollectionModel = GetAllCollectionModel();
   GetLocationModel getLocationModel= GetLocationModel();
   GetMachinesModel getMachinesModel= GetMachinesModel();

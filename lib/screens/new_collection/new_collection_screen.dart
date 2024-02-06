@@ -33,12 +33,11 @@ class NewCollectionScreen extends StatelessWidget {
                     'If you will be back from this screen, all your changes will be discarded.',
                     style: TextStyle(fontSize: 22, color: ColorRes.mainColor),
                   ),
-
                   actions: <Widget>[
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            ColorRes.mainColor),
                       ),
                       onPressed: () {
                         Get.back();
@@ -52,13 +51,15 @@ class NewCollectionScreen extends StatelessWidget {
                       onPressed: () {
                         Get.back();
                         Get.back();
-
                       },
                       style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            ColorRes.mainColor),
                       ),
-                      child: const Text('Yes',style:  TextStyle(color: Colors.white),),
+                      child: const Text(
+                        'Yes',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                     const SizedBox(width: 2),
                   ],
@@ -76,21 +77,23 @@ class NewCollectionScreen extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return Theme(
-                          data: ThemeData(dialogBackgroundColor: ColorRes.white),
+                          data:
+                              ThemeData(dialogBackgroundColor: ColorRes.white),
                           child: AlertDialog(
                             title: const Text(
                               'If you will be back from this screen, all your changes will be discarded.',
-                              style: TextStyle(fontSize: 22, color: ColorRes.mainColor),
+                              style: TextStyle(
+                                  fontSize: 22, color: ColorRes.mainColor),
                             ),
-
                             actions: <Widget>[
                               ElevatedButton(
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                                      MaterialStateProperty.all<Color>(
+                                          ColorRes.mainColor),
                                 ),
                                 onPressed: () {
-                                 Get.back();
+                                  Get.back();
                                 },
                                 child: const Text(
                                   'No',
@@ -101,20 +104,22 @@ class NewCollectionScreen extends StatelessWidget {
                                 onPressed: () {
                                   Get.back();
                                   Get.back();
-
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                                      MaterialStateProperty.all<Color>(
+                                          ColorRes.mainColor),
                                 ),
-                                child: const Text('Yes',style:  TextStyle(color: Colors.white),),
+                                child: const Text(
+                                  'Yes',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                               const SizedBox(width: 2),
                             ],
                           ),
                         );
                       });
-
 
                   // Get.to(HomeScreen());
                 },
@@ -169,13 +174,12 @@ class NewCollectionScreen extends StatelessWidget {
                               ? Align(
                                   alignment: Alignment.centerRight,
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(top: 3),
+                                    padding: const EdgeInsets.only(top: 3),
                                     child: Text(
                                         newCollectionController
                                             .locationError.tr,
-                                        style: commonSubtitle().copyWith(
-                                            color: ColorRes.red)),
+                                        style: commonSubtitle()
+                                            .copyWith(color: ColorRes.red)),
                                   ),
                                 )
                               : const SizedBox(),
@@ -193,43 +197,40 @@ class NewCollectionScreen extends StatelessWidget {
                                       itemBuilder: (context, index) =>
                                           GestureDetector(
                                             onTap: () {
-
-
-
-                                              controller
-                                                  .locationController
+                                              controller.locationController
                                                   .text = controller
-                                                      .locationsData[
-                                                          index]
+                                                      .locationsData[index]
                                                       .locationname ??
                                                   "";
-                                              controller.locationId =
-                                                  controller
-                                                          .locationsData[
-                                                              index]
-                                                          .id ??
-                                                      "";
-                                              controller.locationIndex =
-                                                  index;
+                                              controller.locationId = controller
+                                                      .locationsData[index]
+                                                      .id ??
+                                                  "";
+                                              controller.locationIndex = index;
 
-                                              newCollectionController
-                                                  .isClick = false;
+                                              newCollectionController.isClick =
+                                                  false;
                                               controller
                                                   .machineNumberController = [];
                                               controller
                                                   .enterSerialNumberController = [];
+                                              controller.auditNumberController =
+                                                  [];
                                               controller
-                                                  .auditNumberController = [];
-                                               controller.previousNumberInController  =[];
-                                               controller.previousNumberOutController  =[];
-                                               controller.currentNumberInController  =[];
-                                               controller.currentNumberOutController  =[];
-                                              controller.pageIndex =0;
-                                               controller.totalController  =[];
-                                                controller.selectImage = [];
-                                                controller.selectImageUrl = [];
-                                                controller.selectImageTemp = [];
-                                              controller.selectImageTempUrl = [];
+                                                  .previousNumberInController = [];
+                                              controller
+                                                  .previousNumberOutController = [];
+                                              controller
+                                                  .currentNumberInController = [];
+                                              controller
+                                                  .currentNumberOutController = [];
+                                              controller.pageIndex = 0;
+                                              controller.totalController = [];
+                                              controller.selectImage = [];
+                                              controller.selectImageUrl = [];
+                                              controller.selectImageTemp = [];
+                                              controller.selectImageTempUrl =
+                                                  [];
                                               controller.getMachines();
                                               newCollectionController
                                                   .update(['collection']);
@@ -237,29 +238,24 @@ class NewCollectionScreen extends StatelessWidget {
                                             child: ListTile(
                                               title: Text(
                                                   controller
-                                                          .locationsData[
-                                                              index]
+                                                          .locationsData[index]
                                                           .locationname ??
                                                       "",
-                                                  style:
-                                                      GoogleFonts.nunito(
+                                                  style: GoogleFonts.nunito(
                                                     fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w400,
-                                                    color: ColorRes
-                                                        .color030229,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorRes.color030229,
                                                   )),
                                             ),
                                           ),
-                                      separatorBuilder:
-                                          (context, index) =>
-                                              const Divider(
-                                                  color: ColorRes.grey3,
-                                                  endIndent: 10,
-                                                  indent: 10,
-                                                  height: 1),
-                                      itemCount: controller
-                                          .locationsData.length)),
+                                      separatorBuilder: (context, index) =>
+                                          const Divider(
+                                              color: ColorRes.grey3,
+                                              endIndent: 10,
+                                              indent: 10,
+                                              height: 1),
+                                      itemCount:
+                                          controller.locationsData.length)),
                           const SizedBox(
                             height: 20,
                           ),
@@ -269,39 +265,36 @@ class NewCollectionScreen extends StatelessWidget {
                               ? SizedBox(
                                   height: Get.height * 0.55,
                                   child: PageView.builder(
-physics: const NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       onPageChanged: (v) {
                                         controller.pageIndex = v;
                                         controller.update(['collection']);
                                       },
-                                      itemCount: controller.machineData[0]
-                                          .machines!.length,
-                                      controller:
-                                          controller.pageController,
+                                      itemCount: controller
+                                          .machineData[0].machines!.length,
+                                      controller: controller.pageController,
                                       itemBuilder: (context, i) {
                                         return SingleChildScrollView(
                                           child: Column(
                                             children: [
                                               SizedBox(
-                                                width:Get.width,
+                                                width: Get.width,
                                                 child: Row(
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
-                                                      width: Get.width /2.5,
+                                                      width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              readOnly:
-                                                                  true,
-                                                              type: TextInputType
-                                                                  .number,
-                                                              isRequired:
-                                                                  true,
-                                                              hintText:
-                                                                  "#12",
+                                                              readOnly: true,
+                                                              type:
+                                                                  TextInputType
+                                                                      .number,
+                                                              isRequired: true,
+                                                              hintText: "#12",
                                                               // suffixIcon:
                                                               //     AssetRes
                                                               //         .arrowDown,
@@ -323,19 +316,17 @@ physics: const NeverScrollableScrollPhysics(),
                                                               //     true,
                                                               color: ColorRes
                                                                   .bgColor,
-                                                              titleText:
-                                                                  StringRes
-                                                                      .machineNumber,
+                                                              titleText: StringRes
+                                                                  .machineNumber,
                                                               inputFormatters: [
                                                                 LengthLimitingTextInputFormatter(
                                                                     2), // Limit input to 2 characters
                                                                 FilteringTextInputFormatter
                                                                     .digitsOnly, // Allow only digits
                                                               ],
-                                                              controller:
-                                                                  controller
-                                                                      .machineNumberController[i]),
-                                                /*          newCollectionController
+                                                              controller: controller
+                                                                  .machineNumberController[i]),
+                                                          /*          newCollectionController
                                                                       .isClickMachine ==
                                                                   false
                                                               ? const SizedBox()
@@ -396,11 +387,13 @@ physics: const NeverScrollableScrollPhysics(),
                                                                       Padding(
                                                                     padding: const EdgeInsets
                                                                         .only(
-                                                                        top:
-                                                                            3),
+                                                                        top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.machineError[i],
-                                                                        style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                        newCollectionController.machineError[
+                                                                            i],
+                                                                        style: commonSubtitle().copyWith(
+                                                                            color:
+                                                                                ColorRes.red)),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -411,12 +404,11 @@ physics: const NeverScrollableScrollPhysics(),
                                                       width: 20,
                                                     ),
                                                     SizedBox(
-                                                      width: Get.width /2.5,
+                                                      width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              readOnly:
-                                                                  true,
+                                                              readOnly: true,
                                                               suffixIcon:
                                                                   AssetRes
                                                                       .arrowDown,
@@ -435,22 +427,20 @@ physics: const NeverScrollableScrollPhysics(),
                                                               //     3,
                                                               // isSuffixIcon:
                                                               //     true,
-                                                              type: TextInputType
-                                                                  .number,
+                                                              type:
+                                                                  TextInputType
+                                                                      .number,
                                                               color: ColorRes
                                                                   .bgColor,
-                                                              isRequired:
-                                                                  true,
+                                                              isRequired: true,
                                                               hintText:
                                                                   StringRes
                                                                       .num3,
-                                                              titleText:
-                                                                  StringRes
-                                                                      .serialNumber,
-                                                              controller:
-                                                                  controller
-                                                                      .enterSerialNumberController[i]),
-                                                      /*    newCollectionController
+                                                              titleText: StringRes
+                                                                  .serialNumber,
+                                                              controller: controller
+                                                                  .enterSerialNumberController[i]),
+                                                          /*    newCollectionController
                                                                       .isClickSerial ==
                                                                   false
                                                               ? const SizedBox()
@@ -507,11 +497,13 @@ physics: const NeverScrollableScrollPhysics(),
                                                                       Padding(
                                                                     padding: const EdgeInsets
                                                                         .only(
-                                                                        top:
-                                                                            3),
+                                                                        top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.serialError[i],
-                                                                        style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                        newCollectionController.serialError[
+                                                                            i],
+                                                                        style: commonSubtitle().copyWith(
+                                                                            color:
+                                                                                ColorRes.red)),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -526,36 +518,31 @@ physics: const NeverScrollableScrollPhysics(),
                                               ),
                                               CommonTextField(
                                                   readOnly: true,
-                                                  type:
-                                                      TextInputType.text,
+                                                  type: TextInputType.text,
                                                   color: ColorRes.bgColor,
                                                   isRequired: true,
                                                   hintText: "Game name ",
-                                                  titleText: StringRes
-                                                      .enterGameName,
+                                                  titleText:
+                                                      StringRes.enterGameName,
                                                   controller: controller
                                                       .auditNumberController[i]),
                                               (newCollectionController
-                                                              .auditError[
-                                                          i] !=
+                                                          .auditError[i] !=
                                                       "")
                                                   ? Align(
-                                                      alignment: Alignment
-                                                          .centerRight,
+                                                      alignment:
+                                                          Alignment.centerRight,
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .only(
-                                                                top: 3),
+                                                                .only(top: 3),
                                                         child: Text(
                                                             newCollectionController
-                                                                .auditError[
-                                                                    i]
-                                                                ,
+                                                                .auditError[i],
                                                             style: commonSubtitle()
                                                                 .copyWith(
-                                                                    color:
-                                                                        ColorRes.red)),
+                                                                    color: ColorRes
+                                                                        .red)),
                                                       ),
                                                     )
                                                   : const SizedBox(),
@@ -568,12 +555,10 @@ physics: const NeverScrollableScrollPhysics(),
                                               Row(
                                                 children: [
                                                   Text("In",
-                                                      style: GoogleFonts
-                                                          .nunito(
+                                                      style: GoogleFonts.nunito(
                                                         fontSize: 14,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .w400,
+                                                            FontWeight.w400,
                                                         color: ColorRes
                                                             .color030229,
                                                       )),
@@ -596,25 +581,22 @@ physics: const NeverScrollableScrollPhysics(),
                                                 child: Row(
                                                   children: [
                                                     SizedBox(
-                                                      width: Get.width /2.5,
+                                                      width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              type: TextInputType
-                                                                  .number,
+                                                              type:
+                                                                  TextInputType
+                                                                      .number,
                                                               color: ColorRes
                                                                   .bgColor,
-                                                              isRequired:
-                                                                  true,
+                                                              isRequired: true,
                                                               hintText: "0",
-                                                              readOnly:
-                                                                  true,
-                                                              titleText:
-                                                                  StringRes
-                                                                      .previousNumber,
-                                                              controller:
-                                                                  controller
-                                                                      .previousNumberInController[i]),
+                                                              readOnly: true,
+                                                              titleText: StringRes
+                                                                  .previousNumber,
+                                                              controller: controller
+                                                                  .previousNumberInController[i]),
                                                           (newCollectionController
                                                                           .inPreviousError[
                                                                       i] !=
@@ -627,11 +609,13 @@ physics: const NeverScrollableScrollPhysics(),
                                                                       Padding(
                                                                     padding: const EdgeInsets
                                                                         .only(
-                                                                        top:
-                                                                            3),
+                                                                        top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.inPreviousError[i],
-                                                                        style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                        newCollectionController.inPreviousError[
+                                                                            i],
+                                                                        style: commonSubtitle().copyWith(
+                                                                            color:
+                                                                                ColorRes.red)),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -639,36 +623,42 @@ physics: const NeverScrollableScrollPhysics(),
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                        width: Get.width *
-                                                            0.05),
+                                                        width:
+                                                            Get.width * 0.05),
                                                     SizedBox(
-                                                      width: Get.width /2.5,
+                                                      width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              type: TextInputType
-                                                                  .number,
+                                                              type:
+                                                                  TextInputType
+                                                                      .number,
                                                               color: ColorRes
                                                                   .bgColor,
-                                                              isRequired:
-                                                                  true,
+                                                              isRequired: true,
                                                               hintText: "0",
-                                                              titleText:
-                                                                  StringRes
-                                                                      .currentNumber,
+                                                              titleText: StringRes
+                                                                  .currentNumber,
                                                               onChanged:
                                                                   (value) {
-                                                                    controller.totalController[i].text =    controller.calculateProfit(
+                                                                controller.totalController[i].text = controller
+                                                                    .calculateProfit(
                                                                         currentIn:
-                                                                        double.parse(value ??
-                                                                            "0.0"),
-                                                                        previousIn: double.parse(controller.previousNumberInController[i].text ?? '0.0'),
-                                                                        currentOut:  double.parse(controller.currentNumberOutController[i].text?? '0.0'),
-                                                                        previousOut:  double.parse(controller.previousNumberOutController[i].text?? '0.0')).toString();
-                                                                  },
-                                                              controller:
-                                                                  controller
-                                                                      .currentNumberInController[i]),
+                                                                            double.parse(value ??
+                                                                                "0.0"),
+                                                                        previousIn:
+                                                                            double.parse(controller.previousNumberInController[i].text ??
+                                                                                '0.0'),
+                                                                        currentOut:
+                                                                            double.parse(controller.currentNumberOutController[i].text ??
+                                                                                '0.0'),
+                                                                        previousOut:
+                                                                            double.parse(controller.previousNumberOutController[i].text ??
+                                                                                '0.0'))
+                                                                    .toString();
+                                                              },
+                                                              controller: controller
+                                                                  .currentNumberInController[i]),
                                                           (newCollectionController
                                                                           .inCurrentError[
                                                                       i] !=
@@ -681,11 +671,13 @@ physics: const NeverScrollableScrollPhysics(),
                                                                       Padding(
                                                                     padding: const EdgeInsets
                                                                         .only(
-                                                                        top:
-                                                                            3),
+                                                                        top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.inCurrentError[i],
-                                                                        style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                        newCollectionController.inCurrentError[
+                                                                            i],
+                                                                        style: commonSubtitle().copyWith(
+                                                                            color:
+                                                                                ColorRes.red)),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -703,12 +695,10 @@ physics: const NeverScrollableScrollPhysics(),
                                               Row(
                                                 children: [
                                                   Text("Out",
-                                                      style: GoogleFonts
-                                                          .nunito(
+                                                      style: GoogleFonts.nunito(
                                                         fontSize: 14,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .w400,
+                                                            FontWeight.w400,
                                                         color: ColorRes
                                                             .color030229,
                                                       )),
@@ -731,25 +721,22 @@ physics: const NeverScrollableScrollPhysics(),
                                                 child: Row(
                                                   children: [
                                                     SizedBox(
-                                                      width: Get.width /2.5,
+                                                      width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              type: TextInputType
-                                                                  .number,
+                                                              type:
+                                                                  TextInputType
+                                                                      .number,
                                                               color: ColorRes
                                                                   .bgColor,
-                                                              isRequired:
-                                                                  true,
-                                                              readOnly:
-                                                                  true,
+                                                              isRequired: true,
+                                                              readOnly: true,
                                                               hintText: "0",
-                                                              titleText:
-                                                                  StringRes
-                                                                      .previousNumber,
-                                                              controller:
-                                                                  controller
-                                                                      .previousNumberOutController[i]),
+                                                              titleText: StringRes
+                                                                  .previousNumber,
+                                                              controller: controller
+                                                                  .previousNumberOutController[i]),
                                                           (newCollectionController
                                                                           .outCurrentError[
                                                                       i] !=
@@ -762,11 +749,13 @@ physics: const NeverScrollableScrollPhysics(),
                                                                       Padding(
                                                                     padding: const EdgeInsets
                                                                         .only(
-                                                                        top:
-                                                                            3),
+                                                                        top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.outCurrentError[i],
-                                                                        style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                        newCollectionController.outCurrentError[
+                                                                            i],
+                                                                        style: commonSubtitle().copyWith(
+                                                                            color:
+                                                                                ColorRes.red)),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -774,36 +763,42 @@ physics: const NeverScrollableScrollPhysics(),
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                        width: Get.width *
-                                                            0.05),
+                                                        width:
+                                                            Get.width * 0.05),
                                                     SizedBox(
-                                                      width: Get.width /2.5,
+                                                      width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              type: TextInputType
-                                                                  .number,
+                                                              type:
+                                                                  TextInputType
+                                                                      .number,
                                                               color: ColorRes
                                                                   .bgColor,
-                                                              isRequired:
-                                                                  true,
+                                                              isRequired: true,
                                                               hintText: "0",
                                                               onChanged:
                                                                   (value) {
-                                                               controller.totalController[i].text =  controller.calculateProfit(
-                                                                   currentIn:
-                                                                   double.parse(controller.currentNumberInController[i].text ??
-                                                                       "0.0"),
-                                                                   previousIn: double.parse(controller.previousNumberInController[i].text ?? '0.0'),
-                                                                   currentOut:  double.parse(value ?? '0.0'),
-                                                                   previousOut:  double.parse(controller.previousNumberOutController[i].text?? '0.0')).toString();
+                                                                controller.totalController[i].text = controller
+                                                                    .calculateProfit(
+                                                                        currentIn:
+                                                                            double.parse(controller.currentNumberInController[i].text ??
+                                                                                "0.0"),
+                                                                        previousIn:
+                                                                            double.parse(controller.previousNumberInController[i].text ??
+                                                                                '0.0'),
+                                                                        currentOut:
+                                                                            double.parse(value ??
+                                                                                '0.0'),
+                                                                        previousOut:
+                                                                            double.parse(controller.previousNumberOutController[i].text ??
+                                                                                '0.0'))
+                                                                    .toString();
                                                               },
-                                                              titleText:
-                                                                  StringRes
-                                                                      .currentNumber,
-                                                              controller:
-                                                                  controller
-                                                                      .currentNumberOutController[i]),
+                                                              titleText: StringRes
+                                                                  .currentNumber,
+                                                              controller: controller
+                                                                  .currentNumberOutController[i]),
                                                           (newCollectionController
                                                                           .outCurrentError[
                                                                       i] !=
@@ -816,11 +811,13 @@ physics: const NeverScrollableScrollPhysics(),
                                                                       Padding(
                                                                     padding: const EdgeInsets
                                                                         .only(
-                                                                        top:
-                                                                            3),
+                                                                        top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.outCurrentError[i],
-                                                                        style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                        newCollectionController.outCurrentError[
+                                                                            i],
+                                                                        style: commonSubtitle().copyWith(
+                                                                            color:
+                                                                                ColorRes.red)),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -837,12 +834,10 @@ physics: const NeverScrollableScrollPhysics(),
                                               Row(
                                                 children: [
                                                   Text("Total",
-                                                      style: GoogleFonts
-                                                          .nunito(
+                                                      style: GoogleFonts.nunito(
                                                         fontSize: 15,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .w500,
+                                                            FontWeight.w500,
                                                         color: ColorRes
                                                             .color030229,
                                                       )),
@@ -863,28 +858,24 @@ physics: const NeverScrollableScrollPhysics(),
                                               Container(
                                                 height: 52,
                                                 width: Get.width,
-                                                alignment:
-                                                    Alignment.centerLeft,
+                                                alignment: Alignment.centerLeft,
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 10),
                                                 decoration: BoxDecoration(
                                                   color: ColorRes.bgColor,
                                                   borderRadius:
-                                                      BorderRadius
-                                                          .circular(
+                                                      BorderRadius.circular(
                                                     15,
                                                   ),
                                                 ),
                                                 child: Text(
-                                                controller.totalController[i].text,
-                                                  style:
-                                                      GoogleFonts.nunito(
+                                                  controller
+                                                      .totalController[i].text,
+                                                  style: GoogleFonts.nunito(
                                                     fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.w500,
-                                                    color: ColorRes
-                                                        .color030229,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: ColorRes.color030229,
                                                   ),
                                                 ),
                                               ),
@@ -898,26 +889,23 @@ physics: const NeverScrollableScrollPhysics(),
                                               //     controller: controller.totalController),
 
                                               (newCollectionController
-                                                              .totalError[
-                                                          i] !=
+                                                          .totalError[i] !=
                                                       "")
                                                   ? Align(
-                                                      alignment: Alignment
-                                                          .centerRight,
+                                                      alignment:
+                                                          Alignment.centerRight,
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .only(
-                                                                top: 3),
+                                                                .only(top: 3),
                                                         child: Text(
                                                             newCollectionController
-                                                                .totalError[
-                                                                    i]
+                                                                .totalError[i]
                                                                 .tr,
                                                             style: commonSubtitle()
                                                                 .copyWith(
-                                                                    color:
-                                                                        ColorRes.red)),
+                                                                    color: ColorRes
+                                                                        .red)),
                                                       ),
                                                     )
                                                   : const SizedBox(),
@@ -929,48 +917,43 @@ physics: const NeverScrollableScrollPhysics(),
                                                   Column(
                                                     children: [
                                                       GestureDetector(
-                                                        onTap:
-                                                            () async {
-                                                          FocusScope.of(
-                                                                  context)
+                                                        onTap: () async {
+                                                          FocusScope.of(context)
                                                               .unfocus();
                                                           await controller
                                                               .getImageFromCamera(
-                                                                  i, );
+                                                            i,
+                                                          );
                                                         },
-                                                        child:
-                                                            Container(
+                                                        child: Container(
                                                           height: 40,
                                                           alignment:
-                                                              Alignment
-                                                                  .center,
+                                                              Alignment.center,
                                                           decoration: BoxDecoration(
                                                               color: ColorRes
                                                                   .color5B93FF,
                                                               border: Border.all(
-                                                                  width:
-                                                                      1,
+                                                                  width: 1,
                                                                   color: ColorRes
                                                                       .color5B93FF),
                                                               borderRadius:
-                                                                  const BorderRadius.all(
-                                                                      Radius.circular(10))),
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                      Radius.circular(
+                                                                          10))),
                                                           child: Row(
                                                             children: [
                                                               SizedBox(
-                                                                width: Get.width *
-                                                                    0.06,
+                                                                width:
+                                                                    Get.width *
+                                                                        0.06,
                                                               ),
-                                                              Image
-                                                                  .asset(
-                                                                AssetRes
-                                                                    .camera,
-                                                                scale:
-                                                                    5,
+                                                              Image.asset(
+                                                                AssetRes.camera,
+                                                                scale: 5,
                                                               ),
                                                               const SizedBox(
-                                                                width:
-                                                                    10,
+                                                                width: 10,
                                                               ),
                                                               Text(
                                                                 StringRes
@@ -979,8 +962,10 @@ physics: const NeverScrollableScrollPhysics(),
                                                                     fontSize:
                                                                         14,
                                                                     fontWeight:
-                                                                        FontWeight.w400,
-                                                                    color: ColorRes.white),
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    color: ColorRes
+                                                                        .white),
                                                               ),
                                                             ],
                                                           ),
@@ -990,18 +975,21 @@ physics: const NeverScrollableScrollPhysics(),
                                                                   i] !=
                                                               "")
                                                           ? Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .centerRight,
-                                                              child:
-                                                                  Padding(
-                                                                padding: const EdgeInsets
-                                                                    .only(
-                                                                    top:
-                                                                        3),
+                                                              alignment: Alignment
+                                                                  .centerRight,
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        top: 3),
                                                                 child: Text(
-                                                                    controller.imageError[i],
-                                                                    style: commonSubtitle().copyWith(color: ColorRes.red)),
+                                                                    controller
+                                                                            .imageError[
+                                                                        i],
+                                                                    style: commonSubtitle()
+                                                                        .copyWith(
+                                                                            color:
+                                                                                ColorRes.red)),
                                                               ),
                                                             )
                                                           : const SizedBox(),
@@ -1014,47 +1002,68 @@ physics: const NeverScrollableScrollPhysics(),
                                                 height: 20,
                                               ),
                                               Align(
-                                                alignment:
-                                                    Alignment.center,
-                                                child:
-                                                    controller.selectImage[i] !=
-                                                            null
-                                                        ? Container(
-                                                                                                                          height: 200,
-                                                                                                                          width: 400,
-                                                                                                                          color: Colors
-                                                          .transparent,
-                                                                                                                          child: ListView
-                                                          .builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount: controller
-                                                            .selectImage[i]
-                                                            ?.length,
-                                                        itemBuilder:
-                                                            (context,
-                                                                index) {
-                                                          return Column(
-                                                            children: [
-                                                              Padding(
-                                                                padding: const EdgeInsets.all(8.0),
-                                                                child: Container(
-                                                                  height: 150,
-                                                                  width: 200,
-                                                                  decoration: BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                      image: FileImage(controller.selectImage[i]![index]),
-                                                                      fit: BoxFit.cover, // Choose the BoxFit that suits your needs
+                                                alignment: Alignment.center,
+                                                child: controller
+                                                            .selectImage[i] !=
+                                                        null
+                                                    ? Container(
+                                                        height: 200,
+                                                        width: 400,
+                                                        color:
+                                                            Colors.transparent,
+                                                        child: ListView.builder(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          itemCount: controller
+                                                              .selectImage[i]
+                                                              ?.length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            return Stack(
+                                                              alignment: Alignment.topRight,
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(
+                                                                          8.0),
+                                                                  child:
+                                                                      Container(
+                                                                    height: 150,
+                                                                    width: 200,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      image:
+                                                                          DecorationImage(
+                                                                        image: FileImage(
+                                                                            controller.selectImage[i]![index]),
+                                                                        fit: BoxFit
+                                                                            .cover, // Choose the BoxFit that suits your needs
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                                                                                          ),
-                                                                                                                        )
-                                                        : const SizedBox(),
+                                                                InkWell(
+                                                                  onTap:(){
+                                                                    controller.removeImage(i,index);
+                                                                },
+                                                                  child: Container(
+                                                                    height: 20,
+                                                                    width: 20,
+                                                                    decoration: const BoxDecoration(
+                                                                      shape: BoxShape.circle,
+                                                                      color: ColorRes.themeColor,
+                                                                    ),
+                                                                    alignment: Alignment.center,
+                                                                    child: const Icon(Icons.close,color: ColorRes.white,size: 10,),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
                                               ),
                                               const SizedBox(
                                                 height: 20,
@@ -1071,21 +1080,22 @@ physics: const NeverScrollableScrollPhysics(),
                             height: 20,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: SizedBox(
                               width: Get.width,
                               child: Row(
-mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    width: Get.width /3,
+                                    width: Get.width / 3,
                                     child: GestureDetector(
                                       onTap: () {
-
                                         if (controller.pageIndex != 0) {
-                                          controller.pageController.previousPage(
-                                              duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                                          controller.pageController
+                                              .previousPage(
+                                                  duration: const Duration(
+                                                      milliseconds: 400),
+                                                  curve: Curves.easeInOut);
                                         }
                                       },
                                       child: Container(
@@ -1095,10 +1105,10 @@ mainAxisAlignment: MainAxisAlignment.center,
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                                 width: 1,
-                                                color:
-                                                    ColorRes.color5B93FF),
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(10))),
+                                                color: ColorRes.color5B93FF),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
                                         child: Text(
                                           "Back",
                                           style: GoogleFonts.nunito(
@@ -1113,89 +1123,76 @@ mainAxisAlignment: MainAxisAlignment.center,
                                     width: 20,
                                   ),
                                   SizedBox(
-                                    width: Get.width /3,
+                                    width: Get.width / 3,
                                     child: GestureDetector(
                                       onTap: () {
-
-                                        if(controller.machineData.length !=0) {
+                                        if (controller.machineData.length !=
+                                            0) {
                                           if (newCollectionController
                                               .validation()) {
                                             newCollectionController
                                                 .addCampaignData = [];
                                             for (int i = 0;
-                                            i <
-                                                newCollectionController
-                                                    .machineNumberController
-                                                    .length;
-                                            i++) {
-                                              newCollectionController
-                                                  .addCampaignData.add(
-                                                  CollectionReport(
-
-                                                      serialNumber:
+                                                i <
+                                                    newCollectionController
+                                                        .machineNumberController
+                                                        .length;
+                                                i++) {
+                                              newCollectionController.addCampaignData.add(CollectionReport(
+                                                  serialNumber:
                                                       newCollectionController
                                                           .enterSerialNumberController[
-                                                      i]
+                                                              i]
                                                           .text,
-                                                      machineId: newCollectionController
+                                                  machineId:
+                                                      newCollectionController
                                                           .machineId[i],
-                                                      gameName: newCollectionController
-                                                          .auditNumberController[
-                                                      i]
-                                                          .text,
-                                                      total: newCollectionController
-                                                          .totalController[
-                                                      i]
-                                                          .text,
-                                                      imageUrl: newCollectionController
+                                                  gameName: newCollectionController
+                                                      .auditNumberController[i]
+                                                      .text,
+                                                  total: newCollectionController
+                                                      .totalController[i].text,
+                                                  imageUrl:
+                                                      newCollectionController
                                                           .selectImageUrl[i],
-                                                      machineNumber:
+                                                  machineNumber:
                                                       newCollectionController
                                                           .machineNumberController[
-                                                      i]
+                                                              i]
                                                           .text,
-                                                      inCurrent:
+                                                  inCurrent: newCollectionController
+                                                      .currentNumberInController[
+                                                          i]
+                                                      .text,
+                                                  inPrevious:
                                                       newCollectionController
-                                                          .currentNumberInController[
-                                                      i]
+                                                          .previousNumberInController[i]
                                                           .text,
-                                                      inPrevious:
-                                                      newCollectionController
-                                                          .previousNumberInController[
-                                                      i]
-                                                          .text,
-                                                      outCurrent:
-                                                      newCollectionController
-                                                          .currentNumberOutController[
-                                                      i]
-                                                          .text,
-                                                      outPrevious:
-                                                      newCollectionController
-                                                          .previousNumberOutController[
-                                                      i]
-                                                          .text,
-                                                      image: controller
-                                                          .selectImage[i]));
-                                            };
+                                                  outCurrent: newCollectionController.currentNumberOutController[i].text,
+                                                  outPrevious: newCollectionController.previousNumberOutController[i].text,
+                                                  image: controller.selectImage[i]));
+                                            }
+                                            ;
 
                                             if (controller.machineData.length !=
                                                 0) {
                                               if (controller.pageIndex ==
-                                                  controller
-                                                      .machineData[0]
-                                                      .machines!.length -
+                                                  controller.machineData[0]
+                                                          .machines!.length -
                                                       1) {
                                                 Get.to(() =>
-                                                    CollectionDetailScreen(
-                                                    ));
+                                                    CollectionDetailScreen());
                                               } else {
                                                 controller.pageController
                                                     .nextPage(
-                                                    duration: const Duration(
-                                                        milliseconds: 400),
-                                                    curve: Curves.easeInOut);
-                                                controller.update(
-                                                    ['collection']);
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    400),
+                                                        curve:
+                                                            Curves.easeInOut);
+                                                controller
+                                                    .update(['collection']);
                                               }
                                             }
                                           }
@@ -1209,18 +1206,21 @@ mainAxisAlignment: MainAxisAlignment.center,
                                             color: ColorRes.color5B93FF,
                                             border: Border.all(
                                                 width: 1,
-                                                color:
-                                                    ColorRes.color5B93FF),
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(10))),
+                                                color: ColorRes.color5B93FF),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
                                         child: Text(
-                                          (controller.machineData.length !=0)?
-                                          (controller.pageIndex ==
-                                                  controller.machineData[0].machines!
-                                                          .length -
-                                                      1)
-                                              ? StringRes.collect
-                                              : "Next":StringRes.collect,
+                                          (controller.machineData.length != 0)
+                                              ? (controller.pageIndex ==
+                                                      controller
+                                                              .machineData[0]
+                                                              .machines!
+                                                              .length -
+                                                          1)
+                                                  ? StringRes.collect
+                                                  : "Next"
+                                              : StringRes.collect,
                                           style: GoogleFonts.nunito(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w400,

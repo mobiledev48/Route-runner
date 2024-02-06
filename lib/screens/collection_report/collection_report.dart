@@ -377,13 +377,13 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                   //       borderRadius:
                                                                                   //           BorderRadius.circular(3)),
                                                                                   // ),
-                                                                                  CachedNetworkImage(
+                                                                                  ( controller.locationsData[index].machines?[i].image != null &&controller.locationsData[index].machines?[i].image!.length !=0)?CachedNetworkImage(
                                                                                     width: 80,
                                                                                     fit: BoxFit.fill,
                                                                                     imageUrl: controller.locationsData[index].machines?[i].image?[0] ?? "",
                                                                                     placeholder: (context, url) => Image.asset(AssetRes.photo, fit: BoxFit.fill),
                                                                                     errorWidget: (context, url, error) => Image.asset(AssetRes.photo, fit: BoxFit.fill),
-                                                                                  ),
+                                                                                  ):const SizedBox(),
 
                                                                                   const SizedBox(
                                                                                     width: 10,
@@ -457,7 +457,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 ),
                                                                                               ),
                                                                                               Text(
-                                                                                                "\$ ${controller.locationsData[index].machines?[i].outNumbers?.current}",
+                                                                                                "\$ ${controller.locationsData[index].machines?[i].outNumbers?.current ??0}",
                                                                                                 style: GoogleFonts.nunito(
                                                                                                     fontSize: width * 0.034,
                                                                                                     fontWeight:
@@ -469,7 +469,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 width: Get.width * 0.07,
                                                                                               ),
                                                                                               Text(
-                                                                                                "\$ ${controller.locationsData[index].machines?[i].outNumbers?.previous}",
+                                                                                                "\$ ${controller.locationsData[index].machines?[i].outNumbers?.previous ??0}",
                                                                                                 style: GoogleFonts.nunito(
                                                                                                     fontSize: width * 0.034,
                                                                                                     fontWeight:
@@ -511,7 +511,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                                                 style: GoogleFonts.nunito(
                                                                                                   fontSize: width * 0.034,
                                                                                                   fontWeight: FontWeight.w500,
-                                                                                                  color: double.parse(controller.locationsData[index].machines?[i].total?.toString() ?? "") >= 0
+                                                                                                  color: double.parse(controller.locationsData[index].machines?[i].total?.toString() ?? "0") >= 0
                                                                                                       ? ColorRes.color3A974C
                                                                                                       : Colors.red,
                                                                                                 ),

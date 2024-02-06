@@ -25,7 +25,7 @@ class ResetPasswordApi {
       var response = await HttpService.putApi(
         url: EndPoints.resetPassword + employeeId,
         body: {
-          "password": "emp123456"
+          "password": password
         },
         header: headers
       );

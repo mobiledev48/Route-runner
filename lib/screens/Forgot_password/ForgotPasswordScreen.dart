@@ -100,17 +100,19 @@ class ForgotPasswordScreen extends StatelessWidget {
 
                             /// ---- submit button ----
 
-                            ForgotButton(
-                              height: 50,
-                              width: 321,
-                              onpressed: () {
-                                FocusScope.of(context).unfocus();
-                                if (controller.validation()) {
+                            Center(
+                              child: ForgotButton(
+                                height: 50,
+                                width: 321,
+                                onpressed: () {
+                                  FocusScope.of(context).unfocus();
+                                  if (controller.validation()) {
 
-                                  controller.onTapSubmit();
-                                  // PrefService.setValue(PrefKeys.login, true);
-                                }
-                              },
+                                    controller.onTapSubmit();
+                                    // PrefService.setValue(PrefKeys.login, true);
+                                  }
+                                },
+                              ),
                             ),
 
                             SizedBox(height: Get.height * 0.03),

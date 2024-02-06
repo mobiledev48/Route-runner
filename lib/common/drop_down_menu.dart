@@ -22,7 +22,6 @@ Widget DropDownMenu({required bool isLocation}) {
     color: ColorRes.white,
     // splashRadius: 20,
     offset: Offset(0, 10),
-     surfaceTintColor: ColorRes.white,
     padding: EdgeInsets.zero,
 
     constraints: BoxConstraints(

@@ -90,7 +90,7 @@ List selectedImageUrl =[];
           .toList();
 
       locationsData.addAll(newLocations);
-      update(['collection']);
+      update(['newRepair']);
     }
 
     loader.value = false;
@@ -128,7 +128,7 @@ List selectedImageUrl =[];
           print(machineData);
         }
 
-        update(['location']);
+        update(['newRepair']);
         loader.value = false;
       }
     }
@@ -148,13 +148,23 @@ List selectedImageUrl =[];
     }
 
 
+  removeImage(index){
+    selectedImage.removeAt(index);
+    selectedImageUrl.removeAt(index);
+
+
+
+    update(['newRepair']);
+
+  }
+
     locationValidation() {
       if (locationController.text.trim() == "") {
         locationError = StringRes.selectLocation;
       } else {
         locationError = '';
       }
-      update(['collection']);
+      update(['newRepair']);
     }
 
 

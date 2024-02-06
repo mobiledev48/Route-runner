@@ -1,7 +1,7 @@
 class EndPoints {
 
   ///---------------------------------------------- Base url ----------------------------------------------
-  static const baseUrl = 'https://routerunnerserver.onrender.com/api';
+  static const baseUrl = 'https://routeadd.mooo.com/api';
 
 
   ///---------------------------------------------- Keys ----------------------------------------------

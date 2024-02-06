@@ -53,7 +53,7 @@ class NewServiceReportController extends GetxController {
           .toList();
 
       locationsData.addAll(newLocations);
-      update(['collection']);
+      update(['newRepair']);
     }
 
     loader.value = false;
@@ -93,7 +93,7 @@ class NewServiceReportController extends GetxController {
           print(machineData);
         }
 
-        update(['location']);
+        update(['newRepair']);
         loader.value = false;
       }
     }

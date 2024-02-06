@@ -124,20 +124,22 @@ ResetPasswordController resetPasswordController = Get.put(ResetPasswordControlle
 
                         /// ---- submit button ----
 
-                        ForgotButton(
-                          height: 50,
-                          width: 321,
-                          onpressed: () {
-                            FocusScope.of(context).unfocus();
-                            controller.validation();
-                              if (controller.passwordError == '' &&
-                                  controller.conPasswordError == '') {
-controller.resetPassword(employeeId);
-                              }
+                        Center(
+                          child: ForgotButton(
+                            height: 50,
+                            width: 321,
+                            onpressed: () {
+                              FocusScope.of(context).unfocus();
+                              controller.validation();
+                                if (controller.passwordError == '' &&
+                                    controller.conPasswordError == '') {
+                          controller.resetPassword(employeeId);
+                                }
 
-                              // PrefService.setValue(PrefKeys.login, true);
+                                // PrefService.setValue(PrefKeys.login, true);
 
-                          },
+                            },
+                          ),
                         ),
 
                         SizedBox(height: Get.height * 0.03),

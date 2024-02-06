@@ -38,7 +38,6 @@ class OtpScreen extends StatelessWidget {
                     },
                     splashFactory: NoSplash.splashFactory,
                     highlightColor: Colors.transparent,
-                    
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     splashColor: Colors.transparent,
