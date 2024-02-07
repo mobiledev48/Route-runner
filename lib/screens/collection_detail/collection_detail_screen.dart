@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import 'package:route_runner/screens/Pdf_preview_screen/pdf_preview_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/collection_report/collection_report_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
@@ -53,15 +54,42 @@ class CollectionDetailScreen extends StatelessWidget {
                        style: appbarStyle().copyWith(fontSize: 20),
                      ),
                      const SizedBox(width: 20),
-                     Visibility(
-                       visible: false,
-                       child: GestureDetector(
-                           onTap: () {},
-                           child: Image.asset(
-                             AssetRes.print,
-                             scale: 3,
-                           )),
-                     )
+                     GestureDetector(
+                         onTap: () async {
+List images =[];
+                           //
+                           // List flist =newCollectionController.addCampaignData;
+                           //
+                           //
+                           // List images=List.generate(flist.length, (index) => {"$index":[]});
+                           //
+                           //
+                           // for(int r=0;r<flist.length;r++) {
+                           //   List iv =[];
+                           //   for (int i = 0; i < newCollectionController.addCampaignData[r].image!.length; i++) {
+                           //     var t = await File(newCollectionController.addCampaignData[r].image![i].path)
+                           //         .readAsBytes();
+                           //     iv.add(t);
+                           //   }
+                           //
+                           //
+                           //     iv.forEach((element) {
+                           //
+                           //   images[r]['$r'].add(element);
+                           //     });
+                           //   iv.clear();
+                           //   iv =[];
+                           //
+                           //
+                           // }
+
+                             Get.to(()=>PdfPreviewScreen(data:newCollectionController.addCampaignData,images:images));
+
+                         },
+                         child: Image.asset(
+                           AssetRes.print,
+                           scale: 3,
+                         ))
                    ],
                  ),
                ),

@@ -65,7 +65,7 @@ List machineId =[];
         double totalIn = (currentIn ?? 0.0) - (previousIn ?? 0.0);
         double totalOut = (currentOut ?? 0.0) - (previousOut ?? 0.0);
 
-        double profit = totalIn + totalOut;
+        double profit = totalIn - totalOut;
 
         update(['collection']);
         return profit;

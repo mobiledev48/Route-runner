@@ -8,7 +8,7 @@ class CollectionDetailController extends GetxController {
   int currentindex=0;
 
   num calculateTotalValue(num? In, num? out) {
-    num total = (In ?? 0) + (out ?? 0);
+    num total = (In ?? 0) - (out ?? 0);
     return total;
   }
 
