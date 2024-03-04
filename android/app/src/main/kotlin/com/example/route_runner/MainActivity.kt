@@ -1,4 +1,4 @@
-package com.example.route_runner
+package com.app.routerunner
 
 import io.flutter.embedding.android.FlutterActivity
 
