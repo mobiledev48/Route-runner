@@ -456,9 +456,9 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
     serialValidation();
     auditValidation();
     inCurValidation();
-    inPreValidation();
+   // inPreValidation();
     outCurValidation();
-    outPreValidation();
+   // outPreValidation();
     imageValidation();
   }
 
@@ -468,9 +468,9 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
         serialError[pageIndex] == '' &&
         auditError[pageIndex] == '' &&
         inCurrentError[pageIndex] == '' &&
-        inPreviousError[pageIndex] == '' &&
+       // inPreviousError[pageIndex] == '' &&
         outCurrentError [pageIndex]== '' &&
-        outPreviousError[pageIndex] == '' &&
+       // outPreviousError[pageIndex] == '' &&
         imageError[pageIndex] == '') {
       return true;
     } else {

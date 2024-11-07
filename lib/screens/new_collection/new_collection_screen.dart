@@ -597,7 +597,7 @@ class NewCollectionScreen extends StatelessWidget {
                                                                   .previousNumber,
                                                               controller: controller
                                                                   .previousNumberInController[i]),
-                                                          (newCollectionController
+                                                /*          (newCollectionController
                                                                           .inPreviousError[
                                                                       i] !=
                                                                   "")
@@ -618,7 +618,7 @@ class NewCollectionScreen extends StatelessWidget {
                                                                                 ColorRes.red)),
                                                                   ),
                                                                 )
-                                                              : const SizedBox(),
+                                                              : const SizedBox(),*/
                                                         ],
                                                       ),
                                                     ),
@@ -647,12 +647,14 @@ class NewCollectionScreen extends StatelessWidget {
                                                                             double.parse(value ??
                                                                                 "0.0"),
                                                                         previousIn:
+                                                                        controller.previousNumberInController[i].text ==""?0.0:
                                                                             double.parse(controller.previousNumberInController[i].text ??
                                                                                 '0.0'),
                                                                         currentOut:
                                                                             double.parse(controller.currentNumberOutController[i].text ??
                                                                                 '0.0'),
                                                                         previousOut:
+                                                                        controller.previousNumberOutController[i].text ==""?0.0:
                                                                             double.parse(controller.previousNumberOutController[i].text ??
                                                                                 '0.0'))
                                                                     .toString();
@@ -737,7 +739,7 @@ class NewCollectionScreen extends StatelessWidget {
                                                                   .previousNumber,
                                                               controller: controller
                                                                   .previousNumberOutController[i]),
-                                                          (newCollectionController
+                                                   /*       (newCollectionController
                                                                           .outCurrentError[
                                                                       i] !=
                                                                   "")
@@ -753,12 +755,12 @@ class NewCollectionScreen extends StatelessWidget {
                                                                     child: Text(
                                                                         newCollectionController.outCurrentError[
                                                                             i],
-                                                                        style: commonSubtitle().copyWith(
+                                                                        style: commonSubtitle().copyWith(+-
                                                                             color:
                                                                                 ColorRes.red)),
                                                                   ),
                                                                 )
-                                                              : const SizedBox(),
+                                                              : const SizedBox(),*/
                                                         ],
                                                       ),
                                                     ),
@@ -785,13 +787,14 @@ class NewCollectionScreen extends StatelessWidget {
                                                                             double.parse(controller.currentNumberInController[i].text ??
                                                                                 "0.0"),
                                                                         previousIn:
-                                                                            double.parse(controller.previousNumberInController[i].text ??
+                                                                        controller.previousNumberInController[i].text ==""?0.0:   double.parse(controller.previousNumberInController[i].text ??
                                                                                 '0.0'),
                                                                         currentOut:
                                                                             double.parse(value ??
                                                                                 '0.0'),
                                                                         previousOut:
-                                                                            double.parse(controller.previousNumberOutController[i].text ??
+                                                                        controller.previousNumberOutController[i].text ==''?0.0:
+                                                                    double.parse(controller.previousNumberOutController[i].text ??
                                                                                 '0.0'))
                                                                     .toString();
                                                               },
