@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/screens/splash_screen/splash_controller.dart';
 
 import '../../utils/asset_res.dart';

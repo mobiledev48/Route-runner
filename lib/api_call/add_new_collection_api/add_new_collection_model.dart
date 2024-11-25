@@ -18,13 +18,13 @@ class AddNewCollectionModel {
   AddNewCollectionModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -41,26 +41,26 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     employee = json['employee'] != null
-        ? new Employee.fromJson(json['employee'])
+        ? Employee.fromJson(json['employee'])
         : null;
     newCollectionReport = json['newCollectionReport'] != null
-        ? new NewCollectionReport.fromJson(json['newCollectionReport'])
+        ? NewCollectionReport.fromJson(json['newCollectionReport'])
         : null;
     updatedLocation = json['updatedLocation'] != null
-        ? new UpdatedLocation.fromJson(json['updatedLocation'])
+        ? UpdatedLocation.fromJson(json['updatedLocation'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.employee != null) {
-      data['employee'] = this.employee!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (employee != null) {
+      data['employee'] = employee!.toJson();
     }
-    if (this.newCollectionReport != null) {
-      data['newCollectionReport'] = this.newCollectionReport!.toJson();
+    if (newCollectionReport != null) {
+      data['newCollectionReport'] = newCollectionReport!.toJson();
     }
-    if (this.updatedLocation != null) {
-      data['updatedLocation'] = this.updatedLocation!.toJson();
+    if (updatedLocation != null) {
+      data['updatedLocation'] = updatedLocation!.toJson();
     }
     return data;
   }
@@ -119,22 +119,22 @@ class Employee {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['firstname'] = this.firstname;
-    data['lastname'] = this.lastname;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['address'] = this.address;
-    data['activeEmployeeStatus'] = this.activeEmployeeStatus;
-    data['password'] = this.password;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    data['refreshToken'] = this.refreshToken;
-    data['newServiceReports'] = this.newServiceReports;
-    data['newRepairs'] = this.newRepairs;
-    data['newCollectionReports'] = this.newCollectionReports;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['firstname'] = firstname;
+    data['lastname'] = lastname;
+    data['phone'] = phone;
+    data['email'] = email;
+    data['address'] = address;
+    data['activeEmployeeStatus'] = activeEmployeeStatus;
+    data['password'] = password;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    data['refreshToken'] = refreshToken;
+    data['newServiceReports'] = newServiceReports;
+    data['newRepairs'] = newRepairs;
+    data['newCollectionReports'] = newCollectionReports;
     return data;
   }
 }
@@ -169,10 +169,10 @@ class NewCollectionReport {
     serialNumber = json['serialNumber'];
     auditNumber = json['auditNumber'];
     inNumbers = json['inNumbers'] != null
-        ? new InNumbers.fromJson(json['inNumbers'])
+        ? InNumbers.fromJson(json['inNumbers'])
         : null;
     outNumbers = json['outNumbers'] != null
-        ? new InNumbers.fromJson(json['outNumbers'])
+        ? InNumbers.fromJson(json['outNumbers'])
         : null;
     total = json['total'];
     image = json['image'];
@@ -181,21 +181,21 @@ class NewCollectionReport {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['location'] = this.location;
-    data['machineNumber'] = this.machineNumber;
-    data['serialNumber'] = this.serialNumber;
-    data['auditNumber'] = this.auditNumber;
-    if (this.inNumbers != null) {
-      data['inNumbers'] = this.inNumbers!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['location'] = location;
+    data['machineNumber'] = machineNumber;
+    data['serialNumber'] = serialNumber;
+    data['auditNumber'] = auditNumber;
+    if (inNumbers != null) {
+      data['inNumbers'] = inNumbers!.toJson();
     }
-    if (this.outNumbers != null) {
-      data['outNumbers'] = this.outNumbers!.toJson();
+    if (outNumbers != null) {
+      data['outNumbers'] = outNumbers!.toJson();
     }
-    data['total'] = this.total;
-    data['image'] = this.image;
-    data['_id'] = this.sId;
-    data['__v'] = this.iV;
+    data['total'] = total;
+    data['image'] = image;
+    data['_id'] = sId;
+    data['__v'] = iV;
     return data;
   }
 }
@@ -212,9 +212,9 @@ class InNumbers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['previous'] = this.previous;
-    data['current'] = this.current;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['previous'] = previous;
+    data['current'] = current;
     return data;
   }
 }
@@ -266,20 +266,20 @@ class UpdatedLocation {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['admin'] = this.admin;
-    data['locationname'] = this.locationname;
-    data['address'] = this.address;
-    data['percentage'] = this.percentage;
-    data['machines'] = this.machines;
-    data['employees'] = this.employees;
-    data['numofmachines'] = this.numofmachines;
-    data['activeStatus'] = this.activeStatus;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    data['statusOfPayment'] = this.statusOfPayment;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['admin'] = admin;
+    data['locationname'] = locationname;
+    data['address'] = address;
+    data['percentage'] = percentage;
+    data['machines'] = machines;
+    data['employees'] = employees;
+    data['numofmachines'] = numofmachines;
+    data['activeStatus'] = activeStatus;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    data['statusOfPayment'] = statusOfPayment;
     return data;
   }
 }

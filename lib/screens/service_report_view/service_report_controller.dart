@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:route_runner/api_call/get_service_report_api/get_service_report_api.dart';
@@ -9,9 +8,7 @@ import 'package:route_runner/service/pref_services.dart';
 import 'package:http/http.dart' as http;
 import 'package:route_runner/utils/pref_keys.dart';
 
-import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
-import '../../utils/text_style.dart';
 
 class ServiceReportController extends GetxController {
   //--------------checkbox----------
@@ -80,7 +77,7 @@ class ServiceReportController extends GetxController {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                    borderRadius: const BorderRadius.all(Radius.circular(5))),
               ));
   }
 
@@ -120,7 +117,7 @@ class ServiceReportController extends GetxController {
       // Add the new service reports to repairServiceReportData
       repairServiceReportData.addAll(newReports);
 
-      print("=======================================${getServiceReportModel}");
+      print("=======================================$getServiceReportModel");
     }
 
     update(['service']);
@@ -144,8 +141,7 @@ class ServiceReportController extends GetxController {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       if (loader.value != true) {
         // Add a check for more pages before making the API call
-        if (getServiceReportModel != null &&
-            getServiceReportModel.currentPage != null &&
+        if (getServiceReportModel.currentPage != null &&
             getServiceReportModel.totalPages != null &&
             getServiceReportModel.currentPage! < getServiceReportModel.totalPages!) {
           currentPage++;

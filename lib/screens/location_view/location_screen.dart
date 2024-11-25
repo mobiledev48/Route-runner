@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
 import 'package:route_runner/screens/location_view/location_controller.dart';
 import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/text_style.dart';
@@ -113,12 +112,12 @@ class LocationScreen extends StatelessWidget {
                                                                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
-                                                                  SizedBox(height: 8),
+                                                                  const SizedBox(height: 8),
                                                                   Text(controller.locationsData[index].locationname ?? "",
                                                                       // 'Moonlight Bar',
                                                                       style: title()),
                                                                   // SizedBox(height: 5),
-                                                                  SizedBox(height: 5),
+                                                                  const SizedBox(height: 5),
                                                                   SizedBox(
                                                                     //  width: width * 0.24,
                                                                     child: Text(
@@ -130,13 +129,13 @@ class LocationScreen extends StatelessWidget {
                                                                       //     fontSize:  width * 0.034, fontWeight: FontWeight.w400, color: ColorRes.color030229),
                                                                     ),
                                                                   ),
-                                                                  SizedBox(height: 5),
+                                                                  const SizedBox(height: 5),
 
                                                                   Text(
                                                                     'Machine:  ${controller.locationsData[index].numofmachines ?? ""}',
                                                                     style: subTitle(),
                                                                   ),
-                                                                  SizedBox(height: 8),
+                                                                  const SizedBox(height: 8),
                                                                 ],
                                                               ),
                                                               Column(
@@ -188,7 +187,7 @@ class LocationScreen extends StatelessWidget {
                                                       ),
                                                       child: Center(
                                                           child: Text(
-                                                            "${controller.locationsData[index].activeStatus ?? ""}",
+                                                            controller.locationsData[index].activeStatus ?? "",
                                                             style: TextStyle(
                                                                 fontWeight: FontWeight.w600,
                                                                 color:controller.locationsData[index].activeStatus == "Active"?
@@ -211,7 +210,7 @@ class LocationScreen extends StatelessWidget {
                               style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                           ),
                         )
-                              :SizedBox(),
+                              :const SizedBox(),
                             )
 
                             :  controller.locationsData.isNotEmpty?
@@ -249,7 +248,7 @@ class LocationScreen extends StatelessWidget {
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        SizedBox(height: 10),
+                                                        const SizedBox(height: 10),
                                                         Text(controller.locationsData[index].locationname ?? "",
                                                             // 'Moonlight Bar',
                                                             style: title()),
@@ -269,7 +268,7 @@ class LocationScreen extends StatelessWidget {
                                                           'Machine:  ${controller.locationsData[index].numofmachines ?? ""}',
                                                           style: subTitle(),
                                                         ),
-                                                        SizedBox(height: 8),
+                                                        const SizedBox(height: 8),
                                                       ],
                                                     ),
                                                     Column(
@@ -321,7 +320,7 @@ class LocationScreen extends StatelessWidget {
                                             ),
                                             child: Center(
                                                 child: Text(
-                                                  "${controller.locationsData[index].activeStatus ?? ""}",
+                                                  controller.locationsData[index].activeStatus ?? "",
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.w600,
                                                       color:controller.locationsData[index].activeStatus == "Active"?
@@ -344,7 +343,7 @@ class LocationScreen extends StatelessWidget {
                               StringRes.notFound,
                               style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                           ),
-                        ):SizedBox(),
+                        ):const SizedBox(),
                             )
 
                       ],
@@ -352,7 +351,7 @@ class LocationScreen extends StatelessWidget {
                   );
                 },
               ),
-              Obx(()=> locationController.loader.value ? Center(child: CircularProgressIndicator(),):SizedBox())
+              Obx(()=> locationController.loader.value ? const Center(child: CircularProgressIndicator(),):const SizedBox())
             ],
           )),
     );

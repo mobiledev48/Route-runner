@@ -1,10 +1,6 @@
 import 'dart:convert';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
 
-import 'package:route_runner/common/pop_up.dart';
-import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
 import 'package:route_runner/service/http_services.dart';
 import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';

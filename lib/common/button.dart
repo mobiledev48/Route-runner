@@ -26,7 +26,7 @@ class Button extends StatelessWidget {
         child: Center(
             child: Text(
           StringRes.login,
-          style: GoogleFonts.nunito(textStyle: TextStyle(color: ColorRes.white, fontSize: 16)),
+          style: GoogleFonts.nunito(textStyle: const TextStyle(color: ColorRes.white, fontSize: 16)),
         )),
       ),
     );
@@ -55,7 +55,7 @@ class ForgotButton extends StatelessWidget {
         child: Center(
             child: Text(
           StringRes.submit,
-          style: GoogleFonts.nunito(textStyle: TextStyle(color: ColorRes.white, fontSize: 16)),
+          style: GoogleFonts.nunito(textStyle: const TextStyle(color: ColorRes.white, fontSize: 16)),
         )),
       ),
     );

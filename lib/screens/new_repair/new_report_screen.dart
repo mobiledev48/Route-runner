@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +12,6 @@ import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/strings.dart';
 
 import '../../utils/text_style.dart';
-import '../repair/repair_screen.dart';
 
   class NewRepairScreen extends StatelessWidget {
   const NewRepairScreen({super.key});
@@ -80,7 +78,7 @@ import '../repair/repair_screen.dart';
                                 )
                                     : const SizedBox(),
                                 newReportController.isClick == false
-                                    ? SizedBox()
+                                    ? const SizedBox()
                                     : Container(
                                   // height: Get.height * 0.26,
                                     width: Get.width * 0.9,
@@ -89,7 +87,7 @@ import '../repair/repair_screen.dart';
                                         BorderRadius.circular(12),
                                         color: ColorRes.bgColor),
                                     child: ListView.separated(
-                                        physics: NeverScrollableScrollPhysics(),
+                                        physics: const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) => GestureDetector(
                                           onTap: () {
@@ -115,12 +113,12 @@ import '../repair/repair_screen.dart';
                                           ),
                                         ),
                                         separatorBuilder: (context, index) =>
-                                            Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                            const Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
                                         itemCount: newReportController.locationsData.length)),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                (newReportController.machineData.length !=0)? Column(
+                                (newReportController.machineData.isNotEmpty)? Column(
                                 children: [
                                   Row(
                                     children: [
@@ -164,7 +162,7 @@ import '../repair/repair_screen.dart';
                                                 ? const SizedBox()
                                                 : (controller
                                                 .locationIndex !=
-                                                null && controller.machineData.length!=0)
+                                                null && controller.machineData.isNotEmpty)
                                                 ? Container(
                                                 width: Get.width *
                                                     0.9,
@@ -542,8 +540,7 @@ import '../repair/repair_screen.dart';
                                     alignment:
                                     Alignment.center,
                                     child:
-                                    controller.selectedImage !=
-                                        null && controller.selectedImage.length !=0
+                                    controller.selectedImage.isNotEmpty
                                         ? Container(
                                       height: 200,
                                       width: 400,
@@ -555,7 +552,7 @@ import '../repair/repair_screen.dart';
                                         Axis.horizontal,
                                         itemCount: controller
                                             .selectedImage
-                                            ?.length,
+                                            .length,
                                         itemBuilder:
                                             (context,
                                             index) {
@@ -569,7 +566,7 @@ import '../repair/repair_screen.dart';
                                                   width: 200,
                                                   decoration: BoxDecoration(
                                                     image: DecorationImage(
-                                                      image: FileImage(controller.selectedImage![index]),
+                                                      image: FileImage(controller.selectedImage[index]),
                                                       fit: BoxFit.cover, // Choose the BoxFit that suits your needs
                                                     ),
                                                   ),
@@ -619,7 +616,7 @@ import '../repair/repair_screen.dart';
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                               border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                              borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              borderRadius: const BorderRadius.all(Radius.circular(10))),
                                           child: Text(
                                             StringRes.close,
                                             style: GoogleFonts.nunito(
@@ -675,7 +672,7 @@ import '../repair/repair_screen.dart';
                                           decoration: BoxDecoration(
                                               color: ColorRes.color5B93FF,
                                               border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                              borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              borderRadius: const BorderRadius.all(Radius.circular(10))),
                                           child: Text(
                                             StringRes.create,
                                             style: GoogleFonts.nunito(
@@ -698,7 +695,7 @@ import '../repair/repair_screen.dart';
                   );
                 },
               ),
-              Obx(()=> newReportController.loader.value ? Center(child: CircularProgressIndicator(),):SizedBox())
+              Obx(()=> newReportController.loader.value ? const Center(child: CircularProgressIndicator(),):const SizedBox())
             ],
           ),
         ));

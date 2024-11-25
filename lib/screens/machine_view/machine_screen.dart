@@ -78,7 +78,7 @@ class MachineScreen extends StatelessWidget {
                             },
                             child: ListView.builder(
                               controller: controller.scrollController,
-                              physics: AlwaysScrollableScrollPhysics(),
+                              physics: const AlwaysScrollableScrollPhysics(),
                               itemCount: controller.machinesLocationsData.length,
                               itemBuilder: (context, index) {
                                 var locationData = controller.machinesLocationsData.keys.toList()[index];
@@ -184,7 +184,7 @@ class MachineScreen extends StatelessWidget {
                                             Container(
                                               height: Get.height * 0.04,
                                               width: Get.width * 0.2,
-                                              margin: EdgeInsets.only(top: 10),
+                                              margin: const EdgeInsets.only(top: 10),
                                               decoration: BoxDecoration(
                                                 color: machine.activeMachineStatus == "Active"
                                                     ? ColorRes.green.withOpacity(0.10)
@@ -223,11 +223,11 @@ class MachineScreen extends StatelessWidget {
 
 
                             : Obx(
-                            ()=> controller.loader.value == false? Padding(padding: EdgeInsets.symmetric(vertical: 30), child: Text(
+                            ()=> controller.loader.value == false? Padding(padding: const EdgeInsets.symmetric(vertical: 30), child: Text(
                           StringRes.notFound,
                           style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                         ),
-                        ):SizedBox(),
+                        ):const SizedBox(),
                             ),
 
                       ],
@@ -235,7 +235,7 @@ class MachineScreen extends StatelessWidget {
                   );
                 },
               ),
-              Obx(()=> machineController.loader.value ? const Center(child: CircularProgressIndicator(),):SizedBox())
+              Obx(()=> machineController.loader.value ? const Center(child: CircularProgressIndicator(),):const SizedBox())
             ],
           )),
     );

@@ -61,7 +61,7 @@ class RepairController extends GetxController {
       // Add the new repair reports to repairReportData
       repairReportData.addAll(newReports);
 
-      print("=======================================${getRepairsModel}");
+      print("=======================================$getRepairsModel");
     }
 
     update(['location']);

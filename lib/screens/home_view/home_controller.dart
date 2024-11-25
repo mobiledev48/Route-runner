@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_model.dart' as getLoc;
 import 'package:route_runner/api_call/get_pending_repairs_api/get_pending_repairs_api.dart';
@@ -136,9 +132,9 @@ List<getLoc.LocationsData> locationsData =[];
       locationsData.addAll(newLocations);
       locationLength = locationsData.length.toString();
       int machines =0;
-      locationsData.forEach((element) {
+      for (var element in locationsData) {
         machines = machines + element.numofmachines!.toInt();
-      });
+      }
 
       machineLength = machines.toString();
       update(['home']);

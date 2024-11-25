@@ -11,7 +11,6 @@ import '../../common/common_text_fild.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
 import '../../utils/text_style.dart';
-import '../dash_board/dash_board_screen.dart';
 
 class AdminController extends GetxController {
   TextEditingController  emailController = TextEditingController();
@@ -70,7 +69,7 @@ class AdminController extends GetxController {
       update(['logIn']);
       return false;
     } else {
-      if (passwordController.text.trim().length >= 1) {
+      if (passwordController.text.trim().isNotEmpty) {
         passwordError = '';
         update(['logIn']);
         return true;

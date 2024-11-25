@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:route_runner/api_call/auth/signIn_api/sign_in_model.dart';
 import 'package:route_runner/common/pop_up.dart';
 import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
@@ -49,7 +47,7 @@ class CustomerSignInApi {
       } else {
 
         ScaffoldMessenger.of(Get.context!).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Invalid credential'),
           ),
         );
@@ -61,7 +59,7 @@ class CustomerSignInApi {
      return SignInModel();
     } catch (e) {
 
-      SnackBar(content: Text('Wrong email and password'));
+      const SnackBar(content: Text('Wrong email and password'));
       print("Error: $e");
 
       return SignInModel();

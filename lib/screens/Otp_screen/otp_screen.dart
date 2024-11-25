@@ -72,7 +72,7 @@ class OtpScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 30.0),
                               child: Center(
-                                child: Text("We have sent the code verification to your email address ${email}",
+                                child: Text("We have sent the code verification to your email address $email",
                                     textAlign: TextAlign.center,
                                     style: logoStyle()),
                               ),
@@ -118,7 +118,9 @@ class OtpScreen extends StatelessWidget {
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly
                                     ],
-                                    validator: (val) {},
+                                    validator: (val) {
+                                      return null;
+                                    },
                                     onChanged: (value) async {}),
                               ),
                             ),

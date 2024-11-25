@@ -1,15 +1,9 @@
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:route_runner/screens/Pdf_preview_screen/pdf_preview_screen.dart';
-import 'package:route_runner/screens/collection_report/collection_report.dart';
-import 'package:route_runner/screens/collection_report/collection_report_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
-import 'dart:io';
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
@@ -327,7 +321,7 @@ List images =[];
             ]
           }*/
             List<Map<String,dynamic>> machines =[];
-            newCollectionController.addCampaignData.forEach((element) {
+            for (var element in newCollectionController.addCampaignData) {
               machines.add(
                 {
                   "machineId": element.machineId,
@@ -347,7 +341,7 @@ List images =[];
                   "gameName": element.gameName,
                 }
               );
-            });
+            }
 
 
 

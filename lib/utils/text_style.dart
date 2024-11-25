@@ -6,7 +6,7 @@ import 'font_res.dart';
 
 TextStyle logoStyle() {
   return GoogleFonts.nunito(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 18,
       fontFamily: FontRes.black,
@@ -15,7 +15,7 @@ TextStyle logoStyle() {
 }
 
 TextStyle hintTextStyle() {
-  return TextStyle(
+  return const TextStyle(
     color: ColorRes.darkBlue,
     fontWeight: FontWeight.w400,
     fontSize: 16,
@@ -23,7 +23,7 @@ TextStyle hintTextStyle() {
 }
 
 TextStyle appbarStyle() {
-  return TextStyle(
+  return const TextStyle(
     color: ColorRes.white,
     fontWeight: FontWeight.w600,
     fontSize: 20,
@@ -31,7 +31,7 @@ TextStyle appbarStyle() {
 }
 
 TextStyle commonTitle() {
-  return TextStyle(
+  return const TextStyle(
     color: ColorRes.grey2,
     fontWeight: FontWeight.w600,
     fontSize: 15,
@@ -43,7 +43,7 @@ TextStyle title() {
 }
 
 TextStyle commonSubtitle() {
-  return TextStyle(
+  return const TextStyle(
     // color: ColorRes.grey2,
     fontWeight: FontWeight.w500,
     fontSize: 12,

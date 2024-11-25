@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:route_runner/common/appbar.dart';
-import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import 'package:route_runner/screens/new_service_repair/new_service_report_controller.dart';
 import 'package:route_runner/screens/new_service_repair/new_service_report_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_controller.dart';
@@ -45,7 +43,7 @@ class ServiceReportScreen extends StatelessWidget {
               onTap: () {
                 NewServiceReportController newServiceReportController = Get.put(NewServiceReportController());
                 newServiceReportController.getLocation();
-                Get.to(NewServiceRepairScreen());
+                Get.to(const NewServiceRepairScreen());
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 15),
@@ -126,24 +124,24 @@ class ServiceReportScreen extends StatelessWidget {
                                                 child: Container(
                                                   // height: 75,
                                                   width: Get.width,
-                                                  padding: EdgeInsets.symmetric(horizontal: 13),
+                                                  padding: const EdgeInsets.symmetric(horizontal: 13),
                                                   decoration:
                                                       BoxDecoration(color: ColorRes.white, borderRadius: BorderRadius.circular(10)),
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      SizedBox(height: 10),
+                                                      const SizedBox(height: 10),
                                                       Text(
                                                           'SN: #${controller.repairServiceReportData[index].machineNumber?.substring(0,2) ?? ""}-${controller.repairServiceReportData[index].serialNumber ?? ""}',
                                                         style: title(),
                                                       ),
-                                                      SizedBox(height: 5),
+                                                      const SizedBox(height: 5),
                                                       Text(
                                                        "Employee: ${controller.repairServiceReportData[index].employeeName ?? ""}",
                                                         style: subTitle(),
                                                       ),
-                                                      SizedBox(height: 5),
+                                                      const SizedBox(height: 5),
                                                       Row(
                                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
@@ -159,7 +157,7 @@ class ServiceReportScreen extends StatelessWidget {
                                                           )
                                                         ],
                                                       ),
-                                                      SizedBox(height: 10),
+                                                      const SizedBox(height: 10),
                                                     ],
                                                   ),
                                                 ),
@@ -172,7 +170,7 @@ class ServiceReportScreen extends StatelessWidget {
                                 StringRes.notFound,
                                 style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                               ),
-                            ):SizedBox(),
+                            ):const SizedBox(),
 
                           ],
                         ),
@@ -182,7 +180,7 @@ class ServiceReportScreen extends StatelessWidget {
                 );
               },
             ),
-            Obx(()=> serviceReportController.loader.value ? Center(child: CircularProgressIndicator(),):SizedBox())
+            Obx(()=> serviceReportController.loader.value ? const Center(child: CircularProgressIndicator(),):const SizedBox())
           ],
         ));
   }

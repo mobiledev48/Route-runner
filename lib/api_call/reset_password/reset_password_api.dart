@@ -1,19 +1,9 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:route_runner/api_call/auth/signIn_api/sign_in_model.dart';
-import 'package:route_runner/api_call/forgot_password_api/forgot_password_model.dart';
-import 'package:route_runner/api_call/otp_api/otp_model.dart';
 import 'package:route_runner/api_call/reset_password/reset_password_model.dart';
 import 'package:route_runner/common/pop_up.dart';
-import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
 import 'package:route_runner/service/http_services.dart';
-import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';
-import 'package:route_runner/utils/pref_keys.dart';
 
 class ResetPasswordApi {
   static resetPasswordApi({required String password,required String employeeId,}) async {
@@ -48,8 +38,8 @@ class ResetPasswordApi {
 
         var decoded = jsonDecode(response!.body);
         errorToast(decoded["message"]);
-        print("HTTP Status Code: ${response?.statusCode}");
-        print("Response Body: ${response?.body}");
+        print("HTTP Status Code: ${response.statusCode}");
+        print("Response Body: ${response.body}");
 
       }
       return ResetPasswordModel();

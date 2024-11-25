@@ -1,7 +1,4 @@
-import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:route_runner/screens/dash_board/dash_board_controller.dart';
@@ -52,7 +49,7 @@ class DashBoardScreen extends StatelessWidget {
                             height: Get.height * 0.03,
                             color: dashBoardController.currentIndex == 0 ? ColorRes.mainColor : Colors.grey,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             StringRes.home,
                             style: TextStyle(
@@ -84,7 +81,7 @@ class DashBoardScreen extends StatelessWidget {
                        //     scale: 3,
                             color: dashBoardController.currentIndex == 1 ? ColorRes.mainColor : Colors.grey,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             StringRes.location,
                             style: TextStyle(
@@ -115,7 +112,7 @@ class DashBoardScreen extends StatelessWidget {
                             height: Get.height * 0.03,
                             color: dashBoardController.currentIndex == 2 ? ColorRes.mainColor : Colors.grey,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             StringRes.machine,
                             style: TextStyle(
@@ -146,7 +143,7 @@ class DashBoardScreen extends StatelessWidget {
                             height: Get.height * 0.03,
                             color: dashBoardController.currentIndex == 3 ? ColorRes.mainColor : Colors.grey,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             StringRes.profile,
                             style: TextStyle(

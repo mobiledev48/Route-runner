@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/screens/Forgot_password/ForgotPasswordScreen.dart';
 
@@ -28,7 +26,7 @@ class CustomCheckbox extends StatelessWidget {
                         border: Border.all(color: ColorRes.mainColor),
                         color: ColorRes.mainColor,
                         borderRadius: const BorderRadius.all(Radius.circular(5))),
-                    child: Icon(
+                    child: const Icon(
                       size: 14,
                       Icons.check,
                       color: Colors.white,
@@ -40,7 +38,7 @@ class CustomCheckbox extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                         color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                        borderRadius: const BorderRadius.all(Radius.circular(5))),
                   )),
         SizedBox(
           width: Get.width * 0.02,
@@ -48,7 +46,7 @@ class CustomCheckbox extends StatelessWidget {
         Expanded(
           child: Text(
             StringRes.rememberMe,
-            style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: 14)),
+            style: GoogleFonts.nunito(textStyle: const TextStyle(fontSize: 14)),
           ),
         ),
         SizedBox(
@@ -61,7 +59,7 @@ class CustomCheckbox extends StatelessWidget {
             },
             child: Text(
               StringRes.resetPassword,
-              style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: 14, color: ColorRes.mainColor)),
+              style: GoogleFonts.nunito(textStyle: const TextStyle(fontSize: 14, color: ColorRes.mainColor)),
             ),
           ),
         ),

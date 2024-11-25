@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:route_runner/api_call/get_collection_report_api/get_collection_report_api.dart';
 import 'package:route_runner/api_call/get_collection_report_api/get_collection_report_model.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
@@ -57,18 +56,18 @@ class CollectionReportController extends GetxController {
       firstName = List.generate(locationsData.length, (index) => '');
       lastName = List.generate(locationsData.length, (index) => '');
 
-      locationsData.forEach((element) {
+      for (var element in locationsData) {
         if(element.employees!=null){
-        element.employees!.forEach((e) {
+        for (var e in element.employees!) {
       if(PrefService.getString(PrefKeys.firstName) == e.firstname &&PrefService.getString(PrefKeys.lastName) == e.lastname)
         {
           firstName[locationsData.indexOf(element)] = e.firstname ?? '';
           lastName[locationsData.indexOf(element)] = e.lastname ?? '';
         }
 
-        });
         }
-      });
+        }
+      }
 
       update(['collection']);
     }
@@ -150,7 +149,7 @@ class CollectionReportController extends GetxController {
                     border: Border.all(color: ColorRes.mainColor),
                     color: ColorRes.mainColor,
                     borderRadius: const BorderRadius.all(Radius.circular(5))),
-                child: Icon(
+                child: const Icon(
                   size: 14,
                   Icons.check,
                   color: Colors.white,
@@ -162,7 +161,7 @@ class CollectionReportController extends GetxController {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                    borderRadius: const BorderRadius.all(Radius.circular(5))),
               ));
   }
 
@@ -193,7 +192,7 @@ class CollectionReportController extends GetxController {
     );
 
     // Format the netValue as currency (e.g., 2 decimal places)
-    return '${netValue}';
+    return '$netValue';
   }
 
   Color getTextColor(int index, int i) {

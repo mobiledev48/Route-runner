@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -21,6 +19,7 @@ class NewCollectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     NewCollectionController newCollectionController =
         Get.put(NewCollectionController());
+
     return WillPopScope(
       onWillPop: () async {
         showDialog(
@@ -36,8 +35,7 @@ class NewCollectionScreen extends StatelessWidget {
                   actions: <Widget>[
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            ColorRes.mainColor),
+                        backgroundColor: MaterialStateProperty.all<Color>(ColorRes.mainColor),
                       ),
                       onPressed: () {
                         Get.back();
@@ -53,8 +51,7 @@ class NewCollectionScreen extends StatelessWidget {
                         Get.back();
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            ColorRes.mainColor),
+                        backgroundColor: MaterialStateProperty.all<Color>(ColorRes.mainColor),
                       ),
                       child: const Text(
                         'Yes',
@@ -72,70 +69,62 @@ class NewCollectionScreen extends StatelessWidget {
           backgroundColor: ColorRes.white,
           appBar: AppBar(
             leading: IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Theme(
-                          data:
-                              ThemeData(dialogBackgroundColor: ColorRes.white),
-                          child: AlertDialog(
-                            title: const Text(
-                              'If you will be back from this screen, all your changes will be discarded.',
-                              style: TextStyle(
-                                  fontSize: 22, color: ColorRes.mainColor),
-                            ),
-                            actions: <Widget>[
-                              ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          ColorRes.mainColor),
-                                ),
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: const Text(
-                                  'No',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Get.back();
-                                  Get.back();
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          ColorRes.mainColor),
-                                ),
-                                child: const Text(
-                                  'Yes',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              const SizedBox(width: 2),
-                            ],
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Theme(
+                        data: ThemeData(dialogBackgroundColor: ColorRes.white),
+                        child: AlertDialog(
+                          title: const Text(
+                            'If you will be back from this screen, all your changes will be discarded.',
+                            style: TextStyle(fontSize: 22, color: ColorRes.mainColor),
                           ),
-                        );
-                      });
+                          actions: <Widget>[
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                              ),
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: const Text(
+                                'No',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Get.back();
+                                Get.back();
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(ColorRes.mainColor),
+                              ),
+                              child: const Text(
+                                'Yes',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            const SizedBox(width: 2),
+                          ],
+                        ),
+                      );
+                    });
 
-                  // Get.to(HomeScreen());
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_sharp,
-                  color: ColorRes.white,
-                  size: 20,
-                )),
+                // Get.to(HomeScreen());
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios_sharp,
+                color: ColorRes.white,
+                size: 20,
+              ),
+            ),
             centerTitle: true,
             backgroundColor: ColorRes.mainColor,
             title: Text(
               'New Collection',
-              style: GoogleFonts.nunito(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: ColorRes.white),
+              style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w600, color: ColorRes.white),
             ),
 
             // automaticallyImplyLeading: false,
@@ -150,129 +139,91 @@ class NewCollectionScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 20),
 
                           CommonTextField(
-                              readOnly: true,
-                              type: TextInputType.number,
-                              color: ColorRes.bgColor,
-                              isRequired: true,
-                              hintText: "Moonlight Bar",
-                              titleText: StringRes.location,
-                              suffixIcon: AssetRes.arrowDown,
-                              suffixIconOnTap: () {
-                                newCollectionController.isClick =
-                                    !newCollectionController.isClick;
-                                controller.update(['collection']);
-                              },
-                              suffixIconSize: 3,
-                              isSuffixIcon: true,
-                              controller: controller.locationController),
+                            readOnly: true,
+                            type: TextInputType.number,
+                            color: ColorRes.bgColor,
+                            isRequired: true,
+                            hintText: "Moonlight Bar",
+                            titleText: StringRes.location,
+                            suffixIcon: AssetRes.arrowDown,
+                            suffixIconOnTap: () {
+                              newCollectionController.isClick = !newCollectionController.isClick;
+                              controller.update(['collection']);},
+                            suffixIconSize: 3,
+                            isSuffixIcon: true,
+                            controller: controller.locationController,
+                          ),
                           (newCollectionController.locationError != "")
                               ? Align(
                                   alignment: Alignment.centerRight,
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 3),
                                     child: Text(
-                                        newCollectionController
-                                            .locationError.tr,
-                                        style: commonSubtitle()
-                                            .copyWith(color: ColorRes.red)),
+                                      newCollectionController.locationError.tr,
+                                      style: commonSubtitle().copyWith(color: ColorRes.red),
+                                    ),
                                   ),
                                 )
                               : const SizedBox(),
                           newCollectionController.isClick == false
                               ? const SizedBox()
                               : Container(
-                                  // height: Get.height * 0.26,
                                   width: Get.width * 0.9,
-                                  decoration: const BoxDecoration(
-                                      color: ColorRes.bgColor),
+                                  decoration: const BoxDecoration(color: ColorRes.bgColor),
                                   child: ListView.separated(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
+                                      physics: const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       itemBuilder: (context, index) =>
                                           GestureDetector(
                                             onTap: () {
-                                              controller.locationController
-                                                  .text = controller
-                                                      .locationsData[index]
-                                                      .locationname ??
-                                                  "";
-                                              controller.locationId = controller
-                                                      .locationsData[index]
-                                                      .id ??
-                                                  "";
+                                              controller.locationController.text = controller.locationsData[index].locationname ?? "";
+                                              controller.locationId = controller.locationsData[index].id ?? "";
                                               controller.locationIndex = index;
-
-                                              newCollectionController.isClick =
-                                                  false;
-                                              controller
-                                                  .machineNumberController = [];
-                                              controller
-                                                  .enterSerialNumberController = [];
-                                              controller.auditNumberController =
-                                                  [];
-                                              controller
-                                                  .previousNumberInController = [];
-                                              controller
-                                                  .previousNumberOutController = [];
-                                              controller
-                                                  .currentNumberInController = [];
-                                              controller
-                                                  .currentNumberOutController = [];
+                                              newCollectionController.isClick = false;
+                                              controller.machineNumberController = [];
+                                              controller.enterSerialNumberController = [];
+                                              controller.auditNumberController = [];
+                                              controller.previousNumberInController = [];
+                                              controller.previousNumberOutController = [];
+                                              controller.currentNumberInController = [];
+                                              controller.currentNumberOutController = [];
                                               controller.pageIndex = 0;
                                               controller.totalController = [];
                                               controller.selectImage = [];
                                               controller.selectImageUrl = [];
                                               controller.selectImageTemp = [];
-                                              controller.selectImageTempUrl =
-                                                  [];
+                                              controller.selectImageTempUrl = [];
                                               controller.getMachines();
-                                              newCollectionController
-                                                  .update(['collection']);
+                                              newCollectionController.update(['collection']);
                                             },
                                             child: ListTile(
                                               title: Text(
-                                                  controller
-                                                          .locationsData[index]
-                                                          .locationname ??
-                                                      "",
-                                                  style: GoogleFonts.nunito(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorRes.color030229,
-                                                  )),
+                                                controller.locationsData[index].locationname ?? "",
+                                                style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                              ),
                                             ),
                                           ),
-                                      separatorBuilder: (context, index) =>
-                                          const Divider(
-                                              color: ColorRes.grey3,
-                                              endIndent: 10,
-                                              indent: 10,
-                                              height: 1),
-                                      itemCount:
-                                          controller.locationsData.length)),
-                          const SizedBox(
-                            height: 20,
+                                      separatorBuilder: (context, index) => const Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                      itemCount: controller.locationsData.length,
+                                  ),
                           ),
 
+                          const SizedBox(height: 20),
+
                           /// --- new flow
-                          (controller.machineData.length != 0)
+                          (controller.machineData.isNotEmpty)
                               ? SizedBox(
                                   height: Get.height * 0.55,
                                   child: PageView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
+                                      physics: const NeverScrollableScrollPhysics(),
                                       onPageChanged: (v) {
                                         controller.pageIndex = v;
                                         controller.update(['collection']);
                                       },
-                                      itemCount: controller
-                                          .machineData[0].machines!.length,
+                                      itemCount: controller.machineData[0].machines!.length,
                                       controller: controller.pageController,
                                       itemBuilder: (context, i) {
                                         return SingleChildScrollView(
@@ -281,8 +232,7 @@ class NewCollectionScreen extends StatelessWidget {
                                               SizedBox(
                                                 width: Get.width,
                                                 child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       width: Get.width / 2.5,
@@ -290,9 +240,7 @@ class NewCollectionScreen extends StatelessWidget {
                                                         children: [
                                                           CommonTextField(
                                                               readOnly: true,
-                                                              type:
-                                                                  TextInputType
-                                                                      .number,
+                                                              type: TextInputType.number,
                                                               isRequired: true,
                                                               hintText: "#12",
                                                               // suffixIcon:
@@ -314,35 +262,22 @@ class NewCollectionScreen extends StatelessWidget {
                                                               //     3,
                                                               // isSuffixIcon:
                                                               //     true,
-                                                              color: ColorRes
-                                                                  .bgColor,
-                                                              titleText: StringRes
-                                                                  .machineNumber,
+                                                              color: ColorRes.bgColor,
+                                                              titleText: StringRes.machineNumber,
                                                               inputFormatters: [
-                                                                LengthLimitingTextInputFormatter(
-                                                                    2), // Limit input to 2 characters
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly, // Allow only digits
+                                                                LengthLimitingTextInputFormatter(2),
+                                                                FilteringTextInputFormatter.digitsOnly,
                                                               ],
-                                                              controller: controller
-                                                                  .machineNumberController[i]),
-                                                          /*          newCollectionController
-                                                                      .isClickMachine ==
-                                                                  false
+                                                              controller: controller.machineNumberController[i]),
+                                                          /*          newCollectionController.isClickMachine == false
                                                               ? const SizedBox()
-                                                              : (controller
-                                                                          .locationIndex !=
-                                                                      null)
+                                                              : (controller.locationIndex != null)
                                                                   ? Container(
-                                                                      width: Get.width *
-                                                                          0.9,
-                                                                      decoration:
-                                                                          const BoxDecoration(color: ColorRes.bgColor),
+                                                                      width: Get.width * 0.9,
+                                                                      decoration: const BoxDecoration(color: ColorRes.bgColor),
                                                                       child: ListView.separated(
-                                                                        physics:
-                                                                            const NeverScrollableScrollPhysics(),
-                                                                        shrinkWrap:
-                                                                            true,
+                                                                        physics: const NeverScrollableScrollPhysics(),
+                                                                        shrinkWrap: true,
                                                                         separatorBuilder: (context, index) => const Divider(
                                                                             color: ColorRes.grey3,
                                                                             endIndent: 10,
@@ -375,43 +310,30 @@ class NewCollectionScreen extends StatelessWidget {
                                                                             controller.machineData[0].machines!.length,
                                                                       ))
                                                                   : const SizedBox(),*/
-                                                          (newCollectionController
-                                                                          .machineError[
-                                                                      i] !=
-                                                                  "")
+                                                          (newCollectionController.machineError[i] != "")
                                                               ? Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .centerRight,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top: 3),
+                                                                  alignment: Alignment.centerRight,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.only(top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.machineError[
-                                                                            i],
-                                                                        style: commonSubtitle().copyWith(
-                                                                            color:
-                                                                                ColorRes.red)),
+                                                                      newCollectionController.machineError[i],
+                                                                      style: commonSubtitle().copyWith(color: ColorRes.red),
+                                                                    ),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
                                                         ],
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 20,
-                                                    ),
+                                                    const SizedBox(width: 20),
+
                                                     SizedBox(
                                                       width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
                                                               readOnly: true,
-                                                              suffixIcon:
-                                                                  AssetRes
-                                                                      .arrowDown,
+                                                              suffixIcon: AssetRes.arrowDown,
                                                               // suffixIconOnTap:
                                                               //     () {
                                                               //   // newCollectionController
@@ -427,19 +349,13 @@ class NewCollectionScreen extends StatelessWidget {
                                                               //     3,
                                                               // isSuffixIcon:
                                                               //     true,
-                                                              type:
-                                                                  TextInputType
-                                                                      .number,
-                                                              color: ColorRes
-                                                                  .bgColor,
+                                                              type: TextInputType.number,
+                                                              color: ColorRes.bgColor,
                                                               isRequired: true,
-                                                              hintText:
-                                                                  StringRes
-                                                                      .num3,
-                                                              titleText: StringRes
-                                                                  .serialNumber,
-                                                              controller: controller
-                                                                  .enterSerialNumberController[i]),
+                                                              hintText: StringRes.num3,
+                                                              titleText: StringRes.serialNumber,
+                                                              controller: controller.enterSerialNumberController[i],
+                                                          ),
                                                           /*    newCollectionController
                                                                       .isClickSerial ==
                                                                   false
@@ -485,25 +401,15 @@ class NewCollectionScreen extends StatelessWidget {
                                                                               : const SizedBox(),
                                                                           itemCount: controller.machineData.length))
                                                                   : const SizedBox(),*/
-                                                          (newCollectionController
-                                                                          .serialError[
-                                                                      i] !=
-                                                                  "")
+                                                          (newCollectionController.serialError[i] != "")
                                                               ? Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .centerRight,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top: 3),
+                                                                  alignment: Alignment.centerRight,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.only(top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.serialError[
-                                                                            i],
-                                                                        style: commonSubtitle().copyWith(
-                                                                            color:
-                                                                                ColorRes.red)),
+                                                                      newCollectionController.serialError[i],
+                                                                      style: commonSubtitle().copyWith(color: ColorRes.red),
+                                                                    ),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -513,69 +419,48 @@ class NewCollectionScreen extends StatelessWidget {
                                                   ],
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
+                                              const SizedBox(height: 20),
+
                                               CommonTextField(
-                                                  readOnly: true,
-                                                  type: TextInputType.text,
-                                                  color: ColorRes.bgColor,
-                                                  isRequired: true,
-                                                  hintText: "Game name ",
-                                                  titleText:
-                                                      StringRes.enterGameName,
-                                                  controller: controller
-                                                      .auditNumberController[i]),
-                                              (newCollectionController
-                                                          .auditError[i] !=
-                                                      "")
+                                                readOnly: true,
+                                                type: TextInputType.text,
+                                                color: ColorRes.bgColor,
+                                                isRequired: true,
+                                                hintText: "Game name ",
+                                                titleText: StringRes.enterGameName,
+                                                controller: controller.auditNumberController[i],
+                                              ),
+
+                                              (newCollectionController.auditError[i] != "")
                                                   ? Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
+                                                      alignment: Alignment.centerRight,
                                                       child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 3),
+                                                        padding: const EdgeInsets.only(top: 3),
                                                         child: Text(
-                                                            newCollectionController
-                                                                .auditError[i],
-                                                            style: commonSubtitle()
-                                                                .copyWith(
-                                                                    color: ColorRes
-                                                                        .red)),
+                                                          newCollectionController.auditError[i],
+                                                          style: commonSubtitle().copyWith(color: ColorRes.red),
+                                                        ),
                                                       ),
                                                     )
                                                   : const SizedBox(),
 
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
+                                              const SizedBox(height: 20),
 
                                               /// in
                                               Row(
                                                 children: [
-                                                  Text("In",
-                                                      style: GoogleFonts.nunito(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: ColorRes
-                                                            .color030229,
-                                                      )),
+                                                  Text(
+                                                    "In",
+                                                    style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                                  ),
                                                   const Text(
                                                     ' *',
-                                                    style: TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                                    style: TextStyle(fontSize: 16.0, color: Colors.red, fontWeight: FontWeight.bold),
                                                   )
                                                 ],
                                               ),
-                                              const SizedBox(
-                                                height: 9,
-                                              ),
+                                              const SizedBox(height: 9),
+
                                               SizedBox(
                                                 width: Get.width,
                                                 child: Row(
@@ -585,19 +470,14 @@ class NewCollectionScreen extends StatelessWidget {
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              type:
-                                                                  TextInputType
-                                                                      .number,
-                                                              color: ColorRes
-                                                                  .bgColor,
+                                                              type: TextInputType.number,
+                                                              color: ColorRes.bgColor,
                                                               isRequired: true,
                                                               hintText: "0",
                                                               readOnly: true,
-                                                              titleText: StringRes
-                                                                  .previousNumber,
-                                                              controller: controller
-                                                                  .previousNumberInController[i]),
-                                                /*          (newCollectionController
+                                                              titleText: StringRes.previousNumber,
+                                                              controller: controller.previousNumberInController[i]),
+                                                          /*          (newCollectionController
                                                                           .inPreviousError[
                                                                       i] !=
                                                                   "")
@@ -622,64 +502,39 @@ class NewCollectionScreen extends StatelessWidget {
                                                         ],
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                        width:
-                                                            Get.width * 0.05),
+                                                    SizedBox(width: Get.width * 0.05),
+
                                                     SizedBox(
                                                       width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              type:
-                                                                  TextInputType
-                                                                      .number,
-                                                              color: ColorRes
-                                                                  .bgColor,
+                                                              type: TextInputType.number,
+                                                              color: ColorRes.bgColor,
                                                               isRequired: true,
                                                               hintText: "0",
-                                                              titleText: StringRes
-                                                                  .currentNumber,
-                                                              onChanged:
-                                                                  (value) {
-                                                                controller.totalController[i].text = controller
-                                                                    .calculateProfit(
-                                                                        currentIn:
-                                                                            double.parse(value ??
-                                                                                "0.0"),
-                                                                        previousIn:
-                                                                        controller.previousNumberInController[i].text ==""?0.0:
-                                                                            double.parse(controller.previousNumberInController[i].text ??
-                                                                                '0.0'),
-                                                                        currentOut:
-                                                                            double.parse(controller.currentNumberOutController[i].text ??
-                                                                                '0.0'),
-                                                                        previousOut:
-                                                                        controller.previousNumberOutController[i].text ==""?0.0:
-                                                                            double.parse(controller.previousNumberOutController[i].text ??
-                                                                                '0.0'))
-                                                                    .toString();
+                                                              titleText: StringRes.currentNumber,
+                                                              onChanged: (value) {
+                                                                controller.totalController[i].text = controller.calculateProfit(
+                                                                    currentIn: double.parse(value ?? "0.0"),
+                                                                    previousIn: controller.previousNumberInController[i].text == ""
+                                                                        ? 0.0
+                                                                        : double.parse(controller.previousNumberInController[i].text ?? '0.0'),
+                                                                    currentOut: double.parse(controller.currentNumberOutController[i].text ?? '0.0'),
+                                                                    previousOut: controller.previousNumberOutController[i].text == ""
+                                                                        ? 0.0
+                                                                        : double.parse(controller.previousNumberOutController[i].text ?? '0.0')).toString();
                                                               },
-                                                              controller: controller
-                                                                  .currentNumberInController[i]),
-                                                          (newCollectionController
-                                                                          .inCurrentError[
-                                                                      i] !=
-                                                                  "")
+                                                              controller: controller.currentNumberInController[i]),
+                                                          (newCollectionController.inCurrentError[i] != "")
                                                               ? Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .centerRight,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top: 3),
+                                                                  alignment: Alignment.centerRight,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.only(top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.inCurrentError[
-                                                                            i],
-                                                                        style: commonSubtitle().copyWith(
-                                                                            color:
-                                                                                ColorRes.red)),
+                                                                      newCollectionController.inCurrentError[i],
+                                                                      style: commonSubtitle().copyWith(color: ColorRes.red),
+                                                                    ),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -689,35 +544,22 @@ class NewCollectionScreen extends StatelessWidget {
                                                   ],
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
+                                              const SizedBox(height: 20),
 
                                               /// out
                                               Row(
                                                 children: [
-                                                  Text("Out",
-                                                      style: GoogleFonts.nunito(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: ColorRes
-                                                            .color030229,
-                                                      )),
+                                                  Text(
+                                                    "Out",
+                                                    style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.color030229),
+                                                  ),
                                                   const Text(
                                                     ' *',
-                                                    style: TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                                    style: TextStyle(fontSize: 16.0, color: Colors.red, fontWeight: FontWeight.bold),
                                                   )
                                                 ],
                                               ),
-                                              const SizedBox(
-                                                height: 9,
-                                              ),
+                                              const SizedBox(height: 9),
                                               SizedBox(
                                                 width: Get.width,
                                                 child: Row(
@@ -727,19 +569,15 @@ class NewCollectionScreen extends StatelessWidget {
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              type:
-                                                                  TextInputType
-                                                                      .number,
-                                                              color: ColorRes
-                                                                  .bgColor,
-                                                              isRequired: true,
-                                                              readOnly: true,
-                                                              hintText: "0",
-                                                              titleText: StringRes
-                                                                  .previousNumber,
-                                                              controller: controller
-                                                                  .previousNumberOutController[i]),
-                                                   /*       (newCollectionController
+                                                            type: TextInputType.number,
+                                                            color: ColorRes.bgColor,
+                                                            isRequired: true,
+                                                            readOnly: true,
+                                                            hintText: "0",
+                                                            titleText: StringRes.previousNumber,
+                                                            controller: controller.previousNumberOutController[i],
+                                                          ),
+                                                          /*       (newCollectionController
                                                                           .outCurrentError[
                                                                       i] !=
                                                                   "")
@@ -764,63 +602,41 @@ class NewCollectionScreen extends StatelessWidget {
                                                         ],
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                        width:
-                                                            Get.width * 0.05),
+                                                    SizedBox(width: Get.width * 0.05),
+
                                                     SizedBox(
                                                       width: Get.width / 2.5,
                                                       child: Column(
                                                         children: [
                                                           CommonTextField(
-                                                              type:
-                                                                  TextInputType
-                                                                      .number,
-                                                              color: ColorRes
-                                                                  .bgColor,
+                                                              type: TextInputType.number,
+                                                              color: ColorRes.bgColor,
                                                               isRequired: true,
                                                               hintText: "0",
-                                                              onChanged:
-                                                                  (value) {
-                                                                controller.totalController[i].text = controller
-                                                                    .calculateProfit(
-                                                                        currentIn:
-                                                                            double.parse(controller.currentNumberInController[i].text ??
-                                                                                "0.0"),
-                                                                        previousIn:
-                                                                        controller.previousNumberInController[i].text ==""?0.0:   double.parse(controller.previousNumberInController[i].text ??
-                                                                                '0.0'),
-                                                                        currentOut:
-                                                                            double.parse(value ??
-                                                                                '0.0'),
-                                                                        previousOut:
-                                                                        controller.previousNumberOutController[i].text ==''?0.0:
-                                                                    double.parse(controller.previousNumberOutController[i].text ??
-                                                                                '0.0'))
-                                                                    .toString();
+                                                              onChanged: (value) {
+                                                                controller.totalController[i].text = controller.calculateProfit(
+                                                                  currentIn: double.parse(controller.currentNumberInController[i].text ?? "0.0"),
+                                                                  previousIn: controller.previousNumberInController[i].text == ""
+                                                                      ? 0.0
+                                                                      : double.parse(controller.previousNumberInController[i].text ?? '0.0'),
+                                                                  currentOut: double.parse(value ?? '0.0'),
+                                                                  previousOut: controller.previousNumberOutController[i].text == ''
+                                                                      ? 0.0
+                                                                      : double.parse(controller.previousNumberOutController[i].text ?? '0.0',
+                                                                  ),
+                                                                ).toString();
                                                               },
-                                                              titleText: StringRes
-                                                                  .currentNumber,
-                                                              controller: controller
-                                                                  .currentNumberOutController[i]),
-                                                          (newCollectionController
-                                                                          .outCurrentError[
-                                                                      i] !=
-                                                                  "")
+                                                              titleText: StringRes.currentNumber,
+                                                              controller: controller.currentNumberOutController[i]),
+                                                          (newCollectionController.outCurrentError[i] != "")
                                                               ? Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .centerRight,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top: 3),
+                                                                  alignment: Alignment.centerRight,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.only(top: 3),
                                                                     child: Text(
-                                                                        newCollectionController.outCurrentError[
-                                                                            i],
-                                                                        style: commonSubtitle().copyWith(
-                                                                            color:
-                                                                                ColorRes.red)),
+                                                                      newCollectionController.outCurrentError[i],
+                                                                      style: commonSubtitle().copyWith(color: ColorRes.red),
+                                                                    ),
                                                                   ),
                                                                 )
                                                               : const SizedBox(),
@@ -830,51 +646,41 @@ class NewCollectionScreen extends StatelessWidget {
                                                   ],
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
+                                              const SizedBox(height: 20),
 
                                               Row(
                                                 children: [
-                                                  Text("Total",
-                                                      style: GoogleFonts.nunito(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: ColorRes
-                                                            .color030229,
-                                                      )),
+                                                  Text(
+                                                    "Total",
+                                                    style: GoogleFonts.nunito(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w500,
+                                                        color: ColorRes.color030229
+                                                    ),
+                                                  ),
                                                   const Text(
                                                     ' *',
                                                     style: TextStyle(
                                                       fontSize: 16.0,
                                                       color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                   )
                                                 ],
                                               ),
-                                              const SizedBox(
-                                                height: 9,
-                                              ),
+                                              const SizedBox(height: 9),
+
                                               Container(
                                                 height: 52,
                                                 width: Get.width,
                                                 alignment: Alignment.centerLeft,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10),
+                                                padding: const EdgeInsets.symmetric(horizontal: 10),
                                                 decoration: BoxDecoration(
                                                   color: ColorRes.bgColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                    15,
-                                                  ),
+                                                  borderRadius: BorderRadius.circular(15),
                                                 ),
                                                 child: Text(
-                                                  controller
-                                                      .totalController[i].text,
+                                                  controller.totalController[i].text,
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w500,
@@ -891,108 +697,62 @@ class NewCollectionScreen extends StatelessWidget {
                                               //     titleText: StringRes.total,
                                               //     controller: controller.totalController),
 
-                                              (newCollectionController
-                                                          .totalError[i] !=
-                                                      "")
+                                              (newCollectionController.totalError[i] != "")
                                                   ? Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
+                                                      alignment: Alignment.centerRight,
                                                       child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 3),
+                                                        padding: const EdgeInsets.only(top: 3),
                                                         child: Text(
-                                                            newCollectionController
-                                                                .totalError[i]
-                                                                .tr,
-                                                            style: commonSubtitle()
-                                                                .copyWith(
-                                                                    color: ColorRes
-                                                                        .red)),
+                                                          newCollectionController.totalError[i].tr,
+                                                          style: commonSubtitle().copyWith(color: ColorRes.red),
+                                                        ),
                                                       ),
                                                     )
                                                   : const SizedBox(),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
+                                              const SizedBox(height: 20),
+
                                               Row(
                                                 children: [
                                                   Column(
                                                     children: [
                                                       GestureDetector(
                                                         onTap: () async {
-                                                          FocusScope.of(context)
-                                                              .unfocus();
-                                                          await controller
-                                                              .getImageFromCamera(
-                                                            i,
-                                                          );
+                                                          FocusScope.of(context).unfocus();
+                                                          await controller.getImageFromCamera(i);
                                                         },
                                                         child: Container(
                                                           height: 40,
-                                                          alignment:
-                                                              Alignment.center,
+                                                          alignment: Alignment.center,
                                                           decoration: BoxDecoration(
-                                                              color: ColorRes
-                                                                  .color5B93FF,
-                                                              border: Border.all(
-                                                                  width: 1,
-                                                                  color: ColorRes
-                                                                      .color5B93FF),
-                                                              borderRadius:
-                                                                  const BorderRadius
-                                                                      .all(
-                                                                      Radius.circular(
-                                                                          10))),
+                                                            color: ColorRes.color5B93FF,
+                                                            border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                                          ),
                                                           child: Row(
                                                             children: [
-                                                              SizedBox(
-                                                                width:
-                                                                    Get.width *
-                                                                        0.06,
-                                                              ),
-                                                              Image.asset(
-                                                                AssetRes.camera,
-                                                                scale: 5,
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 10,
-                                                              ),
+                                                              SizedBox(width: Get.width * 0.06),
+
+                                                              Image.asset(AssetRes.camera, scale: 5),
+
+                                                              const SizedBox(width: 10),
+
                                                               Text(
-                                                                StringRes
-                                                                    .captureMachineReading,
-                                                                style: GoogleFonts.nunito(
-                                                                    fontSize:
-                                                                        14,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color: ColorRes
-                                                                        .white),
+                                                                StringRes.captureMachineReading,
+                                                                style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
                                                       ),
-                                                      (controller.imageError[
-                                                                  i] !=
-                                                              "")
+                                                      (controller.imageError[i] != "")
                                                           ? Align(
-                                                              alignment: Alignment
-                                                                  .centerRight,
+                                                              alignment: Alignment.centerRight,
                                                               child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        top: 3),
+                                                                padding: const EdgeInsets.only(top: 3),
                                                                 child: Text(
-                                                                    controller
-                                                                            .imageError[
-                                                                        i],
-                                                                    style: commonSubtitle()
-                                                                        .copyWith(
-                                                                            color:
-                                                                                ColorRes.red)),
+                                                                  controller.imageError[i],
+                                                                  style: commonSubtitle().copyWith(color: ColorRes.red),
+                                                                ),
                                                               ),
                                                             )
                                                           : const SizedBox(),
@@ -1001,55 +761,39 @@ class NewCollectionScreen extends StatelessWidget {
                                                   const Spacer()
                                                 ],
                                               ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
+                                              const SizedBox(height: 20),
+
                                               Align(
                                                 alignment: Alignment.center,
-                                                child: controller
-                                                            .selectImage[i] !=
-                                                        null
+                                                child: controller.selectImage[i] != null
                                                     ? Container(
                                                         height: 200,
                                                         width: 400,
-                                                        color:
-                                                            Colors.transparent,
+                                                        color: Colors.transparent,
                                                         child: ListView.builder(
-                                                          scrollDirection:
-                                                              Axis.horizontal,
-                                                          itemCount: controller
-                                                              .selectImage[i]
-                                                              ?.length,
-                                                          itemBuilder:
-                                                              (context, index) {
+                                                          scrollDirection: Axis.horizontal,
+                                                          itemCount: controller.selectImage[i]?.length,
+                                                          itemBuilder: (context, index) {
                                                             return Stack(
                                                               alignment: Alignment.topRight,
                                                               children: [
                                                                 Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          8.0),
-                                                                  child:
-                                                                      Container(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child: Container(
                                                                     height: 150,
                                                                     width: 200,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      image:
-                                                                          DecorationImage(
-                                                                        image: FileImage(
-                                                                            controller.selectImage[i]![index]),
-                                                                        fit: BoxFit
-                                                                            .cover, // Choose the BoxFit that suits your needs
+                                                                    decoration: BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                        image: FileImage(controller.selectImage[i]![index]),
+                                                                        fit: BoxFit.cover,
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ),
                                                                 InkWell(
-                                                                  onTap:(){
-                                                                    controller.removeImage(i,index);
-                                                                },
+                                                                  onTap: () {
+                                                                    controller.removeImage(i, index);
+                                                                  },
                                                                   child: Container(
                                                                     height: 20,
                                                                     width: 20,
@@ -1058,7 +802,11 @@ class NewCollectionScreen extends StatelessWidget {
                                                                       color: ColorRes.themeColor,
                                                                     ),
                                                                     alignment: Alignment.center,
-                                                                    child: const Icon(Icons.close,color: ColorRes.white,size: 10,),
+                                                                    child: const Icon(
+                                                                      Icons.close,
+                                                                      color: ColorRes.white,
+                                                                      size: 10,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ],
@@ -1076,12 +824,10 @@ class NewCollectionScreen extends StatelessWidget {
                                         );
                                       }),
                                 )
-                              : SizedBox(
-                                  height: Get.height * 0.55,
-                                ),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                              : SizedBox(height: Get.height * 0.55),
+
+                          const SizedBox(height: 20),
+
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: SizedBox(
@@ -1094,11 +840,7 @@ class NewCollectionScreen extends StatelessWidget {
                                     child: GestureDetector(
                                       onTap: () {
                                         if (controller.pageIndex != 0) {
-                                          controller.pageController
-                                              .previousPage(
-                                                  duration: const Duration(
-                                                      milliseconds: 400),
-                                                  curve: Curves.easeInOut);
+                                          controller.pageController.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                                         }
                                       },
                                       child: Container(
@@ -1106,18 +848,12 @@ class NewCollectionScreen extends StatelessWidget {
                                         width: 180,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 1,
-                                                color: ColorRes.color5B93FF),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10))),
+                                          border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        ),
                                         child: Text(
                                           "Back",
-                                          style: GoogleFonts.nunito(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: ColorRes.color5B93FF),
+                                          style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.color5B93FF),
                                         ),
                                       ),
                                     ),
@@ -1129,73 +865,34 @@ class NewCollectionScreen extends StatelessWidget {
                                     width: Get.width / 3,
                                     child: GestureDetector(
                                       onTap: () {
-                                        if (controller.machineData.length !=
-                                            0) {
-                                          if (newCollectionController
-                                              .validation()) {
-                                            newCollectionController
-                                                .addCampaignData = [];
-                                            for (int i = 0;
-                                                i <
-                                                    newCollectionController
-                                                        .machineNumberController
-                                                        .length;
-                                                i++) {
-                                              newCollectionController.addCampaignData.add(CollectionReport(
-                                                  serialNumber:
-                                                      newCollectionController
-                                                          .enterSerialNumberController[
-                                                              i]
-                                                          .text,
-                                                  machineId:
-                                                      newCollectionController
-                                                          .machineId[i],
-                                                  gameName: newCollectionController
-                                                      .auditNumberController[i]
-                                                      .text,
-                                                  total: newCollectionController
-                                                      .totalController[i].text,
-                                                  imageUrl:
-                                                      newCollectionController
-                                                          .selectImageUrl[i],
-                                                  machineNumber:
-                                                      newCollectionController
-                                                          .machineNumberController[
-                                                              i]
-                                                          .text,
-                                                  inCurrent: newCollectionController
-                                                      .currentNumberInController[
-                                                          i]
-                                                      .text,
-                                                  inPrevious:
-                                                      newCollectionController
-                                                          .previousNumberInController[i]
-                                                          .text,
+                                        if (controller.machineData.isNotEmpty) {
+                                          if (newCollectionController.validation()) {
+                                            newCollectionController.addCampaignData = [];
+                                            for (int i = 0; i < newCollectionController.machineNumberController.length; i++) {
+                                              newCollectionController.addCampaignData.add(
+                                                CollectionReport(
+                                                  serialNumber: newCollectionController.enterSerialNumberController[i].text,
+                                                  machineId: newCollectionController.machineId[i],
+                                                  gameName: newCollectionController.auditNumberController[i].text,
+                                                  total: newCollectionController.totalController[i].text,
+                                                  imageUrl: newCollectionController.selectImageUrl[i],
+                                                  machineNumber: newCollectionController.machineNumberController[i].text,
+                                                  inCurrent: newCollectionController.currentNumberInController[i].text,
+                                                  inPrevious: newCollectionController.previousNumberInController[i].text,
                                                   outCurrent: newCollectionController.currentNumberOutController[i].text,
                                                   outPrevious: newCollectionController.previousNumberOutController[i].text,
-                                                  image: controller.selectImage[i]));
+                                                  image: controller.selectImage[i],
+                                                ),
+                                              );
                                             }
-                                            ;
 
-                                            if (controller.machineData.length !=
-                                                0) {
+                                            if (controller.machineData.isNotEmpty) {
                                               if (controller.pageIndex ==
-                                                  controller.machineData[0]
-                                                          .machines!.length -
-                                                      1) {
-                                                Get.to(() =>
-                                                    CollectionDetailScreen());
+                                                  controller.machineData[0].machines!.length - 1) {
+                                                Get.to(() => CollectionDetailScreen());
                                               } else {
-                                                controller.pageController
-                                                    .nextPage(
-                                                        duration:
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    400),
-                                                        curve:
-                                                            Curves.easeInOut);
-                                                controller
-                                                    .update(['collection']);
+                                                controller.pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                                                controller.update(['collection']);
                                               }
                                             }
                                           }
@@ -1206,28 +903,17 @@ class NewCollectionScreen extends StatelessWidget {
                                         width: 180,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                            color: ColorRes.color5B93FF,
-                                            border: Border.all(
-                                                width: 1,
-                                                color: ColorRes.color5B93FF),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10))),
+                                          color: ColorRes.color5B93FF,
+                                          border: Border.all(width: 1, color: ColorRes.color5B93FF),
+                                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        ),
                                         child: Text(
-                                          (controller.machineData.length != 0)
-                                              ? (controller.pageIndex ==
-                                                      controller
-                                                              .machineData[0]
-                                                              .machines!
-                                                              .length -
-                                                          1)
+                                          (controller.machineData.isNotEmpty)
+                                              ? (controller.pageIndex == controller.machineData[0].machines!.length - 1)
                                                   ? StringRes.collect
                                                   : "Next"
                                               : StringRes.collect,
-                                          style: GoogleFonts.nunito(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: ColorRes.white),
+                                          style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w400, color: ColorRes.white),
                                         ),
                                       ),
                                       /* Container(
@@ -1250,9 +936,7 @@ class NewCollectionScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 20),
                         ],
                       ),
                     ),

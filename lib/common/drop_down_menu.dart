@@ -1,12 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:route_runner/api_call/chage_status_location/change_status_location_api.dart';
 import 'package:route_runner/screens/dash_board/dash_board_controller.dart';
 import 'package:route_runner/screens/dash_board/dash_board_screen.dart';
-import 'package:route_runner/screens/machine_view/machine_screen.dart';
 
 import '../utils/asset_res.dart';
 import '../utils/color_res.dart';
@@ -21,10 +17,10 @@ Widget DropDownMenu({required bool isLocation}) {
     enabled: true,
     color: ColorRes.white,
     // splashRadius: 20,
-    offset: Offset(0, 10),
+    offset: const Offset(0, 10),
     padding: EdgeInsets.zero,
 
-    constraints: BoxConstraints(
+    constraints: const BoxConstraints(
       maxWidth: 110,
     ),
     position: PopupMenuPosition.under,
@@ -67,7 +63,7 @@ Widget DropDownMenu({required bool isLocation}) {
         ),*/
         PopupMenuItem(
           height: Get.height * 0.04,
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           child: Container(
             height: Get.height * 0.04,
             width: Get.width * 0.6,
@@ -98,7 +94,7 @@ Widget DropDownMenu({required bool isLocation}) {
         ),
         PopupMenuItem(
             height: Get.height * 0.04,
-            padding: EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: InkWell(
               onTap: (){
                   DashBoardController dashBoardController = Get.put(DashBoardController());
