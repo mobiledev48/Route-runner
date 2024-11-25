@@ -3,11 +3,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:route_runner/api_call/add_new_collection_api/add_new_collection_model.dart';
 import 'package:route_runner/api_call/getAllCollection/get_all_Collection_api.dart';
 import 'package:route_runner/api_call/getAllCollection/get_all_collection_model.dart';
-import 'package:route_runner/api_call/get_last_collection_api/get_last_collection_api.dart';
 import 'package:route_runner/api_call/get_last_collection_api/get_last_collection_model.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_model.dart';
@@ -15,7 +12,6 @@ import 'package:route_runner/api_call/get_machine_api/get_machine_model.dart';
 import 'package:route_runner/model/location_model.dart';
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 
-import '../../api_call/add_new_collection_api/add_new_collection_api.dart';
 import '../../api_call/get_machine_api/get_machine_api.dart';
 import '../../utils/strings.dart';
 
@@ -91,12 +87,11 @@ List machineId =[];
 List<File> imagesAllIndex = [];
     if (photo != null) {
       image[index] = File(photo.path);
-      if(image[index] != null)
-
-
-      selectImageTemp.forEach((element) {
+      if(image[index] != null) {
+        for (var element in selectImageTemp) {
         imagesAllIndex = (element['$index']) ?? [];
-      });
+      }
+      }
 
       imagesAllIndex.add(File(photo.path));
 
@@ -105,10 +100,10 @@ List<File> imagesAllIndex = [];
       });
 
       List<File> data =[];
-      selectImageTemp.forEach((element) {
+      for (var element in selectImageTemp) {
      data = (element['$index']) ??[];
 
-      });
+      }
 
 
       print(selectImageTemp);
@@ -124,9 +119,9 @@ List<File> imagesAllIndex = [];
 
         downloadUrl = await taskSnapshot.ref.getDownloadURL();
         print("downloadUrl ---------->$downloadUrl");
-        selectImageTempUrl.forEach((element) {
+        for (var element in selectImageTempUrl) {
           imagesAllIndexUrl = (element['$index']) ??[];
-        });
+        }
         imagesAllIndexUrl.add(downloadUrl);
 
 
@@ -138,9 +133,9 @@ List<File> imagesAllIndex = [];
 
         loader.value = false;
         List<String> dataUrl =[];
-        selectImageTempUrl.forEach((element) {
+        for (var element in selectImageTempUrl) {
           dataUrl = (element['$index'])??[];
-        });
+        }
         selectImageUrl[index] = dataUrl;
       }
     }
@@ -152,12 +147,12 @@ List<File> imagesAllIndex = [];
     selectImage[i]?.removeAt(index);
     selectImageUrl[i]?.removeAt(index);
 
-selectImageTemp.forEach((element) {
+for (var element in selectImageTemp) {
   element['$index']?.remove(selectImage[index]);
-});
-    selectImageTempUrl.forEach((element) {
+}
+    for (var element in selectImageTempUrl) {
       element['$index']?.remove(selectImageUrl[index]);
-    });
+    }
 
     update(['collection']);
 
@@ -208,17 +203,17 @@ print("===========================================$locationsData");
               .where((location) => !existingIds.contains(location.id))
               .toList();
 
-          newLocations.forEach((element) {
+          for (var element in newLocations) {
             if(element.id == locationId)
               {
-if(element.machines!.length !=0) {
+if(element.machines!.isNotEmpty) {
   machineData.add(element);
 }
               }
-          });
+          }
 print(machineData);
 
-if(machineData.length !=0 && machineData[0].machines!.length !=0) {
+if(machineData.isNotEmpty && machineData[0].machines!.isNotEmpty) {
   machineNumberController =
       List.generate(machineData[0].machines!.length, (index) => TextEditingController(text:machineData[0].machines![index].machineNumber ));
   enterSerialNumberController = List.generate(
@@ -253,7 +248,7 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
   selectImageUrl = List.generate(machineData[0].machines!.length, (index) =>null);
 
 }
-          if(machineData.length !=0 && machineData[0].machines!.length !=0) {
+          if(machineData.isNotEmpty && machineData[0].machines!.isNotEmpty) {
             for (int index = 0; index <
                 machineData[0].machines!.length; index++) {
               previousNumberSetUp(index);
@@ -296,9 +291,9 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
     loader.value = true;
     getAllCollectionModel = await GetAllCollectionApi.getAllCollectionApi();
     if (getAllCollectionModel.data != null) {
-      getAllCollectionModel.data!.forEach((element) {
-        if (element.machines != null && element.machines!.length != 0) {
-          element.machines!.forEach((e) {
+      for (var element in getAllCollectionModel.data!) {
+        if (element.machines != null && element.machines!.isNotEmpty) {
+          for (var e in element.machines!) {
             if (e.id.toString() == machineId[index].toString()) {
               previousNumberInController[index].text =
                   e.inNumbers!.current.toString();
@@ -306,9 +301,9 @@ if(machineData.length !=0 && machineData[0].machines!.length !=0) {
                   e.outNumbers!.current.toString();
 
             }
-          });
+          }
         }
-      });
+      }
     }
     loader.value = false;
     update(['collection']);

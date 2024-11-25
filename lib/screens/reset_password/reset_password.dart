@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:route_runner/common/button.dart';
 import 'package:route_runner/common/common_text_fild.dart';
-import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/reset_password/reset_password_controller.dart';
 import 'package:route_runner/utils/asset_res.dart';
 import 'package:route_runner/utils/color_res.dart';

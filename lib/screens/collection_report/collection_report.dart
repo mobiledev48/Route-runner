@@ -1,14 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:route_runner/screens/new_collection/new_collection_controller.dart';
 import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
-import 'package:route_runner/service/pref_services.dart';
-import 'package:route_runner/utils/pref_keys.dart';
-import '../../common/appbar.dart';
 
 import '../../common/common_text_fild.dart';
 import '../../utils/asset_res.dart';
@@ -90,7 +86,7 @@ class CollectionReportScreen extends StatelessWidget {
                                 await newCollectionController.getLocation();
                                 controller.loader.value = false;
 
-                                Get.to(NewCollectionScreen());
+                                Get.to(const NewCollectionScreen());
                               },
                               child: Image.asset(
                                 AssetRes.addMenu,
@@ -102,7 +98,7 @@ class CollectionReportScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                         child: Column(
                           children: [
                             CommonTextField(
@@ -123,7 +119,7 @@ class CollectionReportScreen extends StatelessWidget {
                                 controller.update(['collection']);
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 0,
                             ),
                             controller.locationsData.isNotEmpty?
@@ -151,7 +147,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                         child: Row(
                                                           children: [
                                                             Padding(
-                                                              padding: EdgeInsets.only(bottom: 51, left: 5, right: 10),
+                                                              padding: const EdgeInsets.only(bottom: 51, left: 5, right: 10),
                                                               child: controller.customCheckbox(index),
                                                             ),
                                                             Expanded(
@@ -160,7 +156,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                 children: [
                                                                   const SizedBox(height: 20),
                                                                   Text(
-                                                                    "${controller.locationsData[index].locationname?? ""}",
+                                                                    controller.locationsData[index].locationname?? "",
                                                                     // 'Moonlight Bar',
                                                                     style: title(),
                                                                   ),
@@ -197,7 +193,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                       // ),
                                                                     ],
                                                                   ),
-                                                                  SizedBox(height: 2),
+                                                                  const SizedBox(height: 2),
                                                                   Text(
                                                                     "Address: ${controller.locationsData[index].address ?? ""}",
                                                                     // 'Admin: Arrora gaur',
@@ -276,7 +272,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                    controller.isViewData[index]
                                                           ? SizedBox(
                                                               child: ListView.separated(
-                                                                physics: NeverScrollableScrollPhysics(),
+                                                                physics: const NeverScrollableScrollPhysics(),
                                                                 shrinkWrap: true,
                                                                 itemCount: controller.locationsData[index].machines?.length ??
                                                                     0,
@@ -539,7 +535,7 @@ class CollectionReportScreen extends StatelessWidget {
                                                                 },
                                                               ),
                                                             )
-                                                          : SizedBox(),
+                                                          : const SizedBox(),
                                                       controller.isViewData[index]
                                                           ? Padding(
                                                               padding:
@@ -590,7 +586,7 @@ class CollectionReportScreen extends StatelessWidget {
                                 StringRes.notFound,
                                 style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w400),
                               ),
-                            ):SizedBox(),
+                            ):const SizedBox(),
 
                           ],
                         ),
@@ -600,7 +596,7 @@ class CollectionReportScreen extends StatelessWidget {
                 );
               },
             ),
-            Obx(()=> controller.loader.value ? const Center(child: CircularProgressIndicator(),):SizedBox())
+            Obx(()=> controller.loader.value ? const Center(child: CircularProgressIndicator(),):const SizedBox())
           ],
         ),
       ),

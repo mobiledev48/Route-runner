@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
-import 'package:route_runner/utils/color_res.dart';
 import 'package:route_runner/utils/strings.dart';
-import 'package:route_runner/utils/text_style.dart';
 import 'package:pdf/widgets.dart' as pw;
 class PdfPreviewScreen extends StatefulWidget {
   var data;
@@ -63,7 +61,7 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
                    children: [
 
                      pw.Padding(
-                       padding: pw.EdgeInsets.all(20),
+                       padding: const pw.EdgeInsets.all(20),
                        child: pw.Column(
                          children: [
 
@@ -117,7 +115,7 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
                                        width: Get.width * 0.4,
                                        child: pw.Text(
                                          StringRes.machine,
-                                         style: pw.TextStyle(fontSize: 13,  color: PdfColor.fromInt(0XFF000000)),
+                                         style: const pw.TextStyle(fontSize: 13,  color: PdfColor.fromInt(0XFF000000)),
                                        ),
                                      ),
                                      // SizedBox(
@@ -125,14 +123,14 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
                                      // ),
                                      pw.Text(
                                        'Date: ${DateFormat('dd MMM, yyyy').format(DateTime.now())}',
-                                       style: pw.TextStyle(fontSize: 10,  color: PdfColor.fromInt(0XFF000000)),
+                                       style: const pw.TextStyle(fontSize: 10,  color: PdfColor.fromInt(0XFF000000)),
                                      ),
                                      pw.SizedBox(
                                        width: Get.width * 0.02,
                                      ),
                                      pw.Text(
                                        'Time: ${DateFormat('h:mm a').format(DateTime.now())}',
-                                       style: pw.TextStyle(fontSize: 10,  color: PdfColor.fromInt(0XFF000000)),
+                                       style: const pw.TextStyle(fontSize: 10,  color: PdfColor.fromInt(0XFF000000)),
                                      )
                                    ],
                                  ),
@@ -146,23 +144,23 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
 
                                          '#${widget.data[i].machineNumber}-${widget.data[i].serialNumber}',
                                          maxLines: 1,
-                                         style: pw.TextStyle(fontSize: 14,  color: PdfColor.fromInt(0xFF4F4E69)),
+                                         style: const pw.TextStyle(fontSize: 14,  color: PdfColor.fromInt(0xFF4F4E69)),
                                        ),
                                      ),
 
                                      pw.Text(
                                        StringRes.current,
-                                       style:pw.TextStyle(fontSize: 14,  color: PdfColor.fromInt(0xFF4F4E69)),
+                                       style:const pw.TextStyle(fontSize: 14,  color: PdfColor.fromInt(0xFF4F4E69)),
                                      ),
 
                                      pw.Text(
                                        StringRes.previous,
-                                       style: pw.TextStyle(fontSize: 14,  color: PdfColor.fromInt(0xFF4F4E69)),
+                                       style: const pw.TextStyle(fontSize: 14,  color: PdfColor.fromInt(0xFF4F4E69)),
                                      ),
 
                                      pw.Text(
                                        StringRes.total,
-                                       style: pw.TextStyle(fontSize: 14,  color: PdfColor.fromInt(0xFF4F4E69)),
+                                       style: const pw.TextStyle(fontSize: 14,  color: PdfColor.fromInt(0xFF4F4E69)),
                                      ),
 
                                    ],
@@ -172,52 +170,52 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
                                  pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,children: [
                                    pw.Text(
                                      "In",
-                                     style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
+                                     style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
                                    ),
                                    pw.Text(
                                      "\$${widget.data[i].inCurrent}",
-                                     style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
+                                     style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
                                    ),
                                    pw.Text(
                                      "\$${widget.data[i].inPrevious}",
-                                     style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
+                                     style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
                                    ),
                                    pw.Text(
                                      "\$${calculateSubtractedValue(int.parse(widget.data[i].inCurrent ??"0"),
                                          int.parse(widget.data[i].inPrevious ?? '0'))}",
-                                     style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
+                                     style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
                                    ),
                                  ],),
                                  pw.SizedBox(height: 10,),
                                  pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,children: [
                                    pw.Text(
                                      "Out",
-                                     style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
+                                     style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
                                    ),
                                    pw.Text(
                                      "\$${widget.data[i].outCurrent}",
-                                     style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
+                                     style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
                                    ),
                                    pw.Text(
                                      "\$${widget.data[i].outPrevious}",
-                                     style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
+                                     style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
                                    ),
                                    pw.Text(
                                      "\$${calculateSubtractedValue(int.parse(widget.data[i].outCurrent ?? '0'),
                                          int.parse(widget.data[i].outPrevious ??'0'))}",
-                                     style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
+                                     style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),
                                    ),
                                  ],),
                                  pw.SizedBox(height: 10,),
                                  pw.Padding(
-                                   padding:  pw.EdgeInsets.only(right: 0),
+                                   padding:  const pw.EdgeInsets.only(right: 0),
                                    child: pw.SizedBox(
                                      // width: Get.width * 0.1,
                                      child: pw.Row(
                                        mainAxisAlignment: pw.MainAxisAlignment.end,
                                        crossAxisAlignment: pw.CrossAxisAlignment.end,
                                        children: [
-                                         pw.Text('Profit: ', style: pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),),
+                                         pw.Text('Profit: ', style: const pw.TextStyle(fontSize: 15,  color: PdfColor.fromInt(0xFF000000)),),
                                          pw.Text(
                                            "\$ ${calculateTotalValue(
                                                calculateSubtractedValue(int.parse(widget.data[i].inCurrent ??'0'),
@@ -231,8 +229,8 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
                                                calculateSubtractedValue(int.parse(widget.data[i].outCurrent ??'0'),
                                                    int.parse(widget.data[i].outPrevious ??'0'))
                                            ) < 0)
-                                               ? PdfColor.fromInt(0xFFEF5350)
-                                               : PdfColor.fromInt(0xFF3A974C),),
+                                               ? const PdfColor.fromInt(0xFFEF5350)
+                                               : const PdfColor.fromInt(0xFF3A974C),),
                                          )
                                        ],
                                      ),
@@ -257,7 +255,7 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
 
     pdf.addPage(
       pw.MultiPage(
-        pageFormat: PdfPageFormat(595.275590551181 , 841.8897637795275),
+        pageFormat: const PdfPageFormat(595.275590551181 , 841.8897637795275),
 
 
         build: (pw.Context context) {

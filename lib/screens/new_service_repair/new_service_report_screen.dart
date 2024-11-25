@@ -10,11 +10,9 @@ import 'package:route_runner/screens/new_service_repair/new_service_report_contr
 
 import 'package:route_runner/utils/asset_res.dart';
 import 'package:route_runner/utils/color_res.dart';
-import 'package:route_runner/utils/font_res.dart';
 import 'package:route_runner/utils/strings.dart';
 
 import '../../utils/text_style.dart';
-import '../service_report_view/service_report_screen.dart';
 
 class NewServiceRepairScreen extends StatelessWidget {
   const NewServiceRepairScreen({super.key});
@@ -52,7 +50,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                             child: Column(
                               children: [
 
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
 
@@ -82,13 +80,13 @@ class NewServiceRepairScreen extends StatelessWidget {
                                 )
                                     : const SizedBox(),
                                 newServiceReportController.isClick == false
-                                    ? SizedBox()
+                                    ? const SizedBox()
                                     : Container(
                                   // height: Get.height * 0.26,
                                     width: Get.width * 0.9,
-                                    decoration: BoxDecoration(color: ColorRes.bgColor),
+                                    decoration: const BoxDecoration(color: ColorRes.bgColor),
                                     child: ListView.separated(
-                                        physics: NeverScrollableScrollPhysics(),
+                                        physics: const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) => GestureDetector(
                                           onTap: () {
@@ -115,13 +113,13 @@ class NewServiceRepairScreen extends StatelessWidget {
                                           ),
                                         ),
                                         separatorBuilder: (context, index) =>
-                                            Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
+                                            const Divider(color: ColorRes.grey3, endIndent: 10, indent: 10, height: 1),
                                         itemCount: newServiceReportController.locationsData.length)),
 
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
-                                (newServiceReportController.machineData.length !=0)?
+                                (newServiceReportController.machineData.isNotEmpty)?
                                 Column(
                                 children: [
                                   Row(
@@ -167,7 +165,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                                 ? const SizedBox()
                                                 : (controller
                                                 .locationIndex !=
-                                                null && controller.machineData.length!=0)
+                                                null && controller.machineData.isNotEmpty)
                                                 ? Container(
                                                 width: Get.width *
                                                     0.9,
@@ -225,7 +223,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Expanded(
@@ -321,7 +319,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   CommonTextField(
@@ -342,7 +340,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                     ),
                                   )
                                       : const SizedBox(),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   Row(
@@ -378,7 +376,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Expanded(
@@ -414,7 +412,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   CommonTextField(
@@ -433,7 +431,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                     ),
                                   )
                                       : const SizedBox(),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   CommonTextField(
@@ -508,7 +506,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      Spacer()
+                                      const Spacer()
                                     ],
                                   ),
                                   const SizedBox(
@@ -527,7 +525,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                         ),
                                       ),
                                     )
-                                        : SizedBox(),
+                                        : const SizedBox(),
                                   ),
                                   const SizedBox(
                                     height: 20,
@@ -548,7 +546,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                               border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                              borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              borderRadius: const BorderRadius.all(Radius.circular(10))),
                                           child: Text(
                                             StringRes.close,
                                             style: GoogleFonts.nunito(
@@ -598,7 +596,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                           decoration: BoxDecoration(
                                               color: ColorRes.color5B93FF,
                                               border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                              borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              borderRadius: const BorderRadius.all(Radius.circular(10))),
                                           child: Text(
                                             StringRes.create,
                                             style: GoogleFonts.nunito(
@@ -609,7 +607,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                               ],
@@ -621,7 +619,7 @@ class NewServiceRepairScreen extends StatelessWidget {
                   );
                 },
               ),
-              Obx(()=> newServiceReportController.loader.value ? Center(child: CircularProgressIndicator(),):SizedBox())
+              Obx(()=> newServiceReportController.loader.value ? const Center(child: CircularProgressIndicator(),):const SizedBox())
             ],
           ),
         ));

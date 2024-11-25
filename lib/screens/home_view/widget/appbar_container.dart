@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/asset_res.dart';
 import '../../../utils/color_res.dart';
-import '../../../utils/strings.dart';
 
 class AppbarContainer extends StatelessWidget {
   final Color iconColor;
@@ -57,13 +54,13 @@ class AppbarContainer extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 35),
                     child: Text(
                       number,
-                      style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                     ),
                   ),
                   SizedBox(
                     height: Get.height * 0.004,
                   ),
-                  Text(text, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                  Text(text, style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
                 ],
               )
             ],

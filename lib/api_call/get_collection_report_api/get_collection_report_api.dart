@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'package:route_runner/api_call/get_collection_report_api/get_collection_report_model.dart';
-import 'package:route_runner/api_call/get_repairs_api/get_repairs_model.dart';
 import 'package:route_runner/service/http_services.dart';
 import 'package:route_runner/service/pref_services.dart';
 import 'package:route_runner/utils/end_points.dart';
 import 'package:route_runner/utils/pref_keys.dart';
 
-import 'package:http/http.dart' as http;
 class CustomerGetCollectionReportApi {
   static customerGetCollectionReportApi({page,limit,search}) async {
     try {

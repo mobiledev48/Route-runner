@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:route_runner/api_call/get_location_api/get_location_api.dart';
@@ -9,10 +8,8 @@ import 'package:route_runner/service/pref_services.dart';
 import 'package:http/http.dart' as http;
 import 'package:route_runner/utils/pref_keys.dart';
 
-import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
 import '../../utils/strings.dart';
-import '../../utils/text_style.dart';
 
 class LocationController extends GetxController {
   //--------------checkbox----------
@@ -145,7 +142,7 @@ class LocationController extends GetxController {
               height: Get.height * 0.06,
               width: Get.width * 0.455,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)),
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)),
                   color: currentIndex == 0 ? ColorRes.mainColor : ColorRes.white),
               child: Center(
                   child: Text(
@@ -165,7 +162,7 @@ class LocationController extends GetxController {
               height: Get.height * 0.06,
               width: Get.width * 0.455,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(7), bottomRight: Radius.circular(7)),
+                  borderRadius: const BorderRadius.only(topRight: Radius.circular(7), bottomRight: Radius.circular(7)),
                   color: currentIndex == 1 ? ColorRes.mainColor : ColorRes.white),
               child: Center(
                   child: Text(StringRes.unPaid,

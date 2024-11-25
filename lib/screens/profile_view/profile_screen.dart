@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                       Container(
                         height: Get.height * 0.35,
                         width: Get.width,
-                        decoration: BoxDecoration(color: ColorRes.mainColor),
+                        decoration: const BoxDecoration(color: ColorRes.mainColor),
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: Get.height * 0.08),
                           child: Column(
@@ -82,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                                   GestureDetector(onTap:  () {
                                     profileController.isEditProfile = false;
                                     profileController.update(['profile']);
-                                  },child: Icon(Icons.edit,color: Colors.white,))
+                                  },child: const Icon(Icons.edit,color: Colors.white,))
                                 ]),
                               ),
                             ],
@@ -115,7 +114,7 @@ class ProfileScreen extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 20),
                                   child: SingleChildScrollView(
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     child: Column(
                                       children: [
                                         SizedBox(
@@ -130,7 +129,7 @@ class ProfileScreen extends StatelessWidget {
                                                   titleText: StringRes.employeeName,
                                                   controller: profileController.employeeController),
                                             ),
-                                            SizedBox(width: 5,),
+                                            const SizedBox(width: 5,),
                                             Expanded(
                                               child: CommonTextField(
                                                   readOnly: profileController.isEditProfile,
@@ -176,7 +175,7 @@ class ProfileScreen extends StatelessWidget {
                                                     alignment: Alignment.center,
                                                     decoration: BoxDecoration(
                                                         border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                        borderRadius: const BorderRadius.all(Radius.circular(10))),
                                                     child: Text(
                                                       StringRes.close,
                                                       style: GoogleFonts.nunito(
@@ -205,7 +204,7 @@ class ProfileScreen extends StatelessWidget {
                                                     decoration: BoxDecoration(
                                                         color: ColorRes.color5B93FF,
                                                         border: Border.all(width: 1, color: ColorRes.color5B93FF),
-                                                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                                                        borderRadius: const BorderRadius.all(Radius.circular(10))),
                                                     child: Text(
                                                       StringRes.save,
                                                       style: GoogleFonts.nunito(
@@ -242,7 +241,7 @@ class ProfileScreen extends StatelessWidget {
                                     color: Colors.blue,
                                     image: con.image == null
                                         ? PrefService.getString(PrefKeys.userImage) != ""?
-                                    DecorationImage(fit: BoxFit.fill,image: NetworkImage(PrefService.getString(PrefKeys.userImage))):DecorationImage(image: AssetImage(AssetRes.profilePhoto))
+                                    DecorationImage(fit: BoxFit.fill,image: NetworkImage(PrefService.getString(PrefKeys.userImage))):const DecorationImage(image: AssetImage(AssetRes.profilePhoto))
                                         : DecorationImage(
                                             fit: BoxFit.fill,
                                             image: FileImage(
@@ -273,7 +272,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Obx(()=> profileController.isLoading.value ? Center(child: CircularProgressIndicator(),):SizedBox())
+                      Obx(()=> profileController.isLoading.value ? const Center(child: CircularProgressIndicator(),):const SizedBox())
                       // SizedBox(
                       //   height: 300,
                       // )

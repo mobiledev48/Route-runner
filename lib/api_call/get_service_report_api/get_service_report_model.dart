@@ -28,7 +28,7 @@ class GetServiceReportModel {
     if (json['serviceReports'] != null) {
       serviceReports = <ServiceReports>[];
       json['serviceReports'].forEach((v) {
-        serviceReports!.add(new ServiceReports.fromJson(v));
+        serviceReports!.add(ServiceReports.fromJson(v));
       });
     }
     totalPages = json['totalPages'];
@@ -36,15 +36,15 @@ class GetServiceReportModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.serviceReports != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
+    if (serviceReports != null) {
       data['serviceReports'] =
-          this.serviceReports!.map((v) => v.toJson()).toList();
+          serviceReports!.map((v) => v.toJson()).toList();
     }
-    data['totalPages'] = this.totalPages;
-    data['currentPage'] = this.currentPage;
+    data['totalPages'] = totalPages;
+    data['currentPage'] = currentPage;
     return data;
   }
 }
@@ -87,17 +87,17 @@ class ServiceReports {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['machineNumber'] = this.machineNumber;
-    data['serialNumber'] = this.serialNumber;
-    data['auditNumber'] = this.auditNumber;
-    data['date'] = this.date;
-    data['time'] = this.time;
-    data['employeeName'] = this.employeeName;
-    data['serviceRequested'] = this.serviceRequested;
-    data['image'] = this.image;
-    data['__v'] = this.iV;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['machineNumber'] = machineNumber;
+    data['serialNumber'] = serialNumber;
+    data['auditNumber'] = auditNumber;
+    data['date'] = date;
+    data['time'] = time;
+    data['employeeName'] = employeeName;
+    data['serviceRequested'] = serviceRequested;
+    data['image'] = image;
+    data['__v'] = iV;
     return data;
   }
 }

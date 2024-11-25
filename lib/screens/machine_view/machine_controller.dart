@@ -4,7 +4,6 @@ import 'package:route_runner/api_call/get_machine_api/get_machine_api.dart';
 import 'package:route_runner/api_call/get_machine_api/get_machine_model.dart';
 import 'package:route_runner/utils/color_res.dart';
 
-import '../collection_report/collection_report_controller.dart';
 
 class MachineController extends GetxController {
   TextEditingController searchController = TextEditingController();

@@ -1,13 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:route_runner/api_call/add_new_collection_api/add_new_collection_api.dart';
 import 'package:route_runner/screens/admin_view/admin_screen.dart';
 import 'package:route_runner/screens/collection_report/collection_report.dart';
 import 'package:route_runner/screens/dash_board/dash_board_controller.dart';
@@ -18,7 +15,6 @@ import 'package:route_runner/screens/new_collection/new_collection_screen.dart';
 import 'package:route_runner/screens/repair/repair_screen.dart';
 import 'package:route_runner/screens/service_report_view/service_report_screen.dart';
 import 'package:route_runner/utils/pref_keys.dart';
-import '../../common/common_text_fild.dart';
 import '../../service/pref_services.dart';
 import '../../utils/asset_res.dart';
 import '../../utils/color_res.dart';
@@ -389,7 +385,7 @@ class HomeScreen extends StatelessWidget {
                                           SizedBox(
                                             width: Get.width * 0.25,
                                             child: Text(
-                                              "${homeController.locationName}",
+                                              homeController.locationName,
                                               overflow: TextOverflow.ellipsis,
                                               style: GoogleFonts.nunito(
                                                   fontSize: 12,

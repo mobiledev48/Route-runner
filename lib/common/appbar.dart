@@ -1,14 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:route_runner/utils/asset_res.dart';
 
-import '../screens/home_view/home_screen.dart';
 import '../utils/color_res.dart';
-import '../utils/strings.dart';
-import '../utils/text_style.dart';
 
 customAppbar({
   required String title,
