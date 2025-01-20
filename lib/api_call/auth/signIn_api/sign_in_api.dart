@@ -37,8 +37,10 @@ class CustomerSignInApi {
           PrefService.setValue(PrefKeys.mobileNumber, decoded['phone']);
           PrefService.setValue(PrefKeys.registerToken, decoded['token']);
           print("======================${PrefService.setValue(PrefKeys.registerToken, decoded['token'])}");
-          PrefService.setValue(PrefKeys.userImage, decoded['image'][0]);
-          Get.offAll(() => DashBoardScreen());
+          if(decoded['image'].length != 0 ) {
+            PrefService.setValue(PrefKeys.userImage, decoded['image'][0]);
+          }
+            Get.offAll(() => DashBoardScreen())  ;
           return signInModelFromJson(response.body);
         } else {
           // Handle other success scenarios if needed
